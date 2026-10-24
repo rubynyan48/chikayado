@@ -1,0 +1,68 @@
+{% set nearest = hotels|first if hotels else None %}
+{% if nearest %}
+<div class="answer">
+  <p class="answer-q">{{ venue.name }}にいちばん近いホテルは</p>
+  <p class="answer-a">{{ nearest.name }}<br>会場から直線で約<span class="num">{{ dist_label(nearest.distance_m) }}</span></p>
+  <p class="answer-note">1km以内の歩いて行ける範囲には{{ near_hotels|length }}軒あります。距離は毎日、楽天トラベルの情報から計算し直しています。</p>
+</div>
+<div class="book"><p>予約はこちら</p><a class="btn btn-primary btn-block" href="{{ nearest.plan_url or nearest.info_url }}" rel="nofollow sponsored noopener" target="_blank">{{ nearest.name }}の空室を見る</a></div>
+{% endif %}
+<p>大きな展示会や週末のイベントが重なる日は、会場に近いホテルから先に埋まっていきます。徒歩圏が取れないときは、ゆりかもめやりんかい線で1〜2駅の豊洲や台場が次の候補です。</p>
+<!--body-->
+<h2>{{ venue.name }}に近いホテル</h2>
+<div id="hotels"></div>
+<p>会場から近い順に並べています。距離はホテルと会場の位置から計算した直線距離で、歩く時間は道のりを少し長めに見積もった目安です。</p>
+{{ hotel_cards(hotels, 6) }}
+
+<h2>距離をものさしで見る</h2>
+<figure class="ruler">
+  {{ ruler(hotels) }}
+  <figcaption>会場から3km以内のホテルの位置を、会場からの直線距離で並べました。黄色の範囲が歩いて行ける1km以内です。</figcaption>
+</figure>
+<p>会場のすぐ近くにまとまっているのが有明のホテルで、2km前後に固まっているのが豊洲や台場のホテルです。「歩いて行けるか」「電車で1〜2駅か」で考えると選びやすくなります。</p>
+
+<h2>会場に近い順のホテル一覧</h2>
+<p>会場から3km以内で楽天トラベルに掲載されている{{ hotels|length }}軒です。</p>
+{{ hotel_table(hotels) }}
+
+<h2>これから開催されるイベント</h2>
+<p>イベントごとに、開催初日に空室のあるホテルと料金をまとめたページを用意しています。</p>
+{{ event_table(events, venue.slug, 8) }}
+<p><a class="btn btn-sign" href="/{{ venue.slug }}/events/">開催予定をすべて見る</a></p>
+
+<h2>最寄り駅と会場までの時間</h2>
+<div class="table-wrap"><table>
+  <thead><tr><th>駅</th><th>路線</th><th class="num">会場まで</th></tr></thead>
+  <tbody>
+  {% for s in venue.stations %}
+    <tr><td><a href="/{{ venue.slug }}/{{ s.page }}/">{{ s.name }}</a></td><td>{{ s.line }}</td><td class="num">徒歩約{{ s.walk_min }}分</td></tr>
+  {% endfor %}
+  </tbody>
+</table></div>
+<p>いちばん近いのはゆりかもめの東京ビッグサイト駅です。りんかい線の国際展示場駅は少し歩きますが、JR埼京線と直通する列車があり、新宿や渋谷、大崎方面から乗り換えなしで来られます。それぞれの駅からの道順は写真つきのページで案内しています。</p>
+<p><a href="/{{ venue.slug }}/yurikamome/">ゆりかもめ東京ビッグサイト駅からの道順</a><br><a href="/{{ venue.slug }}/rinkai/">りんかい線国際展示場駅からの道順</a></p>
+
+<h2>展示棟によって近さは変わります</h2>
+<p>東京ビッグサイトには東・西・南の3つの展示棟と会議棟があり、建物の端から端まではかなり距離があります。駅から近いのは会議棟と西展示棟で、東展示棟はガレリアと呼ばれる長い通路を奥まで進んだ先にあります。イベントがどの棟で開かれるかを先に確認しておくと、宿から会場までの時間を正しく見積もれます。</p>
+<p><a href="/{{ venue.slug }}/halls/">東展示棟と西展示棟と南展示棟の違いを見る</a></p>
+
+<h2>泊まるエリアの選び方</h2>
+<div class="table-wrap"><table>
+  <thead><tr><th>エリア</th><th>会場への行き方</th><th>向いている人</th></tr></thead>
+  <tbody>
+    <tr><td>有明</td><td>歩いて行ける</td><td>朝早く会場に入りたい人、荷物が多い出展者</td></tr>
+    <tr><td>豊洲</td><td>ゆりかもめ</td><td>徒歩圏が埋まっていたとき、食事の店も多く選びたい人</td></tr>
+    <tr><td>台場</td><td>ゆりかもめ</td><td>イベントのあとに観光も楽しみたい人</td></tr>
+  </tbody>
+</table></div>
+<p><a href="/{{ venue.slug }}/area/">泊まるエリアの選び方を詳しく見る</a></p>
+
+<h2>会場の基本情報</h2>
+<div class="table-wrap"><table>
+  <tbody>
+    <tr><th>正式名称</th><td>{{ venue.formal_name }}</td></tr>
+    <tr><th>住所</th><td>{{ venue.address }}</td></tr>
+    <tr><th>最寄り駅</th><td>ゆりかもめ 東京ビッグサイト駅（徒歩約3分）<br>りんかい線 国際展示場駅（徒歩約7分）</td></tr>
+    <tr><th>施設</th><td>東展示棟　西展示棟　南展示棟　会議棟</td></tr>
+  </tbody>
+</table></div>

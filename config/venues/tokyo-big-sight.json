@@ -1,0 +1,16 @@
+{
+  "slug": "tokyo-big-sight",
+  "name": "東京ビッグサイト",
+  "formal_name": "東京国際展示場",
+  "address": "東京都江東区有明3-11-1",
+  "lat": 35.6298,
+  "lng": 139.7944,
+  "search_radius_km": 3.0,
+  "events_csv": "https://www.opendata.metro.tokyo.lg.jp/tokyobigsight/tokyobigsighteventinformation.csv",
+  "events_credit": "東京ビッグサイトのイベント情報（東京都オープンデータ、CC BY 4.0）",
+  "events_credit_url": "https://catalog.data.metro.tokyo.lg.jp/dataset/t001001d0000000001",
+  "stations": [
+    {"name": "東京ビッグサイト駅", "line": "ゆりかもめ", "walk_min": 3, "page": "yurikamome"},
+    {"name": "国際展示場駅", "line": "りんかい線", "walk_min": 7, "page": "rinkai"}
+  ]
+}

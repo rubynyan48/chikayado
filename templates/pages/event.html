@@ -1,0 +1,88 @@
+{% set e = page.event %}
+{% set vac = (page.vacancy or {}).get('hotels', {}) %}
+{% set ended = e.end < today %}
+{% set open_hotels = hotels | selectattr('hotelNo', 'in', vac.keys() | list) | list %}
+{% set first = open_hotels|first if open_hotels else (hotels|first if hotels else None) %}
+{% set bld = buildings(e.hall) %}
+{% if ended %}
+<div class="answer">
+  <p class="answer-q">{{ e.name }}は</p>
+  <p class="answer-a">{{ period(e) }}に開催されました</p>
+  <p class="answer-note">次回の日程が発表されたら、このページを更新します。会場に近いホテルはこのページでそのまま確認できます。</p>
+</div>
+{% elif open_hotels %}
+<div class="answer">
+  <p class="answer-q">{{ jdate(e.start) }}に空室がある会場からいちばん近い宿は</p>
+  <p class="answer-a">{{ first.name }}<br>会場から直線約<span class="num">{{ dist_label(first.distance_m) }}</span></p>
+  <p class="answer-note">1泊{{ yen(vac[first.hotelNo].total) }}から（大人1名）。会場から3km以内で空室のある宿は{{ open_hotels|length }}軒です。{{ page.vacancy.checked[5:7]|int }}月{{ page.vacancy.checked[8:10]|int }}日時点の情報です。</p>
+</div>
+{% elif first %}
+<div class="answer">
+  <p class="answer-q">{{ e.name }}の会場にいちばん近いホテルは</p>
+  <p class="answer-a">{{ first.name }}<br>会場から直線約<span class="num">{{ dist_label(first.distance_m) }}</span></p>
+  <p class="answer-note">{{ period(e) }}に{{ venue.name }}{% if e.hall %}（{{ e.hall }}）{% endif %}で開催されます。</p>
+</div>
+{% endif %}
+{% if first %}
+<div class="book"><p>予約はこちら</p><a class="btn btn-primary btn-block" href="{{ (vac.get(first.hotelNo) or {}).get('reserve_url') or first.plan_url or first.info_url }}" rel="nofollow sponsored noopener" target="_blank">{{ first.name }}の空室を見る</a></div>
+{% endif %}
+<p>{{ e.name }}は{{ period(e) }}に{{ venue.name }}{% if bld %}の{{ bld|join('と') }}{% endif %}で開かれます。{% if not ended %}会場に近い宿ほど早く埋まるので、日程が決まったら早めに押さえておくのがおすすめです。{% endif %}</p>
+<!--body-->
+<h2>{% if open_hotels and not ended %}{{ jdate(e.start, False) }}に空室がある会場に近いホテル{% else %}会場に近いホテル{% endif %}</h2>
+<div id="hotels"></div>
+{% if open_hotels and not ended %}
+<p>{{ jdate(e.start) }}にチェックインして1泊する場合に、空室のある宿を会場から近い順に並べました。料金は大人1名で泊まるときのいちばん安いプランです。空室と料金は毎日取り直しています。</p>
+{{ hotel_cards(open_hotels, 8, vac, e.start) }}
+{% else %}
+<p>会場から近い順に並べています。{% if not ended %}開催日の空室は、予約ボタンの先の楽天トラベルで日付を入れて確認してください。{% endif %}</p>
+{{ hotel_cards(hotels, 8) }}
+{% endif %}
+
+<h2>{{ e.name }}の開催概要</h2>
+<div class="table-wrap"><table class="event-facts"><tbody>
+  <tr><th>開催日</th><td>{{ period(e) }}</td></tr>
+  <tr><th>会場</th><td><a href="/{{ venue.slug }}/">{{ venue.name }}</a>{% if e.hall %}　{{ e.hall }}{% endif %}</td></tr>
+  {% if e.hours %}<tr><th>開催時間</th><td>{{ e.hours }}</td></tr>{% endif %}
+  {% if e.audience %}<tr><th>対象</th><td>{{ e.audience }}</td></tr>{% endif %}
+  {% if e.fee %}<tr><th>入場料</th><td>{{ e.fee }}</td></tr>{% endif %}
+  {% if e.organizer %}<tr><th>主催</th><td>{{ e.organizer }}</td></tr>{% endif %}
+  {% if e.url %}<tr><th>公式サイト</th><td><a href="{{ e.url if e.url.startswith('http') else 'https://' ~ e.url }}" rel="noopener" target="_blank">{{ e.url }}</a></td></tr>{% endif %}
+</tbody></table></div>
+{% if page.text %}<p>{{ page.text.intro }}</p>{% elif e.content %}<p>{{ e.content }}</p>{% endif %}
+<p class="note">開催日や時間は主催者の発表をもとにしています。変更になることがあるので、お出かけ前に公式サイトで確認してください。</p>
+
+<h2>宿を取るときのポイント</h2>
+{% if page.text %}<p>{{ page.text.stay }}</p>{% endif %}
+{% if e.start != e.end %}
+<h3>会期の初日と最終日は混みやすい</h3>
+<p>{{ period(e) }}のように複数日にわたる催しでは、出展者は設営のために初日の前日から、来場者は初日や最終日に合わせて動くことが多くなります。会期の中ほどの日に行けるなら、宿の選択肢は広がります。</p>
+{% endif %}
+<h3>徒歩圏が埋まっていたら1〜2駅先を探す</h3>
+<p>会場から1km以内の宿が埋まっていても、ゆりかもめで行ける豊洲や台場、りんかい線で乗り換えなしの大井町や大崎まで広げれば見つかることが多くあります。<a href="/{{ venue.slug }}/area/">泊まるエリアの選び方</a>もあわせて参考にしてください。</p>
+
+<h2>会場までの行き方</h2>
+{% if bld %}
+<p>{{ e.name }}の会場は{{ bld|join('と') }}です。{% if '東展示棟' in bld %}東展示棟は駅から入って長い通路の奥にあるため、会場に入ってからも歩く時間を多めに見ておきましょう。{% elif '西展示棟' in bld or '会議棟' in bld %}駅から近い建物なので、会場に入ってからの移動はそれほどかかりません。{% endif %}<a href="/{{ venue.slug }}/halls/">展示棟の違い</a>も参考にしてください。</p>
+{% endif %}
+<div class="table-wrap"><table>
+  <thead><tr><th>駅</th><th>路線</th><th class="num">会場まで</th></tr></thead>
+  <tbody>
+  {% for s in venue.stations %}
+    <tr><td><a href="/{{ venue.slug }}/{{ s.page }}/">{{ s.name }}</a></td><td>{{ s.line }}</td><td class="num">徒歩約{{ s.walk_min }}分</td></tr>
+  {% endfor %}
+  </tbody>
+</table></div>
+
+{% set shown = namespace(n=0) %}
+{% set list_hotels = open_hotels if open_hotels and not ended else hotels %}
+{% for h in list_hotels[:8] if restaurants.get(h.hotelNo) %}{% if loop.first %}
+<h2>泊まった日の夕食はどうするか</h2>
+<p>イベントのあとは会場の飲食店も混み合います。宿の近くで夕食をとるなら、歩いて行ける範囲にこんなお店があります。</p>
+{% endif %}{% if shown.n < 3 %}
+<h3>{{ h.name }}の近く</h3>
+{{ restaurant_table(restaurants[h.hotelNo], 3) }}
+{% set shown.n = shown.n + 1 %}{% endif %}{% endfor %}
+
+<h2>会場に近い順のホテル一覧</h2>
+<p>会場から3km以内で楽天トラベルに掲載されている宿をすべて並べました。</p>
+{{ hotel_table(hotels) }}
