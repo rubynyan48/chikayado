@@ -322,6 +322,21 @@ def audience_label(text):
     return text
 
 
+def route_map(venue, station_page, hotels, goal_step, via=None, via_step=None):
+    """駅から会場の正面までの道のりを地図に描く。viaに宿名の一部を入れると、その宿の前を通る。"""
+    st = next(x for x in venue["stations"] if x["page"] == station_page)
+    pts = [{"n": 1, "name": f"{st['name']}の改札", "lat": st["lat"], "lng": st["lng"]}]
+    if via:
+        h = next((x for x in hotels if via in x["name"]), None)
+        if h:
+            pts.append({"n": via_step, "name": f"{h['name']}の前", "lat": h["lat"], "lng": h["lng"]})
+    f = venue["front"]
+    pts.append({"n": goal_step, "name": f["name"], "lat": f["lat"], "lng": f["lng"]})
+    data = json.dumps({"route": pts}, ensure_ascii=False).replace("</", "<\\/")
+    return Markup(f'<div class="map map-route" data-map=\'{escape(data)}\'></div>'
+                  '<p class="note">地図の番号は下の道順の番号と同じです。線は道のりのおおよその向きを示した目安です。実際は歩道や階段に沿って進みます。地図は国土地理院の地理院タイルを使っています。</p>')
+
+
 def people_tabs(hotels, by_people, checkin):
     """人数を切り替えて、その人数で泊まれる宿の比較表を見せる。"""
     if not by_people:
@@ -432,11 +447,11 @@ def pages_for(venue, ctx):
         {"path": v + "yurikamome/", "template": "yurikamome.html",
          "title": "ゆりかもめ東京ビッグサイト駅から会場までの道順",
          "description": "ゆりかもめの東京ビッグサイト駅から会場までは徒歩約3分です。改札を出てから会議棟の前に着くまでと、東展示棟・西展示棟・南展示棟への進み方を順番に案内します。",
-         "breadcrumbs": [home, hub, {"name": "ゆりかもめからの道順", "path": v + "yurikamome/"}], "float_cta": cta},
+         "breadcrumbs": [home, hub, {"name": "ゆりかもめからの道順", "path": v + "yurikamome/"}], "float_cta": cta, "has_map": True},
         {"path": v + "rinkai/", "template": "rinkai.html",
          "title": "りんかい線国際展示場駅から東京ビッグサイトまでの道順",
          "description": "りんかい線の国際展示場駅から東京ビッグサイトまでは徒歩約7分です。改札は1か所で、駅を出て右へ進み、ワシントンホテルの前を通って会場の正面へ出ます。",
-         "breadcrumbs": [home, hub, {"name": "りんかい線からの道順", "path": v + "rinkai/"}], "float_cta": cta},
+         "breadcrumbs": [home, hub, {"name": "りんかい線からの道順", "path": v + "rinkai/"}], "float_cta": cta, "has_map": True},
         {"path": v + "halls/", "template": "halls.html",
          "title": "東京ビッグサイトの東展示棟と西展示棟と南展示棟の違い",
          "description": "東京ビッグサイトには東・西・南の3つの展示棟と会議棟があります。ホールの番号、広さ、駅からの近さの違いと、イベントの棟に合わせた宿の選び方をまとめました。",
@@ -502,6 +517,11 @@ def common_pages():
     ]
 
 
+def css_version():
+    import hashlib
+    return hashlib.md5((ROOT / "static" / "style.css").read_bytes()).hexdigest()[:8]
+
+
 def main():
     env = Environment(loader=FileSystemLoader(ROOT / "templates"), autoescape=select_autoescape(["html"]))
     helpers = {"photo": photo, "hotel_table": hotel_table, "hotel_cards": hotel_cards, "best_cards": best_cards,
@@ -509,8 +529,8 @@ def main():
                "with_offers": with_offers, "price_of": price_of, "depart_table": depart_table,
                "open_time": open_time, "audience_label": audience_label,
                "event_table": event_table, "restaurant_table": restaurant_table, "dist_label": dist_label,
-               "walk_min": walk_min, "yen": yen, "book_url": book_url, "stars": stars, "chips": chips, "jdate": jdate, "period": period, "buildings": buildings,
-               "site": SITE, "today": TODAY.isoformat()}
+               "walk_min": walk_min, "yen": yen, "route_map": route_map, "book_url": book_url, "stars": stars, "chips": chips, "jdate": jdate, "period": period, "buildings": buildings,
+               "site": SITE, "today": TODAY.isoformat(), "css_v": css_version()}
     all_venues = venues()
     main_venue = all_venues[0]
     main_ctx = venue_context(main_venue)

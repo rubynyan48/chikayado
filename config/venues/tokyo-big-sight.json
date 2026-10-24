@@ -10,7 +10,26 @@
   "events_credit": "東京ビッグサイトのイベント情報（東京都オープンデータ、CC BY 4.0）",
   "events_credit_url": "https://catalog.data.metro.tokyo.lg.jp/dataset/t001001d0000000001",
   "stations": [
-    {"name": "東京ビッグサイト駅", "line": "ゆりかもめ", "walk_min": 3, "page": "yurikamome"},
-    {"name": "国際展示場駅", "line": "りんかい線", "walk_min": 7, "page": "rinkai"}
-  ]
+    {
+      "name": "東京ビッグサイト駅",
+      "line": "ゆりかもめ",
+      "walk_min": 3,
+      "page": "yurikamome",
+      "lat": 35.6299914505556,
+      "lng": 139.791612523333
+    },
+    {
+      "name": "国際展示場駅",
+      "line": "りんかい線",
+      "walk_min": 7,
+      "page": "rinkai",
+      "lat": 35.6342788213889,
+      "lng": 139.791721723056
+    }
+  ],
+  "front": {
+    "lat": 35.630508,
+    "lng": 139.792313,
+    "name": "会議棟の前（会場の正面）"
+  }
 }

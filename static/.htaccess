@@ -5,3 +5,9 @@ RewriteCond %{HTTP_HOST} ^www\. [NC]
 RewriteRule ^(.*)$ https://xn--u8j0b149r.jp/$1 [R=301,L]
 
 ErrorDocument 404 /404.html
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>
