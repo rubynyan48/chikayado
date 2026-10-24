@@ -27,6 +27,10 @@ body {
 img { max-width: 100%; height: auto; display: block; }
 figure { margin: 16px 0; }
 figure img { width: 100%; border-radius: var(--radius-m); }
+.photos { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 16px 0; }
+.photos figure { margin: 0; }
+.photos img { aspect-ratio: 16 / 9; object-fit: cover; }
+.photos figure:first-child:nth-last-child(odd) { grid-column: 1 / -1; }
 a { color: var(--sign); text-underline-offset: 3px; }
 a:hover { text-decoration-thickness: 2px; }
 :focus-visible { outline: 3px solid var(--mark); outline-offset: 2px; }

@@ -617,7 +617,7 @@ def pages_for(venue, ctx):
            "description": (f"次の{sr['name']}（{sr['next']['name']}）は{period(sr['next'])}に{venue['name']}で開かれます。" if sr["next"]
                            else f"{sr['name']}は{venue['name']}で開かれるイベントです。")
                           + "会場に近いホテルの空室と1人あたりの料金を、人数を選ぶだけで確かめられます。",
-           "hero": {"file": hero_name(f"{sr['short']}の会場に近いホテル"), "title": sr["name"], "photo": venue.get("hero_photos", {}).get("venue"),
+           "hero": {"file": hero_name(f"{sr['short']}の会場に近いホテル"), "title": sr["name"], "photo": sr.get("hero_photo") or venue.get("hero_photos", {}).get("venue"),
                     "sub": (f"次回 {period(sr['next'])}　{venue['name']}" if sr["next"] else venue["name"]),
                     "tiles": hero_tiles(event_stats(ctx["hotels"], read_json(DATA / "vacancy" / venue["slug"] / f"{sr['next']['start']}.json"), None, None)
                                         if sr["next"] else None, ctx["hotels"], ctx["near_hotels"]),
@@ -644,7 +644,7 @@ def pages_for(venue, ctx):
         st = event_stats(ctx["hotels"], vac, base_vac, hist) if vac else None
         common = {"event": e, "vacancy": vac, "text": text, "concurrent": concurrent[:12], "days": days, "credit_events": True,
                   "history": hist, "base_vacancy": base_vac, "base_kind": kind,
-                  "hero": {"file": hero_name(f"{e['name']}の会場に近いホテル"), "title": e["name"], "photo": venue.get("hero_photos", {}).get("event"),
+                  "hero": {"file": hero_name(f"{e['name']}の会場に近いホテル"), "title": e["name"], "photo": next((s.get("hero_photo") for s in ctx["series"] if s["slug"] == e.get("series") and s.get("hero_photo")), None) or venue.get("hero_photos", {}).get("event"),
                            "sub": f"{period(e)}　{venue['name']}", "tiles": hero_tiles(st, ctx["hotels"], ctx["near_hotels"]),
                            "alt": f"{e['name']}の会場に近いホテルの空き具合"}}
         pages.append(dict(common, **{
@@ -721,7 +721,7 @@ def main():
         if page.get("hero"):
             hr = page["hero"]
             make_hero(DIST / HERO_DIR / hr["file"], hr["title"], hr["sub"], hr["tiles"], lead=hr.get("lead", "の会場に近いホテル"),
-                      photo=ROOT / "assets" / "photos" / hr["photo"] if hr.get("photo") else None)
+                      photo=next((d / hr["photo"] for d in (ROOT / "assets" / "photos", IMAGES) if hr.get("photo") and (d / hr["photo"]).exists()), None))
             hr["src"] = f"/{HERO_DIR}/{hr['file']}"
         side = {"venue": main_ctx["venue"], "events": (main_ctx["public_events"] + main_ctx["trade_events"])[:6], "people": PEOPLE_PAGES, "series": main_ctx["series"]}
         html = env.get_template("base.html").render(page=page, has_hotels=bool(ctx["hotels"]), side=side, **helpers)
