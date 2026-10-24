@@ -241,17 +241,18 @@ def compare_table(items, price_label="料金の目安"):
         price = price_of(h)
         thumb = f'<img src="{escape(h["image"])}" alt="" loading="lazy">' if h.get("image") else ""
         rate = stars(h.get("review_avg"))
-        subs = "".join(f'<td class="num">{float(r[k]):.1f}</td>' if r.get(k) else '<td class="num">なし</td>'
-                       for k in ("location", "room", "meal"))
+        names = {"location": "立地", "room": "部屋", "meal": "食事"}
+        subs = "".join(f'<td class="num" data-label="{names[k]}の評価">{float(r[k]):.1f}</td>' if r.get(k)
+                       else f'<td class="num" data-label="{names[k]}の評価">ー</td>' for k in ("location", "room", "meal"))
         rows.append(
             f'<tr data-dist="{h["distance_m"]}" data-price="{price or 999999}" data-rate="{h.get("review_avg") or 0}" '
             f'data-bath="{1 if h.get("daiyoku") or h.get("onsen") else 0}" data-smoke="{1 if h.get("smoking") == "喫煙できる場所あり" else 0}" '
             f'data-walk="{1 if h["distance_m"] <= 1000 else 0}">'
             f'<th scope="row"><a href="{escape(book_url(h, h.get("offer")))}" rel="nofollow sponsored noopener" target="_blank">'
             f'{thumb}<span>{escape(h["name"])}</span></a></th>'
-            f'<td class="num">{dist_label(h["distance_m"])}<span class="sub">徒歩約{walk_min(h["distance_m"])}分</span></td>'
-            f'<td class="num">{yen(price) or "なし"}</td><td class="rate">{rate}</td>'
-            f'<td>{bath_label(h)}</td><td>{smoke_label(h)}</td>{subs}</tr>'
+            f'<td class="num" data-label="会場まで">{dist_label(h["distance_m"])}<span class="sub">徒歩約{walk_min(h["distance_m"])}分</span></td>'
+            f'<td class="num" data-label="{price_label}">{yen(price) or "なし"}</td><td class="rate" data-label="口コミ評価">{rate}</td>'
+            f'<td data-label="お風呂">{bath_label(h)}</td><td data-label="たばこ">{smoke_label(h)}</td>{subs}</tr>'
         )
     return Markup(
         '<div class="compare-block"><div class="sorter" role="group" aria-label="並べ替え"><button type="button" data-sort="dist" aria-pressed="true">近い順</button>'

@@ -266,3 +266,22 @@ td.rate { white-space: nowrap; }
 .filters label { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
 .filters input { width: 18px; height: 18px; accent-color: var(--sign); }
 .compare { min-width: 780px; }
+
+/* 比較表はスマホでは1軒ずつのまとまりで見せる */
+.stars { z-index: 0; }
+@media (max-width: 719px) {
+  .compare-wrap { overflow: visible; border: 0; }
+  .compare { min-width: 0; }
+  .compare thead { display: none; }
+  .compare tbody, .compare tr { display: block; }
+  .compare tr { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px 10px; padding: 12px; margin: 0 0 12px;
+    border: 1px solid var(--line); border-radius: var(--radius-m); background: #fff; }
+  .compare tr[hidden] { display: none; }
+  .compare th[scope="row"] { position: static; grid-column: 1 / -1; max-width: none; padding: 0; border: 0; }
+  .compare th[scope="row"] a { flex-direction: row; align-items: center; gap: 10px; }
+  .compare th[scope="row"] img { width: 96px; flex: none; }
+  .compare th[scope="row"] span { font-size: 16px; line-height: 1.45; }
+  .compare td { border: 0; padding: 0; text-align: left; font-size: 14px; }
+  .compare td::before { content: attr(data-label); display: block; font-size: 11px; color: var(--muted); font-weight: 700; }
+  .compare td.rate { grid-column: span 2; }
+}
