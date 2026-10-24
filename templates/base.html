@@ -125,6 +125,27 @@
       });
     })});
   });
+  document.querySelectorAll('form.search').forEach(function(f){
+    var out=f.querySelector('.search-result');
+    function esc(s){var d=document.createElement('div');d.textContent=s==null?'':String(s);return d.innerHTML;}
+    function stars(v){if(!v)return '<span class="sub">評価なし</span>';v=+v;return '<span class="stars" style="--r:'+Math.round(v/5*100)+'%">★★★★★</span><span class="rate-num">'+v.toFixed(2)+'</span>';}
+    f.addEventListener('submit',function(ev){
+      ev.preventDefault();
+      var date=f.date.value, adults=f.querySelector('input[name=adults]:checked').value;
+      out.innerHTML='<p class="empty">空室を調べています…</p>';
+      fetch('/api/search.php?venue='+f.dataset.venue+'&date='+date+'&adults='+adults).then(function(r){return r.json();}).then(function(d){
+        if(d.error){out.innerHTML='<p class="empty">'+esc(d.error)+'</p>';return;}
+        if(!d.hotels.length){out.innerHTML='<p class="empty">この日に'+adults+'人で泊まれる宿は見つかりませんでした。日付か人数を変えてみてください。</p>';return;}
+        var h='<p class="hint">'+d.hotels.length+'軒が空いています。会場に近い順です。</p><div class="qcs">';
+        d.hotels.slice(0,10).forEach(function(x){
+          h+='<a class="qc" href="'+esc(x.url)+'" rel="nofollow sponsored noopener" target="_blank"><span class="qc-row">'+(x.image?'<img src="'+esc(x.image)+'" alt="" loading="lazy">':'<span class="qc-noimg"></span>')+
+          '<span class="qc-body"><span class="qc-name">'+esc(x.name)+'</span><span class="qc-meta"><span class="walk">徒歩'+esc(x.walk)+'分</span>'+(x.bath?'<span class="chip chip-on">大浴場</span>':'')+'</span>'+
+          '<span class="qc-rate">'+stars(x.rate)+'</span><span class="qc-price">1人<strong>'+Number(x.per_person).toLocaleString()+'円</strong>から</span></span></span><span class="qc-btn">空室と料金を見る</span></a>';
+        });
+        out.innerHTML=h+'</div>';
+      }).catch(function(){out.innerHTML='<p class="empty">空室を調べられませんでした。通信状態を確かめて、もう一度押してください。</p>';});
+    });
+  });
   document.querySelectorAll('.tabs').forEach(function(t){
     t.querySelectorAll('[role=tab]').forEach(function(tab){tab.addEventListener('click',function(){
       t.querySelectorAll('[role=tab]').forEach(function(o){o.setAttribute('aria-selected',o===tab)});

@@ -1,0 +1,18 @@
+{% set items = with_offers(hotels, (sat_vacancy or {}).get('by_people', {}).get('1')) if sat_vacancy else with_offers(hotels, None) %}
+<div class="answer">
+  <p class="answer-q">{{ venue.name }}から3km以内のホテル</p>
+  <p class="answer-a"><span class="num">{{ hotels|length }}</span>軒、うち歩いて行けるのは<span class="num">{{ near_hotels|length }}</span>軒</p>
+  <p class="answer-note">地図で場所を見て、比較表で距離、料金、口コミ、大浴場の有無を並べ替えて選べます。</p>
+</div>
+<a class="btn btn-primary btn-block btn-big" href="/{{ venue.slug }}/#search">日付と人数で空室を探す</a>
+<!--body-->
+<h2>会場とホテルの位置</h2>
+{{ hotel_map(items, venue) }}
+
+<h2>ホテルの比較表</h2>
+<p>ボタンで並べ替え、チェックで絞り込みができます。立地、部屋、食事は楽天トラベルの口コミの項目別の評価です。{% if sat_vacancy %}料金は{{ jdate(saturday) }}に1人で泊まる場合の最安値です。{% endif %}</p>
+{{ compare_table(items, "1人の料金" if sat_vacancy else "料金の目安") }}
+
+<h2>1軒ずつ詳しく見る</h2>
+<p>番号は地図の番号と同じです。</p>
+{{ hotel_cards(items, 30, checkin=saturday, numbered=True) }}

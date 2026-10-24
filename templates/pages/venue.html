@@ -2,20 +2,24 @@
 {% set nearest = hotels|first if hotels else None %}
 {% if nearest %}
 <div class="answer">
-  <p class="answer-q">{{ venue.name }}にいちばん近いホテルは</p>
-  <p class="answer-a">{{ nearest.name }}<br>会場まで徒歩約<span class="num">{{ walk_min(nearest.distance_m) }}</span>分</p>
-  <p class="answer-note">歩いて行ける1km以内には{{ near_hotels|length }}軒あります。目的に合わせたおすすめと、写真つきの比較表で選べます。</p>
+  <p class="answer-q">{{ venue.name }}にいちばん近いホテル</p>
+  <p class="answer-a">{{ nearest.name }}</p>
+  <p class="answer-facts"><span class="walk">会場まで徒歩{{ walk_min(nearest.distance_m) }}分</span><span class="fact-sub">歩いて行ける宿は{{ near_hotels|length }}軒</span></p>
 </div>
-<div class="book"><p>予約はこちら</p><a class="btn btn-primary btn-block" href="{{ book_url(nearest) }}" rel="nofollow sponsored noopener" target="_blank">{{ nearest.name }}の空室を見る</a></div>
+<a class="btn btn-primary btn-block btn-big" href="{{ book_url(nearest) }}" rel="nofollow sponsored noopener" target="_blank">{{ nearest.name }}の空室を見る</a>
 {% endif %}
-<p>大きな展示会や週末のイベントが重なる日は、会場に近いホテルから先に埋まっていきます。人数が決まっているなら、人数で探すと1人あたりの料金で比べられます。</p>
 <!--body-->
-<h2>目的別のおすすめホテル</h2>
+<h2>目的で選ぶ</h2>
 <div id="best"></div>
-{{ best_cards(items, ("料金は" ~ jdate(saturday) ~ "に大人1人で泊まる場合の最安値です。") if sat_vacancy else "料金は楽天トラベルに出ている最安料金の目安です。") }}
+{% set picks = best_picks(items) %}
+{{ quick_cards(picks | map(attribute='hotel') | list, 6, picks | map(attribute='label') | list) }}
+{% if sat_vacancy %}<p class="hint">料金は{{ jdate(saturday) }}に1人で泊まる場合の最安値です。</p>{% endif %}
+
+<h2>日付と人数で空室を探す</h2>
+<div id="search"></div>
+{{ search_box(venue, saturday) }}
 
 <h2>人数で探す</h2>
-<p>同じホテルでも、泊まる人数で1人あたりの料金は大きく変わります。人数を選ぶと、その人数で1部屋に泊まれる宿だけを比べられます。</p>
 <div class="people-links">
   <a class="btn btn-sign" href="/{{ venue.slug }}/hitori/">1人で泊まる</a>
   <a class="btn btn-sign" href="/{{ venue.slug }}/futari/">2人で泊まる</a>
@@ -23,45 +27,17 @@
   <a class="btn btn-sign" href="/{{ venue.slug }}/4nin/">4人で泊まる</a>
 </div>
 
-<h2>会場とホテルの位置</h2>
-{{ hotel_map(items, venue) }}
-
-<h2>ホテルを比較する</h2>
-<p>会場までの距離、料金、口コミの評価を並べました。ボタンで並べ替えられます。立地、部屋、食事は楽天トラベルの口コミの項目別の評価です。</p>
-{{ compare_table(items, "1人の料金" if sat_vacancy else "料金の目安") }}
-
-<h2>会場に近い順のホテル</h2>
-<div id="hotels"></div>
-<p>番号は地図の番号と同じです。距離は直線距離で、歩く時間は道のりを少し長めに見積もった目安です。</p>
-{{ hotel_cards(items, 8, checkin=saturday, numbered=True) }}
-
 <h2>これから開催されるイベント</h2>
-<p>イベントごとに、開催初日に空室のあるホテルと人数別の料金をまとめています。</p>
-{{ event_table(events, venue.slug, 8) }}
+{{ event_table(events, venue.slug, 6) }}
 <p><a class="btn btn-sign" href="/{{ venue.slug }}/events/">開催予定をすべて見る</a></p>
 
-<h2>最寄り駅と会場までの時間</h2>
-<div class="table-wrap"><table>
-  <thead><tr><th>駅</th><th>路線</th><th class="num">会場まで</th></tr></thead>
-  <tbody>
-  {% for s in venue.stations %}
-    <tr><td><a href="/{{ venue.slug }}/{{ s.page }}/">{{ s.name }}</a></td><td>{{ s.line }}</td><td class="num">徒歩約{{ s.walk_min }}分</td></tr>
-  {% endfor %}
-  </tbody>
-</table></div>
-<p>いちばん近いのはゆりかもめの東京ビッグサイト駅です。りんかい線の国際展示場駅は少し歩きますが、JR埼京線と直通する列車があり、新宿や渋谷、大崎方面から乗り換えなしで来られます。</p>
-<p><a href="/{{ venue.slug }}/access/">東京駅や新宿駅や羽田空港からの行き方</a></p>
-
-<h2>展示棟によって近さは変わります</h2>
-<p>東京ビッグサイトには東・西・南の3つの展示棟と会議棟があり、建物の端から端まではかなり距離があります。駅から近いのは会議棟と西展示棟で、東展示棟はガレリアと呼ばれる長い通路を奥まで進んだ先にあります。</p>
-<p><a href="/{{ venue.slug }}/halls/">東展示棟と西展示棟と南展示棟の違いを見る</a></p>
-
-<h2>会場の基本情報</h2>
-<div class="table-wrap"><table>
-  <tbody>
-    <tr><th>正式名称</th><td>{{ venue.formal_name }}</td></tr>
-    <tr><th>住所</th><td>{{ venue.address }}</td></tr>
-    <tr><th>最寄り駅</th><td>ゆりかもめ 東京ビッグサイト駅（徒歩約3分）<br>りんかい線 国際展示場駅（徒歩約7分）</td></tr>
-    <tr><th>施設</th><td>東展示棟　西展示棟　南展示棟　会議棟</td></tr>
-  </tbody>
-</table></div>
+<h2>もっと詳しく知りたいとき</h2>
+{{ more_buttons([
+  ('/' ~ venue.slug ~ '/hotels/', '地図とホテルの比較表', '全' ~ hotels|length ~ '軒を距離、料金、口コミ、大浴場で比べる'),
+  ('/' ~ venue.slug ~ '/rinkai/', 'りんかい線からの道順', '国際展示場駅から徒歩約7分'),
+  ('/' ~ venue.slug ~ '/yurikamome/', 'ゆりかもめからの道順', '東京ビッグサイト駅から徒歩約3分'),
+  ('/' ~ venue.slug ~ '/halls/', '展示棟の違い', '東・西・南の展示棟と会議棟'),
+  ('/' ~ venue.slug ~ '/area/', '泊まるエリアの選び方', '有明、豊洲、台場、新橋を比べる'),
+  ('/' ~ venue.slug ~ '/access/', '駅や空港からの行き方', '東京駅、新宿駅、羽田空港から'),
+  ('/' ~ venue.slug ~ '/exhibitor/', '出展者の宿の選び方', '前日入りと荷物の預け方'),
+]) }}

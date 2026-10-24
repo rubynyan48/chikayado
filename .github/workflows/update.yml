@@ -101,6 +101,22 @@ jobs:
                 dist/ "$USER_ID@$HOST:${DEST%/}/" > rsync.log 2>&1; then
               tail -6 rsync.log | python scripts/redact.py
               echo "転送完了（${attempt}回目）" | python scripts/redact.py
+              # 空室検索（PHP）用のキーを、公開フォルダの外に置く
+              mkdir -p priv
+              python - <<'PY'
+          import os
+          v = lambda n: os.environ.get(n, "").replace("\\", "").replace("'", "")
+          open("priv/config.php", "w").write(
+              "<?php\nreturn ['app_id' => '%s', 'access_key' => '%s'];\n" % (v("RAKUTEN_APP_ID"), v("RAKUTEN_ACCESS_KEY")))
+          PY
+              PRIV="${DEST%/public_html*}/chikayado_private/"
+              rsync -az --chmod=D700,F600 -e "ssh -p ${PORT:-10022} -i $HOME/.ssh/xserver -o BatchMode=yes -o ConnectTimeout=30" \
+                priv/ "$USER_ID@$HOST:$PRIV" > priv.log 2>&1 && echo "空室検索の設定を配置" | python scripts/redact.py || (tail -3 priv.log | python scripts/redact.py)
+              rm -rf priv
+              # 空室検索が動くか試す（次の土曜日、2人）
+              SAT=$(python -c "from datetime import date,timedelta;t=date.today();print(t+timedelta(days=(5-t.weekday())%7 or 7))")
+              curl -s -m 60 "https://xn--u8j0b149r.jp/api/search.php?venue=tokyo-big-sight&date=$SAT&adults=2" | head -c 300 | python scripts/redact.py
+              echo "" | python scripts/redact.py
               exit 0
             fi
             tail -4 rsync.log | python scripts/redact.py

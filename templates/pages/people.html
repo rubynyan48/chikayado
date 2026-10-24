@@ -19,9 +19,12 @@
 {% endif %}
 <p>料金は{{ jdate(saturday) }}にチェックインして1泊する場合の、1部屋に{{ n }}人で泊まるいちばん安いプランを1人あたりに直したものです。イベントの日は料金が上がることが多いので、行くイベントが決まっている場合はイベントのページで開催日の料金を確認してください。</p>
 <!--body-->
-<h2>{{ page.people_label }}で泊まるおすすめ</h2>
+<h2>{{ page.people_label }}で泊まれる近い宿</h2>
 <div id="best"></div>
-{{ best_cards(items) }}
+{{ quick_cards(items, 6) }}
+
+<h2>日付を変えて探す</h2>
+{{ search_box(venue, saturday, n) }}
 
 <h2>会場とホテルの位置</h2>
 {{ hotel_map(items, venue) }}
@@ -30,9 +33,6 @@
 <p>ボタンで近い順、安い順、評価が高い順に並べ替えられます。</p>
 {{ compare_table(items, "1人あたり") }}
 
-<h2>{{ page.people_label }}で泊まれるホテル</h2>
-<p>番号は地図の番号と同じです。部屋の名前は、いちばん安いプランの部屋です。</p>
-{{ hotel_cards(items, 8, checkin=saturday, numbered=True) }}
 
 <h2>{{ page.people_label }}で泊まるときのポイント</h2>
 {% if n == '1' %}
