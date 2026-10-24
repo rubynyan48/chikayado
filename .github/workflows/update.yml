@@ -132,9 +132,12 @@ jobs:
           rm -f ~/.ssh/xserver
           git config user.name "chikayado-bot"
           git config user.email "chikayado-bot@users.noreply.github.com"
+          # push で動いたときはデータを取り直していないので、保存しない
+          if [ "${{ github.event_name }}" = "push" ]; then exit 0; fi
           git add data
           git diff --cached --quiet || git commit -m "データ更新 $(TZ=Asia/Tokyo date +%F) [skip ci]"
-          git pull --rebase -q && git push
+          # 途中で別の更新が入っていても、今回取ったデータを優先して保存する
+          git pull --rebase -X theirs -q && git push
 
       - name: 転送の失敗を知らせる
         if: steps.deploy.outcome == 'failure'
