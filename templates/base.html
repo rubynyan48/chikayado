@@ -174,7 +174,7 @@
 <script>
 document.querySelectorAll('.map').forEach(function(el){
   var d=JSON.parse(el.dataset.map), m=L.map(el,{scrollWheelZoom:false});
-  L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png',{maxZoom:18,attribution:'<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">地理院タイル</a>'}).addTo(m);
+  L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png',{maxZoom:18,attribution:'<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="nofollow noopener">地理院タイル</a>'}).addTo(m);
   var pts=[];
   if(d.route){
     d.route.forEach(function(p){pts.push([p.lat,p.lng]);

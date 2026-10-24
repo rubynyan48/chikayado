@@ -518,6 +518,25 @@ def hero_tiles(stats, hotels, near):
     return tiles
 
 
+A_TAG = re.compile(r'<a\b[^>]*>', re.S)
+
+
+def nofollow_external(html):
+    """サイトの外へ出るリンクには、すべて rel="nofollow" を付ける。"""
+    def fix(m):
+        tag = m.group(0)
+        href = re.search(r'href=["\']([^"\']*)', tag)
+        if not href or not href.group(1).startswith(("http://", "https://", "//")) or href.group(1).startswith(SITE["base_url"]):
+            return tag
+        rel = re.search(r'rel=(["\'])([^"\']*)\1', tag)
+        if rel:
+            if "nofollow" in rel.group(2).split():
+                return tag
+            return tag[:rel.start()] + f'rel="nofollow {rel.group(2)}"' + tag[rel.end():]
+        return tag[:-1] + ' rel="nofollow">'
+    return A_TAG.sub(fix, html)
+
+
 def hero_name(text):
     return re.sub(r'[\\/:*?"<>|#%&\s]+', "", text)[:60] + ".jpg"
 
@@ -728,7 +747,7 @@ def main():
         html = env.get_template("base.html").render(page=page, has_hotels=bool(ctx["hotels"]), side=side, **helpers)
         out = DIST / page["path"].lstrip("/") / "index.html"
         out.parent.mkdir(parents=True, exist_ok=True)
-        out.write_text(html, encoding="utf-8")
+        out.write_text(nofollow_external(html), encoding="utf-8")
 
     side = {"venue": main_ctx["venue"], "events": (main_ctx["public_events"] + main_ctx["trade_events"])[:6], "people": PEOPLE_PAGES, "series": main_ctx["series"]}
     nf = {"path": "/404.html", "title": "ページが見つかりません", "description": "", "breadcrumbs": [],
