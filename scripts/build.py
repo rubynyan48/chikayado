@@ -14,7 +14,7 @@ from pathlib import Path
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from markupsafe import Markup
 
-from common import DATA, ROOT, SITE, read_json, venues
+from common import DATA, ROOT, SITE, distance_m, read_json, venues
 from hero import make_hero
 from PIL import Image
 
@@ -382,7 +382,7 @@ def search_box(venue, default_date, adults="1"):
         f'<input type="date" name="date" value="{default_date}" min="{TODAY.isoformat()}" required></label>'
         f'<div class="search-people" role="group" aria-label="人数">{btns}</div>'
         '<button type="submit" class="btn btn-primary btn-block">空いている宿を探す</button>'
-        '<p class="search-note">会場から3km以内の宿を、楽天トラベルの空室から近い順に出します。料金は1人あたりの最安値です。</p>'
+        '<p class="search-note">会場から' + km(venue) + '以内の宿を、楽天トラベルの空室から近い順に出します。料金は1人あたりの最安値です。</p>'
         '<div class="search-result" aria-live="polite"></div></form>'
     )
 
@@ -512,7 +512,7 @@ def hero_tiles(stats, hotels, near):
         elif stats["one"].get("min"):
             tiles.append(("いちばん安い宿", f"{stats['one']['min']:,}", "円"))
         return tiles
-    tiles = [("3km以内の宿", str(len(hotels)), "軒"), ("歩いて行ける宿", str(len(near)), "軒")]
+    tiles = [("近くの宿", str(len(hotels)), "軒"), ("歩いて行ける宿", str(len(near)), "軒")]
     if hotels:
         tiles.append(("近い宿まで徒歩", str(walk_min(hotels[0]["distance_m"])), "分"))
     return tiles
@@ -537,12 +537,45 @@ def nofollow_external(html):
     return A_TAG.sub(fix, html)
 
 
+def km(venue):
+    r = venue.get("search_radius_km", 3.0)
+    return f"{r:g}km"
+
+
+def station_table(venue):
+    rows = "".join(f"<tr><th>{escape(s['name'])}</th><td>{escape(s.get('line', ''))}</td><td>徒歩約{s['walk_min']}分</td></tr>"
+                   for s in sorted(venue.get("stations", []), key=lambda s: s["walk_min"]))
+    return Markup(f'<div class="table-wrap"><table><thead><tr><th>駅</th><th>路線</th><th>会場まで</th></tr></thead><tbody>{rows}</tbody></table></div>')
+
+
 def hero_name(text):
     return re.sub(r'[\\/:*?"<>|#%&\s]+', "", text)[:60] + ".jpg"
 
 
+def vslug(venue):
+    """宿と空室のデータを置いている会場（有明アリーナなどはビッグサイトのものを使う）。"""
+    return venue.get("hotel_area") or venue["slug"]
+
+
+def load_hotels(venue):
+    hotels = read_json(DATA / "hotels" / f"{vslug(venue)}.json", {"hotels": []})["hotels"]
+    if venue.get("hotel_area"):
+        # 距離をこの会場から測り直す
+        hotels = [dict(h, distance_m=distance_m(venue["lat"], venue["lng"], h["lat"], h["lng"])) for h in hotels]
+        hotels = sorted((h for h in hotels if h["distance_m"] <= venue.get("search_radius_km", 3.0) * 1000),
+                        key=lambda h: h["distance_m"])[:venue.get("max_hotels", 200)]
+    return hotels
+
+
+def venue_summary(venue):
+    hotels = load_hotels(venue)
+    return {"slug": venue["slug"], "name": venue["name"], "area_label": venue.get("area_label", ""),
+            "hotels": len(hotels), "near": sum(1 for h in hotels if h["distance_m"] <= 1000),
+            "stations": venue.get("stations", [])}
+
+
 def venue_context(venue):
-    hotels = read_json(DATA / "hotels" / f"{venue['slug']}.json", {"hotels": []})["hotels"]
+    hotels = load_hotels(venue)
     events = read_json(DATA / "events" / f"{venue['slug']}.json", {"events": []})["events"]
     restaurants = read_json(DATA / "restaurants" / f"{venue['slug']}.json", {"by_hotel": {}})["by_hotel"]
     upcoming = [e for e in events if e["end"] >= TODAY.isoformat()]
@@ -569,7 +602,7 @@ def venue_context(venue):
         "restaurants": restaurants,
         "shots": read_json(DATA / "shots" / f"{venue['slug']}.json", {}) or {},
         "saturday": sat.isoformat(),
-        "sat_vacancy": read_json(DATA / "vacancy" / venue["slug"] / f"{sat.isoformat()}.json"),
+        "sat_vacancy": read_json(DATA / "vacancy" / vslug(venue) / f"{sat.isoformat()}.json"),
     }
 
 
@@ -598,9 +631,36 @@ def pages_for(venue, ctx):
                   "alt": f"{venue['name']}に近いホテルの数と会場までの徒歩時間"}},
         {"path": v + "hotels/", "template": "hotels.html",
          "title": f"{venue['name']}周辺のホテルを地図と比較表で選ぶ",
-         "description": f"{venue['name']}から3km以内のホテルを、地図と比較表で並べました。距離、料金、口コミの評価、大浴場の有無で並べ替えや絞り込みができます。",
+         "description": f"{venue['name']}から{km(venue)}以内のホテルを、地図と比較表で並べました。距離、料金、口コミの評価、大浴場の有無で並べ替えや絞り込みができます。",
          "breadcrumbs": [home, hub, {"name": "ホテルの比較", "path": v + "hotels/"}],
          "float_cta": {"href": v, "label": "おすすめのホテルを見る"}, "has_map": True},
+        *[{"path": f"{v}{slug}/", "template": "people.html", "people": n, "people_label": label,
+           "title": f"{venue['name']}近くのホテルに{label}で泊まる 1人あたりの料金と空室",
+           "description": f"{venue['name']}の近くで{label}で1部屋に泊まれるホテルを、会場からの距離と1人あたりの料金で比べました。近い宿、安い宿、評価の高い宿のおすすめもまとめています。",
+           "breadcrumbs": [home, hub, {"name": f"{label}で泊まる", "path": f"{v}{slug}/"}],
+           "float_cta": {"href": "#best", "label": f"{label}で泊まれるおすすめを見る"}, "has_map": True}
+          for slug, n, label in PEOPLE_PAGES],
+        *[{"path": f"{v}{sr['slug']}/", "template": "series.html", "series": sr,
+           "vacancy": read_json(DATA / "vacancy" / vslug(venue) / f"{sr['next']['start']}.json") if sr["next"] else None,
+           "title": f"{sr['short']}の会場に近いホテル {venue['name']}周辺で空いている宿",
+           "description": (f"次の{sr['name']}（{sr['next']['name']}）は{period(sr['next'])}に{venue['name']}で開かれます。" if sr["next"]
+                           else f"{sr['name']}は{venue['name']}で開かれるイベントです。")
+                          + "会場に近いホテルの空室と1人あたりの料金を、人数を選ぶだけで確かめられます。",
+           "hero": {"file": hero_name(f"{sr['short']}の会場に近いホテル"), "title": sr["name"], "photo": sr.get("hero_photo") or venue.get("hero_photos", {}).get("venue"),
+                    "sub": (f"次回 {period(sr['next'])}　{venue['name']}" if sr["next"] else venue["name"]),
+                    "tiles": hero_tiles(event_stats(ctx["hotels"], read_json(DATA / "vacancy" / vslug(venue) / f"{sr['next']['start']}.json"), None, None)
+                                        if sr["next"] else None, ctx["hotels"], ctx["near_hotels"]),
+                    "alt": f"{sr['name']}の会場に近いホテルの空き具合"},
+           "breadcrumbs": [home, hub, {"name": f"{sr['short']}の宿", "path": f"{v}{sr['slug']}/"}],
+           "float_cta": {"href": "#hotels", "label": "空いている近い宿を見る"}}
+          for sr in ctx["series"]],
+        {"path": v + "events/", "template": "events.html",
+         "title": f"{venue['name']}の開催予定イベント一覧",
+         "description": f"{venue['name']}でこれから開催される展示会や一般向けイベントを日付順にまとめています。イベントごとに会場に近いホテルと開催日の空室も確認できます。",
+         "breadcrumbs": [home, hub, {"name": "開催予定イベント", "path": v + "events/"}], "float_cta": cta},
+    ]
+    if venue.get("guides"):
+        pages += [
         {"path": v + "yurikamome/", "template": "yurikamome.html",
          "title": "ゆりかもめ東京ビッグサイト駅から会場までの道順",
          "description": "ゆりかもめの東京ビッグサイト駅から会場までは徒歩約3分です。改札を出てから会議棟の前に着くまでと、東展示棟・西展示棟・南展示棟への進み方を順番に案内します。",
@@ -625,42 +685,18 @@ def pages_for(venue, ctx):
          "title": "東京ビッグサイトの展示会に出展するときの宿の選び方",
          "description": "東京ビッグサイトの展示会に出展するなら、宿は会場まで歩ける有明がいちばん楽です。前日入りの押さえ方や荷物の預け方、近くが取れなかったときの探し方をまとめました。",
          "breadcrumbs": [home, hub, {"name": "出展者の宿の選び方", "path": v + "exhibitor/"}], "float_cta": cta},
-        *[{"path": f"{v}{slug}/", "template": "people.html", "people": n, "people_label": label,
-           "title": f"{venue['name']}近くのホテルに{label}で泊まる 1人あたりの料金と空室",
-           "description": f"{venue['name']}の近くで{label}で1部屋に泊まれるホテルを、会場からの距離と1人あたりの料金で比べました。近い宿、安い宿、評価の高い宿のおすすめもまとめています。",
-           "breadcrumbs": [home, hub, {"name": f"{label}で泊まる", "path": f"{v}{slug}/"}],
-           "float_cta": {"href": "#best", "label": f"{label}で泊まれるおすすめを見る"}, "has_map": True}
-          for slug, n, label in PEOPLE_PAGES],
-        *[{"path": f"{v}{sr['slug']}/", "template": "series.html", "series": sr,
-           "vacancy": read_json(DATA / "vacancy" / venue["slug"] / f"{sr['next']['start']}.json") if sr["next"] else None,
-           "title": f"{sr['short']}の会場に近いホテル {venue['name']}周辺で空いている宿",
-           "description": (f"次の{sr['name']}（{sr['next']['name']}）は{period(sr['next'])}に{venue['name']}で開かれます。" if sr["next"]
-                           else f"{sr['name']}は{venue['name']}で開かれるイベントです。")
-                          + "会場に近いホテルの空室と1人あたりの料金を、人数を選ぶだけで確かめられます。",
-           "hero": {"file": hero_name(f"{sr['short']}の会場に近いホテル"), "title": sr["name"], "photo": sr.get("hero_photo") or venue.get("hero_photos", {}).get("venue"),
-                    "sub": (f"次回 {period(sr['next'])}　{venue['name']}" if sr["next"] else venue["name"]),
-                    "tiles": hero_tiles(event_stats(ctx["hotels"], read_json(DATA / "vacancy" / venue["slug"] / f"{sr['next']['start']}.json"), None, None)
-                                        if sr["next"] else None, ctx["hotels"], ctx["near_hotels"]),
-                    "alt": f"{sr['name']}の会場に近いホテルの空き具合"},
-           "breadcrumbs": [home, hub, {"name": f"{sr['short']}の宿", "path": f"{v}{sr['slug']}/"}],
-           "float_cta": {"href": "#hotels", "label": "空いている近い宿を見る"}}
-          for sr in ctx["series"]],
-        {"path": v + "events/", "template": "events.html",
-         "title": f"{venue['name']}の開催予定イベント一覧",
-         "description": f"{venue['name']}でこれから開催される展示会や一般向けイベントを日付順にまとめています。イベントごとに会場に近いホテルと開催日の空室も確認できます。",
-         "breadcrumbs": [home, hub, {"name": "開催予定イベント", "path": v + "events/"}], "float_cta": cta},
-    ]
+        ]
     for e in ctx["all_events"]:
         path = f"{v}{e['slug']}/"
         concurrent = [o for o in ctx["all_events"] if o is not e and o["start"] <= e["end"] and o["end"] >= e["start"]]
         days = (date.fromisoformat(e["end"]) - date.fromisoformat(e["start"])).days + 1
-        vac = read_json(DATA / "vacancy" / venue["slug"] / f"{e['start']}.json") if e["end"] >= TODAY.isoformat() else None
+        vac = read_json(DATA / "vacancy" / vslug(venue) / f"{e['start']}.json") if e["end"] >= TODAY.isoformat() else None
         text = read_json(DATA / "texts" / venue["slug"] / f"{e['slug']}.json")
-        hist = read_json(DATA / "vacancy_history" / venue["slug"] / f"{e['start']}.json")
+        hist = read_json(DATA / "vacancy_history" / vslug(venue) / f"{e['start']}.json")
         # 比べる相手は、同じ曜日の種類（金土の夜は週末、それ以外は平日）でイベントのない日
         kind = "weekend" if date.fromisoformat(e["start"]).weekday() in (4, 5) else "weekday"
-        base_date = (read_json(DATA / "baseline" / f"{venue['slug']}.json", {}) or {}).get(kind)
-        base_vac = read_json(DATA / "vacancy" / venue["slug"] / f"{base_date}.json") if base_date else None
+        base_date = (read_json(DATA / "baseline" / f"{vslug(venue)}.json", {}) or {}).get(kind)
+        base_vac = read_json(DATA / "vacancy" / vslug(venue) / f"{base_date}.json") if base_date else None
         st = event_stats(ctx["hotels"], vac, base_vac, hist) if vac else None
         common = {"event": e, "vacancy": vac, "text": text, "concurrent": concurrent[:12], "days": days, "credit_events": True,
                   "history": hist, "base_vacancy": base_vac, "base_kind": kind,
@@ -710,11 +746,13 @@ def main():
                "open_time": open_time, "audience_label": audience_label,
                "event_table": event_table, "restaurant_table": restaurant_table, "dist_label": dist_label,
                "walk_min": walk_min, "yen": yen, "quick_cards": quick_cards, "people_switch": people_switch,
-               "search_box": search_box, "more_buttons": more_buttons, "route_map": route_map, "book_url": book_url, "stars": stars, "chips": chips, "jdate": jdate, "period": period, "buildings": buildings,
+               "search_box": search_box, "station_table": station_table, "km": km, "more_buttons": more_buttons, "route_map": route_map, "book_url": book_url, "stars": stars, "chips": chips, "jdate": jdate, "period": period, "buildings": buildings,
                "site": SITE, "today": TODAY.isoformat(), "css_v": css_version()}
     all_venues = [v for v in venues() if v.get("publish", True)]
     main_venue = all_venues[0]
     main_ctx = venue_context(main_venue)
+    venue_list = [venue_summary(v) for v in all_venues]
+    helpers["venue_list"] = venue_list
 
     jobs = [(p, main_ctx) for p in common_pages()]
     for venue in all_venues:
@@ -743,13 +781,15 @@ def main():
             make_hero(DIST / HERO_DIR / hr["file"], hr["title"], hr["sub"], hr["tiles"], lead=hr.get("lead", "の会場に近いホテル"),
                       photo=next((d / hr["photo"] for d in (ROOT / "assets" / "photos", IMAGES) if hr.get("photo") and (d / hr["photo"]).exists()), None))
             hr["src"] = f"/{HERO_DIR}/{hr['file']}"
-        side = {"venue": main_ctx["venue"], "events": (main_ctx["public_events"] + main_ctx["trade_events"])[:6], "people": PEOPLE_PAGES, "series": main_ctx["series"]}
+        side = {"venue": ctx["venue"], "events": (ctx["public_events"] + ctx["trade_events"])[:6], "people": PEOPLE_PAGES,
+                "series": ctx["series"], "venues": venue_list}
         html = env.get_template("base.html").render(page=page, has_hotels=bool(ctx["hotels"]), side=side, **helpers)
         out = DIST / page["path"].lstrip("/") / "index.html"
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(nofollow_external(html), encoding="utf-8")
 
-    side = {"venue": main_ctx["venue"], "events": (main_ctx["public_events"] + main_ctx["trade_events"])[:6], "people": PEOPLE_PAGES, "series": main_ctx["series"]}
+    side = {"venue": main_ctx["venue"], "events": (main_ctx["public_events"] + main_ctx["trade_events"])[:6], "people": PEOPLE_PAGES,
+            "series": main_ctx["series"], "venues": venue_list}
     nf = {"path": "/404.html", "title": "ページが見つかりません", "description": "", "breadcrumbs": [],
           "lead": '<p>お探しのページは移動したか、開催が終わって削除された可能性があります。</p>',
           "body": '<p><a class="btn btn-primary" href="/">トップへ戻る</a></p>'}
@@ -769,7 +809,7 @@ def main():
     for venue in all_venues:
         ctx = venue_context(venue)
         (DIST / "api" / f"hotels-{venue['slug']}.json").write_text(json.dumps({
-            "lat": venue["lat"], "lng": venue["lng"], "moshimo": SITE.get("moshimo"),
+            "lat": venue["lat"], "lng": venue["lng"], "radius": venue.get("search_radius_km", 3.0), "moshimo": SITE.get("moshimo"),
             "hotels": [{"hotelNo": h["hotelNo"], "name": h["name"], "walk": walk_min(h["distance_m"]),
                         "distance": dist_label(h["distance_m"]), "image": h.get("image", ""),
                         "rate": h.get("review_avg"), "bath": bool(h.get("daiyoku") or h.get("onsen"))} for h in ctx["hotels"]],

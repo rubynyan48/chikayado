@@ -37,8 +37,8 @@
       <span class="logo-text"><small>{{ site.tagline }}</small></span>
     </a>
     <nav class="site-nav" aria-label="サイト内">
-      <a href="/tokyo-big-sight/">東京ビッグサイト</a>
-      <a href="/tokyo-big-sight/events/">開催予定</a>
+      <a href="/#venues">会場一覧</a>
+      <a href="/{{ side.venue.slug }}/events/">開催予定</a>
     </nav>
   </div>
 </header>
@@ -91,9 +91,10 @@
   <section class="side-box">
     <p class="side-title">会場で探す</p>
     <ul class="side-list">
-      <li><a href="/{{ side.venue.slug }}/">{{ side.venue.name }}に近いホテル</a></li>
+      {% for v in side.venues %}<li><a href="/{{ v.slug }}/">{{ v.name }}に近いホテル</a></li>{% endfor %}
     </ul>
   </section>
+  {% if side.venue.guides %}
   <section class="side-box">
     <p class="side-title">目的で選ぶ</p>
     <ul class="side-list">
@@ -105,9 +106,10 @@
       <li><a href="/{{ side.venue.slug }}/yurikamome/">ゆりかもめからの道順</a></li>
     </ul>
   </section>
+  {% endif %}
   {% if side.events %}
   <section class="side-box">
-    <p class="side-title">これからのイベント</p>
+    <p class="side-title">{{ side.venue.name }}のこれからのイベント</p>
     <ul class="side-list side-events">
     {% for e in side.events %}<li><a href="/{{ side.venue.slug }}/{{ e.slug }}/"><span class="sub">{{ jdate(e.start, False) }}</span>{{ e.name }}</a></li>{% endfor %}
     </ul>

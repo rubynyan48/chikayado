@@ -1,22 +1,23 @@
 <p>イベントの日は、会場から近い宿ほど早く埋まります。ちか宿では会場ごとに周辺のホテルを距離順に並べ、イベントごとに開催日の空室も毎日調べ直しています。</p>
 <div class="people-links">
-  <a class="btn btn-primary" href="/tokyo-big-sight/">東京ビッグサイトに近いホテル</a>
+  {% for v in venue_list[:4] %}<a class="btn btn-primary" href="/{{ v.slug }}/">{{ v.name }}</a>{% endfor %}
 </div>
 <!--body-->
-<h2>人数で探す</h2>
+<h2 id="venues">会場から探す</h2>
+{% for v in venue_list %}
+<a class="venue-link" href="/{{ v.slug }}/">
+  <strong>{{ v.name }}</strong>
+  <span>{{ v.area_label }}{% if v.near %}　1km以内に{{ v.near }}軒{% endif %}{% for s in (v.stations|sort(attribute='walk_min'))[:2] %}　{{ s.name }}から徒歩約{{ s.walk_min }}分{% endfor %}</span>
+</a>
+{% endfor %}
+
+<h2>東京ビッグサイトに人数で泊まる</h2>
 <div class="people-links">
   <a class="btn btn-sign" href="/tokyo-big-sight/hitori/">1人で泊まる</a>
   <a class="btn btn-sign" href="/tokyo-big-sight/futari/">2人で泊まる</a>
   <a class="btn btn-sign" href="/tokyo-big-sight/3nin/">3人で泊まる</a>
   <a class="btn btn-sign" href="/tokyo-big-sight/4nin/">4人で泊まる</a>
 </div>
-
-<h2>会場から探す</h2>
-<a class="venue-link" href="/tokyo-big-sight/">
-  <strong>東京ビッグサイト</strong>
-  <span>江東区有明　1km以内に{{ near_hotels|length }}軒　ゆりかもめで徒歩約3分　りんかい線で徒歩約7分</span>
-</a>
-<p class="note">幕張メッセ、パシフィコ横浜、インテックス大阪など、ほかの大型会場も順番に追加していきます。</p>
 
 <h2>東京ビッグサイトへ行く前に</h2>
 <p><a href="/tokyo-big-sight/access/">東京駅や新宿駅や羽田空港からの行き方</a><br><a href="/tokyo-big-sight/halls/">東展示棟と西展示棟と南展示棟の違い</a><br><a href="/tokyo-big-sight/area/">泊まるエリアは有明か豊洲か台場か</a><br><a href="/tokyo-big-sight/exhibitor/">展示会に出展するときの宿の選び方</a></p>

@@ -1,6 +1,6 @@
 {% set items = with_offers(hotels, (sat_vacancy or {}).get('by_people', {}).get('1')) if sat_vacancy else with_offers(hotels, None) %}
 <div class="answer">
-  <p class="answer-q">{{ venue.name }}から3km以内のホテル</p>
+  <p class="answer-q">{{ venue.name }}から{{ km(venue) }}以内のホテル</p>
   <p class="answer-a"><span class="num">{{ hotels|length }}</span>軒、うち歩いて行けるのは<span class="num">{{ near_hotels|length }}</span>軒</p>
   <p class="answer-note">地図で場所を見て、比較表で距離、料金、口コミ、大浴場の有無を並べ替えて選べます。</p>
 </div>

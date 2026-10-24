@@ -27,17 +27,21 @@
   <a class="btn btn-sign" href="/{{ venue.slug }}/4nin/">4人で泊まる</a>
 </div>
 
+{% if series %}
 <h2>大型イベントで探す</h2>
 <div class="people-links">
 {% for sr in series %}<a class="btn btn-sign" href="/{{ venue.slug }}/{{ sr.slug }}/">{{ sr.short }}</a>{% endfor %}
 </div>
+{% endif %}
 
 <h2>これから開催されるイベント</h2>
-<p class="hint">誰でも入場できるイベントを先に出しています。</p>
-{{ event_table(public_events + trade_events, venue.slug, 6) }}
-<p><a class="btn btn-sign" href="/{{ venue.slug }}/events/">開催予定をすべて見る</a></p>
+{% if trade_events and public_events %}<p class="hint">誰でも入場できるイベントを先に出しています。</p>{% endif %}
+{% if events %}{{ event_table(public_events + trade_events, venue.slug, 6) }}
+{% else %}<p>{{ venue.name }}の公式サイトにはイベントの日程表がないため、日程がわかった大きなイベントから順に載せていきます。</p>{% endif %}
+{% if events %}<p><a class="btn btn-sign" href="/{{ venue.slug }}/events/">開催予定をすべて見る</a></p>{% endif %}
 
 <h2>もっと詳しく知りたいとき</h2>
+{% if venue.guides %}
 {{ more_buttons([
   ('/' ~ venue.slug ~ '/hotels/', '地図とホテルの比較表', '全' ~ hotels|length ~ '軒を距離、料金、口コミ、大浴場で比べる'),
   ('/' ~ venue.slug ~ '/rinkai/', 'りんかい線からの道順', '国際展示場駅から徒歩約7分'),
@@ -47,3 +51,14 @@
   ('/' ~ venue.slug ~ '/access/', '駅や空港からの行き方', '東京駅、新宿駅、羽田空港から'),
   ('/' ~ venue.slug ~ '/exhibitor/', '出展者の宿の選び方', '前日入りと荷物の預け方'),
 ]) }}
+{% else %}
+{{ more_buttons([
+  ('/' ~ venue.slug ~ '/hotels/', '地図とホテルの比較表', '全' ~ hotels|length ~ '軒を距離、料金、口コミ、大浴場で比べる'),
+  ('/' ~ venue.slug ~ '/hitori/', '1人で泊まる宿', '1人あたりの料金が安い順'),
+  ('/' ~ venue.slug ~ '/futari/', '2人で泊まる宿', '1部屋に2人で泊まれる宿'),
+]) }}
+
+<h2>{{ venue.name }}の最寄り駅</h2>
+{{ station_table(venue) }}
+<p class="note">徒歩の時間は、駅と会場の位置から計算した目安です。</p>
+{% endif %}

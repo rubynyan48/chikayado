@@ -52,7 +52,7 @@ $offers = [];
 for ($page = 1; $page <= 2; $page++) {
     $q = http_build_query([
         'applicationId' => $conf['app_id'], 'accessKey' => $conf['access_key'], 'format' => 'json', 'formatVersion' => 2,
-        'latitude' => $meta['lat'], 'longitude' => $meta['lng'], 'datumType' => 1, 'searchRadius' => 3,
+        'latitude' => $meta['lat'], 'longitude' => $meta['lng'], 'datumType' => 1, 'searchRadius' => ($meta['radius'] ?? 3),
         'checkinDate' => $date, 'checkoutDate' => $checkout, 'adultNum' => $adults, 'roomNum' => 1,
         'hits' => 30, 'page' => $page, 'sort' => '+roomCharge', 'responseType' => 'small',
     ]);
