@@ -73,7 +73,7 @@
 </table></div>
 {% if st.ratio %}
 <h3>イベントのない日との比べ方</h3>
-<p>同じ宿の1人あたりの料金を、近くでイベントのない{{ '週末' if page.base_kind == 'weekend' else '平日' }}の{{ jdate(st.base_date) }}と比べると、{{ jdate(e.start) }}は真ん中の値で約{{ st.ratio }}倍です（両方の日に空きがあった{{ st.compared }}軒で比べています）。{% if st.ratio >= 1.3 %}イベントの影響で料金が上がっているので、早めに押さえるほど安く泊まれる可能性があります。{% elif st.ratio <= 1.05 %}今のところイベントの影響はあまり出ていません。{% endif %}</p>
+<p>同じ宿の1人あたりの料金を、近くでイベントのない{{ '週末' if page.base_kind == 'weekend' else '平日' }}の{{ jdate(st.base_date) }}と比べると、{{ jdate(e.start) }}は真ん中の値で約{{ st.ratio }}倍です（両方の日に空きがあった{{ st.compared }}軒で比べています）。{% if st.ratio >= 1.3 %}イベントや時期の影響で料金が上がっているので、早めに押さえるほど安く泊まれる可能性があります。{% elif st.ratio <= 1.05 %}今のところイベントの影響はあまり出ていません。{% endif %}</p>
 {% endif %}
 {% if st.hist_from %}
 <h3>空室の減り方</h3>
