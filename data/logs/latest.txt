@@ -1,4 +1,4 @@
-実行 2026-10-24 15:51:18 workflow_dispatch
+実行 2026-10-24 15:55:57 workflow_dispatch
 設定あり RAKUTEN_APP_ID
 設定あり RAKUTEN_ACCESS_KEY
 未設定 HOTPEPPER_API_KEY
@@ -13,7 +13,7 @@
   JIMTOF2026 第33回日本国際工作機械見本市 2026-10-26: 空室あり 19軒
   レジャー&サービス産業展2026 2026-11-05: 空室あり 20軒
   アミューズメントエキスポ2026 2026-11-06: 空室あり 20軒
-  冬スポ!!WINTER SPORTS FESTA season26 2026-11-07: 空室あり 19軒
+  冬スポ!!WINTER SPORTS FESTA season26 2026-11-07: 空室あり 20軒
   文学フリマ東京43 2026-11-08: 空室あり 22軒
   アグリビジネス創出フェア2026 2026-11-10: 空室あり 21軒
   FOOD-COLDTECH 2026 2026-11-11: 空室あり 22軒
@@ -39,6 +39,15 @@
 解説文を30件生成しました
 175ページを書き出しました
 鍵の形式は正常
+ssh: Could not resolve hostname ＊＊＊: Temporary failure in name resolution
+rsync: connection unexpectedly closed (0 bytes received so far) [sender]
+rsync error: unexplained error (code 255) at io.c(232) [sender=3.2.7]
+転送に失敗（1回目）
+ssh: Could not resolve hostname ＊＊＊: Temporary failure in name resolution
+rsync: connection unexpectedly closed (0 bytes received so far) [sender]
+rsync error: unexplained error (code 255) at io.c(232) [sender=3.2.7]
+転送に失敗（2回目）
 ssh: connect to host ＊＊＊ port 10022: Connection timed out
 rsync: connection unexpectedly closed (0 bytes received so far) [sender]
-rsync error: error in rsync protocol data stream (code 12) at io.c(232) [sender=3.2.7]
+rsync error: unexplained error (code 255) at io.c(232) [sender=3.2.7]
+転送に失敗（3回目）
