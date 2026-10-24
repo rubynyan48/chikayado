@@ -16,7 +16,8 @@ REFERER = SITE["base_url"] + "/"
 
 
 def venues():
-    return [json.loads(p.read_text(encoding="utf-8")) for p in sorted((CONFIG / "venues").glob("*.json"))]
+    found = [json.loads(p.read_text(encoding="utf-8")) for p in (CONFIG / "venues").glob("*.json")]
+    return sorted(found, key=lambda v: (v.get("order", 99), v["slug"]))
 
 
 def read_json(path, default=None):

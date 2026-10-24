@@ -1,7 +1,67 @@
 {
   "_説明": "東京都のオープンデータにまだ載っていない大型イベントを手で足す。データに載ったら同じ名前で上書きされる。",
   "tokyo-big-sight": [
-    {"name": "コミックマーケット109", "start": "2026-12-29", "end": "2026-12-31", "hall": "西・南ホール（東4〜6ホールは改修のため使わない）", "hours": "", "audience": "一般", "fee": "", "content": "日本最大級の同人誌即売会。8年ぶりの3日間開催", "organizer": "コミックマーケット準備会", "url": "https://www.comiket.co.jp/"},
-    {"name": "デザインフェスタ vol.64", "start": "2026-11-14", "end": "2026-11-15", "hall": "西・南ホール", "hours": "10:00-", "audience": "一般", "fee": "", "content": "誰でも参加できるアジア最大級のアートイベント", "organizer": "デザインフェスタ事務局", "url": "https://designfesta.com/"}
+    {
+      "name": "コミックマーケット109",
+      "start": "2026-12-29",
+      "end": "2026-12-31",
+      "hall": "西・南ホール（東4〜6ホールは改修のため使わない）",
+      "hours": "",
+      "audience": "一般",
+      "fee": "",
+      "content": "日本最大級の同人誌即売会。8年ぶりの3日間開催",
+      "organizer": "コミックマーケット準備会",
+      "url": "https://www.comiket.co.jp/"
+    },
+    {
+      "name": "デザインフェスタ vol.64",
+      "start": "2026-11-14",
+      "end": "2026-11-15",
+      "hall": "西・南ホール",
+      "hours": "10:00-",
+      "audience": "一般",
+      "fee": "",
+      "content": "誰でも参加できるアジア最大級のアートイベント",
+      "organizer": "デザインフェスタ事務局",
+      "url": "https://designfesta.com/"
+    }
+  ],
+  "ryogoku-kokugikan": [
+    {
+      "name": "大相撲一月場所 2027",
+      "start": "2027-01-10",
+      "end": "2027-01-24",
+      "hall": "",
+      "hours": "",
+      "audience": "一般",
+      "fee": "",
+      "content": "大相撲の本場所（初場所）。15日間",
+      "organizer": "日本相撲協会",
+      "url": "https://www.sumo.or.jp/"
+    },
+    {
+      "name": "大相撲五月場所 2027",
+      "start": "2027-05-09",
+      "end": "2027-05-23",
+      "hall": "",
+      "hours": "",
+      "audience": "一般",
+      "fee": "",
+      "content": "大相撲の本場所（夏場所）。15日間",
+      "organizer": "日本相撲協会",
+      "url": "https://www.sumo.or.jp/"
+    },
+    {
+      "name": "大相撲九月場所 2027",
+      "start": "2027-09-12",
+      "end": "2027-09-26",
+      "hall": "",
+      "hours": "",
+      "audience": "一般",
+      "fee": "",
+      "content": "大相撲の本場所（秋場所）。15日間",
+      "organizer": "日本相撲協会",
+      "url": "https://www.sumo.or.jp/"
+    }
   ]
 }

@@ -206,7 +206,7 @@ def fetch_hotels(venue):
         # 絞り込みに出なくても、館内設備に大浴場とあれば大浴場ありとする
         if not h.get("daiyoku") and any("大浴場" in t for t in h["facilities"] + [h["bath_type"]]):
             h["daiyoku"] = True
-    result = sorted(hotels.values(), key=lambda h: h["distance_m"])
+    result = sorted(hotels.values(), key=lambda h: h["distance_m"])[:venue.get("max_hotels", 200)]
     write_json(DATA / "hotels" / f"{venue['slug']}.json",
                {"venue": venue["slug"], "updated": date.today().isoformat(), "hotels": result})
     print(f"{venue['name']}: 周辺の宿 {len(result)}件")
@@ -246,6 +246,15 @@ def fetch_vacancy_day(venue, checkin, adults):
     return found
 
 
+def fresh_enough(venue, checkin, today):
+    """近い日付は毎日、先の日付は3日おきに調べ直す（楽天APIの呼び出しを減らすため）。"""
+    old = read_json(DATA / "vacancy" / venue["slug"] / f"{checkin.isoformat()}.json")
+    if not old or not old.get("checked"):
+        return False
+    age = (today - date.fromisoformat(old["checked"])).days
+    return age < (1 if (checkin - today).days <= 21 else 3)
+
+
 def fetch_date(venue, checkin):
     by_people = {}
     for n in PEOPLE:
@@ -274,19 +283,26 @@ def main():
         return 0
     failed = False
     today = date.today()
-    for venue in venues():
+    all_venues = venues()
+    for venue in all_venues:
+        # 有明アリーナなどはビッグサイトの宿と空室をそのまま使う
+        if venue.get("hotel_area"):
+            continue
         try:
             fetch_hotels(venue)
         except Exception as exc:
             failed = True
             print(f"{venue['name']}: 宿の取得に失敗 {exc}", file=sys.stderr)
             continue
-        events = read_json(DATA / "events" / f"{venue['slug']}.json", {"events": []})["events"]
+        events = [e for v in all_venues if v["slug"] == venue["slug"] or v.get("hotel_area") == venue["slug"]
+                  for e in read_json(DATA / "events" / f"{v['slug']}.json", {"events": []})["events"]]
         # イベントの初日と、人数別ページに使う次の土曜日。同じ日は1回だけ調べる
         dates = {next_saturday(today)}
         # 料金を比べるための「イベントのない日」を、週末（土曜の夜）と平日（水曜の夜）で1日ずつ選ぶ
+        own = read_json(DATA / "events" / f"{venue['slug']}.json", {"events": []})["events"]
+
         def busy(d):
-            return any(e["start"] <= d.isoformat() <= e["end"] for e in events)
+            return any(e["start"] <= d.isoformat() <= e["end"] for e in own)
         base = {}
         for kind, wd in (("weekend", 5), ("weekday", 2)):
             d = today + timedelta(days=7)
@@ -309,6 +325,8 @@ def main():
                 if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", f.stem) or f.stem < today.isoformat():
                     f.unlink()
         for d in sorted(dates):
+            if fresh_enough(venue, d, today):
+                continue
             try:
                 fetch_date(venue, d)
             except Exception as exc:

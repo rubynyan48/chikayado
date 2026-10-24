@@ -1,0 +1,33 @@
+{
+  "slug": "ariake-arena",
+  "name": "有明アリーナ",
+  "formal_name": "有明アリーナ",
+  "address": "東京都江東区有明1-11-1",
+  "lat": 35.64241,
+  "lng": 139.79501,
+  "search_radius_km": 3.0,
+  "source": "ariake_arena",
+  "kind": "arena",
+  "hotel_area": "tokyo-big-sight",
+  "area_label": "有明・豊洲",
+  "stations": [
+    {
+      "name": "有明テニスの森駅",
+      "line": "ゆりかもめ",
+      "walk_min": 9,
+      "lat": 35.64045,
+      "lng": 139.7893
+    },
+    {
+      "name": "国際展示場駅",
+      "line": "りんかい線",
+      "walk_min": 15,
+      "lat": 35.63428,
+      "lng": 139.79172
+    }
+  ],
+  "schedule_url": "https://ariake-arena.tokyo/event/",
+  "order": 5,
+  "max_hotels": 40,
+  "publish": false
+}

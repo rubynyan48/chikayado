@@ -1,0 +1,39 @@
+{
+  "slug": "tokyo-dome",
+  "name": "東京ドーム",
+  "formal_name": "東京ドーム",
+  "address": "東京都文京区後楽1-3-61",
+  "lat": 35.70564,
+  "lng": 139.75189,
+  "search_radius_km": 1.5,
+  "source": "tokyo_dome",
+  "kind": "arena",
+  "area_label": "水道橋・後楽園",
+  "stations": [
+    {
+      "name": "水道橋駅",
+      "line": "JR総武線",
+      "walk_min": 7,
+      "lat": 35.70202,
+      "lng": 139.75346
+    },
+    {
+      "name": "後楽園駅",
+      "line": "東京メトロ丸ノ内線・南北線",
+      "walk_min": 4,
+      "lat": 35.70785,
+      "lng": 139.75183
+    },
+    {
+      "name": "春日駅",
+      "line": "都営三田線・大江戸線",
+      "walk_min": 6,
+      "lat": 35.70907,
+      "lng": 139.75337
+    }
+  ],
+  "schedule_url": "https://www.tokyo-dome.co.jp/dome/event",
+  "order": 2,
+  "max_hotels": 40,
+  "publish": false
+}

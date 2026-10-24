@@ -1,0 +1,33 @@
+{
+  "slug": "tokyo-garden-theater",
+  "name": "東京ガーデンシアター",
+  "formal_name": "東京ガーデンシアター",
+  "address": "東京都江東区有明2-1-6",
+  "lat": 35.63716,
+  "lng": 139.79089,
+  "search_radius_km": 3.0,
+  "source": "garden_theater",
+  "kind": "arena",
+  "hotel_area": "tokyo-big-sight",
+  "area_label": "有明・豊洲",
+  "stations": [
+    {
+      "name": "国際展示場駅",
+      "line": "りんかい線",
+      "walk_min": 5,
+      "lat": 35.63428,
+      "lng": 139.79172
+    },
+    {
+      "name": "東京ビッグサイト駅",
+      "line": "ゆりかもめ",
+      "walk_min": 12,
+      "lat": 35.62999,
+      "lng": 139.79161
+    }
+  ],
+  "schedule_url": "https://www.shopping-sumitomo-rd.com/tokyo_garden_theater/schedule/",
+  "order": 6,
+  "max_hotels": 40,
+  "publish": false
+}

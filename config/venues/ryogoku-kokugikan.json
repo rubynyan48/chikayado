@@ -1,0 +1,31 @@
+{
+  "slug": "ryogoku-kokugikan",
+  "name": "両国国技館",
+  "formal_name": "国技館",
+  "address": "東京都墨田区横網1-3-28",
+  "lat": 35.69719,
+  "lng": 139.79245,
+  "search_radius_km": 1.5,
+  "kind": "arena",
+  "area_label": "両国・錦糸町",
+  "stations": [
+    {
+      "name": "両国駅（JR）",
+      "line": "JR総武線",
+      "walk_min": 3,
+      "lat": 35.69575,
+      "lng": 139.7933
+    },
+    {
+      "name": "両国駅（大江戸線）",
+      "line": "都営大江戸線",
+      "walk_min": 7,
+      "lat": 35.69694,
+      "lng": 139.79749
+    }
+  ],
+  "schedule_url": "https://www.sumo.or.jp/",
+  "order": 4,
+  "max_hotels": 40,
+  "publish": false
+}

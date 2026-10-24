@@ -95,6 +95,9 @@ def main():
         ctx = browser.new_context(viewport={"width": 1280, "height": 800}, locale="ja-JP",
                                   user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36")
         for venue in venues():
+            # ライブ会場はアーティストの写真が中心になるので撮らない
+            if venue.get("kind") != "exhibition":
+                continue
             slug = venue["slug"]
             events = read_json(DATA / "events" / f"{slug}.json", {"events": []})["events"]
             series = read_json(ROOT / "config" / "series" / f"{slug}.json", []) or []

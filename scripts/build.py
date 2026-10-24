@@ -712,7 +712,7 @@ def main():
                "walk_min": walk_min, "yen": yen, "quick_cards": quick_cards, "people_switch": people_switch,
                "search_box": search_box, "more_buttons": more_buttons, "route_map": route_map, "book_url": book_url, "stars": stars, "chips": chips, "jdate": jdate, "period": period, "buildings": buildings,
                "site": SITE, "today": TODAY.isoformat(), "css_v": css_version()}
-    all_venues = venues()
+    all_venues = [v for v in venues() if v.get("publish", True)]
     main_venue = all_venues[0]
     main_ctx = venue_context(main_venue)
 

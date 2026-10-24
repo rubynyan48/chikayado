@@ -15,7 +15,7 @@ from common import DATA, env, read_json, venues, write_json
 
 MODEL = "gemini-2.5-flash"
 URL = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent"
-MAX_PER_RUN = 30
+MAX_PER_RUN = 80
 
 PROMPT = """あなたはイベント会場の近くの宿を案内するサイトの編集者です。
 次のイベントに泊まりがけで参加する人に向けて、短い解説を日本語で書いてください。
@@ -66,22 +66,22 @@ def main():
         print("GeminiのAPIキーが未設定のため、解説文の生成を飛ばします")
         return 0
     made, failed = 0, False
-    for venue in venues():
-        events = read_json(DATA / "events" / f"{venue['slug']}.json", {"events": []})["events"]
-        today = date.today().isoformat()
-        # これから開催されるイベントを先に書く
-        events = sorted(events, key=lambda e: (e["end"] < today, e["start"]))
-        for event in events:
-            path = DATA / "texts" / venue["slug"] / f"{event['slug']}.json"
-            if path.exists() or made >= MAX_PER_RUN:
-                continue
-            try:
-                write_json(path, generate(event, venue))
-                made += 1
-                time.sleep(1)
-            except Exception as exc:
-                failed = True
-                print(f"  {event['name']}: 解説文の生成に失敗 {exc}", file=sys.stderr)
+    today = date.today().isoformat()
+    pairs = [(venue, e) for venue in venues()
+             for e in read_json(DATA / "events" / f"{venue['slug']}.json", {"events": []})["events"]]
+    # どの会場でも、これから開催されるイベントを日付の近い順に書く
+    pairs.sort(key=lambda p: (p[1]["end"] < today, p[1]["start"]))
+    for venue, event in pairs:
+        path = DATA / "texts" / venue["slug"] / f"{event['slug']}.json"
+        if path.exists() or made >= MAX_PER_RUN:
+            continue
+        try:
+            write_json(path, generate(event, venue))
+            made += 1
+            time.sleep(1)
+        except Exception as exc:
+            failed = True
+            print(f"  {event['name']}: 解説文の生成に失敗 {exc}", file=sys.stderr)
     print(f"解説文を{made}件生成しました")
     return 1 if failed else 0
 

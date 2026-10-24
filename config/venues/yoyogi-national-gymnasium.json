@@ -1,0 +1,39 @@
+{
+  "slug": "yoyogi-national-gymnasium",
+  "name": "国立代々木競技場",
+  "formal_name": "国立代々木競技場",
+  "address": "東京都渋谷区神南2-1-1",
+  "lat": 35.66879,
+  "lng": 139.70187,
+  "search_radius_km": 1.5,
+  "source": "yoyogi",
+  "kind": "arena",
+  "area_label": "原宿・渋谷",
+  "stations": [
+    {
+      "name": "原宿駅",
+      "line": "JR山手線",
+      "walk_min": 3,
+      "lat": 35.67025,
+      "lng": 139.70268
+    },
+    {
+      "name": "明治神宮前駅",
+      "line": "東京メトロ千代田線・副都心線",
+      "walk_min": 5,
+      "lat": 35.66868,
+      "lng": 139.70538
+    },
+    {
+      "name": "渋谷駅",
+      "line": "JR・私鉄各線",
+      "walk_min": 19,
+      "lat": 35.65803,
+      "lng": 139.70164
+    }
+  ],
+  "schedule_url": "https://www.jpnsport.go.jp/yoyogi/event/tabid/58/Default.aspx",
+  "order": 7,
+  "max_hotels": 40,
+  "publish": false
+}

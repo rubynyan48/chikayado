@@ -1,0 +1,31 @@
+{
+  "slug": "tokyo-international-forum",
+  "name": "東京国際フォーラム",
+  "formal_name": "東京国際フォーラム",
+  "address": "東京都千代田区丸の内3-5-1",
+  "lat": 35.67685,
+  "lng": 139.76387,
+  "search_radius_km": 1.0,
+  "kind": "arena",
+  "area_label": "有楽町・東京駅",
+  "stations": [
+    {
+      "name": "有楽町駅",
+      "line": "JR山手線・京浜東北線、東京メトロ有楽町線",
+      "walk_min": 3,
+      "lat": 35.67502,
+      "lng": 139.76312
+    },
+    {
+      "name": "東京駅",
+      "line": "JR各線",
+      "walk_min": 9,
+      "lat": 35.68124,
+      "lng": 139.76712
+    }
+  ],
+  "schedule_url": "https://www.t-i-forum.co.jp/",
+  "order": 8,
+  "max_hotels": 40,
+  "publish": false
+}

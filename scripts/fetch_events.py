@@ -127,12 +127,14 @@ def fetch_venue_events(venue):
 def merge(venue, fresh):
     path = DATA / "events" / f"{venue['slug']}.json"
     store = read_json(path, {"events": []})
-    by_key = {(e["name"], e["start"][:4]): e for e in store["events"]}
+    # 都のCSVは同じ展示会の日付が直ることがあるので年で、公式サイトの公演は日付で見分ける
+    keyf = (lambda e: (e["name"], e["start"][:4])) if venue.get("events_csv") else (lambda e: (e["name"], e["start"]))
+    by_key = {keyf(e): e for e in store["events"]}
     used_slugs = {e["slug"] for e in store["events"]}
     today = date.today().isoformat()
     added = 0
     for e in fresh:
-        key = (e["name"], e["start"][:4])
+        key = keyf(e)
         if key in by_key:
             old = by_key[key]
             old.update({k: v for k, v in e.items() if v})
@@ -147,7 +149,7 @@ def merge(venue, fresh):
         added += 1
     events = sorted(by_key.values(), key=lambda e: (e["start"], e["name"]))
     write_json(path, {"venue": venue["slug"], "updated": today, "events": events})
-    print(f"{venue['name']}: CSV {len(fresh)}件 新規 {added}件 合計 {len(events)}件")
+    print(f"{venue['name']}: 取得 {len(fresh)}件 新規 {added}件 合計 {len(events)}件")
 
 
 def manual_events(venue):
@@ -158,12 +160,17 @@ def manual_events(venue):
 
 
 def main():
+    from sources import SOURCES
     failed = False
     for venue in venues():
-        if not venue.get("events_csv"):
-            continue
         try:
-            fresh = fetch_venue_events(venue)
+            if venue.get("events_csv"):
+                fresh = fetch_venue_events(venue)
+            elif venue.get("source"):
+                fresh = SOURCES[venue["source"]](venue)
+            else:
+                fresh = []  # 公式のスケジュールがない会場は、手で足したイベントだけ
+            fresh = [e for e in fresh if e.get("start")]
             names = {e["name"] for e in fresh}
             merge(venue, fresh + [e for e in manual_events(venue) if e["name"] not in names])
         except Exception as exc:  # 1会場の失敗で全体を止めない
