@@ -65,10 +65,11 @@ def stars(v, count=None):
 
 
 def bath_label(h):
+    """大浴場の有無。温泉の大浴場ならそれも書く。"""
     if h.get("onsen"):
-        return "温泉あり"
+        return "あり（温泉）"
     if h.get("daiyoku"):
-        return "大浴場あり"
+        return "あり"
     return "なし"
 
 
@@ -152,7 +153,7 @@ def hotel_cards(hotels, limit=6, vacancy=None, checkin=None, numbered=False):
             rows.append(f'<tr><th>料金の目安</th><td>{yen(h["min_charge"])}から</td></tr>')
         if h.get("review_avg"):
             rows.append(f'<tr><th>口コミ評価</th><td>{stars(h["review_avg"], h.get("review_count"))}</td></tr>')
-        rows.append(f'<tr><th>お風呂</th><td>{bath_label(h)}</td></tr>')
+        rows.append(f'<tr><th>大浴場</th><td>{bath_label(h)}</td></tr>')
         rows.append(f'<tr><th>たばこ</th><td>{smoke_label(h)}{"（禁煙ルームあり）" if h.get("kinen_room") and h.get("smoking") != "全館禁煙" else ""}</td></tr>')
         if h.get("checkin"):
             out_time = f'（チェックアウト{escape(h["checkout"])}）' if h.get("checkout") else ""
@@ -204,7 +205,7 @@ def best_picks(items):
     take("歩いて行けて安い", lambda h: f"{yen(price_of(h))}から", near, price_of)
     take("口コミの評価が高い", lambda h: f"評価{float(h['review_avg']):.2f}（{int(h['review_count']):,}件）", rated,
          lambda h: float(h["review_avg"]) if h.get("review_avg") else None, reverse=True)
-    take("大浴場でくつろげる", lambda h: f"{bath_label(h)}　会場まで{dist_label(h['distance_m'])}",
+    take("大浴場でくつろげる", lambda h: f"{'温泉の大浴場' if h.get('onsen') else '大浴場'}あり　会場まで{dist_label(h['distance_m'])}",
          [h for h in items if h.get("daiyoku") or h.get("onsen")], lambda h: h["distance_m"])
     take("食事の評価が高い", lambda h: f"食事の評価{float(h['ratings']['meal']):.2f}", rated,
          lambda h: float(h["ratings"]["meal"]) if h.get("ratings", {}).get("meal") else None, reverse=True)
@@ -252,7 +253,7 @@ def compare_table(items, price_label="料金の目安"):
             f'{thumb}<span>{escape(h["name"])}</span></a></th>'
             f'<td class="num" data-label="会場まで">{dist_label(h["distance_m"])}<span class="sub">徒歩約{walk_min(h["distance_m"])}分</span></td>'
             f'<td class="num" data-label="{price_label}">{yen(price) or "なし"}</td><td class="rate" data-label="口コミ評価">{rate}</td>'
-            f'<td data-label="お風呂">{bath_label(h)}</td><td data-label="たばこ">{smoke_label(h)}</td>{subs}</tr>'
+            f'<td data-label="大浴場">{bath_label(h)}</td><td data-label="たばこ">{smoke_label(h)}</td>{subs}</tr>'
         )
     return Markup(
         '<div class="compare-block"><div class="sorter" role="group" aria-label="並べ替え"><button type="button" data-sort="dist" aria-pressed="true">近い順</button>'
@@ -264,7 +265,7 @@ def compare_table(items, price_label="料金の目安"):
         + ('<label><input type="checkbox" data-filter="smoke">喫煙できる場所あり</label>'
            if any(h.get("smoking") == "喫煙できる場所あり" for h in items) else "") + '</div>'
         '<div class="table-wrap compare-wrap"><table class="compare"><thead><tr><th scope="col">ホテル</th>'
-        f'<th class="num">会場まで</th><th class="num">{price_label}</th><th>口コミ評価</th><th>お風呂</th><th>たばこ</th>'
+        f'<th class="num">会場まで</th><th class="num">{price_label}</th><th>口コミ評価</th><th>大浴場</th><th>たばこ</th>'
         '<th class="num">立地</th><th class="num">部屋</th><th class="num">食事</th></tr></thead><tbody>'
         + "".join(rows) + "</tbody></table></div></div>"
     )
