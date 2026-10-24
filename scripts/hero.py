@@ -1,6 +1,6 @@
 """ページの一番上に出す画像（ファーストビュー）を作る。SNSで共有されたときの画像にも使う。
 
-イベント名と日付、その日の空き具合の数字を大きく見せる。写真は使わず、会場の形を簡単な図形で描く。
+イベント名と日付、その日の空き具合の数字を大きく見せる。背景は assets/photos の会場写真。
 """
 from pathlib import Path
 
@@ -47,19 +47,31 @@ def wrap(draw, text, f, width, max_lines):
     return lines
 
 
-def venue_mark(draw, x, y, s):
-    """会議棟の逆三角形を4つ並べた形を簡単に描く。"""
-    w = s / 4
-    for i in range(4):
-        cx = x + w * i
-        draw.polygon([(cx, y), (cx + w - 6, y), (cx + w / 2 - 3, y + s * 0.42)], fill=SOFT, outline=NAVY, width=4)
-    draw.rectangle([x + s * 0.18, y + s * 0.42, x + s * 0.78, y + s * 0.72], fill=SOFT, outline=NAVY, width=4)
-    draw.line([x - 10, y + s * 0.72, x + s + 4, y + s * 0.72], fill=NAVY, width=5)
+def cover(photo):
+    """写真を画像の大きさいっぱいに広げて、はみ出す分を切り落とす。"""
+    im = Image.open(photo).convert("RGB")
+    r = max(W / im.width, H / im.height)
+    im = im.resize((round(im.width * r), round(im.height * r)), Image.LANCZOS)
+    x, y = (im.width - W) // 2, (im.height - H) // 2
+    return im.crop((x, y, x + W, y + H))
 
 
-def make_hero(out_path, title, sub, tiles, lead="の会場に近いホテル", site="ちか宿", tagline="会場に近い宿さがし"):
+def shade(img):
+    """文字が読めるように、左と下を紺色で暗くする。右側は写真が見えるように薄くする。"""
+    mask = Image.new("L", (W, H))
+    px = mask.load()
+    for x in range(W):
+        a = 200 if x < 380 else max(30, int(200 - (x - 380) * 0.3))
+        for y in range(H):
+            b = a if y < 410 else min(200, a + int((y - 410) * 0.6))
+            px[x, y] = b
+    layer = Image.new("RGB", (W, H), (10, 40, 64))
+    return Image.composite(layer, img, mask)
+
+
+def make_hero(out_path, title, sub, tiles, lead="の会場に近いホテル", site="ちか宿", tagline="会場に近い宿さがし", photo=None):
     """title: イベント名など, lead: 見出しの続き, sub: 日付や会場, tiles: [(ラベル, 数字, 単位)] を3つまで。"""
-    img = Image.new("RGB", (W, H), (255, 255, 255))
+    img = shade(cover(photo)) if photo and Path(photo).exists() else Image.new("RGB", (W, H), (10, 40, 64))
     d = ImageDraw.Draw(img)
     # 上の帯
     d.rectangle([0, 0, W, 86], fill=NAVY)
@@ -70,18 +82,15 @@ def make_hero(out_path, title, sub, tiles, lead="の会場に近いホテル", s
 
     # 見出し
     ft = font(60 if len(title) > 14 else 68)
-    lines = wrap(d, title, ft, 830, 2)
+    lines = wrap(d, title, ft, 760, 2)
     y = 112
     for line in lines:
-        d.text((56, y), line, font=ft, fill=INK)
+        d.text((56, y), line, font=ft, fill=(255, 255, 255))
         y += ft.size + 14
     if lead:
-        d.text((58, y), lead, font=font(40), fill=NAVY)
+        d.text((58, y), lead, font=font(40), fill=YELLOW)
         y += 56
-    d.text((58, y + 4), sub, font=font(30), fill=MUTED)
-
-    # 会場の形
-    venue_mark(d, 930, 140, 210)
+    d.text((58, y + 4), sub, font=font(30), fill=(220, 232, 242))
 
     # 下の数字
     n = max(1, len(tiles))
@@ -90,7 +99,7 @@ def make_hero(out_path, title, sub, tiles, lead="の会場に近いホテル", s
     ty = 432
     for i, (label, value, unit) in enumerate(tiles):
         x0 = 56 + i * (tw + gap)
-        d.rounded_rectangle([x0, ty, x0 + tw, ty + 170], radius=18, fill=(255, 255, 255), outline=NAVY, width=4)
+        d.rounded_rectangle([x0, ty, x0 + tw, ty + 170], radius=18, fill=(255, 255, 255))
         d.text((x0 + tw / 2, ty + 34), label, font=font(26), fill=MUTED, anchor="mm")
         fv, fu = font(76), font(32)
         vw = d.textlength(value, font=fv)
