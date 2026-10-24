@@ -15,7 +15,7 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -q requests
-      - run: python scripts/probe.py | tee data/probe/result.txt
+      - run: mkdir -p data/probe && python scripts/probe.py | tee data/probe/result.txt
       - run: |
           git config user.name "chikayado-bot"
           git config user.email "chikayado-bot@users.noreply.github.com"
