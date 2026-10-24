@@ -69,7 +69,7 @@ def parse_date(text, fallback_year=None):
 
 def make_slug(name):
     s = unicodedata.normalize("NFKC", name)
-    s = re.sub(r"[\s　/\\?#%&<>\"'|:;,.。、・!！()（）\[\]［］「」『』【】~〜～*+=]+", "", s)
+    s = re.sub(r"[\s　/\\?#%&<>\"'|:;,.。、・!！()（）\[\]［］「」『』【】~〜～*+=“”‘’\ufeff♡☆★]+", "", s)
     return s[:60] or "event"
 
 

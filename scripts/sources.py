@@ -74,9 +74,11 @@ def join_days(items):
 
 def title_with_artist(artist, title):
     artist, title = clean(artist), clean(title)
+    if "備考" in title:
+        title = ""
     if not title:
         return artist
-    if not artist or artist.lower() in title.lower() or len(artist) > 40:
+    if not artist or artist.lower() in title.lower() or len(artist) > 40 or "備考" in artist:
         return title
     return f"{artist} {title}"
 
@@ -170,6 +172,8 @@ def garden_theater(venue):
                     dates.append(date(yy, mo_i, int(d.get_text())).isoformat())
             if not dates:
                 continue
+            if re.fullmatch(r"(?i)private|非公開", clean(li.select_one(".title").get_text() if li.select_one(".title") else "")):
+                continue  # 貸切の非公開イベント
             player = li.select_one(".player").get_text() if li.select_one(".player") else ""
             title = li.select_one(".title").get_text() if li.select_one(".title") else ""
             tag = li.select_one(".tag").get_text() if li.select_one(".tag") else ""
