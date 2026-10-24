@@ -113,13 +113,6 @@ def book_url(h, vac=None):
     if m.get("a_id") and h.get("hotelNo"):
         no = h["hotelNo"]
         url = f"https://travel.rakuten.co.jp/HOTEL/{no}/{no}.html"
-        if vac and vac.get("reserve_url"):
-            # 空室検索の日付と人数を引き継いで、その日のプラン一覧を開く
-            from urllib.parse import parse_qs, urlparse
-            q = parse_qs(urlparse(vac["reserve_url"]).query)
-            if q.get("f_hi1") and q.get("f_hi2"):
-                url = (f"https://hotel.travel.rakuten.co.jp/hotelinfo/plan/{no}?f_hi1={q['f_hi1'][0]}&f_hi2={q['f_hi2'][0]}"
-                       f"&f_otona_su={q.get('f_otona_su', ['1'])[0]}&f_heya_su={q.get('f_heya_su', ['1'])[0]}")
         from urllib.parse import quote
         return (f"https://af.moshimo.com/af/c/click?a_id={m['a_id']}&p_id={m['p_id']}&pc_id={m['pc_id']}"
                 f"&pl_id={m['pl_id']}&url={quote(url, safe='')}")
