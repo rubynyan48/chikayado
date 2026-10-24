@@ -47,6 +47,7 @@ jobs:
       - name: 部品の準備
         run: |
           pip install -r requirements.txt
+          sudo apt-get install -y -qq fonts-noto-cjk > /dev/null
           mkdir -p data/logs
           echo "実行 $(TZ=Asia/Tokyo date '+%F %T') ${{ github.event_name }}" > data/logs/latest.txt
           for n in RAKUTEN_APP_ID RAKUTEN_ACCESS_KEY HOTPEPPER_API_KEY GEMINI_API_KEY HOST USER_ID PORT DEST; do

@@ -365,3 +365,23 @@ td.rate { white-space: nowrap; }
 .stats span { display: block; font-size: 12px; font-weight: 700; color: var(--muted); line-height: 1.4; }
 .stats strong { display: block; font-size: 26px; color: var(--sign); line-height: 1.3; font-variant-numeric: tabular-nums; }
 .stats small { font-size: 13px; margin-left: 2px; color: var(--ink); }
+
+.hero { margin: 4px 0 16px; }
+.hero img { width: 100%; height: auto; border-radius: var(--radius-m); border: 1px solid var(--line); }
+
+/* 日付の入力欄がスマホで枠からはみ出さないようにする */
+.search-date input { box-sizing: border-box; display: block; max-width: 100%; min-width: 0; -webkit-appearance: none; appearance: none; min-height: 52px; text-align: left; }
+.search-date input::-webkit-date-and-time-value { text-align: left; }
+.search { overflow: hidden; }
+
+/* 人数ごとの空き具合 */
+.ppl { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 0 0 16px; }
+.ppl-card { border: 2px solid var(--line); border-radius: var(--radius-m); padding: 10px 12px; background: #fff; }
+.ppl-card p { margin: 0; }
+.ppl-n { font-weight: 800; color: #fff; background: var(--sign); display: inline-block; padding: 2px 12px; border-radius: 999px; font-size: 15px; margin-bottom: 6px !important; }
+.ppl-open { font-size: 14px; }
+.ppl-open strong { font-size: 28px; color: var(--sign); margin-right: 2px; }
+.ppl-open span { display: block; font-size: 12px; color: var(--muted); }
+.ppl-price { display: flex; justify-content: space-between; align-items: baseline; font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 4px; margin-top: 4px !important; }
+.ppl-price strong { font-size: 16px; color: var(--ink); }
+@media (min-width: 720px) { .ppl { grid-template-columns: repeat(4, 1fr); } }

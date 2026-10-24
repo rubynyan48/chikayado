@@ -13,6 +13,8 @@
 <meta property="og:url" content="{{ site.base_url }}{{ page.path }}">
 <meta property="og:site_name" content="{{ site.name }}">
 <meta property="og:locale" content="ja_JP">
+{% if page.hero %}<meta property="og:image" content="{{ site.base_url }}{{ page.hero.src | urlencode }}">
+<meta name="twitter:card" content="summary_large_image">{% endif %}
 <link rel="stylesheet" href="/style.css?v={{ css_v }}">
 {% if page.has_map %}<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">{% endif %}
 {% if site.ga_id %}
@@ -52,6 +54,7 @@
 <article class="article">
   <h1>{{ page.h1 or page.title }}</h1>
   {% if page.updated %}<p class="meta">更新日 {{ page.updated }}</p>{% endif %}
+  {% if page.hero %}<figure class="hero"><img src="{{ page.hero.src | urlencode }}" alt="{{ page.hero.alt }}" width="1200" height="630" fetchpriority="high"></figure>{% endif %}
   <div class="lead">{{ page.lead | safe }}</div>
   {% if page.toc %}
   <nav class="toc" aria-label="目次">

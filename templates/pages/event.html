@@ -65,12 +65,16 @@
 {% if st %}
 <h2 id="numbers">{{ jdate(e.start, False) }}の宿の空き具合を数字で見る</h2>
 <p>会場から3km以内にある{{ st.total }}軒の宿について、{{ jdate(e.start) }}の夜に1部屋で泊まれるかを人数ごとに調べました。料金は1人あたりです。</p>
-<div class="table-wrap"><table>
-  <thead><tr><th>人数</th><th class="num">空いている宿</th><th class="num">歩いて行ける宿</th><th class="num">いちばん安い</th><th class="num">真ん中の料金</th></tr></thead>
-  <tbody>
-  {% for r in st.rows %}<tr><td>{{ r.n }}人</td><td class="num">{{ r.open }}軒</td><td class="num">{{ r.near }}軒</td><td class="num">{{ yen(r.min) or 'ー' }}</td><td class="num">{{ yen(r.median|int) if r.median else 'ー' }}</td></tr>{% endfor %}
-  </tbody>
-</table></div>
+<div class="ppl">
+  {% for r in st.rows %}
+  <div class="ppl-card">
+    <p class="ppl-n">{{ r.n }}人</p>
+    <p class="ppl-open"><strong>{{ r.open }}</strong>軒が空き<span>歩いて行ける宿は{{ r.near }}軒</span></p>
+    <p class="ppl-price">いちばん安い<strong>{{ yen(r.min) or 'ー' }}</strong></p>
+    <p class="ppl-price">真ん中の料金<strong>{{ yen(r.median|int) if r.median else 'ー' }}</strong></p>
+  </div>
+  {% endfor %}
+</div>
 {% if st.ratio %}
 <h3>イベントのない日との比べ方</h3>
 <p>同じ宿の1人あたりの料金を、近くでイベントのない{{ '週末' if page.base_kind == 'weekend' else '平日' }}の{{ jdate(st.base_date) }}と比べると、{{ jdate(e.start) }}は真ん中の値で約{{ st.ratio }}倍です（両方の日に空きがあった{{ st.compared }}軒で比べています）。{% if st.ratio >= 1.3 %}イベントや時期の影響で料金が上がっているので、早めに押さえるほど安く泊まれる可能性があります。{% elif st.ratio <= 1.05 %}今のところイベントの影響はあまり出ていません。{% endif %}</p>
