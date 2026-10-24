@@ -25,7 +25,7 @@
 </div>
 {% endif %}
 {% if first %}
-<div class="book"><p>予約はこちら</p><a class="btn btn-primary btn-block" href="{{ (first.offer or {}).get('reserve_url') or first.plan_url or first.info_url }}" rel="nofollow sponsored noopener" target="_blank">{{ first.name }}の空室を見る</a></div>
+<div class="book"><p>予約はこちら</p><a class="btn btn-primary btn-block" href="{{ book_url(first, first.offer) }}" rel="nofollow sponsored noopener" target="_blank">{{ first.name }}の空室を見る</a></div>
 {% endif %}
 <p>{{ e.name }}は{{ period(e) }}に{{ venue.name }}{% if bld %}の{{ bld|join('と') }}{% endif %}で開かれます。{% if not ended %}会場に近い宿ほど早く埋まるので、日程が決まったら早めに押さえておくのがおすすめです。{% endif %}</p>
 <!--body-->

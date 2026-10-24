@@ -5,7 +5,7 @@
   <p class="answer-note">搬入と設営で朝が早く、荷物も多いので、電車に乗らずに会場へ入れる宿がいちばん楽です。{% if nearest %}いちばん近い{{ nearest.name }}は会場から直線約{{ dist_label(nearest.distance_m) }}です。{% endif %}</p>
 </div>
 {% if nearest %}
-<div class="book"><p>予約はこちら</p><a class="btn btn-primary btn-block" href="{{ nearest.plan_url or nearest.info_url }}" rel="nofollow sponsored noopener" target="_blank">{{ nearest.name }}の空室を見る</a></div>
+<div class="book"><p>予約はこちら</p><a class="btn btn-primary btn-block" href="{{ book_url(nearest) }}" rel="nofollow sponsored noopener" target="_blank">{{ nearest.name }}の空室を見る</a></div>
 {% endif %}
 <p>出展者は来場者より早く会場に入り、遅くまで残ることが多いため、宿の選び方も来場者とは少し変わります。会期の前日から泊まることも考えて、早めに押さえておきましょう。</p>
 <!--body-->

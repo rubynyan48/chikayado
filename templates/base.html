@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer-when-downgrade">
 <title>{{ page.title }}{% if not page.is_home %} - {{ site.name }}{% endif %}</title>
 <meta name="description" content="{{ page.description }}">
 <link rel="canonical" href="{{ site.base_url }}{{ page.path }}">
@@ -168,6 +169,7 @@ document.querySelectorAll('.map').forEach(function(el){
     {% if page.hotpepper %}<p><a href="http://webservice.recruit.co.jp/" rel="noopener" target="_blank">Powered by ホットペッパーグルメ Webサービス</a></p>{% endif %}
     {% if page.events_credit %}<p>イベント情報の出典は「<a href="{{ page.events_credit.events_credit_url }}" rel="noopener" target="_blank">{{ page.events_credit.events_credit }}</a>」で、当サイトで加工して掲載しています。</p>{% endif %}
   </div>
+  {% if site.moshimo and site.moshimo.a_id and has_hotels %}<img src="https://i.moshimo.com/af/i/impression?a_id={{ site.moshimo.a_id }}&p_id={{ site.moshimo.p_id }}&pc_id={{ site.moshimo.pc_id }}&pl_id={{ site.moshimo.pl_id }}" width="1" height="1" alt="" loading="lazy" style="border:none;position:absolute">{% endif %}
   <p class="wrap copyright">© 2026 {{ site.name }}（{{ site.display_domain }}）</p>
 </footer>
 </body>

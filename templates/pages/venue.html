@@ -6,7 +6,7 @@
   <p class="answer-a">{{ nearest.name }}<br>会場まで徒歩約<span class="num">{{ walk_min(nearest.distance_m) }}</span>分</p>
   <p class="answer-note">歩いて行ける1km以内には{{ near_hotels|length }}軒あります。目的に合わせたおすすめと、写真つきの比較表で選べます。</p>
 </div>
-<div class="book"><p>予約はこちら</p><a class="btn btn-primary btn-block" href="{{ nearest.plan_url or nearest.info_url }}" rel="nofollow sponsored noopener" target="_blank">{{ nearest.name }}の空室を見る</a></div>
+<div class="book"><p>予約はこちら</p><a class="btn btn-primary btn-block" href="{{ book_url(nearest) }}" rel="nofollow sponsored noopener" target="_blank">{{ nearest.name }}の空室を見る</a></div>
 {% endif %}
 <p>大きな展示会や週末のイベントが重なる日は、会場に近いホテルから先に埋まっていきます。人数が決まっているなら、人数で探すと1人あたりの料金で比べられます。</p>
 <!--body-->
