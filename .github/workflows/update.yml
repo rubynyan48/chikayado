@@ -12,6 +12,7 @@ on:
       - "config/**"
       - "scripts/build.py"
       - "data/texts/**"
+      - "data/shots/**"
 
 concurrency:
   group: site-update

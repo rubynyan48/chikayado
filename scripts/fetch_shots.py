@@ -41,8 +41,19 @@ def looks_blank(path):
     return st.stddev[0] < 10
 
 
+# エラーやロボット確認の画面に出る言葉。これが見えたら使わない
+BAD_TEXT = ["Bad Gateway", "403 ERROR", "403 Forbidden", "404 Not Found", "Access Denied", "Just a moment",
+            "セキュリティ検証", "接続を確認しています", "ロボットではありません", "request could not be satisfied"]
+
+
+class Unusable(Exception):
+    pass
+
+
 def shoot(page, url, out):
-    page.goto(url, wait_until="domcontentloaded", timeout=25000)
+    res = page.goto(url, wait_until="domcontentloaded", timeout=25000)
+    if res is None or res.status >= 400:
+        raise Unusable(f"HTTP {res.status if res else 'なし'}")
     try:
         page.wait_for_load_state("networkidle", timeout=10000)
     except Exception:
@@ -60,6 +71,9 @@ def shoot(page, url, out):
         page.evaluate(REMOVE_BANNERS)
     except Exception:
         pass
+    text = page.evaluate("() => document.body ? document.body.innerText.slice(0, 3000) : ''")
+    if len(text.strip()) < 40 or any(w.lower() in text.lower() for w in BAD_TEXT):
+        raise Unusable("エラーかロボット確認の画面")
     page.keyboard.press("Escape")
     page.wait_for_timeout(500)
     tmp = out.with_suffix(".png")
@@ -108,6 +122,11 @@ def main():
                     else:
                         index[e["slug"]] = {"file": out.name, "url": url, "taken": today.isoformat()}
                         print(f"撮影 {e['name']}")
+                except Unusable as ex:
+                    print(f"使えない画面でした {e['name']} {ex}")
+                    if old:
+                        (folder / old["file"]).unlink(missing_ok=True)
+                        del index[e["slug"]]
                 except Exception as ex:
                     print(f"撮影できません {e['name']} {type(ex).__name__}")
                 finally:
