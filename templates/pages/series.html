@@ -44,6 +44,7 @@
 
 <h2>{{ sr.name }}とは</h2>
 <p>{{ sr.about }}</p>
+{% if sr.photos %}{% for ph in sr.photos %}{{ photo(ph.file, ph.alt) }}{% endfor %}<p class="note">写真はイメージです。</p>{% endif %}
 <p class="note">出典 <a href="{{ sr.source }}" rel="noopener" target="_blank">{{ sr.source }}</a></p>
 
 <h2>もっと詳しく知りたいとき</h2>

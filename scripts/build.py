@@ -16,6 +16,7 @@ from markupsafe import Markup
 
 from common import DATA, ROOT, SITE, read_json, venues
 from hero import make_hero
+from PIL import Image
 
 DIST = ROOT / "dist"
 IMAGES = ROOT / "static" / "images"
@@ -97,7 +98,9 @@ def chips(h):
 
 def photo(filename, alt):
     if (IMAGES / filename).exists():
-        return Markup(f'<figure><img src="/images/{escape(filename)}" alt="{escape(alt)}" loading="lazy" width="1200" height="800"></figure>')
+        with Image.open(IMAGES / filename) as im:
+            w, h = im.size
+        return Markup(f'<figure><img src="/images/{escape(filename)}" alt="{escape(alt)}" loading="lazy" width="{w}" height="{h}"></figure>')
     return Markup("")
 
 

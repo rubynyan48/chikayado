@@ -104,6 +104,8 @@
   {% if e.url %}<tr><th>公式サイト</th><td><a href="{{ e.url if e.url.startswith('http') else 'https://' ~ e.url }}" rel="noopener" target="_blank">{{ e.url }}</a></td></tr>{% endif %}
 </tbody></table></div>
 {% if page.text %}<p>{{ page.text.intro }}</p>{% endif %}
+{% set esr = (series | selectattr('slug', 'equalto', e.series) | first) if e.series else None %}
+{% if esr and esr.photos and not ended %}{{ photo(esr.photos[0].file, esr.photos[0].alt) }}<p class="note">写真はイメージです。</p>{% endif %}
 <p class="note">開催日や時間は主催者の発表をもとにしています。お出かけ前に公式サイトで確認してください。</p>
 
 <h2 id="access">会場の建物と最寄り駅</h2>
