@@ -1,4 +1,4 @@
-実行 2026-10-24 20:16:29 workflow_dispatch
+実行 2026-10-24 20:19:19 workflow_dispatch
 設定あり RAKUTEN_APP_ID
 設定あり RAKUTEN_ACCESS_KEY
 未設定 HOTPEPPER_API_KEY
@@ -41,10 +41,11 @@
 347ページを書き出しました
 鍵の形式は正常
 File list transfer time: 0.000 seconds
-Total bytes sent: 1,828,796
-Total bytes received: 135,122
+Total bytes sent: 44,141
+Total bytes received: 80,708
 
-sent 1,828,796 bytes  received 135,122 bytes  357,076.00 bytes/sec
-total size is 8,329,450  speedup is 4.24
+sent 44,141 bytes  received 80,708 bytes  27,744.22 bytes/sec
+total size is 8,329,450  speedup is 66.72
 転送完了（1回目）
 空室検索の設定を配置
+空室検索のテスト HTTP 200
