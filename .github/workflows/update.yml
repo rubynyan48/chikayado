@@ -93,11 +93,21 @@ jobs:
           printf '%s\n' "$KEY" | tr -d '\r' > ~/.ssh/xserver
           chmod 600 ~/.ssh/xserver
           (ssh-keygen -y -f ~/.ssh/xserver > /dev/null 2>&1 && echo "鍵の形式は正常" || echo "鍵を読み込めません（貼り付けた中身を確認）") | python scripts/redact.py
-          rsync -az --delete --stats \
-            --exclude '.htaccess' --exclude '.well-known/' --exclude 'google*.html' \
-            -e "ssh -p ${PORT:-10022} -i $HOME/.ssh/xserver -o StrictHostKeyChecking=accept-new -o BatchMode=yes" \
-            dist/ "$USER_ID@$HOST:${DEST%/}/" 2>&1 | tail -20 | python scripts/redact.py
-          echo "転送完了" | python scripts/redact.py
+          # つながらないときは少し待って3回まで試す
+          for attempt in 1 2 3; do
+            if rsync -az --delete --stats \
+                --exclude '.htaccess' --exclude '.well-known/' --exclude 'google*.html' \
+                -e "ssh -p ${PORT:-10022} -i $HOME/.ssh/xserver -o StrictHostKeyChecking=accept-new -o BatchMode=yes -o ConnectTimeout=30" \
+                dist/ "$USER_ID@$HOST:${DEST%/}/" > rsync.log 2>&1; then
+              tail -6 rsync.log | python scripts/redact.py
+              echo "転送完了（${attempt}回目）" | python scripts/redact.py
+              exit 0
+            fi
+            tail -4 rsync.log | python scripts/redact.py
+            echo "転送に失敗（${attempt}回目）" | python scripts/redact.py
+            sleep 60
+          done
+          exit 1
         continue-on-error: true
 
       - name: データと実行ログを保存
