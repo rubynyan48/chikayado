@@ -20,10 +20,23 @@ concurrency:
 permissions:
   contents: write
 
+env:
+  RAKUTEN_APP_ID: ${{ secrets.RAKUTEN_APP_ID }}
+  RAKUTEN_ACCESS_KEY: ${{ secrets.RAKUTEN_ACCESS_KEY }}
+  HOTPEPPER_API_KEY: ${{ secrets.HOTPEPPER_API_KEY }}
+  GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+  HOST: ${{ secrets.XSERVER_HOST }}
+  USER_ID: ${{ secrets.XSERVER_USER }}
+  PORT: ${{ secrets.XSERVER_PORT }}
+  DEST: ${{ secrets.XSERVER_PATH }}
+
 jobs:
   update:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    defaults:
+      run:
+        shell: bash
     steps:
       - uses: actions/checkout@v4
 
@@ -32,72 +45,73 @@ jobs:
           python-version: "3.12"
 
       - name: 部品の準備
-        run: pip install -r requirements.txt
+        run: |
+          pip install -r requirements.txt
+          mkdir -p data/logs
+          echo "実行 $(TZ=Asia/Tokyo date '+%F %T') ${{ github.event_name }}" > data/logs/latest.txt
+          for n in RAKUTEN_APP_ID RAKUTEN_ACCESS_KEY HOTPEPPER_API_KEY GEMINI_API_KEY HOST USER_ID PORT DEST; do
+            if [ -n "${!n}" ]; then echo "設定あり $n"; else echo "未設定 $n"; fi
+          done | python scripts/redact.py
 
       # push のときはデータを取り直さず、ページの作り直しと転送だけ行う
       - name: イベント情報の取得
         if: github.event_name != 'push'
-        working-directory: scripts
-        run: python fetch_events.py
+        run: cd scripts && python fetch_events.py 2>&1 | python redact.py; exit ${PIPESTATUS[0]}
         continue-on-error: true
 
       - name: 楽天トラベルの宿と空室の取得
         if: github.event_name != 'push'
-        working-directory: scripts
-        env:
-          RAKUTEN_APP_ID: ${{ secrets.RAKUTEN_APP_ID }}
-          RAKUTEN_ACCESS_KEY: ${{ secrets.RAKUTEN_ACCESS_KEY }}
-        run: python fetch_hotels.py
+        run: cd scripts && python fetch_hotels.py 2>&1 | python redact.py; exit ${PIPESTATUS[0]}
         continue-on-error: true
 
       - name: ホットペッパーの飲食店の取得
         if: github.event_name != 'push'
-        working-directory: scripts
-        env:
-          HOTPEPPER_API_KEY: ${{ secrets.HOTPEPPER_API_KEY }}
-        run: python fetch_restaurants.py
+        run: cd scripts && python fetch_restaurants.py 2>&1 | python redact.py; exit ${PIPESTATUS[0]}
         continue-on-error: true
 
       - name: 解説文の生成（新しいイベントだけ）
         if: github.event_name != 'push'
-        working-directory: scripts
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: python write_texts.py
+        run: cd scripts && python write_texts.py 2>&1 | python redact.py; exit ${PIPESTATUS[0]}
         continue-on-error: true
 
-      - name: 取得したデータを保存
-        if: github.event_name != 'push'
-        run: |
-          git config user.name "chikayado-bot"
-          git config user.email "chikayado-bot@users.noreply.github.com"
-          git add data
-          git diff --cached --quiet || git commit -m "データ更新 $(date +%F)"
-          git push
-
       - name: ページの生成
-        working-directory: scripts
-        run: python build.py
+        run: cd scripts && python build.py 2>&1 | python redact.py; exit ${PIPESTATUS[0]}
 
       - name: Xサーバーへ転送
+        id: deploy
         env:
-          HOST: ${{ secrets.XSERVER_HOST }}
-          USER: ${{ secrets.XSERVER_USER }}
-          PORT: ${{ secrets.XSERVER_PORT }}
           KEY: ${{ secrets.XSERVER_SSH_KEY }}
-          DEST: ${{ secrets.XSERVER_PATH }}
         run: |
+          set -o pipefail
           # 転送先がちか宿の公開フォルダでなければ止める（ほかのサイトを消さないため）
           case "$DEST" in
             */xn--u8j0b149r.jp/public_html|*/xn--u8j0b149r.jp/public_html/) ;;
-            *) echo "転送先のパスが想定と違うため中止しました"; exit 1 ;;
+            *) echo "転送先のパスが想定と違うため中止しました" | python scripts/redact.py; exit 1 ;;
           esac
-          if [ ! -s dist/index.html ]; then echo "ページが生成されていないため中止しました"; exit 1; fi
+          if [ ! -s dist/index.html ]; then echo "ページが生成されていないため中止しました" | python scripts/redact.py; exit 1; fi
           mkdir -p ~/.ssh
-          printf '%s\n' "$KEY" > ~/.ssh/xserver
+          printf '%s\n' "$KEY" | tr -d '\r' > ~/.ssh/xserver
           chmod 600 ~/.ssh/xserver
-          rsync -az --delete \
+          ssh-keygen -y -f ~/.ssh/xserver > /dev/null 2>&1 && echo "鍵の形式は正常" || echo "鍵を読み込めません（貼り付けた中身を確認）"
+          rsync -az --delete --stats \
             --exclude '.htaccess' --exclude '.well-known/' --exclude 'google*.html' \
-            -e "ssh -p ${PORT:-10022} -i ~/.ssh/xserver -o StrictHostKeyChecking=accept-new" \
-            dist/ "$USER@$HOST:${DEST%/}/"
+            -e "ssh -p ${PORT:-10022} -i $HOME/.ssh/xserver -o StrictHostKeyChecking=accept-new -o BatchMode=yes" \
+            dist/ "$USER_ID@$HOST:${DEST%/}/" 2>&1 | tail -20 | python scripts/redact.py
+          echo "転送完了" | python scripts/redact.py
+        continue-on-error: true
+
+      - name: データと実行ログを保存
+        if: always()
+        run: |
           rm -f ~/.ssh/xserver
+          git config user.name "chikayado-bot"
+          git config user.email "chikayado-bot@users.noreply.github.com"
+          git add data
+          git diff --cached --quiet || git commit -m "データ更新 $(TZ=Asia/Tokyo date +%F) [skip ci]"
+          git pull --rebase -q && git push
+
+      - name: 転送の失敗を知らせる
+        if: steps.deploy.outcome == 'failure'
+        run: |
+          echo "Xサーバーへの転送に失敗しました。data/logs/latest.txt を確認してください"
+          exit 1
