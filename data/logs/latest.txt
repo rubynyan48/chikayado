@@ -1,4 +1,4 @@
-実行 2026-10-24 20:19:19 workflow_dispatch
+実行 2026-10-24 20:22:11 workflow_dispatch
 設定あり RAKUTEN_APP_ID
 設定あり RAKUTEN_ACCESS_KEY
 未設定 HOTPEPPER_API_KEY
@@ -41,11 +41,13 @@
 347ページを書き出しました
 鍵の形式は正常
 File list transfer time: 0.000 seconds
-Total bytes sent: 44,141
+Total bytes sent: 44,446
 Total bytes received: 80,708
 
-sent 44,141 bytes  received 80,708 bytes  27,744.22 bytes/sec
-total size is 8,329,450  speedup is 66.72
+sent 44,446 bytes  received 80,708 bytes  19,254.46 bytes/sec
+total size is 8,329,450  speedup is 66.55
 転送完了（1回目）
 空室検索の設定を配置
 空室検索のテスト HTTP 200
+応答の長さ 5720
+{"date":"2026-10-31","adults":2,"hotels":[{"name":"東京ベイ有明ワシントンホテル","walk":6,"distance":"341m","image":"https:\/\/img.travel.rakuten.co.jp\/share\/HOTEL\/1177\/1177.jpg","rate":4.269999999999999573674358543939888477325439453125,"bath":false,"per_person":18500,"room":"★リニューアル★スタンダード ダブル","url":"https:\/\/af.moshimo.com\/af\/c\/click?a_id=5863620&p_id=55&pc_id=55&pl_id=624&url=https%3A%2F%2Ftravel.ra
