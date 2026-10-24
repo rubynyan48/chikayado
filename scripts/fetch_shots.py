@@ -107,6 +107,9 @@ def main():
             done = 0
             for e in targets:
                 old = index.get(e["slug"])
+                # 手で入れた画像はそのまま使う
+                if old and old.get("manual"):
+                    continue
                 if old and old.get("taken", "") >= (today - timedelta(days=RETAKE_DAYS)).isoformat():
                     continue
                 if done >= MAX_PER_RUN:

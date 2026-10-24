@@ -96,7 +96,7 @@
 {% set shot = shots.get(e.slug) %}
 {% if shot %}
 <figure class="shot">
-  <a href="{{ shot.url }}" rel="noopener" target="_blank"><img src="/images/shots/{{ shot.file }}" alt="{{ e.name }}の公式サイトの画面" loading="lazy" width="1200" height="750"></a>
+  <a href="{{ shot.url }}" rel="noopener" target="_blank"><img src="/images/shots/{{ shot.file }}" alt="{{ e.name }}の公式サイトの画面" loading="lazy" width="{{ shot.w or 1200 }}" height="{{ shot.h or 750 }}"></a>
   <figcaption>出典 <a href="{{ shot.url }}" rel="noopener" target="_blank">{{ e.name }}公式サイト</a></figcaption>
 </figure>
 {% endif %}
