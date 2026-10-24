@@ -1,32 +1,42 @@
+{% set items = with_offers(hotels, (sat_vacancy or {}).get('by_people', {}).get('1')) if sat_vacancy else with_offers(hotels, None) %}
 {% set nearest = hotels|first if hotels else None %}
 {% if nearest %}
 <div class="answer">
   <p class="answer-q">{{ venue.name }}にいちばん近いホテルは</p>
-  <p class="answer-a">{{ nearest.name }}<br>会場から直線で約<span class="num">{{ dist_label(nearest.distance_m) }}</span></p>
-  <p class="answer-note">1km以内の歩いて行ける範囲には{{ near_hotels|length }}軒あります。距離は毎日、楽天トラベルの情報から計算し直しています。</p>
+  <p class="answer-a">{{ nearest.name }}<br>会場まで徒歩約<span class="num">{{ walk_min(nearest.distance_m) }}</span>分</p>
+  <p class="answer-note">歩いて行ける1km以内には{{ near_hotels|length }}軒あります。目的に合わせたおすすめと、写真つきの比較表で選べます。</p>
 </div>
 <div class="book"><p>予約はこちら</p><a class="btn btn-primary btn-block" href="{{ nearest.plan_url or nearest.info_url }}" rel="nofollow sponsored noopener" target="_blank">{{ nearest.name }}の空室を見る</a></div>
 {% endif %}
-<p>大きな展示会や週末のイベントが重なる日は、会場に近いホテルから先に埋まっていきます。徒歩圏が取れないときは、ゆりかもめやりんかい線で1〜2駅の豊洲や台場が次の候補です。</p>
+<p>大きな展示会や週末のイベントが重なる日は、会場に近いホテルから先に埋まっていきます。人数が決まっているなら、人数で探すと1人あたりの料金で比べられます。</p>
 <!--body-->
-<h2>{{ venue.name }}に近いホテル</h2>
+<h2>目的別のおすすめホテル</h2>
+<div id="best"></div>
+{{ best_cards(items, ("料金は" ~ jdate(saturday) ~ "に大人1人で泊まる場合の最安値です。") if sat_vacancy else "料金は楽天トラベルに出ている最安料金の目安です。") }}
+
+<h2>人数で探す</h2>
+<p>同じホテルでも、泊まる人数で1人あたりの料金は大きく変わります。人数を選ぶと、その人数で1部屋に泊まれる宿だけを比べられます。</p>
+<div class="people-links">
+  <a class="btn btn-sign" href="/{{ venue.slug }}/hitori/">1人で泊まる</a>
+  <a class="btn btn-sign" href="/{{ venue.slug }}/futari/">2人で泊まる</a>
+  <a class="btn btn-sign" href="/{{ venue.slug }}/3nin/">3人で泊まる</a>
+  <a class="btn btn-sign" href="/{{ venue.slug }}/4nin/">4人で泊まる</a>
+</div>
+
+<h2>会場とホテルの位置</h2>
+{{ hotel_map(items, venue) }}
+
+<h2>ホテルを比較する</h2>
+<p>会場までの距離、料金、口コミの評価を並べました。ボタンで並べ替えられます。立地、部屋、食事は楽天トラベルの口コミの項目別の評価です。</p>
+{{ compare_table(items, "1人の料金" if sat_vacancy else "料金の目安") }}
+
+<h2>会場に近い順のホテル</h2>
 <div id="hotels"></div>
-<p>会場から近い順に並べています。距離はホテルと会場の位置から計算した直線距離で、歩く時間は道のりを少し長めに見積もった目安です。</p>
-{{ hotel_cards(hotels, 6) }}
-
-<h2>距離をものさしで見る</h2>
-<figure class="ruler">
-  {{ ruler(hotels) }}
-  <figcaption>会場から3km以内のホテルの位置を、会場からの直線距離で並べました。黄色の範囲が歩いて行ける1km以内です。</figcaption>
-</figure>
-<p>会場のすぐ近くにまとまっているのが有明のホテルで、2km前後に固まっているのが豊洲や台場のホテルです。「歩いて行けるか」「電車で1〜2駅か」で考えると選びやすくなります。</p>
-
-<h2>会場に近い順のホテル一覧</h2>
-<p>会場から3km以内で楽天トラベルに掲載されている{{ hotels|length }}軒です。</p>
-{{ hotel_table(hotels) }}
+<p>番号は地図の番号と同じです。距離は直線距離で、歩く時間は道のりを少し長めに見積もった目安です。</p>
+{{ hotel_cards(items, 8, checkin=saturday, numbered=True) }}
 
 <h2>これから開催されるイベント</h2>
-<p>イベントごとに、開催初日に空室のあるホテルと料金をまとめたページを用意しています。</p>
+<p>イベントごとに、開催初日に空室のあるホテルと人数別の料金をまとめています。</p>
 {{ event_table(events, venue.slug, 8) }}
 <p><a class="btn btn-sign" href="/{{ venue.slug }}/events/">開催予定をすべて見る</a></p>
 
@@ -39,23 +49,12 @@
   {% endfor %}
   </tbody>
 </table></div>
-<p>いちばん近いのはゆりかもめの東京ビッグサイト駅です。りんかい線の国際展示場駅は少し歩きますが、JR埼京線と直通する列車があり、新宿や渋谷、大崎方面から乗り換えなしで来られます。それぞれの駅からの道順は写真つきのページで案内しています。</p>
-<p><a href="/{{ venue.slug }}/yurikamome/">ゆりかもめ東京ビッグサイト駅からの道順</a><br><a href="/{{ venue.slug }}/rinkai/">りんかい線国際展示場駅からの道順</a><br><a href="/{{ venue.slug }}/access/">東京駅や新宿駅や羽田空港からの行き方</a></p>
+<p>いちばん近いのはゆりかもめの東京ビッグサイト駅です。りんかい線の国際展示場駅は少し歩きますが、JR埼京線と直通する列車があり、新宿や渋谷、大崎方面から乗り換えなしで来られます。</p>
+<p><a href="/{{ venue.slug }}/access/">東京駅や新宿駅や羽田空港からの行き方</a></p>
 
 <h2>展示棟によって近さは変わります</h2>
-<p>東京ビッグサイトには東・西・南の3つの展示棟と会議棟があり、建物の端から端まではかなり距離があります。駅から近いのは会議棟と西展示棟で、東展示棟はガレリアと呼ばれる長い通路を奥まで進んだ先にあります。イベントがどの棟で開かれるかを先に確認しておくと、宿から会場までの時間を正しく見積もれます。</p>
+<p>東京ビッグサイトには東・西・南の3つの展示棟と会議棟があり、建物の端から端まではかなり距離があります。駅から近いのは会議棟と西展示棟で、東展示棟はガレリアと呼ばれる長い通路を奥まで進んだ先にあります。</p>
 <p><a href="/{{ venue.slug }}/halls/">東展示棟と西展示棟と南展示棟の違いを見る</a></p>
-
-<h2>泊まるエリアの選び方</h2>
-<div class="table-wrap"><table>
-  <thead><tr><th>エリア</th><th>会場への行き方</th><th>向いている人</th></tr></thead>
-  <tbody>
-    <tr><td>有明</td><td>歩いて行ける</td><td>朝早く会場に入りたい人、荷物が多い出展者</td></tr>
-    <tr><td>豊洲</td><td>ゆりかもめ</td><td>徒歩圏が埋まっていたとき、食事の店も多く選びたい人</td></tr>
-    <tr><td>台場</td><td>ゆりかもめ</td><td>イベントのあとに観光も楽しみたい人</td></tr>
-  </tbody>
-</table></div>
-<p><a href="/{{ venue.slug }}/area/">泊まるエリアの選び方を詳しく見る</a><br><a href="/{{ venue.slug }}/exhibitor/">展示会に出展するときの宿の選び方</a></p>
 
 <h2>会場の基本情報</h2>
 <div class="table-wrap"><table>

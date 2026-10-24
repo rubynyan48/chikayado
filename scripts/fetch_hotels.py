@@ -12,7 +12,7 @@ from common import DATA, REFERER, SITE, distance_m, env, polite_get, read_json, 
 
 HOTEL_URL = "https://openapi.rakuten.co.jp/engine/api/Travel/SimpleHotelSearch/20260731"
 VACANT_URL = "https://openapi.rakuten.co.jp/engine/api/Travel/VacantHotelSearch/20170426"
-VACANCY_DAYS_AHEAD = 180  # これより先の開催日は空室を調べない
+VACANCY_DAYS_AHEAD = 120  # これより先の開催日は空室を調べない
 
 
 def flatten_hotel(entry):
@@ -97,11 +97,61 @@ def headers():
     return {"Referer": REFERER, "Origin": REFERER.rstrip("/"), "accessKey": env("RAKUTEN_ACCESS_KEY") or ""}
 
 
+def collect_texts(entry, keys):
+    """指定した項目の中にある文字を、入れ子をたどってすべて集める。"""
+    out = []
+
+    def walk(x, inside):
+        if isinstance(x, dict):
+            for k, v in x.items():
+                walk(v, inside or k in keys)
+        elif isinstance(x, list):
+            for v in x:
+                walk(v, inside)
+        elif inside and isinstance(x, str) and x.strip():
+            out.append(tidy(x))
+
+    walk(entry, False)
+    return out
+
+
+SMOKE_OK = re.compile(r"喫煙(ルーム|室|所|可|スペース|ブース|コーナー|できる)")
+NO_SMOKE_ALL = re.compile(r"(全館|全室|館内全面|全面)禁煙")
+
+
+def smoking_status(texts):
+    joined = " ".join(texts)
+    if NO_SMOKE_ALL.search(joined):
+        return "全館禁煙"
+    if SMOKE_OK.search(joined):
+        return "喫煙できる場所あり"
+    return ""
+
+
+def squeeze_ids(venue, condition):
+    """条件（大浴場・温泉・禁煙ルーム）に合う宿の番号を集める。"""
+    ids, page = set(), 1
+    while True:
+        params = dict(base_params(venue), responseType="small", hits=30, page=page, squeezeCondition=condition)
+        res = polite_get(HOTEL_URL, params, headers())
+        if res is None:
+            break
+        body = res.json()
+        for entry in body.get("hotels", []):
+            no = flatten_hotel(entry).get("hotelNo")
+            if no:
+                ids.add(str(no))
+        if page >= int(body.get("pagingInfo", {}).get("pageCount", 1) or 1) or page >= 10:
+            break
+        page += 1
+    return ids
+
+
 def fetch_hotels(venue):
     hotels = {}
     page = 1
     while True:
-        params = dict(base_params(venue), responseType="middle", hits=30, page=page)
+        params = dict(base_params(venue), responseType="large", hits=30, page=page)
         res = polite_get(HOTEL_URL, params, headers())
         if res is None:
             break
@@ -128,12 +178,34 @@ def fetch_hotels(venue):
                 "image": h.get("hotelImageUrl", ""),
                 "info_url": h.get("hotelInformationUrl", ""),
                 "plan_url": h.get("planListUrl", ""),
-                "special": h.get("hotelSpecial", ""),
+                "special": tidy(h.get("hotelSpecial", "")),
+                "ratings": {k: h.get(f"{k}Average") for k in ("service", "location", "room", "equipment", "bath", "meal")
+                            if h.get(f"{k}Average") not in (None, "", 0)},
+                "facilities": collect_texts(entry, {"hotelFacilities"}),
+                "room_facilities": collect_texts(entry, {"roomFacilities"}),
+                "bath_type": tidy(h.get("bathType", "")),
+                "checkin": h.get("checkinTime", ""),
+                "checkout": h.get("checkoutTime", ""),
+                "rooms": h.get("hotelRoomNum"),
+                "smoking": smoking_status(collect_texts(entry, {"hotelFacilities", "roomFacilities", "note", "otherInformation"})),
             }
         paging = body.get("pagingInfo", {})
         if page >= int(paging.get("pageCount", 1) or 1) or page >= 10:
             break
         page += 1
+    # 大浴場・温泉・禁煙ルームの有無は絞り込み検索で確かめる
+    for cond, key in (("daiyoku", "daiyoku"), ("onsen", "onsen"), ("kinen", "kinen_room")):
+        try:
+            ids = squeeze_ids(venue, cond)
+        except Exception as exc:
+            print(f"  {cond}の絞り込みに失敗 {exc}", file=sys.stderr)
+            continue
+        for no, h in hotels.items():
+            h[key] = no in ids
+    for h in hotels.values():
+        # 絞り込みに出なくても、館内設備に大浴場とあれば大浴場ありとする
+        if not h.get("daiyoku") and any("大浴場" in t for t in h["facilities"] + [h["bath_type"]]):
+            h["daiyoku"] = True
     result = sorted(hotels.values(), key=lambda h: h["distance_m"])
     write_json(DATA / "hotels" / f"{venue['slug']}.json",
                {"venue": venue["slug"], "updated": date.today().isoformat(), "hotels": result})
@@ -141,18 +213,14 @@ def fetch_hotels(venue):
     return result
 
 
-_vacancy_cache = {}
+PEOPLE = (1, 2, 3, 4)  # 人数別に空室を調べる
 
 
-def fetch_vacancy(venue, event):
-    checkin = date.fromisoformat(event["start"])
-    key = (venue["slug"], checkin)
-    if key in _vacancy_cache:
-        write_json(DATA / "vacancy" / venue["slug"] / f"{event['slug']}.json", _vacancy_cache[key])
-        return
+def fetch_vacancy_day(venue, checkin, adults):
+    """その日に大人adults人で1室に泊まれる宿の、いちばん安いプランを宿ごとに取る。"""
     params = dict(base_params(venue), checkinDate=checkin.isoformat(),
                   checkoutDate=(checkin + timedelta(days=1)).isoformat(),
-                  adultNum=1, hits=30, sort="+roomCharge", responseType="small")
+                  adultNum=adults, roomNum=1, hits=30, sort="+roomCharge", responseType="small")
     found = {}
     for page in (1, 2):
         params["page"] = page
@@ -168,15 +236,27 @@ def fetch_vacancy(venue, event):
             cheapest = min(plans, key=lambda p: p["total"])
             found[str(h["hotelNo"])] = {
                 "total": cheapest["total"],
-                "plan": cheapest.get("planName", ""),
+                "per_person": round(cheapest["total"] / adults),
+                "plan": tidy(cheapest.get("planName", "")),
+                "room": tidy(cheapest.get("roomName", "")),
                 "reserve_url": cheapest.get("reserveUrl", ""),
             }
         if page >= int(body.get("pagingInfo", {}).get("pageCount", 1) or 1):
             break
-    result = {"checked": date.today().isoformat(), "checkin": checkin.isoformat(), "hotels": found}
-    _vacancy_cache[key] = result
-    write_json(DATA / "vacancy" / venue["slug"] / f"{event['slug']}.json", result)
-    print(f"  {event['name']} {checkin}: 空室あり {len(found)}軒")
+    return found
+
+
+def fetch_date(venue, checkin):
+    by_people = {}
+    for n in PEOPLE:
+        by_people[str(n)] = fetch_vacancy_day(venue, checkin, n)
+    write_json(DATA / "vacancy" / venue["slug"] / f"{checkin.isoformat()}.json",
+               {"checked": date.today().isoformat(), "checkin": checkin.isoformat(), "by_people": by_people})
+    print(f"  {checkin}: 空室あり " + " ".join(f"{n}人{len(v)}軒" for n, v in by_people.items()))
+
+
+def next_saturday(today):
+    return today + timedelta(days=(5 - today.weekday()) % 7 or 7)
 
 
 def main():
@@ -193,15 +273,24 @@ def main():
             print(f"{venue['name']}: 宿の取得に失敗 {exc}", file=sys.stderr)
             continue
         events = read_json(DATA / "events" / f"{venue['slug']}.json", {"events": []})["events"]
+        # イベントの初日と、人数別ページに使う次の土曜日。同じ日は1回だけ調べる
+        dates = {next_saturday(today)}
         for event in events:
             start = date.fromisoformat(event["start"])
-            if start < today or start > today + timedelta(days=VACANCY_DAYS_AHEAD):
-                continue
+            if today <= start <= today + timedelta(days=VACANCY_DAYS_AHEAD):
+                dates.add(start)
+        # 古い日付のファイルは消す
+        folder = DATA / "vacancy" / venue["slug"]
+        if folder.exists():
+            for f in folder.glob("*.json"):
+                if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", f.stem) or f.stem < today.isoformat():
+                    f.unlink()
+        for d in sorted(dates):
             try:
-                fetch_vacancy(venue, event)
+                fetch_date(venue, d)
             except Exception as exc:
                 failed = True
-                print(f"  {event['name']}: 空室の取得に失敗 {exc}", file=sys.stderr)
+                print(f"  {d}: 空室の取得に失敗 {exc}", file=sys.stderr)
     return 1 if failed else 0
 
 

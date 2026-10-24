@@ -1,0 +1,61 @@
+{% set n = page.people %}
+{% set offers = (sat_vacancy or {}).get('by_people', {}).get(n) %}
+{% set items = with_offers(hotels, offers) if sat_vacancy else [] %}
+{% set cheap = (items | sort(attribute='offer.per_person') | first) if items else None %}
+{% set near_items = items | selectattr('distance_m', 'le', 1000) | list %}
+{% if cheap %}
+<div class="answer">
+  <p class="answer-q">{{ venue.name }}の近くに{{ page.people_label }}で泊まるなら</p>
+  <p class="answer-a">1人<span class="num">{{ yen(cheap.offer.per_person) }}</span>から</p>
+  <p class="answer-note">{{ jdate(saturday) }}に大人{{ n }}人で1部屋に泊まれる宿は{{ items|length }}軒、そのうち会場まで歩ける宿は{{ near_items|length }}軒です。いちばん安いのは{{ cheap.name }}です。</p>
+</div>
+<div class="book"><p>予約はこちら</p><a class="btn btn-primary btn-block" href="{{ cheap.offer.reserve_url or cheap.plan_url }}" rel="nofollow sponsored noopener" target="_blank">{{ cheap.name }}の空室を見る</a></div>
+{% else %}
+<div class="answer">
+  <p class="answer-q">{{ venue.name }}の近くに{{ page.people_label }}で泊まるなら</p>
+  <p class="answer-a">空室を調べています</p>
+  <p class="answer-note">空室と料金は毎日取り直しています。</p>
+</div>
+{% endif %}
+<p>料金は{{ jdate(saturday) }}にチェックインして1泊する場合の、1部屋に{{ n }}人で泊まるいちばん安いプランを1人あたりに直したものです。イベントの日は料金が上がることが多いので、行くイベントが決まっている場合はイベントのページで開催日の料金を確認してください。</p>
+<!--body-->
+<h2>{{ page.people_label }}で泊まるおすすめ</h2>
+<div id="best"></div>
+{{ best_cards(items) }}
+
+<h2>会場とホテルの位置</h2>
+{{ hotel_map(items, venue) }}
+
+<h2>{{ page.people_label }}で泊まれるホテルの比較</h2>
+<p>ボタンで近い順、安い順、評価が高い順に並べ替えられます。</p>
+{{ compare_table(items, "1人あたり") }}
+
+<h2>{{ page.people_label }}で泊まれるホテル</h2>
+<p>番号は地図の番号と同じです。部屋の名前は、いちばん安いプランの部屋です。</p>
+{{ hotel_cards(items, 8, checkin=saturday, numbered=True) }}
+
+<h2>{{ page.people_label }}で泊まるときのポイント</h2>
+{% if n == '1' %}
+<h3>シングルルームは早く埋まる</h3>
+<p>出張の多い展示会の時期は、会場の近くのシングルルームから先に埋まります。1人で泊まるなら、会期が決まった時点で押さえておくのが安心です。</p>
+<h3>少し離れても安さを取る選び方もある</h3>
+<p>会場まで歩けるホテルが高いときは、ゆりかもめやりんかい線で1〜2駅の宿にすると料金を抑えやすくなります。比較表の安い順で、距離とのバランスを見てください。</p>
+{% elif n == '2' %}
+<h3>ツインかダブルかを確かめる</h3>
+<p>2人で泊まるときは、ベッドが2台のツインか、1台のダブルかで向き不向きが変わります。同僚や友人と泊まるならツインの部屋を選びましょう。</p>
+<h3>2人なら1人あたりが安くなりやすい</h3>
+<p>1部屋に2人で泊まると、1人で泊まるより1人あたりの料金が下がることが多くなります。会場まで歩ける宿も、2人なら手が届きやすくなります。</p>
+{% else %}
+<h3>{{ n }}人で泊まれる部屋は数が少ない</h3>
+<p>{{ n }}人で1部屋に泊まれるのは、トリプルやフォースの部屋、和室やコネクティングルームなどに限られ、ホテルごとの部屋数も多くありません。人数がそろっているなら、早めに押さえておきましょう。</p>
+<h3>2部屋に分ける選び方もある</h3>
+<p>{{ n }}人で泊まれる部屋が見つからないときは、2部屋に分けて同じホテルに泊まる方法もあります。<a href="/{{ venue.slug }}/{{ 'futari' if n == '4' else 'hitori' }}/">{{ '2人' if n == '4' else '1人' }}で泊まるページ</a>もあわせて見てください。</p>
+{% endif %}
+
+<h2>ほかの人数で探す</h2>
+<div class="people-links">
+  <a class="btn btn-sign" href="/{{ venue.slug }}/hitori/">1人で泊まる</a>
+  <a class="btn btn-sign" href="/{{ venue.slug }}/futari/">2人で泊まる</a>
+  <a class="btn btn-sign" href="/{{ venue.slug }}/3nin/">3人で泊まる</a>
+  <a class="btn btn-sign" href="/{{ venue.slug }}/4nin/">4人で泊まる</a>
+</div>

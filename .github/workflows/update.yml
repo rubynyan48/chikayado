@@ -96,7 +96,7 @@ jobs:
           # つながらないときは少し待って3回まで試す
           for attempt in 1 2 3; do
             if rsync -az --delete --stats \
-                --exclude '.htaccess' --exclude '.well-known/' --exclude 'google*.html' \
+                --exclude '.well-known/' --exclude 'google*.html' \
                 -e "ssh -p ${PORT:-10022} -i $HOME/.ssh/xserver -o StrictHostKeyChecking=accept-new -o BatchMode=yes -o ConnectTimeout=30" \
                 dist/ "$USER_ID@$HOST:${DEST%/}/" > rsync.log 2>&1; then
               tail -6 rsync.log | python scripts/redact.py

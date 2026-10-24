@@ -1,9 +1,16 @@
 <p>イベントの日は、会場から近い宿ほど早く埋まります。ちか宿では会場ごとに周辺のホテルを距離順に並べ、イベントごとに開催日の空室も毎日調べ直しています。</p>
-<figure class="ruler">
-  {{ ruler(hotels) }}
-  <figcaption>東京ビッグサイトから各ホテルまでの直線距離。黄色の範囲が歩いて行ける目安です。</figcaption>
-</figure>
+<div class="people-links">
+  <a class="btn btn-primary" href="/tokyo-big-sight/">東京ビッグサイトに近いホテル</a>
+</div>
 <!--body-->
+<h2>人数で探す</h2>
+<div class="people-links">
+  <a class="btn btn-sign" href="/tokyo-big-sight/hitori/">1人で泊まる</a>
+  <a class="btn btn-sign" href="/tokyo-big-sight/futari/">2人で泊まる</a>
+  <a class="btn btn-sign" href="/tokyo-big-sight/3nin/">3人で泊まる</a>
+  <a class="btn btn-sign" href="/tokyo-big-sight/4nin/">4人で泊まる</a>
+</div>
+
 <h2>会場から探す</h2>
 <a class="venue-link" href="/tokyo-big-sight/">
   <strong>東京ビッグサイト</strong>
@@ -19,6 +26,6 @@
 {{ event_table(events, venue.slug, 6) }}
 <p><a class="btn btn-sign" href="/tokyo-big-sight/events/">開催予定をすべて見る</a></p>
 
-<h2>このサイトの距離の見方</h2>
+<h2>このサイトの見方</h2>
 <p>ホテルの距離は、地図上の会場とホテルの位置から計算した直線距離です。実際に歩く道のりは、信号や建物を回り込む分だけ長くなります。1km以内なら歩いて行ける範囲、2km前後なら電車で1〜2駅の範囲と考えると選びやすくなります。</p>
 <p>展示会場は建物が大きく、入口から目的のホールまでさらに歩くこともあります。会場ページでは、展示棟ごとの近さの違いもあわせて案内しています。</p>

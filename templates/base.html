@@ -13,6 +13,7 @@
 <meta property="og:site_name" content="{{ site.name }}">
 <meta property="og:locale" content="ja_JP">
 <link rel="stylesheet" href="/style.css">
+{% if page.has_map %}<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">{% endif %}
 {% if site.ga_id %}
 <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.ga_id }}"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','{{ site.ga_id }}');</script>
@@ -23,7 +24,7 @@
 </head>
 <body>
 <header class="site-header">
-  <div class="wrap header-inner">
+  <div class="header-inner">
     <a class="logo" href="/">
       <span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 32 32" width="30" height="30"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="16" cy="16" r="8" fill="none" stroke="currentColor" stroke-width="2.5" opacity=".55"/><circle cx="16" cy="16" r="3.2" fill="#F5C518"/></svg></span>
       <span class="logo-text">{{ site.name }}<small>{{ site.tagline }}</small></span>
@@ -35,8 +36,10 @@
   </div>
 </header>
 
+<div class="layout">
+<div class="main-col">
 {% if page.breadcrumbs %}
-<nav class="breadcrumbs wrap" aria-label="現在地">
+<nav class="breadcrumbs" aria-label="現在地">
   <ol>
   {% for b in page.breadcrumbs %}
     <li>{% if not loop.last %}<a href="{{ b.path }}">{{ b.name }}</a>{% else %}<span aria-current="page">{{ b.name }}</span>{% endif %}</li>
@@ -44,10 +47,8 @@
   </ol>
 </nav>
 {% endif %}
-
 <main id="main">
-{% block main %}
-<article class="article wrap{% if page.is_home %} article-home{% endif %}">
+<article class="article">
   <h1>{{ page.h1 or page.title }}</h1>
   {% if page.updated %}<p class="meta">更新日 {{ page.updated }}</p>{% endif %}
   <div class="lead">{{ page.lead | safe }}</div>
@@ -61,12 +62,93 @@
   {% endif %}
   <div class="body">{{ page.body | safe }}</div>
 </article>
-{% endblock %}
 </main>
+</div>
+
+<aside class="side" aria-label="サイドメニュー">
+  <section class="side-box">
+    <p class="side-title">人数で探す</p>
+    <div class="side-people">
+    {% for slug, n, label in side.people %}<a class="btn btn-sign" href="/{{ side.venue.slug }}/{{ slug }}/">{{ label }}</a>{% endfor %}
+    </div>
+  </section>
+  <section class="side-box">
+    <p class="side-title">会場で探す</p>
+    <ul class="side-list">
+      <li><a href="/{{ side.venue.slug }}/">{{ side.venue.name }}に近いホテル</a></li>
+    </ul>
+  </section>
+  <section class="side-box">
+    <p class="side-title">目的で選ぶ</p>
+    <ul class="side-list">
+      <li><a href="/{{ side.venue.slug }}/exhibitor/">展示会に出展するとき</a></li>
+      <li><a href="/{{ side.venue.slug }}/area/">泊まるエリアの選び方</a></li>
+      <li><a href="/{{ side.venue.slug }}/halls/">展示棟の違い</a></li>
+      <li><a href="/{{ side.venue.slug }}/access/">駅や空港からの行き方</a></li>
+      <li><a href="/{{ side.venue.slug }}/rinkai/">りんかい線からの道順</a></li>
+      <li><a href="/{{ side.venue.slug }}/yurikamome/">ゆりかもめからの道順</a></li>
+    </ul>
+  </section>
+  {% if side.events %}
+  <section class="side-box">
+    <p class="side-title">これからのイベント</p>
+    <ul class="side-list side-events">
+    {% for e in side.events %}<li><a href="/{{ side.venue.slug }}/{{ e.slug }}/"><span class="sub">{{ jdate(e.start, False) }}</span>{{ e.name }}</a></li>{% endfor %}
+    </ul>
+    <a class="side-more" href="/{{ side.venue.slug }}/events/">開催予定をすべて見る</a>
+  </section>
+  {% endif %}
+</aside>
+</div>
 
 {% if page.float_cta %}
 <a class="float-cta btn btn-primary" href="{{ page.float_cta.href }}">{{ page.float_cta.label }}</a>
-<script>(function(){var b=document.querySelector('.float-cta');function f(){b.classList.toggle('show',window.scrollY>700)}window.addEventListener('scroll',f,{passive:true});f();})();</script>
+{% endif %}
+<script>
+(function(){
+  var b=document.querySelector('.float-cta');
+  if(b){var f=function(){b.classList.toggle('show',window.scrollY>700)};window.addEventListener('scroll',f,{passive:true});f();}
+  document.querySelectorAll('.compare-block').forEach(function(blk){
+    var g=blk.querySelector('.sorter'), table=blk.querySelector('tbody');
+    g.querySelectorAll('button').forEach(function(btn){btn.addEventListener('click',function(){
+      var k=btn.dataset.sort, rows=[].slice.call(table.rows);
+      rows.sort(function(a,c){var x=+a.dataset[k],y=+c.dataset[k];return k==='rate'?y-x:x-y;});
+      rows.forEach(function(r){table.appendChild(r)});
+      g.querySelectorAll('button').forEach(function(o){o.setAttribute('aria-pressed',o===btn)});
+    })});
+    var boxes=blk.querySelectorAll('.filters input');
+    boxes.forEach(function(cb){cb.addEventListener('change',function(){
+      [].forEach.call(table.rows,function(r){
+        var ok=true;boxes.forEach(function(b){if(b.checked&&r.dataset[b.dataset.filter]!=='1')ok=false;});
+        r.hidden=!ok;
+      });
+    })});
+  });
+  document.querySelectorAll('.tabs').forEach(function(t){
+    t.querySelectorAll('[role=tab]').forEach(function(tab){tab.addEventListener('click',function(){
+      t.querySelectorAll('[role=tab]').forEach(function(o){o.setAttribute('aria-selected',o===tab)});
+      t.querySelectorAll('[role=tabpanel]').forEach(function(p){p.hidden=p.id!==tab.dataset.tab});
+    })});
+  });
+})();
+</script>
+{% if page.has_map %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+document.querySelectorAll('.map').forEach(function(el){
+  var d=JSON.parse(el.dataset.map), m=L.map(el,{scrollWheelZoom:false});
+  L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png',{maxZoom:18,attribution:'<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener">地理院タイル</a>'}).addTo(m);
+  var pts=[[d.venue.lat,d.venue.lng]];
+  L.marker([d.venue.lat,d.venue.lng],{icon:L.divIcon({className:'pin-venue',html:'会場',iconSize:[44,26]})}).addTo(m);
+  d.pins.forEach(function(p){
+    pts.push([p.lat,p.lng]);
+    var a=document.createElement('div');a.innerHTML='<strong></strong><br><span></span><br><a target="_blank" rel="nofollow sponsored noopener">空室と料金を見る</a>';
+    a.querySelector('strong').textContent=p.name;a.querySelector('span').textContent='会場まで'+p.d+(p.p?'　'+p.p+'から':'');a.querySelector('a').href=p.url;
+    L.marker([p.lat,p.lng],{icon:L.divIcon({className:'pin',html:String(p.n),iconSize:[28,28]})}).addTo(m).bindPopup(a);
+  });
+  m.fitBounds(pts,{padding:[24,24]});
+});
+</script>
 {% endif %}
 
 <footer class="site-footer">
