@@ -115,8 +115,8 @@ jobs:
               rm -rf priv
               # 空室検索が動くか試す（次の土曜日、2人）
               SAT=$(python -c "from datetime import date,timedelta;t=date.today();print(t+timedelta(days=(5-t.weekday())%7 or 7))")
-              curl -s -m 60 "https://xn--u8j0b149r.jp/api/search.php?venue=tokyo-big-sight&date=$SAT&adults=2" | head -c 300 | python scripts/redact.py
-              echo "" | python scripts/redact.py
+              curl -s -m 60 -o search_test.txt -w "空室検索のテスト HTTP %{http_code}\n" "https://xn--u8j0b149r.jp/api/search.php?venue=tokyo-big-sight&date=$SAT&adults=2" | python scripts/redact.py || true
+              (head -c 300 search_test.txt; echo) | python scripts/redact.py || true
               exit 0
             fi
             tail -4 rsync.log | python scripts/redact.py
