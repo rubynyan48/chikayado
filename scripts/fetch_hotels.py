@@ -3,7 +3,9 @@
 必要な環境変数: RAKUTEN_APP_ID, RAKUTEN_ACCESS_KEY
 アフィリエイトIDは config/site.json の rakuten_affiliate_id に入れると、予約リンクが自動で切り替わる。
 """
+import re
 import sys
+import unicodedata
 from datetime import date, timedelta
 
 from common import DATA, REFERER, SITE, distance_m, env, polite_get, read_json, venues, write_json
@@ -60,6 +62,21 @@ def room_charges(entry):
     return plans
 
 
+# 楽天のデータに残っている古い駅名を今の駅名に直す
+STATION_RENAMES = {"国際展示場正門": "東京ビッグサイト"}
+
+
+def tidy(text):
+    """全角英数字を半角にし、余分な空白を詰める。"""
+    s = unicodedata.normalize("NFKC", text or "")
+    return re.sub(r"\s+", " ", s).strip()
+
+
+def tidy_station(text):
+    s = re.sub(r"[（(][^）)]*[）)]$", "", tidy(text))
+    return STATION_RENAMES.get(s, s)
+
+
 def base_params(venue):
     p = {
         "applicationId": env("RAKUTEN_APP_ID"),
@@ -94,15 +111,17 @@ def fetch_hotels(venue):
             if not h.get("hotelNo") or h.get("latitude") in (None, ""):
                 continue
             d = distance_m(venue["lat"], venue["lng"], float(h["latitude"]), float(h["longitude"]))
+            if d > venue.get("search_radius_km", 3.0) * 1000:
+                continue
             hotels[str(h["hotelNo"])] = {
                 "hotelNo": str(h["hotelNo"]),
-                "name": h.get("hotelName", ""),
+                "name": tidy(h.get("hotelName", "")),
                 "distance_m": d,
                 "lat": float(h["latitude"]),
                 "lng": float(h["longitude"]),
-                "address": f"{h.get('address1', '')}{h.get('address2', '')}",
-                "access": h.get("access", ""),
-                "station": h.get("nearestStation", ""),
+                "address": tidy(f"{h.get('address1', '')}{h.get('address2', '')}"),
+                "access": tidy(h.get("access", "")),
+                "station": tidy_station(h.get("nearestStation", "")),
                 "min_charge": h.get("hotelMinCharge"),
                 "review_avg": h.get("reviewAverage"),
                 "review_count": h.get("reviewCount"),
@@ -122,8 +141,15 @@ def fetch_hotels(venue):
     return result
 
 
+_vacancy_cache = {}
+
+
 def fetch_vacancy(venue, event):
     checkin = date.fromisoformat(event["start"])
+    key = (venue["slug"], checkin)
+    if key in _vacancy_cache:
+        write_json(DATA / "vacancy" / venue["slug"] / f"{event['slug']}.json", _vacancy_cache[key])
+        return
     params = dict(base_params(venue), checkinDate=checkin.isoformat(),
                   checkoutDate=(checkin + timedelta(days=1)).isoformat(),
                   adultNum=1, hits=30, sort="+roomCharge", responseType="small")
@@ -147,8 +173,9 @@ def fetch_vacancy(venue, event):
             }
         if page >= int(body.get("pagingInfo", {}).get("pageCount", 1) or 1):
             break
-    write_json(DATA / "vacancy" / venue["slug"] / f"{event['slug']}.json",
-               {"checked": date.today().isoformat(), "checkin": checkin.isoformat(), "hotels": found})
+    result = {"checked": date.today().isoformat(), "checkin": checkin.isoformat(), "hotels": found}
+    _vacancy_cache[key] = result
+    write_json(DATA / "vacancy" / venue["slug"] / f"{event['slug']}.json", result)
     print(f"  {event['name']} {checkin}: 空室あり {len(found)}軒")
 
 
