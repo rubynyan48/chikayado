@@ -1,0 +1,56 @@
+{% set sr = page.series %}
+{% set e = sr.next %}
+{% set by_people = (page.vacancy or {}).get('by_people', {}) %}
+{% set items = with_offers(hotels, by_people.get('1')) if by_people else with_offers(hotels, None) %}
+{% set first = items|first if items else None %}
+<div class="answer">
+  {% if e %}
+  <p class="answer-q">次の{{ sr.short }}は</p>
+  <p class="answer-a">{{ period(e) }}</p>
+  <p class="answer-note">{{ e.name }}　{{ venue.name }}{% if e.hall %}（{{ e.hall }}）{% endif %}</p>
+  {% else %}
+  <p class="answer-q">次の{{ sr.short }}の日程は</p>
+  <p class="answer-a">発表を待っています</p>
+  <p class="answer-note">日程が出たら、このページに空いている宿を出します。</p>
+  {% endif %}
+</div>
+{% if first %}
+<a class="btn btn-primary btn-block btn-big" href="{{ book_url(first, first.offer) }}" rel="nofollow sponsored noopener" target="_blank">いちばん近い{{ first.name }}の空室を見る</a>
+{% endif %}
+{% set st = event_stats(hotels, page.vacancy, None, None) if e else None %}
+{% if st %}
+<div class="stats">
+  <div><span>{{ jdate(e.start, False) }}に空いている宿</span><strong>{{ st.one.open }}<small>/{{ st.total }}軒</small></strong></div>
+  <div><span>歩いて行ける宿の空き</span><strong>{{ st.one.near }}<small>/{{ st.near_total }}軒</small></strong></div>
+  {% if st.one.min %}<div><span>いちばん安い宿</span><strong>{{ '{:,}'.format(st.one.min) }}<small>円</small></strong></div>{% endif %}
+</div>
+{% endif %}
+<!--body-->
+<h2>人数を選ぶだけ</h2>
+<div id="hotels"></div>
+{% if by_people %}
+<p class="hint">{{ jdate(e.start) }}の夜に1部屋に泊まれる宿を、会場に近い順に出しています。</p>
+{{ people_switch(hotels, by_people) }}
+{% else %}
+{{ quick_cards(items, 5) }}
+{% endif %}
+
+<h2>日付と人数を変えて探す</h2>
+{{ search_box(venue, e.start if e else saturday) }}
+
+<h2>{{ sr.short }}の開催日</h2>
+<p>これまでに調べた{{ sr.name }}の開催日です。イベント名を選ぶと、その回の空き具合や宿を出る時刻の目安が見られます。</p>
+{{ event_table(sr.events|reverse|list, venue.slug) }}
+
+<h2>{{ sr.name }}とは</h2>
+<p>{{ sr.about }}</p>
+<p class="note">出典 <a href="{{ sr.source }}" rel="noopener" target="_blank">{{ sr.source }}</a></p>
+
+<h2>もっと詳しく知りたいとき</h2>
+{{ more_buttons(([
+  ('/' ~ venue.slug ~ '/' ~ e.slug ~ '/#numbers', e.name ~ 'の空き具合', '空いている宿の数とイベントのない日との料金の差'),
+  ('/' ~ venue.slug ~ '/' ~ e.slug ~ '/#depart', '開場に間に合う出発時刻', '宿ごとに出る時刻の目安'),
+] if e else []) + [
+  ('/' ~ venue.slug ~ '/hotels/', '地図とホテルの比較表', '距離、料金、口コミ、大浴場で並べ替え'),
+  ('/' ~ venue.slug ~ '/rinkai/', '駅から会場までの道順', 'りんかい線とゆりかもめからの行き方を図で'),
+]) }}

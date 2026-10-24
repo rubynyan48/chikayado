@@ -390,6 +390,41 @@ def more_buttons(items):
     ) + "</div>")
 
 
+def median(xs):
+    xs = sorted(x for x in xs if x)
+    if not xs:
+        return None
+    m = len(xs) // 2
+    return xs[m] if len(xs) % 2 else (xs[m - 1] + xs[m]) / 2
+
+
+def event_stats(hotels, vacancy, base, history):
+    """その日だけの数字。空いている宿の数、ふだんの土曜日と比べた料金、空室の減り方。"""
+    if not vacancy:
+        return None
+    total = len(hotels)
+    ids = {h["hotelNo"] for h in hotels}
+    near = {h["hotelNo"] for h in hotels if h["distance_m"] <= 1000}
+    rows = []
+    for n in ("1", "2", "3", "4"):
+        v = {k: o for k, o in vacancy["by_people"].get(n, {}).items() if k in ids}
+        rows.append({"n": n, "open": len(v), "near": len(set(v) & near),
+                     "min": min((o["per_person"] for o in v.values()), default=None),
+                     "median": median(o["per_person"] for o in v.values())})
+    stats = {"total": total, "near_total": len(near), "rows": rows, "one": rows[0]}
+    if base and base.get("checkin") != vacancy.get("checkin"):
+        ev, bs = vacancy["by_people"].get("1", {}), base["by_people"].get("1", {})
+        common = [k for k in ev if k in bs and k in ids]
+        if len(common) >= 3:
+            ratio = median(ev[k]["per_person"] for k in common) / median(bs[k]["per_person"] for k in common)
+            stats.update(ratio=round(ratio, 1), base_date=base["checkin"], compared=len(common))
+    log = (history or {}).get("log", [])
+    if len(log) >= 2:
+        first, last = log[0], log[-1]
+        stats.update(hist_from=first["checked"], hist_open_from=first.get("open1"), hist_open_now=last.get("open1"))
+    return stats
+
+
 def people_tabs(hotels, by_people, checkin):
     """人数を切り替えて、その人数で泊まれる宿の比較表を見せる。"""
     if not by_people:
@@ -467,7 +502,16 @@ def venue_context(venue):
     restaurants = read_json(DATA / "restaurants" / f"{venue['slug']}.json", {"by_hotel": {}})["by_hotel"]
     upcoming = [e for e in events if e["end"] >= TODAY.isoformat()]
     sat = TODAY + timedelta(days=(5 - TODAY.weekday()) % 7 or 7)
+    series = []
+    for sr in read_json(ROOT / "config" / "series" / f"{venue['slug']}.json", []) or []:
+        pat = re.compile(sr["match"])
+        matched = [e for e in events if pat.search(e["name"])]
+        nxt = next((e for e in matched if e["end"] >= TODAY.isoformat()), None)
+        series.append(dict(sr, events=matched, next=nxt))
+    for e in events:
+        e["series"] = next((sr["slug"] for sr in series if e in sr["events"]), None)
     return {
+        "series": series,
         "venue": venue,
         "hotels": hotels,
         "near_hotels": [h for h in hotels if h["distance_m"] <= 1000],
@@ -533,6 +577,15 @@ def pages_for(venue, ctx):
            "breadcrumbs": [home, hub, {"name": f"{label}で泊まる", "path": f"{v}{slug}/"}],
            "float_cta": {"href": "#best", "label": f"{label}で泊まれるおすすめを見る"}, "has_map": True}
           for slug, n, label in PEOPLE_PAGES],
+        *[{"path": f"{v}{sr['slug']}/", "template": "series.html", "series": sr,
+           "vacancy": read_json(DATA / "vacancy" / venue["slug"] / f"{sr['next']['start']}.json") if sr["next"] else None,
+           "title": f"{sr['short']}の会場に近いホテル {venue['name']}周辺で空いている宿",
+           "description": (f"次の{sr['name']}（{sr['next']['name']}）は{period(sr['next'])}に{venue['name']}で開かれます。" if sr["next"]
+                           else f"{sr['name']}は{venue['name']}で開かれるイベントです。")
+                          + "会場に近いホテルの空室と1人あたりの料金を、人数を選ぶだけで確かめられます。",
+           "breadcrumbs": [home, hub, {"name": f"{sr['short']}の宿", "path": f"{v}{sr['slug']}/"}],
+           "float_cta": {"href": "#hotels", "label": "空いている近い宿を見る"}}
+          for sr in ctx["series"]],
         {"path": v + "events/", "template": "events.html",
          "title": f"{venue['name']}の開催予定イベント一覧",
          "description": f"{venue['name']}でこれから開催される展示会や一般向けイベントを日付順にまとめています。イベントごとに会場に近いホテルと開催日の空室も確認できます。",
@@ -544,7 +597,13 @@ def pages_for(venue, ctx):
         days = (date.fromisoformat(e["end"]) - date.fromisoformat(e["start"])).days + 1
         vac = read_json(DATA / "vacancy" / venue["slug"] / f"{e['start']}.json") if e["end"] >= TODAY.isoformat() else None
         text = read_json(DATA / "texts" / venue["slug"] / f"{e['slug']}.json")
-        common = {"event": e, "vacancy": vac, "text": text, "concurrent": concurrent[:12], "days": days, "credit_events": True}
+        hist = read_json(DATA / "vacancy_history" / venue["slug"] / f"{e['start']}.json")
+        # 比べる相手は、同じ曜日の種類（金土の夜は週末、それ以外は平日）でイベントのない日
+        kind = "weekend" if date.fromisoformat(e["start"]).weekday() in (4, 5) else "weekday"
+        base_date = (read_json(DATA / "baseline" / f"{venue['slug']}.json", {}) or {}).get(kind)
+        base_vac = read_json(DATA / "vacancy" / venue["slug"] / f"{base_date}.json") if base_date else None
+        common = {"event": e, "vacancy": vac, "text": text, "concurrent": concurrent[:12], "days": days, "credit_events": True,
+                  "history": hist, "base_vacancy": base_vac, "base_kind": kind}
         pages.append(dict(common, **{
             "path": path, "template": "event.html",
             "title": f"{e['name']}に近いホテル {venue['name']}周辺の宿",
@@ -584,7 +643,7 @@ def main():
     env = Environment(loader=FileSystemLoader(ROOT / "templates"), autoescape=select_autoescape(["html"]))
     helpers = {"photo": photo, "hotel_table": hotel_table, "hotel_cards": hotel_cards, "best_cards": best_cards,
                "compare_table": compare_table, "hotel_map": hotel_map, "people_tabs": people_tabs,
-               "with_offers": with_offers, "price_of": price_of, "best_picks": best_picks, "depart_table": depart_table,
+               "with_offers": with_offers, "price_of": price_of, "event_stats": event_stats, "best_picks": best_picks, "depart_table": depart_table,
                "open_time": open_time, "audience_label": audience_label,
                "event_table": event_table, "restaurant_table": restaurant_table, "dist_label": dist_label,
                "walk_min": walk_min, "yen": yen, "quick_cards": quick_cards, "people_switch": people_switch,
@@ -616,13 +675,13 @@ def main():
                     events_credit=ctx["venue"] if page.get("credit_events") or page["template"] == "events.html" else None,
                     hotpepper="hotpepper.jp" in body)
         uses_hotpepper |= page["hotpepper"]
-        side = {"venue": main_ctx["venue"], "events": main_ctx["events"][:6], "people": PEOPLE_PAGES}
+        side = {"venue": main_ctx["venue"], "events": main_ctx["events"][:6], "people": PEOPLE_PAGES, "series": main_ctx["series"]}
         html = env.get_template("base.html").render(page=page, has_hotels=bool(ctx["hotels"]), side=side, **helpers)
         out = DIST / page["path"].lstrip("/") / "index.html"
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(html, encoding="utf-8")
 
-    side = {"venue": main_ctx["venue"], "events": main_ctx["events"][:6], "people": PEOPLE_PAGES}
+    side = {"venue": main_ctx["venue"], "events": main_ctx["events"][:6], "people": PEOPLE_PAGES, "series": main_ctx["series"]}
     nf = {"path": "/404.html", "title": "ページが見つかりません", "description": "", "breadcrumbs": [],
           "lead": '<p>お探しのページは移動したか、開催が終わって削除された可能性があります。</p>',
           "body": '<p><a class="btn btn-primary" href="/">トップへ戻る</a></p>'}

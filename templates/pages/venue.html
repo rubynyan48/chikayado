@@ -27,6 +27,11 @@
   <a class="btn btn-sign" href="/{{ venue.slug }}/4nin/">4人で泊まる</a>
 </div>
 
+<h2>大型イベントで探す</h2>
+<div class="people-links">
+{% for sr in series %}<a class="btn btn-sign" href="/{{ venue.slug }}/{{ sr.slug }}/">{{ sr.short }}</a>{% endfor %}
+</div>
+
 <h2>これから開催されるイベント</h2>
 {{ event_table(events, venue.slug, 6) }}
 <p><a class="btn btn-sign" href="/{{ venue.slug }}/events/">開催予定をすべて見る</a></p>

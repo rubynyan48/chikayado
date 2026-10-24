@@ -5,6 +5,7 @@
 {% set first = items|first if items else None %}
 {% set ot = open_time(e.hours) %}
 {% set bld = buildings(e.hall) %}
+{% set st = event_stats(hotels, page.vacancy, page.base_vacancy, page.history) if not ended else None %}
 <div class="answer">
   {% if ended %}
   <p class="answer-q">{{ e.name }}は{{ period(e) }}に開催されました</p>
@@ -24,6 +25,14 @@
   <div><span>会場</span><strong>{{ e.hall or venue.name }}</strong></div>
   {% if ot %}<div><span>開始</span><strong>{{ ot[0] }}:{{ '%02d' % ot[1] }}</strong></div>{% endif %}
 </div>
+{% if st %}
+<div class="stats">
+  <div><span>空いている宿</span><strong>{{ st.one.open }}<small>/{{ st.total }}軒</small></strong></div>
+  <div><span>歩いて行ける宿の空き</span><strong>{{ st.one.near }}<small>/{{ st.near_total }}軒</small></strong></div>
+  {% if st.ratio %}<div><span>料金はイベントのない日の</span><strong>約{{ st.ratio }}<small>倍</small></strong></div>
+  {% elif st.one.min %}<div><span>いちばん安い宿</span><strong>{{ '{:,}'.format(st.one.min) }}<small>円</small></strong></div>{% endif %}
+</div>
+{% endif %}
 <!--body-->
 <h2>{% if by_people and not ended %}人数を選ぶだけ{% else %}会場に近い宿{% endif %}</h2>
 <div id="hotels"></div>
@@ -40,16 +49,37 @@
 
 <h2>もっと詳しく知りたいとき</h2>
 <div class="jump">
+  {% if st %}<a href="#numbers">数字で見る空き具合</a>{% endif %}
   {% if ot and not ended %}<a href="#depart">宿を出る時刻の目安</a>{% endif %}
   <a href="#about">開催の内容と時間</a>
   <a href="#access">会場の建物と駅</a>
   {% if page.concurrent %}<a href="#same-day">同じ日のイベント</a>{% endif %}
   <a href="#tips">宿を取るコツ</a>
 </div>
-{{ more_buttons([
+{% set sr = (series | selectattr('slug', 'equalto', e.series) | first) if e.series else None %}
+{{ more_buttons(([('/' ~ venue.slug ~ '/' ~ sr.slug ~ '/', sr.short ~ 'の宿まとめ', '毎回の開催日と次回の空いている宿')] if sr else []) + [
   ('/' ~ venue.slug ~ '/hotels/', '地図とホテルの比較表', '距離、料金、口コミ、大浴場で並べ替え'),
   ('/' ~ venue.slug ~ '/rinkai/', '駅から会場までの道順', 'りんかい線とゆりかもめからの行き方を図で'),
 ]) }}
+
+{% if st %}
+<h2 id="numbers">{{ jdate(e.start, False) }}の宿の空き具合を数字で見る</h2>
+<p>会場から3km以内にある{{ st.total }}軒の宿について、{{ jdate(e.start) }}の夜に1部屋で泊まれるかを人数ごとに調べました。料金は1人あたりです。</p>
+<div class="table-wrap"><table>
+  <thead><tr><th>人数</th><th class="num">空いている宿</th><th class="num">歩いて行ける宿</th><th class="num">いちばん安い</th><th class="num">真ん中の料金</th></tr></thead>
+  <tbody>
+  {% for r in st.rows %}<tr><td>{{ r.n }}人</td><td class="num">{{ r.open }}軒</td><td class="num">{{ r.near }}軒</td><td class="num">{{ yen(r.min) or 'ー' }}</td><td class="num">{{ yen(r.median|int) if r.median else 'ー' }}</td></tr>{% endfor %}
+  </tbody>
+</table></div>
+{% if st.ratio %}
+<h3>イベントのない日との比べ方</h3>
+<p>同じ宿の1人あたりの料金を、近くでイベントのない{{ '週末' if page.base_kind == 'weekend' else '平日' }}の{{ jdate(st.base_date) }}と比べると、{{ jdate(e.start) }}は真ん中の値で約{{ st.ratio }}倍です（両方の日に空きがあった{{ st.compared }}軒で比べています）。{% if st.ratio >= 1.3 %}イベントの影響で料金が上がっているので、早めに押さえるほど安く泊まれる可能性があります。{% elif st.ratio <= 1.05 %}今のところイベントの影響はあまり出ていません。{% endif %}</p>
+{% endif %}
+{% if st.hist_from %}
+<h3>空室の減り方</h3>
+<p>{{ jdate(st.hist_from) }}には1人で泊まれる宿が{{ st.hist_open_from }}軒空いていましたが、今は{{ st.hist_open_now }}軒です。毎日調べ直して更新しています。</p>
+{% endif %}
+{% endif %}
 
 {% if ot and not ended %}
 <h2 id="depart">開場に間に合う出発時刻の目安</h2>

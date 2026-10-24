@@ -73,6 +73,14 @@
     {% for slug, n, label in side.people %}<a class="btn btn-sign" href="/{{ side.venue.slug }}/{{ slug }}/">{{ label }}</a>{% endfor %}
     </div>
   </section>
+  {% if side.series %}
+  <section class="side-box">
+    <p class="side-title">大型イベントで探す</p>
+    <ul class="side-list">
+    {% for sr in side.series %}<li><a href="/{{ side.venue.slug }}/{{ sr.slug }}/">{{ sr.name }}の宿</a></li>{% endfor %}
+    </ul>
+  </section>
+  {% endif %}
   <section class="side-box">
     <p class="side-title">会場で探す</p>
     <ul class="side-list">

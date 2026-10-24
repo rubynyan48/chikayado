@@ -252,6 +252,15 @@ def fetch_date(venue, checkin):
         by_people[str(n)] = fetch_vacancy_day(venue, checkin, n)
     write_json(DATA / "vacancy" / venue["slug"] / f"{checkin.isoformat()}.json",
                {"checked": date.today().isoformat(), "checkin": checkin.isoformat(), "by_people": by_people})
+    # 空いている宿の数と最安値を毎日記録して、埋まっていく様子を見られるようにする
+    hist_path = DATA / "vacancy_history" / venue["slug"] / f"{checkin.isoformat()}.json"
+    hist = read_json(hist_path, {"checkin": checkin.isoformat(), "log": []})
+    today = date.today().isoformat()
+    hist["log"] = [x for x in hist["log"] if x["checked"] != today]
+    hist["log"].append({"checked": today, **{
+        f"open{n}": len(v) for n, v in by_people.items()}, **{
+        f"min{n}": min((o["per_person"] for o in v.values()), default=None) for n, v in by_people.items()}})
+    write_json(hist_path, hist)
     print(f"  {checkin}: 空室あり " + " ".join(f"{n}人{len(v)}軒" for n, v in by_people.items()))
 
 
@@ -275,6 +284,20 @@ def main():
         events = read_json(DATA / "events" / f"{venue['slug']}.json", {"events": []})["events"]
         # イベントの初日と、人数別ページに使う次の土曜日。同じ日は1回だけ調べる
         dates = {next_saturday(today)}
+        # 料金を比べるための「イベントのない日」を、週末（土曜の夜）と平日（水曜の夜）で1日ずつ選ぶ
+        def busy(d):
+            return any(e["start"] <= d.isoformat() <= e["end"] for e in events)
+        base = {}
+        for kind, wd in (("weekend", 5), ("weekday", 2)):
+            d = today + timedelta(days=7)
+            while d.weekday() != wd or busy(d):
+                d += timedelta(days=1)
+                if d > today + timedelta(days=90):
+                    break
+            if d <= today + timedelta(days=90):
+                base[kind] = d.isoformat()
+                dates.add(d)
+        write_json(DATA / "baseline" / f"{venue['slug']}.json", base)
         for event in events:
             start = date.fromisoformat(event["start"])
             if today <= start <= today + timedelta(days=VACANCY_DAYS_AHEAD):

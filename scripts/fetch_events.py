@@ -150,13 +150,22 @@ def merge(venue, fresh):
     print(f"{venue['name']}: CSV {len(fresh)}件 新規 {added}件 合計 {len(events)}件")
 
 
+def manual_events(venue):
+    """config/manual_events.json に手で足した大型イベント。"""
+    from common import CONFIG
+    data = read_json(CONFIG / "manual_events.json", {})
+    return [dict(e) for e in data.get(venue["slug"], [])]
+
+
 def main():
     failed = False
     for venue in venues():
         if not venue.get("events_csv"):
             continue
         try:
-            merge(venue, fetch_venue_events(venue))
+            fresh = fetch_venue_events(venue)
+            names = {e["name"] for e in fresh}
+            merge(venue, fresh + [e for e in manual_events(venue) if e["name"] not in names])
         except Exception as exc:  # 1会場の失敗で全体を止めない
             failed = True
             print(f"{venue['name']}: イベント取得に失敗 {exc}", file=sys.stderr)
