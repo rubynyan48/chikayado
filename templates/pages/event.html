@@ -103,6 +103,13 @@
   {% if e.organizer %}<tr><th>問い合わせ先</th><td>{{ e.organizer }}</td></tr>{% endif %}
   {% if e.url %}<tr><th>公式サイト</th><td><a href="{{ e.url if e.url.startswith('http') else 'https://' ~ e.url }}" rel="noopener" target="_blank">{{ e.url }}</a></td></tr>{% endif %}
 </tbody></table></div>
+{% set shot = shots.get(e.slug) %}
+{% if shot %}
+<figure class="shot">
+  <a href="{{ shot.url }}" rel="noopener" target="_blank"><img src="/images/shots/{{ shot.file }}" alt="{{ e.name }}の公式サイトの画面" loading="lazy" width="1200" height="750"></a>
+  <figcaption>出典 <a href="{{ shot.url }}" rel="noopener" target="_blank">{{ e.name }}公式サイト</a></figcaption>
+</figure>
+{% endif %}
 {% if page.text %}<p>{{ page.text.intro }}</p>{% endif %}
 {% set esr = (series | selectattr('slug', 'equalto', e.series) | first) if e.series else None %}
 {% if esr and esr.photos and not ended %}{{ photo(esr.photos[0].file, esr.photos[0].alt) }}<p class="note">写真はイメージです。</p>{% endif %}

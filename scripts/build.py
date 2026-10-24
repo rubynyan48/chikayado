@@ -548,6 +548,7 @@ def venue_context(venue):
         "public_events": [e for e in upcoming if e.get("public")],
         "trade_events": [e for e in upcoming if not e.get("public")],
         "restaurants": restaurants,
+        "shots": read_json(DATA / "shots" / f"{venue['slug']}.json", {}) or {},
         "saturday": sat.isoformat(),
         "sat_vacancy": read_json(DATA / "vacancy" / venue["slug"] / f"{sat.isoformat()}.json"),
     }
@@ -741,6 +742,9 @@ def main():
             shutil.copy(extra, DIST / extra.name)  # Search Consoleの確認ファイルなど
     if IMAGES.exists():
         shutil.copytree(IMAGES, DIST / "images", dirs_exist_ok=True)
+    # 公式サイトの画面の画像
+    for d in (DATA / "shots").glob("*/"):
+        shutil.copytree(d, DIST / "images" / "shots", dirs_exist_ok=True)
     # 空室検索（PHP）が使う宿の一覧
     shutil.copytree(ROOT / "static" / "api", DIST / "api")
     for venue in all_venues:
