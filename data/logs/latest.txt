@@ -1,4 +1,4 @@
-実行 2026-10-24 15:55:57 workflow_dispatch
+実行 2026-10-24 16:03:22 workflow_dispatch
 設定あり RAKUTEN_APP_ID
 設定あり RAKUTEN_ACCESS_KEY
 未設定 HOTPEPPER_API_KEY
@@ -16,7 +16,7 @@
   冬スポ!!WINTER SPORTS FESTA season26 2026-11-07: 空室あり 20軒
   文学フリマ東京43 2026-11-08: 空室あり 22軒
   アグリビジネス創出フェア2026 2026-11-10: 空室あり 21軒
-  FOOD-COLDTECH 2026 2026-11-11: 空室あり 22軒
+  FOOD-COLDTECH 2026 2026-11-11: 空室あり 21軒
   60th FISMA TOKYO(第60回 東京ファッション産業機器展) 2026-11-12: 空室あり 20軒
   JOIN-FURUSATO 移住・交流&地域おこしフェア 2026 2026-11-14: 空室あり 16軒
   新・農業人フェア 2026-11-15: 空室あり 24軒
@@ -43,11 +43,10 @@ ssh: Could not resolve hostname ＊＊＊: Temporary failure in name resolution
 rsync: connection unexpectedly closed (0 bytes received so far) [sender]
 rsync error: unexplained error (code 255) at io.c(232) [sender=3.2.7]
 転送に失敗（1回目）
-ssh: Could not resolve hostname ＊＊＊: Temporary failure in name resolution
-rsync: connection unexpectedly closed (0 bytes received so far) [sender]
-rsync error: unexplained error (code 255) at io.c(232) [sender=3.2.7]
-転送に失敗（2回目）
-ssh: connect to host ＊＊＊ port 10022: Connection timed out
-rsync: connection unexpectedly closed (0 bytes received so far) [sender]
-rsync error: unexplained error (code 255) at io.c(232) [sender=3.2.7]
-転送に失敗（3回目）
+File list transfer time: 0.000 seconds
+Total bytes sent: 428,008
+Total bytes received: 44,660
+
+sent 428,008 bytes  received 44,660 bytes  10,388.31 bytes/sec
+total size is 4,184,066  speedup is 8.85
+転送完了（2回目）
