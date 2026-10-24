@@ -92,7 +92,7 @@ jobs:
           mkdir -p ~/.ssh
           printf '%s\n' "$KEY" | tr -d '\r' > ~/.ssh/xserver
           chmod 600 ~/.ssh/xserver
-          ssh-keygen -y -f ~/.ssh/xserver > /dev/null 2>&1 && echo "鍵の形式は正常" || echo "鍵を読み込めません（貼り付けた中身を確認）"
+          (ssh-keygen -y -f ~/.ssh/xserver > /dev/null 2>&1 && echo "鍵の形式は正常" || echo "鍵を読み込めません（貼り付けた中身を確認）") | python scripts/redact.py
           rsync -az --delete --stats \
             --exclude '.htaccess' --exclude '.well-known/' --exclude 'google*.html' \
             -e "ssh -p ${PORT:-10022} -i $HOME/.ssh/xserver -o StrictHostKeyChecking=accept-new -o BatchMode=yes" \

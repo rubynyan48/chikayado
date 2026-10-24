@@ -17,14 +17,14 @@ from common import DATA, read_json, venues, write_json
 # CSVの列名は変わることがあるので、含まれる言葉で探す
 COLUMNS = {
     "name": ["展示会名", "催事名", "イベント名", "名称"],
-    "start": ["開始日", "開催開始"],
-    "end": ["終了日", "開催終了"],
-    "hall": ["会場", "ホール"],
-    "hours": ["開催時間", "時間"],
+    "start": ["(開始)", "開始日", "開催開始"],
+    "end": ["(終了)", "終了日", "開催終了"],
+    "hall": ["利用施設", "会場", "ホール"],
+    "hours": ["開催時間"],
     "audience": ["対象"],
     "fee": ["入場料", "料金"],
     "content": ["内容", "概要"],
-    "organizer": ["主催"],
+    "organizer": ["主催", "連絡先"],
     "url": ["URL", "ＵＲＬ", "ホームページ"],
 }
 
@@ -47,9 +47,7 @@ def find_columns(header):
                 continue
             if any(unicodedata.normalize("NFKC", w) in col_n for w in words):
                 # 「最終日の終了時間」を終了日と取り違えないようにする
-                if key == "end" and "時間" in col_n:
-                    continue
-                if key == "hall" and ("時間" in col_n or "名" in col_n and "会場" not in col_n):
+                if key == "end" and ("時間" in col_n or "時刻" in col_n):
                     continue
                 found[key] = i
                 break
@@ -73,6 +71,13 @@ def make_slug(name):
     s = unicodedata.normalize("NFKC", name)
     s = re.sub(r"[\s　/\\?#%&<>\"'|:;,.。、・!！()（）\[\]［］「」『』【】~〜～*+=]+", "", s)
     return s[:60] or "event"
+
+
+def format_hall(text):
+    """「東1-3」のような書き方に「ホール」を補う。"""
+    if re.match(r"^[東西南][0-9]", text) and "ホール" not in text:
+        return text + "ホール"
+    return text
 
 
 def clean(text):
@@ -108,7 +113,7 @@ def fetch_venue_events(venue):
             "name": name,
             "start": start,
             "end": end,
-            "hall": get(row, "hall"),
+            "hall": format_hall(get(row, "hall")),
             "hours": get(row, "hours"),
             "audience": get(row, "audience"),
             "fee": get(row, "fee"),
