@@ -7,6 +7,7 @@
 import json
 import sys
 import time
+from datetime import date
 
 import requests
 
@@ -67,6 +68,9 @@ def main():
     made, failed = 0, False
     for venue in venues():
         events = read_json(DATA / "events" / f"{venue['slug']}.json", {"events": []})["events"]
+        today = date.today().isoformat()
+        # これから開催されるイベントを先に書く
+        events = sorted(events, key=lambda e: (e["end"] < today, e["start"]))
         for event in events:
             path = DATA / "texts" / venue["slug"] / f"{event['slug']}.json"
             if path.exists() or made >= MAX_PER_RUN:
