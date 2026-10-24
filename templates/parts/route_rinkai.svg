@@ -1,0 +1,49 @@
+<figure class="route-fig">
+<svg viewBox="0 0 360 540" role="img" aria-labelledby="rr-t">
+  <title id="rr-t">国際展示場駅から東京ビッグサイトまでの道順の図</title>
+  <!-- 道 -->
+  <path d="M70 470 V400 H240 V230 L300 140" fill="none" stroke="#D6DEE5" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M70 470 V400 H240 V230 L300 140" fill="none" stroke="#12507A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1 12"/>
+  <!-- 矢印 -->
+  <path d="M160 400 l-12 -7 v14 z" fill="#12507A"/>
+  <path d="M240 320 l-7 10 h14 z" fill="#12507A"/>
+  <path d="M276 175 l-12 -2 l8 -10 z" fill="#12507A"/>
+  <!-- 駅 -->
+  <rect x="14" y="478" width="150" height="48" rx="8" fill="#12507A"/>
+  <text x="89" y="500" text-anchor="middle" font-size="15" font-weight="700" fill="#fff">りんかい線</text>
+  <text x="89" y="518" text-anchor="middle" font-size="15" font-weight="700" fill="#fff">国際展示場駅</text>
+  <!-- ローソン -->
+  <rect x="262" y="378" width="86" height="44" rx="8" fill="#fff" stroke="#1B2633" stroke-width="2"/>
+  <text x="305" y="397" text-anchor="middle" font-size="13" font-weight="700" fill="#1B2633">コンビニ</text>
+  <text x="305" y="414" text-anchor="middle" font-size="13" font-weight="700" fill="#1B2633">（ローソン）</text>
+  <!-- ワシントンホテル -->
+  <rect x="96" y="228" width="122" height="64" rx="8" fill="#fff" stroke="#1B2633" stroke-width="2"/>
+  <text x="157" y="252" text-anchor="middle" font-size="13" font-weight="700" fill="#1B2633">ワシントンホテル</text>
+  <text x="157" y="270" text-anchor="middle" font-size="12" fill="#5B6875">マクドナルドが目印</text>
+  <text x="157" y="285" text-anchor="middle" font-size="12" fill="#5B6875">左手に見える</text>
+  <!-- 会場 -->
+  <path d="M196 28 h160 l-28 56 h-104 z" fill="#E8F1F7" stroke="#12507A" stroke-width="2.5"/>
+  <text x="276" y="54" text-anchor="middle" font-size="14" font-weight="800" fill="#12507A">東京ビッグサイト</text>
+  <text x="276" y="72" text-anchor="middle" font-size="12" fill="#12507A">会議棟（正面）</text>
+  <text x="276" y="104" text-anchor="middle" font-size="12" fill="#5B6875">階段かエスカレーターで上へ</text>
+  <!-- 番号 -->
+  <g font-size="15" font-weight="800" text-anchor="middle">
+    <circle cx="70" cy="450" r="15" fill="#F5C518" stroke="#1B2633" stroke-width="2"/><text x="70" y="455" fill="#1B2633">1</text>
+    <circle cx="70" cy="400" r="15" fill="#F5C518" stroke="#1B2633" stroke-width="2"/><text x="70" y="405" fill="#1B2633">2</text>
+    <circle cx="240" cy="400" r="15" fill="#F5C518" stroke="#1B2633" stroke-width="2"/><text x="240" y="405" fill="#1B2633">3</text>
+    <circle cx="240" cy="230" r="15" fill="#F5C518" stroke="#1B2633" stroke-width="2"/><text x="240" y="235" fill="#1B2633">4</text>
+    <circle cx="300" cy="140" r="15" fill="#F5C518" stroke="#1B2633" stroke-width="2"/><text x="300" y="145" fill="#1B2633">5</text>
+  </g>
+  <!-- 番号の説明 -->
+  <g font-size="12" fill="#1B2633">
+    <text x="94" y="446">改札を出て出口へ</text>
+    <text x="92" y="384">出たら右へ</text>
+    <text x="262" y="440">ローソンの角を</text>
+    <text x="262" y="456">左へ</text>
+    <text x="262" y="246">右ななめへ</text>
+  </g>
+  <text x="256" y="306" font-size="12" fill="#5B6875">まっすぐ進むと</text>
+  <text x="256" y="322" font-size="12" fill="#5B6875">正面に会場</text>
+</svg>
+<figcaption>番号は下の道順の番号と同じです。図は歩く順番と曲がる向きを表したもので、実際の距離や方角とは異なります。</figcaption>
+</figure>

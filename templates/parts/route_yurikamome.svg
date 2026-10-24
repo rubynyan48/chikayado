@@ -1,0 +1,51 @@
+<figure class="route-fig">
+<svg viewBox="0 0 360 520" role="img" aria-labelledby="ry-t">
+  <title id="ry-t">ゆりかもめ東京ビッグサイト駅から会場までの道順の図</title>
+  <!-- 駅から会議棟の前まで -->
+  <path d="M180 460 V250" fill="none" stroke="#D6DEE5" stroke-width="22" stroke-linecap="round"/>
+  <path d="M180 460 V250" fill="none" stroke="#12507A" stroke-width="6" stroke-linecap="round" stroke-dasharray="1 12"/>
+  <path d="M180 330 l-7 10 h14 z" fill="#12507A"/>
+  <!-- 会議棟の前から3つの展示棟へ -->
+  <path d="M180 230 V170 M180 200 H62 V150 M180 200 H298 V150" fill="none" stroke="#D6DEE5" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M180 230 V170 M180 200 H62 V150 M180 200 H298 V150" fill="none" stroke="#12507A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1 10"/>
+  <!-- 駅 -->
+  <rect x="96" y="466" width="168" height="46" rx="8" fill="#12507A"/>
+  <text x="180" y="487" text-anchor="middle" font-size="15" font-weight="700" fill="#fff">ゆりかもめ</text>
+  <text x="180" y="505" text-anchor="middle" font-size="15" font-weight="700" fill="#fff">東京ビッグサイト駅</text>
+  <!-- 会議棟 -->
+  <path d="M206 300 h120 l-24 46 h-72 z" fill="#E8F1F7" stroke="#12507A" stroke-width="2.5"/>
+  <text x="266" y="322" text-anchor="middle" font-size="14" font-weight="800" fill="#12507A">会議棟</text>
+  <text x="266" y="338" text-anchor="middle" font-size="11" fill="#12507A">逆三角形の建物</text>
+  <!-- 展示棟 -->
+  <g font-weight="800" text-anchor="middle">
+    <rect x="8" y="78" width="108" height="70" rx="8" fill="#fff" stroke="#1B2633" stroke-width="2"/>
+    <text x="62" y="104" font-size="15" fill="#1B2633">西展示棟</text>
+    <text x="62" y="124" font-size="11" font-weight="400" fill="#5B6875">会議棟のすぐ奥</text>
+    <text x="62" y="140" font-size="11" font-weight="400" fill="#5B6875">駅からいちばん近い</text>
+    <rect x="126" y="78" width="108" height="70" rx="8" fill="#fff" stroke="#1B2633" stroke-width="2"/>
+    <text x="180" y="104" font-size="15" fill="#1B2633">南展示棟</text>
+    <text x="180" y="124" font-size="11" font-weight="400" fill="#5B6875">西展示棟を</text>
+    <text x="180" y="140" font-size="11" font-weight="400" fill="#5B6875">通り抜けて進む</text>
+    <rect x="244" y="78" width="108" height="70" rx="8" fill="#fff" stroke="#1B2633" stroke-width="2"/>
+    <text x="298" y="104" font-size="15" fill="#1B2633">東展示棟</text>
+    <text x="298" y="124" font-size="11" font-weight="400" fill="#5B6875">ガレリアを奥へ</text>
+    <text x="298" y="140" font-size="11" font-weight="400" fill="#5B6875">いちばん遠い</text>
+  </g>
+  <text x="180" y="40" text-anchor="middle" font-size="13" font-weight="700" fill="#1B2633">自分のイベントが開かれる棟へ</text>
+  <text x="180" y="60" text-anchor="middle" font-size="11" fill="#5B6875">館内の案内表示に従って進みます</text>
+  <!-- 番号 -->
+  <g font-size="15" font-weight="800" text-anchor="middle">
+    <circle cx="180" cy="440" r="15" fill="#F5C518" stroke="#1B2633" stroke-width="2"/><text x="180" y="445" fill="#1B2633">1</text>
+    <circle cx="180" cy="330" r="15" fill="#F5C518" stroke="#1B2633" stroke-width="2"/><text x="180" y="335" fill="#1B2633">2</text>
+    <circle cx="180" cy="236" r="15" fill="#F5C518" stroke="#1B2633" stroke-width="2"/><text x="180" y="241" fill="#1B2633">3</text>
+  </g>
+  <g font-size="12" fill="#1B2633">
+    <text x="202" y="444">改札を出る</text>
+    <text x="40" y="326">会議棟を目印に</text>
+    <text x="40" y="342">まっすぐ進む</text>
+    <text x="202" y="256">会議棟の前で</text>
+    <text x="202" y="272">行き先の棟を確認</text>
+  </g>
+</svg>
+<figcaption>番号は下の道順の番号と同じです。図は歩く順番を表したもので、実際の距離や建物の向きとは異なります。</figcaption>
+</figure>

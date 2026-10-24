@@ -289,3 +289,7 @@ td.rate { white-space: nowrap; }
 .map-route { height: 340px; }
 .pin-step { background: var(--mark); color: var(--ink); border-color: var(--ink); }
 .leaflet-tooltip { font-weight: 700; font-size: 13px; }
+
+.route-fig { margin: 8px 0 24px; padding: 12px; border: 1px solid var(--line); border-radius: var(--radius-m); background: var(--wash); }
+.route-fig svg { width: 100%; max-width: 420px; height: auto; display: block; margin: 0 auto; }
+.route-fig figcaption { font-size: 13px; color: var(--muted); margin-top: 8px; }
