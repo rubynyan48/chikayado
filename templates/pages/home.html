@@ -23,7 +23,8 @@
 
 <h2>これからの東京ビッグサイトの主なイベント</h2>
 <p>大きな展示会や一般向けイベントの前後は、会場周辺のホテルが早めに埋まります。日程が決まったら宿の目星をつけておくのがおすすめです。</p>
-{{ event_table(events, venue.slug, 6) }}
+<p class="hint">誰でも入場できるイベントを先に出しています。</p>
+{{ event_table(public_events + trade_events, venue.slug, 6) }}
 <p><a class="btn btn-sign" href="/tokyo-big-sight/events/">開催予定をすべて見る</a></p>
 
 <h2>このサイトの見方</h2>

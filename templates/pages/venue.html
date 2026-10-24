@@ -33,7 +33,8 @@
 </div>
 
 <h2>これから開催されるイベント</h2>
-{{ event_table(events, venue.slug, 6) }}
+<p class="hint">誰でも入場できるイベントを先に出しています。</p>
+{{ event_table(public_events + trade_events, venue.slug, 6) }}
 <p><a class="btn btn-sign" href="/{{ venue.slug }}/events/">開催予定をすべて見る</a></p>
 
 <h2>もっと詳しく知りたいとき</h2>

@@ -533,6 +533,8 @@ def venue_context(venue):
         series.append(dict(sr, events=matched, next=nxt))
     for e in events:
         e["series"] = next((sr["slug"] for sr in series if e in sr["events"]), None)
+        # 一般の人が来られるイベント（泊まりで来る人が多い）
+        e["public"] = bool(e["series"]) or "一般" in (e.get("audience") or "")
     return {
         "series": series,
         "venue": venue,
@@ -540,6 +542,8 @@ def venue_context(venue):
         "near_hotels": [h for h in hotels if h["distance_m"] <= 1000],
         "all_events": events,
         "events": upcoming,
+        "public_events": [e for e in upcoming if e.get("public")],
+        "trade_events": [e for e in upcoming if not e.get("public")],
         "restaurants": restaurants,
         "saturday": sat.isoformat(),
         "sat_vacancy": read_json(DATA / "vacancy" / venue["slug"] / f"{sat.isoformat()}.json"),
@@ -714,13 +718,13 @@ def main():
             hr = page["hero"]
             make_hero(DIST / HERO_DIR / hr["file"], hr["title"], hr["sub"], hr["tiles"], lead=hr.get("lead", "の会場に近いホテル"))
             hr["src"] = f"/{HERO_DIR}/{hr['file']}"
-        side = {"venue": main_ctx["venue"], "events": main_ctx["events"][:6], "people": PEOPLE_PAGES, "series": main_ctx["series"]}
+        side = {"venue": main_ctx["venue"], "events": (main_ctx["public_events"] + main_ctx["trade_events"])[:6], "people": PEOPLE_PAGES, "series": main_ctx["series"]}
         html = env.get_template("base.html").render(page=page, has_hotels=bool(ctx["hotels"]), side=side, **helpers)
         out = DIST / page["path"].lstrip("/") / "index.html"
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(html, encoding="utf-8")
 
-    side = {"venue": main_ctx["venue"], "events": main_ctx["events"][:6], "people": PEOPLE_PAGES, "series": main_ctx["series"]}
+    side = {"venue": main_ctx["venue"], "events": (main_ctx["public_events"] + main_ctx["trade_events"])[:6], "people": PEOPLE_PAGES, "series": main_ctx["series"]}
     nf = {"path": "/404.html", "title": "ページが見つかりません", "description": "", "breadcrumbs": [],
           "lead": '<p>お探しのページは移動したか、開催が終わって削除された可能性があります。</p>',
           "body": '<p><a class="btn btn-primary" href="/">トップへ戻る</a></p>'}
