@@ -4,6 +4,9 @@ RewriteCond %{HTTPS} off [OR]
 RewriteCond %{HTTP_HOST} ^www\. [NC]
 RewriteRule ^(.*)$ https://xn--u8j0b149r.jp/$1 [R=301,L]
 
+# 以前のイベントの詳しいページはイベントのページへまとめた
+RewriteRule ^(tokyo-big-sight/[^/]+)/guide/?$ /$1/ [R=301,L]
+
 ErrorDocument 404 /404.html
 
 <IfModule mod_headers.c>

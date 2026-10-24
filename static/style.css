@@ -353,3 +353,8 @@ td.rate { white-space: nowrap; }
 .more-btn strong { display: block; font-size: 16px; color: var(--sign); }
 .more-btn span { display: block; font-size: 13px; color: var(--muted); line-height: 1.5; margin-top: 2px; }
 .more-btn::after { content: ""; position: absolute; right: 16px; top: 50%; width: 10px; height: 10px; border-top: 3px solid var(--sign); border-right: 3px solid var(--sign); transform: translateY(-50%) rotate(45deg); }
+
+/* ページ内の目次ボタン */
+.jump { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; }
+.jump a { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 14px; border-radius: 999px; background: var(--sign-soft); color: var(--sign); font-weight: 800; font-size: 15px; text-decoration: none; border: 2px solid var(--sign); }
+.jump a::after { content: ""; width: 7px; height: 7px; margin-left: 8px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg) translateY(-2px); }

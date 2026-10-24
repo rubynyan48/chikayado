@@ -438,7 +438,7 @@ def buildings(hall):
 
 # ---- ページの組み立て -------------------------------------------------
 
-H2_RE = re.compile(r"<h2>(.*?)</h2>", re.S)
+H2_RE = re.compile(r'<h2(?: id="([^"]+)")?>(.*?)</h2>', re.S)
 
 
 def add_toc(body):
@@ -446,8 +446,9 @@ def add_toc(body):
 
     def repl(m):
         n = len(toc) + 1
-        toc.append({"id": f"s{n}", "text": re.sub(r"<[^>]+>", "", m.group(1)).strip()})
-        return f'<h2 id="s{n}">{m.group(1)}</h2>'
+        hid = m.group(1) or f"s{n}"
+        toc.append({"id": hid, "text": re.sub(r"<[^>]+>", "", m.group(2)).strip()})
+        return f'<h2 id="{hid}">{m.group(2)}</h2>'
 
     return H2_RE.sub(repl, body), toc
 
@@ -551,14 +552,6 @@ def pages_for(venue, ctx):
                            "人数を選ぶだけで泊まれる宿がわかり、日付を変えて空室を探すこともできます。",
             "breadcrumbs": [home, hub, {"name": "開催予定イベント", "path": v + "events/"}, {"name": e["name"], "path": path}],
             "float_cta": {"href": "#hotels", "label": "空いている近い宿を見る"},
-        }))
-        pages.append(dict(common, **{
-            "path": path + "guide/", "template": "event_guide.html",
-            "title": f"{e['name']}の開催時間と宿を出る時刻の目安",
-            "description": f"{e['name']}（{period(e)}）の開催時間、会場の展示棟、同じ日に開かれるイベントと、会場に近い宿から開場に間に合う出発時刻の目安をまとめました。",
-            "breadcrumbs": [home, hub, {"name": "開催予定イベント", "path": v + "events/"}, {"name": e["name"], "path": path},
-                            {"name": "開催時間と出発時刻", "path": path + "guide/"}],
-            "float_cta": {"href": path, "label": "空いている近い宿を見る"},
         }))
     return pages
 

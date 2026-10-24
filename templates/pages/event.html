@@ -4,6 +4,7 @@
 {% set items = with_offers(hotels, by_people.get('1')) if by_people and not ended else with_offers(hotels, None) %}
 {% set first = items|first if items else None %}
 {% set ot = open_time(e.hours) %}
+{% set bld = buildings(e.hall) %}
 <div class="answer">
   {% if ended %}
   <p class="answer-q">{{ e.name }}は{{ period(e) }}に開催されました</p>
@@ -38,9 +39,68 @@
 {{ search_box(venue, e.start if not ended else saturday) }}
 
 <h2>もっと詳しく知りたいとき</h2>
+<div class="jump">
+  {% if ot and not ended %}<a href="#depart">宿を出る時刻の目安</a>{% endif %}
+  <a href="#about">開催の内容と時間</a>
+  <a href="#access">会場の建物と駅</a>
+  {% if page.concurrent %}<a href="#same-day">同じ日のイベント</a>{% endif %}
+  <a href="#tips">宿を取るコツ</a>
+</div>
 {{ more_buttons([
-  ('guide/', '開催時間と宿を出る時刻', '開場に間に合う出発時刻の目安、開催の内容、同じ日のイベント'),
   ('/' ~ venue.slug ~ '/hotels/', '地図とホテルの比較表', '距離、料金、口コミ、大浴場で並べ替え'),
   ('/' ~ venue.slug ~ '/rinkai/', '駅から会場までの道順', 'りんかい線とゆりかもめからの行き方を図で'),
-  ('/' ~ venue.slug ~ '/halls/', '展示棟の違い', '東・西・南の展示棟と会議棟の場所'),
 ]) }}
+
+{% if ot and not ended %}
+<h2 id="depart">開場に間に合う出発時刻の目安</h2>
+<p>入場の列に並んだり受付で登録したりする時間を15分見込んで、宿を出る時刻の目安を出しました。</p>
+{{ depart_table(items, e.hours) }}
+<p class="note">歩ける距離の宿は道のりを直線距離の1.25倍、分速80mで計算しています。電車を使う宿は、駅までの歩き、ゆりかもめかりんかい線で1〜2駅、駅から会場までを合わせて約35分と見ています。{% if '東展示棟' in bld %}東展示棟は会場の入口からさらに歩くので、10分ほど早めに出ると安心です。{% endif %}</p>
+{% endif %}
+
+<h2 id="about">{{ e.name }}の開催概要</h2>
+<div class="table-wrap"><table class="event-facts"><tbody>
+  <tr><th>開催日</th><td>{{ period(e) }}{% if page.days > 1 %}（{{ page.days }}日間）{% endif %}</td></tr>
+  <tr><th>会場</th><td><a href="/{{ venue.slug }}/">{{ venue.name }}</a>{% if e.hall %}　{{ e.hall }}{% endif %}</td></tr>
+  {% if e.hours %}<tr><th>開催時間</th><td>{{ e.hours }}</td></tr>{% endif %}
+  {% if e.audience %}<tr><th>来場できる人</th><td>{{ audience_label(e.audience) }}</td></tr>{% endif %}
+  {% if e.fee %}<tr><th>入場料</th><td>{{ e.fee }}</td></tr>{% endif %}
+  {% if e.content %}<tr><th>内容</th><td>{{ e.content }}</td></tr>{% endif %}
+  {% if e.organizer %}<tr><th>問い合わせ先</th><td>{{ e.organizer }}</td></tr>{% endif %}
+  {% if e.url %}<tr><th>公式サイト</th><td><a href="{{ e.url if e.url.startswith('http') else 'https://' ~ e.url }}" rel="noopener" target="_blank">{{ e.url }}</a></td></tr>{% endif %}
+</tbody></table></div>
+{% if page.text %}<p>{{ page.text.intro }}</p>{% endif %}
+<p class="note">開催日や時間は主催者の発表をもとにしています。お出かけ前に公式サイトで確認してください。</p>
+
+<h2 id="access">会場の建物と最寄り駅</h2>
+<p>{% if bld %}会場は{{ venue.name }}の{{ bld|join('と') }}です。{% if '東展示棟' in bld %}東展示棟は駅から入ってガレリアと呼ばれる長い通路を進んだ奥にあり、入口からホールまでも歩きます。{% elif '西展示棟' in bld or '会議棟' in bld %}駅から近い建物なので、会場に入ってからの移動はそれほどかかりません。{% elif '南展示棟' in bld %}南展示棟は西展示棟とつながった新しい建物で、2階と4階にホールがあります。{% endif %}{% endif %}最寄り駅はゆりかもめの東京ビッグサイト駅（徒歩約3分）と、りんかい線の国際展示場駅（徒歩約7分）です。</p>
+{{ more_buttons([
+  ('/' ~ venue.slug ~ '/rinkai/', 'りんかい線からの道順', '国際展示場駅から徒歩約7分'),
+  ('/' ~ venue.slug ~ '/yurikamome/', 'ゆりかもめからの道順', '東京ビッグサイト駅から徒歩約3分'),
+]) }}
+
+{% if page.concurrent %}
+<h2 id="same-day">同じ時期に開かれるイベント</h2>
+<p>同じ日にほかの展示棟でも催しが開かれます。重なる日は会場周辺の宿も駅も混み合います。</p>
+{{ event_table(page.concurrent, venue.slug) }}
+{% endif %}
+
+<h2 id="tips">宿を取るときのポイント</h2>
+{% if page.text %}<p>{{ page.text.stay }}</p>{% endif %}
+{% if e.start != e.end %}
+<h3>会期の初日と最終日は混みやすい</h3>
+<p>{{ page.days }}日間の会期では、出展者は設営のために初日の前日から、来場者は初日や最終日に合わせて動くことが多くなります。会期の中ほどの日に行けるなら、宿の選択肢は広がります。</p>
+{% endif %}
+<h3>徒歩圏が埋まっていたら1〜2駅先を探す</h3>
+<p>会場から1km以内の宿が埋まっていても、ゆりかもめで行ける豊洲や台場、りんかい線で乗り換えなしの大井町や大崎まで広げれば見つかることが多くあります。</p>
+
+{% set shown = namespace(n=0) %}
+{% for h in items[:8] if restaurants.get(h.hotelNo) %}{% if loop.first %}
+<h2>泊まった日の夕食</h2>
+<p>イベントのあとは会場の飲食店も混み合います。宿の近くで夕食をとるなら、歩いて行ける範囲にこんなお店があります。</p>
+{% endif %}{% if shown.n < 3 %}
+<h3>{{ h.name }}の近く</h3>
+{{ restaurant_table(restaurants[h.hotelNo], 3) }}
+{% set shown.n = shown.n + 1 %}{% endif %}{% endfor %}
+
+<p><a class="btn btn-primary btn-block btn-big" href="#hotels">空いている近い宿にもどる</a></p>
