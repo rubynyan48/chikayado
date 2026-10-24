@@ -1,4 +1,4 @@
-実行 2026-10-24 16:57:01 push
+実行 2026-10-24 16:57:48 push
 設定あり RAKUTEN_APP_ID
 設定あり RAKUTEN_ACCESS_KEY
 未設定 HOTPEPPER_API_KEY
@@ -9,10 +9,15 @@
 設定あり DEST
 181ページを書き出しました
 鍵の形式は正常
-File list transfer time: 0.000 seconds
-Total bytes sent: 911,898
-Total bytes received: 125,902
-
-sent 911,898 bytes  received 125,902 bytes  230,622.22 bytes/sec
-total size is 14,189,726  speedup is 13.67
-転送完了（1回目）
+ssh: connect to host ＊＊＊ port 10022: Connection timed out
+rsync: connection unexpectedly closed (0 bytes received so far) [sender]
+rsync error: unexplained error (code 255) at io.c(232) [sender=3.2.7]
+転送に失敗（1回目）
+ssh: connect to host ＊＊＊ port 10022: Connection timed out
+rsync: connection unexpectedly closed (0 bytes received so far) [sender]
+rsync error: unexplained error (code 255) at io.c(232) [sender=3.2.7]
+転送に失敗（2回目）
+ssh: connect to host ＊＊＊ port 10022: Connection timed out
+rsync: connection unexpectedly closed (0 bytes received so far) [sender]
+rsync error: unexplained error (code 255) at io.c(232) [sender=3.2.7]
+転送に失敗（3回目）
