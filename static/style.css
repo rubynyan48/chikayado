@@ -41,6 +41,7 @@ a:hover { text-decoration-thickness: 2px; }
 .site-header { border-bottom: 3px solid var(--sign); background: var(--paper); }
 .header-inner { margin: 0 auto; padding-left: 16px; padding-right: 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 10px; padding-bottom: 10px; max-width: 1140px; }
 .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--sign); }
+.logo-img { height: 40px; width: auto; display: block; }
 .logo-text { font-size: 22px; font-weight: 800; line-height: 1.1; letter-spacing: .02em; }
 .logo-text small { white-space: nowrap; }
 .logo-text small { display: block; font-size: 11px; font-weight: 600; color: var(--muted); letter-spacing: 0; margin-top: 2px; }
@@ -174,7 +175,8 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-sp
 
 @media (max-width: 480px) {
   .site-nav a { font-size: 13px; padding: 6px 6px; }
-  .logo-text { font-size: 20px; }
+  .logo-text { display: none; }
+  .logo-img { height: 34px; }
   .logo-text small { font-size: 10px; }
   table { font-size: 14px; }
   th, td { padding: 9px 6px; }

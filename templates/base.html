@@ -3,6 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="/icon-192.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="referrer" content="no-referrer-when-downgrade">
 {% if site.google_site_verification %}<meta name="google-site-verification" content="{{ site.google_site_verification }}">{% endif %}
 <title>{{ page.title }}{% if not page.is_home %} - {{ site.name }}{% endif %}</title>
@@ -30,8 +33,8 @@
 <header class="site-header">
   <div class="header-inner">
     <a class="logo" href="/">
-      <span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 32 32" width="30" height="30"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="16" cy="16" r="8" fill="none" stroke="currentColor" stroke-width="2.5" opacity=".55"/><circle cx="16" cy="16" r="3.2" fill="#F5C518"/></svg></span>
-      <span class="logo-text">{{ site.name }}<small>{{ site.tagline }}</small></span>
+      <img class="logo-img" src="/images/ちか宿のロゴ.png" alt="{{ site.name }}" width="301" height="120">
+      <span class="logo-text"><small>{{ site.tagline }}</small></span>
     </a>
     <nav class="site-nav" aria-label="サイト内">
       <a href="/tokyo-big-sight/">東京ビッグサイト</a>

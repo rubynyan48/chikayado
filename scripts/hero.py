@@ -75,8 +75,11 @@ def make_hero(out_path, title, sub, tiles, lead="の会場に近いホテル", s
     d = ImageDraw.Draw(img)
     # 上の帯
     d.rectangle([0, 0, W, 86], fill=NAVY)
-    d.ellipse([48, 22, 90, 64], outline=(255, 255, 255), width=5)
-    d.ellipse([62, 36, 76, 50], fill=YELLOW)
+    icon = Path(__file__).resolve().parent.parent / "assets" / "photos" / "ちか宿のアイコン.png"
+    if icon.exists():
+        d.rounded_rectangle([44, 14, 102, 72], radius=12, fill=(255, 255, 255))
+        ic = Image.open(icon).convert("RGBA").resize((50, 50), Image.LANCZOS)
+        img.paste(ic, (48, 18), ic)
     d.text((108, 18), site, font=font(40), fill=(255, 255, 255))
     d.text((108 + d.textlength(site, font=font(40)) + 18, 34), tagline, font=font(24), fill=(200, 220, 235))
 
