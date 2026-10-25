@@ -4,6 +4,7 @@
 写真は static/images/ に日本語ファイル名で置くと、本文の決まった場所に入る。
 """
 import json
+from urllib.parse import quote
 import math
 import re
 import shutil
