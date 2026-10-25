@@ -1,5 +1,337 @@
 {
  "updated": "2026-10-25",
+ "lunch": [
+  {
+   "id": "J001282226",
+   "name": "生産者直売食堂 九段南",
+   "genre": "居酒屋",
+   "budget": "3001～4000円",
+   "open": "月～木: 11:30～15:00 （料理L.O. 14:45 ドリンクL.O. 14:45）17:30～22:30 （料理L.O. 21:50 ドリンクL.O. 22:10）金: 11:30～15:00 （料理L.O. 14:45 ドリンクL.O. 14:45）17:30～23:00 （料理L.O. 22:15 ドリンクL.O. 22:35）",
+   "access": "市ヶ谷駅 徒歩7分､九段下駅 徒歩10分",
+   "url": "https://www.hotpepper.jp/strJ001282226/?vos=nhppalsa000016",
+   "photo": "https://imgfp.hotp.jp/IMGH/28/35/P038592835/P038592835_238.jpg",
+   "distance_m": 631
+  },
+  {
+   "id": "J002647522",
+   "name": "SAPANA サパナ パレスサイド店",
+   "genre": "居酒屋",
+   "budget": "3001～4000円",
+   "open": "月～土: 11:00～23:00 （料理L.O. 22:30 ドリンクL.O. 22:30）",
+   "access": "竹橋駅から徒歩5分",
+   "url": "https://www.hotpepper.jp/strJ002647522/?vos=nhppalsa000016",
+   "photo": "https://imgfp.hotp.jp/IMGH/21/48/P050392148/P050392148_238.jpg",
+   "distance_m": 756
+  },
+  {
+   "id": "J001212214",
+   "name": "もつきむ 飯田橋",
+   "genre": "居酒屋",
+   "budget": "3001～4000円",
+   "open": "月～金: 11:30～15:30 （料理L.O. 13:30 ドリンクL.O. 13:30）17:00～23:00 （料理L.O. 22:00 ドリンクL.O. 22:30）土: 17:00～23:00 （料理L.O. 22:00 ドリンクL.O. 22:30）日: 17:00～22:00祝日: 16:00～23:00",
+   "access": "JR飯田橋駅西口より徒歩約2分",
+   "url": "https://www.hotpepper.jp/strJ001212214/?vos=nhppalsa000016",
+   "photo": "https://imgfp.hotp.jp/IMGH/97/25/P049919725/P049919725_238.jpg",
+   "distance_m": 780
+  },
+  {
+   "id": "J001100561",
+   "name": "越後屋 亀丸",
+   "genre": "居酒屋",
+   "budget": "3001～4000円",
+   "open": "月～金、祝前日: 11:00～23:00 （料理L.O. 22:00 ドリンクL.O. 22:00）土、日、祝日: 11:00～22:30 （料理L.O. 21:00 ドリンクL.O. 21:00）",
+   "access": "中央･総武各駅停車 飯田橋駅 徒歩2分",
+   "url": "https://www.hotpepper.jp/strJ001100561/?vos=nhppalsa000016",
+   "photo": "https://imgfp.hotp.jp/IMGH/08/84/P020530884/P020530884_238.jpg",
+   "distance_m": 809
+  },
+  {
+   "id": "J001102133",
+   "name": "ディップパレス 飯田橋サクラテラス店",
+   "genre": "ダイニングバー・バル",
+   "budget": "2001～3000円",
+   "open": "月～日: 11:00～23:00 （料理L.O. 22:00 ドリンクL.O. 22:30）",
+   "access": "JR･東京ﾒﾄﾛ･都営大江戸線 飯田橋駅より徒歩約3分",
+   "url": "https://www.hotpepper.jp/strJ001102133/?vos=nhppalsa000016",
+   "photo": "https://imgfp.hotp.jp/IMGH/48/28/P051374828/P051374828_238.jpg",
+   "distance_m": 820
+  },
+  {
+   "id": "J004633670",
+   "name": "和み屋 神保町店",
+   "genre": "居酒屋",
+   "budget": "3001～4000円",
+   "open": "月～金、祝前日: 15:00～翌0:00 （料理L.O. 23:30 ドリンクL.O. 23:30）土、日、祝日: 13:00～翌0:00 （料理L.O. 23:00 ドリンクL.O. 23:00）",
+   "access": "地下鉄神保町駅から徒歩3分 JR水道橋駅から徒歩5分",
+   "url": "https://www.hotpepper.jp/strJ004633670/?vos=nhppalsa000016",
+   "photo": "https://imgfp.hotp.jp/IMGH/64/31/P050796431/P050796431_238.jpg",
+   "distance_m": 827
+  },
+  {
+   "id": "J001128456",
+   "name": "サディの木 水道橋店",
+   "genre": "居酒屋",
+   "budget": "2001～3000円",
+   "open": "月～日、祝日、祝前日: 11:00～翌0:00 （料理L.O. 23:00 ドリンクL.O. 23:30）",
+   "access": "JR水道橋駅西口徒歩2分",
+   "url": "https://www.hotpepper.jp/strJ001128456/?vos=nhppalsa000016",
+   "photo": "https://imgfp.hotp.jp/IMGH/56/06/P051615606/P051615606_238.jpg",
+   "distance_m": 853
+  },
+  {
+   "id": "J004698603",
+   "name": "ほろ宵 水道橋店",
+   "genre": "居酒屋",
+   "budget": "1501～2000円",
+   "open": "月～土、祝日、祝前日: 11:00～23:30 （料理L.O. 23:00 ドリンクL.O. 23:30）日: 11:00～翌0:00 （料理L.O. 23:00 ドリンクL.O. 23:30）",
+   "access": "JR水道橋駅東口より徒歩約5分 宴会ｺｰｽ3500円～◎",
+   "url": "https://www.hotpepper.jp/strJ004698603/?vos=nhppalsa000016",
+   "photo": "https://imgfp.hotp.jp/IMGH/60/15/P051416015/P051416015_238.jpg",
+   "distance_m": 855
+  },
+  {
+   "id": "J004698604",
+   "name": "ワイキキプラス 水道橋店",
+   "genre": "居酒屋",
+   "budget": "1501～2000円",
+   "open": "月～土、祝日、祝前日: 11:00～23:30 （料理L.O. 23:00 ドリンクL.O. 23:30）日: 11:00～翌0:00 （料理L.O. 23:00 ドリンクL.O. 23:30）",
+   "access": "JR水道橋駅東口より徒歩約7分 宴会ｺｰｽ3000円～◎",
+   "url": "https://www.hotpepper.jp/strJ004698604/?vos=nhppalsa000016",
+   "photo": "https://imgfp.hotp.jp/IMGH/80/52/P051478052/P051478052_238.jpg",
+   "distance_m": 855
+  },
+  {
+   "id": "J001264464",
+   "name": "ラミちゃんの台所 水道橋店",
+   "genre": "居酒屋",
+   "budget": "2001～3000円",
+   "open": "月～日、祝日、祝前日: 11:00～15:0017:00～翌0:00 （料理L.O. 23:00 ドリンクL.O. 23:30）",
+   "access": "JR水道橋駅西口より約4分!2H飲み放題1111円",
+   "url": "https://www.hotpepper.jp/strJ001264464/?vos=nhppalsa000016",
+   "photo": "https://imgfp.hotp.jp/IMGH/14/99/P051591499/P051591499_238.jpg",
+   "distance_m": 877
+  },
+  {
+   "id": "J001200792",
+   "name": "オステリア ラウロ Osteria Lauro 神保町",
+   "genre": "イタリアン・フレンチ",
+   "budget": "4001～5000円",
+   "open": "月～金: 11:30～14:30 （料理L.O. 13:50 ドリンクL.O. 13:50）17:30～22:30 （料理L.O. 21:30 ドリンクL.O. 22:00）土: 17:00～22:00 （料理L.O. 21:00 ドリンクL.O. 21:00）",
+   "access": "神保町駅 A7番出口 徒歩2分",
+   "url": "https://www.hotpepper.jp/strJ001200792/?vos=nhppalsa000016",
+   "photo": "https://imgfp.hotp.jp/IMGH/63/50/P037516350/P037516350_238.jpg",
+   "distance_m": 884
+  },
+  {
+   "id": "J003533149",
+   "name": "シュラスコレストラン ALEGRIA Jimbocho アレグリア神保町",
+   "genre": "焼肉・ホルモン",
+   "budget": "4001～5000円",
+   "open": "月～金: 11:30～14:00 （料理L.O. 13:30 ドリンクL.O. 13:30）17:00～22:30 （料理L.O. 22:00 ドリンクL.O. 22:00）土、日、祝日: 11:30～14:30 （料理L.O. 14:00 ドリンクL.O. 14:00）16:00～22:30 （料理L.O. 22:00 ドリンクL.O. 22:00）",
+   "access": "神保町駅徒歩1分/御茶ﾉ水･新御茶ﾉ水駅 徒歩10分",
+   "url": "https://www.hotpepper.jp/strJ003533149/?vos=nhppalsa000016",
+   "photo": "https://imgfp.hotp.jp/IMGH/45/15/P043674515/P043674515_238.jpg",
+   "distance_m": 889
+  },
+  {
+   "id": "J003959138",
+   "name": "神保町　かつら",
+   "genre": "和食",
+   "budget": "4001～5000円",
+   "open": "月～金: 11:30～14:00 （料理L.O. 13:30 ドリンクL.O. 13:30）17:00～22:00 （料理L.O. 20:00 ドリンクL.O. 21:30）土: 17:00～22:00 （料理L.O. 20:00 ドリンクL.O. 21:30）",
+   "access": "神保町駅 A7番出口から徒歩2分",
+   "url": "https://www.hotpepper.jp/strJ003959138/?vos=nhppalsa000016",
+   "photo": "https://imgfp.hotp.jp/IMGH/65/11/P051236511/P051236511_238.jpg",
+   "distance_m": 895
+  },
+  {
+   "id": "J001054253",
+   "name": "東京小町 水道橋店",
+   "genre": "居酒屋",
+   "budget": "3001～4000円",
+   "open": "月～日、祝日、祝前日: 11:00～翌0:00 （料理L.O. 23:00 ドリンクL.O. 23:30）",
+   "access": "当店は 宴会3000円～♪JR水道橋駅 徒歩2分",
+   "url": "https://www.hotpepper.jp/strJ001054253/?vos=nhppalsa000016",
+   "photo": "https://imgfp.hotp.jp/IMGH/38/94/P045483894/P045483894_238.jpg",
+   "distance_m": 897
+  },
+  {
+   "id": "J000029968",
+   "name": "土間土間 飯田橋店",
+   "genre": "居酒屋",
+   "budget": "3001～4000円",
+   "open": "月～金、祝前日: 11:30～14:00 （料理L.O. 13:30 ドリンクL.O. 13:30）16:00～23:00 （料理L.O. 22:30 ドリンクL.O. 22:30）土、日、祝日: 16:00～23:00 （料理L.O. 22:30 ドリンクL.O. 22:30）",
+   "access": "JR飯田橋駅東口徒歩3分/地下鉄飯田橋駅A4出口徒歩2分",
+   "url": "https://www.hotpepper.jp/strJ000029968/?vos=nhppalsa000016",
+   "photo": "https://imgfp.hotp.jp/IMGH/01/05/P051310105/P051310105_238.jpg",
+   "distance_m": 906
+  },
+  {
+   "id": "J004634157",
+   "name": "肉の罠",
+   "genre": "居酒屋",
+   "budget": "3001～4000円",
+   "open": "月～金: 17:00～23:30 （料理L.O. 22:30 ドリンクL.O. 22:50）土: 17:00～23:00 （料理L.O. 22:00 ドリンクL.O. 22:15）祝前日: 17:00～23:30 （料理L.O. 22:30 ドリンクL.O. 22:30）",
+   "access": "神保町駅より徒歩2分",
+   "url": "https://www.hotpepper.jp/strJ004634157/?vos=nhppalsa000016",
+   "photo": "https://imgfp.hotp.jp/IMGH/46/70/P033054670/P033054670_238.jpg",
+   "distance_m": 922
+  },
+  {
+   "id": "J000004250",
+   "name": "こんごう庵 神保町店",
+   "genre": "居酒屋",
+   "budget": "3001～4000円",
+   "open": "月～金: 11:30～14:30 （料理L.O. 14:00 ドリンクL.O. 14:00）17:00～23:00 （料理L.O. 22:00 ドリンクL.O. 22:30）土、日、祝日: 11:30～14:30 （料理L.O. 14:00 ドリンクL.O. 14:00）17:00～21:00 （料理L.O. 20:00 ドリンクL.O. 20:30）",
+   "access": "地下鉄都営新宿線神保町駅A5出口徒歩1分",
+   "url": "https://www.hotpepper.jp/strJ000004250/?vos=nhppalsa000016",
+   "photo": "https://imgfp.hotp.jp/IMGH/38/22/P050233822/P050233822_238.jpg",
+   "distance_m": 923
+  },
+  {
+   "id": "J004005674",
+   "name": "お好みもんじゃ 水道橋店",
+   "genre": "お好み焼き・もんじゃ",
+   "budget": "2001～3000円",
+   "open": "月～金: 17:00～23:00土、日、祝日: 12:00～23:00",
+   "access": "JR水道橋駅東口約3分/都営三田線水道橋駅A1出口約5分",
+   "url": "https://www.hotpepper.jp/strJ004005674/?vos=nhppalsa000016",
+   "photo": "https://imgfp.hotp.jp/IMGH/28/55/P050722855/P050722855_238.jpg",
+   "distance_m": 940
+  },
+  {
+   "id": "J003411636",
+   "name": "居酒屋 道らく 水道橋東京ドーム店",
+   "genre": "居酒屋",
+   "budget": "2001～3000円",
+   "open": "月～日、祝日、祝前日: 11:00～翌0:00 （料理L.O. 23:00 ドリンクL.O. 23:30）",
+   "access": "水道橋駅西口徒歩1分/三田線水道橋駅A2出口より約8分",
+   "url": "https://www.hotpepper.jp/strJ003411636/?vos=nhppalsa000016",
+   "photo": "https://imgfp.hotp.jp/IMGH/19/17/P047351917/P047351917_238.jpg",
+   "distance_m": 949
+  },
+  {
+   "id": "J001127662",
+   "name": "Bistro U ビストロユウ 水道橋",
+   "genre": "イタリアン・フレンチ",
+   "budget": "3001～4000円",
+   "open": "月～金、祝前日: 11:30～14:30 （料理L.O. 14:00 ドリンクL.O. 14:00）18:00～23:30 （料理L.O. 22:30 ドリンクL.O. 23:00）土: 18:00～23:30 （料理L.O. 22:30 ドリンクL.O. 23:00）",
+   "access": "JR水道橋駅 徒歩1分",
+   "url": "https://www.hotpepper.jp/strJ001127662/?vos=nhppalsa000016",
+   "photo": "https://imgfp.hotp.jp/IMGH/56/38/P042605638/P042605638_238.jpg",
+   "distance_m": 955
+  },
+  {
+   "id": "J003560090",
+   "name": "香港居酒屋錦記飯田橋店",
+   "genre": "中華",
+   "budget": "3001～4000円",
+   "open": "月～金: 10:00～15:0017:00～23:30 （料理L.O. 23:00 ドリンクL.O. 23:00）土、日: 11:00～15:0017:00～23:00 （料理L.O. 23:00 ドリンクL.O. 23:00）祝日: 11:00～15:0017:00～23:30 （料理L.O. 23:00 ドリンクL.O. 23:00）祝前日: 10:00～15:0017:00～23:00 （料理L.O. 23:00 ドリンクL.O. 23:00）",
+   "access": "東京ﾒﾄﾛ飯田橋駅A4出口より徒歩約2分",
+   "url": "https://www.hotpepper.jp/strJ003560090/?vos=nhppalsa000016",
+   "photo": "https://imgfp.hotp.jp/IMGH/60/19/P042006019/P042006019_238.jpg",
+   "distance_m": 958
+  },
+  {
+   "id": "J001161743",
+   "name": "肉バル 29DOME ニクドーム 水道橋店",
+   "genre": "居酒屋",
+   "budget": "3001～4000円",
+   "open": "月～金: 12:00～翌0:00 （料理L.O. 22:30 ドリンクL.O. 23:00）土、日、祝日: 13:00～翌0:00 （料理L.O. 22:30 ドリンクL.O. 23:00）",
+   "access": "最大2時間飲み放題付きｺｰｽ4290円～!食べ放題も",
+   "url": "https://www.hotpepper.jp/strJ001161743/?vos=nhppalsa000016",
+   "photo": "https://imgfp.hotp.jp/IMGH/70/10/P038827010/P038827010_238.jpg",
+   "distance_m": 978
+  },
+  {
+   "id": "J001126936",
+   "name": "SAPANA サパナ 水道橋駅西口店",
+   "genre": "居酒屋",
+   "budget": "3001～4000円",
+   "open": "月～日: 06:00～翌6:00 （料理L.O. 翌5:00 ドリンクL.O. 翌5:30）",
+   "access": "水道橋西口 徒歩1分",
+   "url": "https://www.hotpepper.jp/strJ001126936/?vos=nhppalsa000016",
+   "photo": "https://imgfp.hotp.jp/IMGH/66/39/P030706639/P030706639_238.jpg",
+   "distance_m": 980
+  },
+  {
+   "id": "J004591623",
+   "name": "ことこと 水道橋駅前店",
+   "genre": "居酒屋",
+   "budget": "3001～4000円",
+   "open": "月～日、祝日、祝前日: 15:00～翌0:30 （料理L.O. 23:00 ドリンクL.O. 23:30）",
+   "access": "水道橋駅西口から1分以内",
+   "url": "https://www.hotpepper.jp/strJ004591623/?vos=nhppalsa000016",
+   "photo": "https://imgfp.hotp.jp/IMGH/73/87/P050497387/P050497387_238.jpg",
+   "distance_m": 981
+  },
+  {
+   "id": "J004005532",
+   "name": "29DOME ニクドーム 別邸 水道橋店",
+   "genre": "ダイニングバー・バル",
+   "budget": "3001～4000円",
+   "open": "月～金、祝前日: 12:00～翌0:00 （料理L.O. 22:30 ドリンクL.O. 23:00）土、日、祝日: 13:00～翌0:00 （料理L.O. 22:30 ドリンクL.O. 23:00）",
+   "access": "最大2時間飲み放題付きｺｰｽ4290円～!食べ放題も",
+   "url": "https://www.hotpepper.jp/strJ004005532/?vos=nhppalsa000016",
+   "photo": "https://imgfp.hotp.jp/IMGH/48/16/P050074816/P050074816_238.jpg",
+   "distance_m": 983
+  },
+  {
+   "id": "J004559442",
+   "name": "個室居酒屋 焼き鳥と鮮魚の居酒屋 魚まる 水道橋店",
+   "genre": "居酒屋",
+   "budget": "2001～3000円",
+   "open": "月～木: 12:00～翌0:00 （料理L.O. 23:00 ドリンクL.O. 23:30）金、土、祝前日: 12:00～翌5:00 （料理L.O. 翌4:30 ドリンクL.O. 翌4:30）日: 12:00～翌0:00 （料理L.O. 23:00 ドリンクL.O. 23:00）祝日: 12:00～翌5:00 （料理L.O. 23:00 ドリンクL.O. 23:00）",
+   "access": "■水道橋駅徒歩1分/駅近居酒屋",
+   "url": "https://www.hotpepper.jp/strJ004559442/?vos=nhppalsa000016",
+   "photo": "https://imgfp.hotp.jp/IMGH/71/30/P049577130/P049577130_238.jpg",
+   "distance_m": 987
+  },
+  {
+   "id": "J001287377",
+   "name": "水道橋商店",
+   "genre": "居酒屋",
+   "budget": "2001～3000円",
+   "open": "月～日、祝日、祝前日: 12:00～翌4:30 （料理L.O. 翌3:30 ドリンクL.O. 翌4:00）",
+   "access": "水道橋徒歩10秒◎都内屈指のｺｽﾊﾟ!博多を喰らう!",
+   "url": "https://www.hotpepper.jp/strJ001287377/?vos=nhppalsa000016",
+   "photo": "https://imgfp.hotp.jp/IMGH/29/53/P050792953/P050792953_238.jpg",
+   "distance_m": 991
+  },
+  {
+   "id": "J000860585",
+   "name": "肉屋の台所 飯田橋店",
+   "genre": "焼肉・ホルモン",
+   "budget": "4001～5000円",
+   "open": "月～日: 12:00～23:00 （料理L.O. 22:30 ドリンクL.O. 22:30）",
+   "access": "JR飯田橋駅&地下鉄A4出口徒歩30秒/JR水道橋駅徒歩10分",
+   "url": "https://www.hotpepper.jp/strJ000860585/?vos=nhppalsa000016",
+   "photo": "https://imgfp.hotp.jp/IMGH/64/34/P048516434/P048516434_238.jpg",
+   "distance_m": 999
+  },
+  {
+   "id": "J001051955",
+   "name": "GOOD MORNING CAFE 神田錦町",
+   "genre": "イタリアン・フレンチ",
+   "budget": "3001～4000円",
+   "open": "月～金: 11:30～15:00 （料理L.O. 14:30 ドリンクL.O. 14:30）17:30～22:00 （料理L.O. 21:00 ドリンクL.O. 21:00）土、日、祝日: 11:00～16:00 （料理L.O. 15:00 ドリンクL.O. 15:00）17:00～21:00 （料理L.O. 20:00 ドリンクL.O. 20:00）",
+   "access": "神保町駅 A9出口より徒歩3分",
+   "url": "https://www.hotpepper.jp/strJ001051955/?vos=nhppalsa000016",
+   "photo": "https://imgfp.hotp.jp/IMGH/64/12/P034736412/P034736412_238.jpg",
+   "distance_m": 999
+  },
+  {
+   "id": "J003851784",
+   "name": "和食居酒屋 一石二鳥 飯田橋店",
+   "genre": "居酒屋",
+   "budget": "3001～4000円",
+   "open": "月、火、木、土、日、祝日: 15:00～翌0:00 （料理L.O. 23:00 ドリンクL.O. 23:00）水、金、祝前日: 14:00～翌0:00 （料理L.O. 23:00 ドリンクL.O. 23:00）",
+   "access": "JR飯田橋より徒歩約2分大江戸線飯田橋より徒歩約1分",
+   "url": "https://www.hotpepper.jp/strJ003851784/?vos=nhppalsa000016",
+   "photo": "https://imgfp.hotp.jp/IMGH/22/79/P046242279/P046242279_238.jpg",
+   "distance_m": 999
+  }
+ ],
  "by_hotel": {
   "74698": [
    {
