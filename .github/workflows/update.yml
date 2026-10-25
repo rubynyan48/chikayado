@@ -135,6 +135,11 @@ jobs:
           exit 1
         continue-on-error: true
 
+      - name: IndexNowに新しいページを知らせる
+        if: github.event_name != 'push' && steps.deploy.outcome == 'success'
+        run: cd scripts && python indexnow.py 2>&1 | python redact.py; exit ${PIPESTATUS[0]}
+        continue-on-error: true
+
       - name: データと実行ログを保存
         if: always()
         run: |
