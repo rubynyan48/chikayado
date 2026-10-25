@@ -42,12 +42,22 @@ def sitemap_urls():
     return re.findall(r"<loc>([^<]+)</loc>", xml)
 
 
-def inspect_all(s, urls):
-    """URL検査APIで1件ずつインデックス状況を調べる（1日2000件まで）。"""
+def inspect_all(s, urls, today):
+    """URL検査APIで1件ずつインデックス状況を調べる（1日2000件まで）。途中でも50件ごとに保存する。"""
     api = "https://searchconsole.googleapis.com/v1/urlInspection/index:inspect"
     out = []
+    started = time.time()
     for i, u in enumerate(urls):
-        r = s.post(api, json={"inspectionUrl": u, "siteUrl": SITE_URL, "languageCode": "ja"}, timeout=60)
+        if time.time() - started > 18 * 60:
+            print(f"時間がかかりすぎたので {i}件で止めます（残りは次回）")
+            break
+        try:
+            r = s.post(api, json={"inspectionUrl": u, "siteUrl": SITE_URL, "languageCode": "ja"}, timeout=20)
+        except Exception as exc:
+            out.append({"url": unquote(u), "error": type(exc).__name__})
+            continue
+        if i == 0:
+            print(f"  1件目の応答 HTTP {r.status_code} {round(time.time() - started, 1)}秒 {r.text[:300] if r.status_code >= 400 else ''}")
         if r.status_code == 429:
             print("URL検査の上限に達したので、ここで止めます")
             break
@@ -59,7 +69,8 @@ def inspect_all(s, urls):
                     "last_crawl": res.get("lastCrawlTime"), "google_canonical": res.get("googleCanonical")})
         time.sleep(0.2)
         if (i + 1) % 50 == 0:
-            print(f"  {i + 1}/{len(urls)}件を調べました")
+            print(f"  {i + 1}/{len(urls)}件を調べました（{round(time.time() - started)}秒）")
+            write_json(OUT / "index_status.json", {"checked": today, "partial": True, "urls": out})
     return out
 
 
@@ -94,15 +105,6 @@ def main():
     today = date.today().isoformat()
     failed = False
 
-    urls = sitemap_urls()
-    print(f"サイトマップのURL {len(urls)}件のインデックス状況を調べます")
-    status = inspect_all(s, urls)
-    write_json(OUT / "index_status.json", {"checked": today, "urls": status})
-    count = Counter(x.get("coverage") or x.get("error", "不明")[:40] for x in status)
-    print("インデックス状況の内訳")
-    for k, n in count.most_common():
-        print(f"  {k}: {n}件")
-
     for name, dims in (("search_pages", ["page"]), ("search_queries", ["query"])):
         try:
             rows = search_analytics(s, dims)
@@ -111,6 +113,15 @@ def main():
         except Exception as exc:
             failed = True
             print(f"{name} の取得に失敗 {exc}", file=sys.stderr)
+
+    urls = sitemap_urls()
+    print(f"サイトマップのURL {len(urls)}件のインデックス状況を調べます")
+    status = inspect_all(s, urls, today)
+    write_json(OUT / "index_status.json", {"checked": today, "urls": status})
+    count = Counter(x.get("coverage") or x.get("error", "不明")[:40] for x in status)
+    print("インデックス状況の内訳")
+    for k, n in count.most_common():
+        print(f"  {k}: {n}件")
 
     prop = str(SITE.get("ga4_property_id") or "").strip()
     if prop:
