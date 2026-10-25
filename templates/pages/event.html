@@ -149,7 +149,8 @@
   <div role="tabpanel" id="food-lunch">
     <p class="hint">{{ venue.name }}から歩いて行ける、ランチ営業のあるお店です。地図の番号は表の番号と同じです。</p>
     {{ food_map(venue, lunch[:8]) }}
-    {{ restaurant_table(lunch, 8, '会場から') }}
+    {{ restaurant_table(lunch, 8, '会場から', 1, '夜の予算') }}
+    <p class="note">予算はホットペッパーに載っている夜の平均です。ランチはこれより安いことがほとんどです。</p>
   </div>
   {% endif %}
   {% if dinner %}

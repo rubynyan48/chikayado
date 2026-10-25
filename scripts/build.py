@@ -523,13 +523,13 @@ def event_table(events, venue_slug, limit=None):
                   f"</thead><tbody>{body}</tbody></table></div>")
 
 
-def restaurant_table(shops, limit=3, base="宿から", start=1):
+def restaurant_table(shops, limit=3, base="宿から", start=1, budget="予算"):
     rows = "".join(
         f'<tr><td><span class="no">{start + i}</span><a href="{escape(s["url"])}" rel="nofollow noopener" target="_blank">{escape(s["name"])}</a>'
         f'<span class="sub">{escape(s["genre"])}</span></td><td>{escape(s["budget"])}</td><td class="num">{dist_label(s["distance_m"])}</td></tr>'
         for i, s in enumerate(shops[:limit])
     )
-    return Markup(f'<div class="table-wrap"><table><thead><tr><th>店</th><th>予算</th><th class="num">{base}</th></tr></thead>'
+    return Markup(f'<div class="table-wrap"><table><thead><tr><th>店</th><th>{budget}</th><th class="num">{base}</th></tr></thead>'
                   f"<tbody>{rows}</tbody></table></div>")
 
 
@@ -646,6 +646,10 @@ def venue_context(venue):
     events = read_json(DATA / "events" / f"{venue['slug']}.json", {"events": []})["events"]
     restaurants = read_json(DATA / "restaurants" / f"{vslug(venue)}.json", {"by_hotel": {}})["by_hotel"]
     lunch = (read_json(DATA / "restaurants" / f"{venue['slug']}.json", {}) or {}).get("lunch", [])
+    # ランチは居酒屋より食堂やカフェなどを先に出す（居酒屋のランチは数が足りないときだけ）
+    pub = [s for s in lunch if "居酒屋" in (s.get("genre") or "")]
+    lunch = sorted([s for s in lunch if s not in pub], key=lambda s: s["distance_m"])[:8]
+    lunch += sorted(pub, key=lambda s: s["distance_m"])[:max(0, 8 - len(lunch))]
     upcoming = [e for e in events if e["end"] >= TODAY.isoformat()]
     sat = TODAY + timedelta(days=(5 - TODAY.weekday()) % 7 or 7)
     series = []
