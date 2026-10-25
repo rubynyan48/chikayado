@@ -577,7 +577,7 @@ def venue_summary(venue):
 def venue_context(venue):
     hotels = load_hotels(venue)
     events = read_json(DATA / "events" / f"{venue['slug']}.json", {"events": []})["events"]
-    restaurants = read_json(DATA / "restaurants" / f"{venue['slug']}.json", {"by_hotel": {}})["by_hotel"]
+    restaurants = read_json(DATA / "restaurants" / f"{vslug(venue)}.json", {"by_hotel": {}})["by_hotel"]
     upcoming = [e for e in events if e["end"] >= TODAY.isoformat()]
     sat = TODAY + timedelta(days=(5 - TODAY.weekday()) % 7 or 7)
     series = []

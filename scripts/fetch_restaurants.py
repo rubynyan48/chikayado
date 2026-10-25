@@ -46,6 +46,8 @@ def main():
         return 0
     failed = False
     for venue in venues():
+        if venue.get("hotel_area"):
+            continue  # 有明アリーナなどはビッグサイトのデータを使う
         hotels = read_json(DATA / "hotels" / f"{venue['slug']}.json", {"hotels": []})["hotels"]
         result = {}
         for h in hotels[:HOTELS_PER_VENUE]:
