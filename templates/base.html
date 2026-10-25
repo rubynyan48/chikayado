@@ -58,9 +58,11 @@
 {% endif %}
 <main id="main">
 <article class="article">
+  {% if not page.is_home %}
   <h1>{{ page.h1 or page.title }}</h1>
   {% if page.updated %}<p class="meta">更新日 {{ page.updated }}</p>{% endif %}
   <p class="pr">本ページはプロモーションが含まれています</p>
+  {% endif %}
   {% if page.hero %}<figure class="hero"><img src="{{ page.hero.src | urlencode }}" alt="{{ page.hero.alt }}" width="1200" height="630" fetchpriority="high"></figure>{% endif %}
   <div class="lead">{{ page.lead | safe }}</div>
   {% if page.toc %}

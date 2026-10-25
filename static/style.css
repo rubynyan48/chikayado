@@ -433,3 +433,33 @@ td .no { display: inline-grid; place-items: center; width: 22px; height: 22px; m
 .t-people th, .t-people td { text-align: center; white-space: nowrap; }
 .t-people th[scope="row"] { text-align: left; white-space: normal; }
 .btn-small { padding: 6px 10px; font-size: 14px; min-height: 0; }
+
+/* ---- 旅行サイトに近い落ち着いた見た目（太い枠を減らす） ---- */
+.answer { border: 0; background: var(--wash); border-radius: var(--radius-m); }
+.search { border: 1px solid var(--line); background: #fff; border-radius: 12px; box-shadow: 0 4px 16px rgba(27,38,51,.10); }
+.search-date input, .search-date select { border: 1px solid #B9C4CE; }
+.pp span { border: 1px solid #B9C4CE; color: var(--ink); font-weight: 700; }
+.pp input:checked + span { border-color: var(--sign); }
+.qc, .pick, .ppl-card { border: 1px solid var(--line); }
+.qc:hover, .vcard:hover, .more-btn:hover { box-shadow: 0 4px 14px rgba(27,38,51,.12); }
+.stats div { border: 0; background: var(--wash); }
+.more-btn { border: 1px solid var(--line); box-shadow: none; }
+.venue-link, .vcard { border: 1px solid var(--line); }
+.vcard:hover { background: #fff; }
+.vcard .chip { background: var(--wash); color: var(--muted); border: 0; }
+
+/* トップの検索の帯 */
+.home-hero { margin: 0 -16px 14px; padding: 22px 16px 18px; background: linear-gradient(rgba(10,40,64,.72), rgba(10,40,64,.72)), url("/images/イベント会場の街並み.jpg") center / cover; }
+.home-hero-text { color: #fff; margin-bottom: 14px; }
+.home-hero h1 { color: #fff; font-size: 26px; line-height: 1.4; margin: 0 0 8px; border: 0; padding: 0; }
+.home-hero-text p { margin: 0; font-size: 14px; line-height: 1.7; color: #E3ECF3; }
+.home-hero .search { box-shadow: 0 6px 22px rgba(0,0,0,.25); border: 0; }
+.home-hero + .pr { margin-top: 0; }
+@media (min-width: 720px) {
+  .home-hero { margin: 0 0 14px; border-radius: 12px; padding: 32px 28px 26px; }
+  .home-hero h1 { font-size: 32px; }
+  .rec-top { display: grid; grid-template-columns: 1.4fr 1fr; gap: 0 14px; }
+  .rec-top .rec-label, .rec-top .search-people, .rec-top .btn, .rec-top .rec-data { grid-column: 1 / -1; }
+}
+.home-hero .search-note { color: #D5E2EC; }
+.vcard img { aspect-ratio: 640 / 336; }

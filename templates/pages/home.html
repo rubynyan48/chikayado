@@ -1,10 +1,12 @@
 {% set hd = home %}
-<div class="answer">
-  <p class="answer-q">会場を選んで、泊まる日と人数を入れるだけ</p>
-  <p class="answer-a">都内{{ hd.total_venues }}会場の近くの宿を、空室と料金つきで</p>
-  <p class="answer-note">これから開催される{{ hd.total_events }}件のイベントごとに、開催日に泊まれる宿を毎日調べ直しています。</p>
-</div>
-{{ top_search(hd.groups, hd.saturday) }}
+<section class="home-hero">
+  <div class="home-hero-text">
+    <h1>イベント会場に近いホテルが見つかる</h1>
+    <p>東京ビッグサイト、東京ドーム、日本武道館など都内{{ hd.total_venues }}会場。{{ hd.total_events }}件のイベントの開催日に泊まれる宿を、毎朝調べ直しています。</p>
+  </div>
+  {{ top_search(hd.groups, hd.saturday) }}
+</section>
+<p class="pr">本ページはプロモーションが含まれています</p>
 <!--body-->
 <h2 id="venues">会場から探す</h2>
 <p>会場のある場所ごとに分けています。会場を選ぶと、近い宿のおすすめ、地図と比較表、開催予定のイベントが見られます。</p>
@@ -13,7 +15,7 @@
 <div class="vcards">
 {% for c in cs %}
 <a class="vcard" href="/{{ c.slug }}/">
-  <img src="{{ c.img | urlencode }}" alt="{{ c.name }}に近いホテル" width="1200" height="630" loading="lazy">
+  <img src="{{ c.img | urlencode }}" alt="{{ c.name }}" width="640" height="336" loading="lazy">
   <span class="vcard-body">
     <strong>{{ c.name }}</strong>
     <span class="vcard-tags">{% for t in c.tags %}<span class="chip">{{ t }}</span>{% endfor %}</span>

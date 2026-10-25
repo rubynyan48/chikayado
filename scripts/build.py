@@ -662,6 +662,25 @@ VENUE_TAGS = {
 SPORTS = re.compile(r"大相撲|リーグ|選手権|大会|試合|ホームゲーム|開幕戦|vs|VS|BOXING|ボクシング|ONE |格闘|バスケ|バレー|フィギュア|Championship|GAME\.|太極拳")
 
 
+def card_image(v):
+    """トップの会場カードに使う写真。会場の写真があれば切り抜いて使い、なければファーストビューの画像。"""
+    src = v.get("hero_photos", {}).get("venue")
+    path = ROOT / "assets" / "photos" / src if src else None
+    if not path or not path.exists():
+        return f"/{HERO_DIR}/{hero_name(v['name'] + 'に近いホテル')}"
+    out = DIST / "images" / "venues" / f"{v['name']}の外観.jpg"
+    if not out.exists():
+        out.parent.mkdir(parents=True, exist_ok=True)
+        with Image.open(path) as im:
+            im = im.convert("RGB")
+            W, H = 640, 336
+            r = max(W / im.width, H / im.height)
+            im = im.resize((round(im.width * r), round(im.height * r)), Image.LANCZOS)
+            x, y = (im.width - W) // 2, (im.height - H) // 2
+            im.crop((x, y, x + W, y + H)).save(out, "JPEG", quality=80, optimize=True, progressive=True)
+    return f"/images/venues/{v['name']}の外観.jpg"
+
+
 def home_data(ctxs):
     """トップページ用に、全会場をまとめた情報を作る。"""
     today = TODAY.isoformat()
@@ -677,7 +696,7 @@ def home_data(ctxs):
             "nearest": walk_min(ctx["hotels"][0]["distance_m"]) if ctx["hotels"] else None,
             "stations": sorted(v.get("stations", []), key=lambda s: s["walk_min"])[:2],
             "min_price": min(prices) if prices else None, "next": nxt, "count": len(ctx["events"]),
-            "img": f"/{HERO_DIR}/{hero_name(v['name'] + 'に近いホテル')}",
+            "img": card_image(v),
         }
         for e in ctx["events"]:
             all_up.append(dict(e, venue_slug=v["slug"], venue_name=v["name"], venue_kind=v.get("kind")))
@@ -878,7 +897,7 @@ def common_pages():
     home = {"name": "トップ", "path": "/"}
     return [
         {"path": "/", "template": "home.html", "is_home": True,
-         "title": "ちか宿 イベント会場に近いホテルを距離で探す", "h1": "イベント会場に近いホテルを探す",
+         "title": "ちか宿 イベント会場に近いホテルが見つかる", "h1": "イベント会場に近いホテルが見つかる",
          "description": "東京ビッグサイト、東京ドーム、日本武道館、有明アリーナなど都内の大型イベント会場に近いホテルを、会場からの距離と開催日の空室で探せます。展示会、ライブ、同人誌即売会、スポーツのイベントごとに宿をまとめています。",
          "breadcrumbs": []},
         {"path": "/about/", "template": "about.html", "no_toc": True, "title": "運営者情報",
@@ -913,7 +932,6 @@ def main():
     main_ctx = venue_context(main_venue)
     venue_list = [venue_summary(v) for v in all_venues]
     helpers["venue_list"] = venue_list
-    helpers["home"] = home_data([venue_context(v) for v in all_venues])
 
     jobs = [(p, main_ctx) for p in common_pages()]
     for venue in all_venues:
@@ -923,6 +941,7 @@ def main():
     if DIST.exists():
         shutil.rmtree(DIST)
     DIST.mkdir()
+    helpers["home"] = home_data([venue_context(v) for v in all_venues])
     updated = f"{TODAY.year}年{TODAY.month}月{TODAY.day}日"
     uses_hotpepper = False
 
