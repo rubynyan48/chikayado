@@ -213,7 +213,47 @@ def yoyogi(venue):
     return join_days(items)
 
 
+# ---- NHKホール ---------------------------------------------------------------
+def nhk_hall(venue):
+    soup = get_html("https://www.nhk-fdn.or.jp/nhk_hall/event.html")
+    items = []
+    for box in soup.select("div.eventBox"):
+        img = box.find("img", alt=re.compile(r"\d{4}年\d{1,2}月"))
+        if not img:
+            continue
+        y, m = map(int, re.match(r"(\d{4})年(\d{1,2})月", img["alt"]).groups())
+        for t in box.find_all("table"):
+            rows = t.find_all("tr")
+            if not rows or "日・曜日" in rows[0].get_text():
+                continue
+            cells = rows[0].find_all(["td", "th"])
+            if len(cells) < 3:
+                continue
+            text = t.get_text(" ", strip=True)
+            if "関係者" in text:
+                continue  # 招待客だけの式典や大会
+            days = []
+            for r in rows:
+                c = r.find(["td", "th"])
+                md = re.match(r"\s*(\d{1,2})日", c.get_text() if c else "")
+                if md:
+                    days.append(date(y, m, int(md.group(1))).isoformat())
+            if not days:
+                continue
+            name = clean(cells[1].get_text(" "))
+            # 今月と来月の表は「開場・開演・終演」、それより先は「開演」だけ
+            if len(cells) >= 6:
+                hours = f"開場 {clean(cells[2].get_text(' '))} 開演 {clean(cells[3].get_text(' '))}"
+            else:
+                hours = f"開演 {clean(cells[2].get_text(' '))}"
+            if max(days) < date.today().isoformat():
+                continue
+            items.append(event(name, min(days), max(days), hours=hours, content="整理券が必要な公開番組" if "整理券" in text else ""))
+    return items
+
+
 SOURCES = {
+    "nhk_hall": nhk_hall,
     "tokyo_dome": tokyo_dome,
     "ariake_arena": ariake_arena,
     "garden_theater": garden_theater,

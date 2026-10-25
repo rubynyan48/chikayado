@@ -1,0 +1,39 @@
+{
+  "slug": "nhk-hall",
+  "name": "NHKホール",
+  "formal_name": "NHKホール",
+  "address": "東京都渋谷区神南2-2-1",
+  "lat": 35.66592,
+  "lng": 139.69797,
+  "search_radius_km": 1.5,
+  "source": "nhk_hall",
+  "kind": "arena",
+  "hotel_area": "yoyogi-national-gymnasium",
+  "area_label": "原宿・渋谷",
+  "schedule_url": "https://www.nhk-fdn.or.jp/nhk_hall/event.html",
+  "order": 10,
+  "max_hotels": 40,
+  "stations": [
+    {
+      "name": "原宿駅",
+      "line": "JR山手線",
+      "walk_min": 10,
+      "lat": 35.67025,
+      "lng": 139.70268
+    },
+    {
+      "name": "明治神宮前駅",
+      "line": "東京メトロ千代田線・副都心線",
+      "walk_min": 12,
+      "lat": 35.66868,
+      "lng": 139.70538
+    },
+    {
+      "name": "渋谷駅",
+      "line": "JR・私鉄各線",
+      "walk_min": 15,
+      "lat": 35.65803,
+      "lng": 139.70164
+    }
+  ]
+}
