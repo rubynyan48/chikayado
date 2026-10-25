@@ -38,6 +38,8 @@ def fetch_around(lat, lng, rng=RANGE, lunch=False):
             "url": (s.get("urls") or {}).get("pc", ""),
             "photo": ((s.get("photo") or {}).get("pc") or {}).get("l", ""),
             "distance_m": d,
+            "lat": float(s["lat"]),
+            "lng": float(s["lng"]),
         })
     return sorted(out, key=lambda x: x["distance_m"])
 

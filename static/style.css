@@ -395,3 +395,14 @@ td.rate { white-space: nowrap; }
 .ppl-price { display: flex; justify-content: space-between; align-items: baseline; font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 4px; margin-top: 4px !important; }
 .ppl-price strong { font-size: 16px; color: var(--ink); }
 @media (min-width: 720px) { .ppl { grid-template-columns: repeat(4, 1fr); } }
+
+/* 近いおすすめ宿の検索 */
+.rec-label { font-weight: 800; margin: 0 0 4px; }
+.rec-sort { grid-template-columns: repeat(3, 1fr); margin-bottom: 0; }
+.rec-result { margin: 14px 0 6px; }
+.rec-more { margin-top: 10px; border: 0; cursor: pointer; font: inherit; font-weight: 800; }
+/* 飲食店の地図 */
+.map-food { height: 300px; margin: 8px 0 12px; }
+.pin-food { background: #E8730C; }
+.pin-stay { background: var(--sign); color: #fff; }
+td .no { display: inline-grid; place-items: center; width: 22px; height: 22px; margin-right: 6px; border-radius: 50%; background: #E8730C; color: #fff; font-size: 12px; font-weight: 800; vertical-align: 1px; }

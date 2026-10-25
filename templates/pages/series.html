@@ -26,17 +26,9 @@
 </div>
 {% endif %}
 <!--body-->
-<h2>人数を選ぶだけ</h2>
+<h2>近いおすすめ宿</h2>
 <div id="hotels"></div>
-{% if by_people %}
-<p class="hint">{{ jdate(e.start) }}の夜に1部屋に泊まれる宿を、会場に近い順に出しています。</p>
-{{ people_switch(hotels, by_people) }}
-{% else %}
-{{ quick_cards(items, 5) }}
-{% endif %}
-
-<h2>日付と人数を変えて探す</h2>
-{{ search_box(venue, e.start if e else saturday) }}
+{{ rec_box(venue, hotels, by_people, e.start if e else saturday) }}
 
 <h2>{{ sr.short }}の開催日</h2>
 <p>これまでに調べた{{ sr.name }}の開催日です。イベント名を選ぶと、その回の空き具合や宿を出る時刻の目安が見られます。</p>

@@ -8,7 +8,7 @@ import math
 import re
 import shutil
 from datetime import date, timedelta
-from html import escape
+from html import escape, unescape
 from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
@@ -341,6 +341,11 @@ def route_map(venue, station_page, hotels, goal_step, via=None, via_step=None):
                   '<p class="note">地図の番号は下の道順の番号と同じです。線は道のりのおおよその向きを示した目安です。実際は歩道や階段に沿って進みます。地図は国土地理院の地理院タイルを使っています。</p>')
 
 
+def walk_chip(m):
+    w = walk_min(m)
+    return f'<span class="walk">徒歩{w}分</span>' if w <= 20 else '<span class="walk far">電車で1〜2駅</span>'
+
+
 def quick_cards(items, limit=5, labels=None):
     """スマホで一目で選べる横長のカード。写真、名前、徒歩、評価、料金、予約ボタン。"""
     if not items:
@@ -356,7 +361,7 @@ def quick_cards(items, limit=5, labels=None):
         out.append(
             f'<a class="qc" href="{escape(book_url(h, h.get("offer")))}" rel="nofollow sponsored noopener" target="_blank">'
             f'{label}<span class="qc-row">{img}<span class="qc-body"><span class="qc-name">{escape(h["name"])}</span>'
-            f'<span class="qc-meta"><span class="walk">徒歩{walk_min(h["distance_m"])}分</span>{bath}</span>'
+            f'<span class="qc-meta">{walk_chip(h["distance_m"])}{bath}</span>'
             f'<span class="qc-rate">{stars(h.get("review_avg"))}</span>{price_html}</span></span>'
             f'<span class="qc-btn">空室と料金を見る</span></a>'
         )
@@ -381,6 +386,48 @@ def rank_tabs(items, limit=5, key="rk"):
         labels = [f"{name}で{r + 1}位" for r in range(limit)]
         panels.append(f'<div role="tabpanel" id="{key}{i}"{"" if i == 0 else " hidden"}>{quick_cards(lst, limit, labels)}</div>')
     return Markup(f'<div class="tabs"><div class="tablist tablist-big" role="tablist" aria-label="並べ方">{"".join(tabs)}</div>{"".join(panels)}</div>')
+
+
+def api_item(h):
+    """画面の中で並べ替えるための、宿1軒分の情報（空室検索の返事と同じ形）。"""
+    return {"name": h["name"], "walk": walk_min(h["distance_m"]), "image": h.get("image", ""),
+            "rate": h.get("review_avg"), "bath": bool(h.get("daiyoku") or h.get("onsen")),
+            "per_person": price_of(h), "url": book_url(h, h.get("offer"))}
+
+
+def rec_box(venue, hotels, by_people, default_date, adults="1", limit=6):
+    """近いおすすめ宿。日付・人数・並べ方（距離・値段・レビュー）を選ぶと、その場で並べ替えて出し直す。"""
+    adults = str(adults)
+    preset = {n: [api_item(h) for h in with_offers(hotels, by_people.get(n, {}))] for n in ("1", "2", "3", "4")} if by_people else {}
+    first = with_offers(hotels, by_people.get(adults, {})) if by_people else with_offers(hotels, None)
+    data = json.dumps({"date": default_date if by_people else "", "people": preset}, ensure_ascii=False).replace("</", "<\\/")
+    ppl = "".join(f'<label class="pp"><input type="radio" name="adults" value="{n}"{" checked" if n == adults else ""}><span>{n}人</span></label>'
+                  for n in ("1", "2", "3", "4"))
+    sorts = "".join(f'<label class="pp"><input type="radio" name="sort" value="{k}"{" checked" if k == "walk" else ""}><span>{v}</span></label>'
+                    for k, v in (("walk", "距離"), ("price", "値段"), ("rate", "レビュー")))
+    hint = (f'{jdate(default_date)}の夜に{adults}人で1部屋に泊まれる宿が{len(first)}軒あります。会場に近い順です。' if by_people
+            else "日付と人数を選ぶと、空いている宿に切り替わります。")
+    return Markup(
+        f'<form class="search rec" data-venue="{venue["slug"]}" data-limit="{limit}">'
+        f'<label class="search-date"><span>泊まる日</span><input type="date" name="date" value="{default_date}" min="{TODAY.isoformat()}"></label>'
+        f'<p class="rec-label">人数</p><div class="search-people" role="group" aria-label="人数">{ppl}</div>'
+        f'<p class="rec-label">並べ方</p><div class="search-people rec-sort" role="group" aria-label="並べ方">{sorts}</div>'
+        f'<script type="application/json" class="rec-data">{data}</script></form>'
+        f'<div class="rec-result" aria-live="polite"><p class="hint">{hint}</p>{quick_cards(first, limit)}</div>'
+        '<p class="search-note">会場から' + km(venue) + '以内の宿を楽天トラベルの空室から出しています。料金は1部屋に泊まるときの1人あたりの最安値です。</p>'
+    )
+
+
+def food_map(venue, spots, stays=None):
+    """飲食店の位置を地図に出す。spotsの番号は表の番号と同じ。staysは宿の位置。"""
+    pins = [{"n": i, "name": s["name"], "lat": s["lat"], "lng": s["lng"], "sub": f'{s.get("genre", "")}　{s.get("budget", "")}',
+             "url": s["url"]} for i, s in enumerate(spots, 1) if s.get("lat") and s.get("lng")]
+    if not pins:
+        return Markup("")
+    data = json.dumps({"venue": {"name": venue["name"], "lat": venue["lat"], "lng": venue["lng"]}, "spots": pins,
+                       "stays": [{"name": h["name"], "lat": h["lat"], "lng": h["lng"]} for h in (stays or [])]},
+                      ensure_ascii=False).replace("</", "<\\/")
+    return Markup(f'<div class="map map-food" data-map=\'{escape(data)}\'></div>')
 
 
 def people_switch(hotels, by_people, limit=5):
@@ -476,11 +523,11 @@ def event_table(events, venue_slug, limit=None):
                   f"</thead><tbody>{body}</tbody></table></div>")
 
 
-def restaurant_table(shops, limit=3, base="宿から"):
+def restaurant_table(shops, limit=3, base="宿から", start=1):
     rows = "".join(
-        f'<tr><td><a href="{escape(s["url"])}" rel="nofollow noopener" target="_blank">{escape(s["name"])}</a>'
+        f'<tr><td><span class="no">{start + i}</span><a href="{escape(s["url"])}" rel="nofollow noopener" target="_blank">{escape(s["name"])}</a>'
         f'<span class="sub">{escape(s["genre"])}</span></td><td>{escape(s["budget"])}</td><td class="num">{dist_label(s["distance_m"])}</td></tr>'
-        for s in shops[:limit]
+        for i, s in enumerate(shops[:limit])
     )
     return Markup(f'<div class="table-wrap"><table><thead><tr><th>店</th><th>予算</th><th class="num">{base}</th></tr></thead>'
                   f"<tbody>{rows}</tbody></table></div>")
@@ -506,7 +553,7 @@ def add_toc(body):
     def repl(m):
         n = len(toc) + 1
         hid = m.group(1) or f"s{n}"
-        toc.append({"id": hid, "text": re.sub(r"<[^>]+>", "", m.group(2)).strip()})
+        toc.append({"id": hid, "text": unescape(re.sub(r"<[^>]+>", "", m.group(2))).strip()})
         return f'<h2 id="{hid}">{m.group(2)}</h2>'
 
     return H2_RE.sub(repl, body), toc
@@ -726,7 +773,7 @@ def pages_for(venue, ctx):
                            "sub": f"{period(e)}　{venue['name']}", "tiles": hero_tiles(st, ctx["hotels"], ctx["near_hotels"]),
                            "alt": f"{e['name']}の会場に近いホテルの空き具合"}}
         pages.append(dict(common, **{
-            "path": path, "template": "event.html", "noindex": bool(e.get("noindex")),
+            "path": path, "template": "event.html", "noindex": bool(e.get("noindex")), "has_map": True,
             "title": f"{e['name']}に近いホテル {venue['name']}周辺の宿",
             "description": f"{e['name']}（{period(e)} {venue['name']}）の会場に近いホテルを、開催日の空室と1人あたりの料金で選べます。"
                            "人数を選ぶだけで泊まれる宿がわかり、日付を変えて空室を探すこともできます。",
@@ -768,7 +815,7 @@ def main():
                "open_time": open_time, "audience_label": audience_label,
                "event_table": event_table, "restaurant_table": restaurant_table, "dist_label": dist_label,
                "walk_min": walk_min, "yen": yen, "quick_cards": quick_cards, "people_switch": people_switch,
-               "search_box": search_box, "rank_tabs": rank_tabs, "station_table": station_table, "km": km, "more_buttons": more_buttons, "route_map": route_map, "book_url": book_url, "stars": stars, "chips": chips, "jdate": jdate, "period": period, "buildings": buildings,
+               "search_box": search_box, "rec_box": rec_box, "food_map": food_map, "rank_tabs": rank_tabs, "station_table": station_table, "km": km, "more_buttons": more_buttons, "route_map": route_map, "book_url": book_url, "stars": stars, "chips": chips, "jdate": jdate, "period": period, "buildings": buildings,
                "site": SITE, "today": TODAY.isoformat(), "css_v": css_version()}
     all_venues = [v for v in venues() if v.get("publish", True)]
     main_venue = all_venues[0]

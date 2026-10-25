@@ -34,18 +34,9 @@
 </div>
 {% endif %}
 <!--body-->
-<h2>{% if by_people and not ended %}人数を選ぶだけ{% else %}会場に近い宿{% endif %}</h2>
+<h2>近いおすすめ宿</h2>
 <div id="hotels"></div>
-{% if by_people and not ended %}
-<p class="hint">{{ jdate(e.start) }}の夜に1部屋に泊まれる宿を、会場に近い順に出しています。</p>
-{{ people_switch(hotels, by_people) }}
-{% else %}
-{{ quick_cards(items, 5) }}
-{% endif %}
-
-<h2>日付と人数を変えて探す</h2>
-<div id="search"></div>
-{{ search_box(venue, e.start if not ended else saturday) }}
+{{ rec_box(venue, hotels, by_people if not ended else {}, e.start if not ended else saturday) }}
 
 <h2>もっと詳しく知りたいとき</h2>
 <div class="jump">
@@ -156,16 +147,21 @@
   </div>
   {% if lunch %}
   <div role="tabpanel" id="food-lunch">
-    <p class="hint">{{ venue.name }}から歩いて行ける、ランチ営業のあるお店です。</p>
+    <p class="hint">{{ venue.name }}から歩いて行ける、ランチ営業のあるお店です。地図の番号は表の番号と同じです。</p>
+    {{ food_map(venue, lunch[:8]) }}
     {{ restaurant_table(lunch, 8, '会場から') }}
   </div>
   {% endif %}
   {% if dinner %}
   <div role="tabpanel" id="food-dinner"{% if lunch %} hidden{% endif %}>
-    <p class="hint">泊まる宿の近くで夕食をとるなら、歩いて行ける範囲にこんなお店があります。</p>
+    <p class="hint">泊まる宿の近くで夕食をとるなら、歩いて行ける範囲にこんなお店があります。地図の番号は表の番号と同じで、「宿」の印が泊まる宿です。</p>
+    {% set dshops = namespace(l=[]) %}{% for h in dinner[:3] %}{% set dshops.l = dshops.l + restaurants[h.hotelNo][:3] %}{% endfor %}
+    {{ food_map(venue, dshops.l, dinner[:3]) }}
+    {% set cnt = namespace(n=0) %}
     {% for h in dinner[:3] %}
     <h3>{{ h.name }}の近く</h3>
-    {{ restaurant_table(restaurants[h.hotelNo], 3) }}
+    {{ restaurant_table(restaurants[h.hotelNo], 3, '宿から', cnt.n + 1) }}
+    {% set cnt.n = cnt.n + (restaurants[h.hotelNo][:3]|length) %}
     {% endfor %}
   </div>
   {% endif %}

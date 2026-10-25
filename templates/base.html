@@ -143,7 +143,7 @@
       });
     })});
   });
-  document.querySelectorAll('form.search').forEach(function(f){
+  document.querySelectorAll('form.search:not(.rec)').forEach(function(f){
     var out=f.querySelector('.search-result');
     function esc(s){var d=document.createElement('div');d.textContent=s==null?'':String(s);return d.innerHTML;}
     function stars(v){if(!v)return '<span class="sub">評価なし</span>';v=+v;return '<span class="stars" style="--r:'+Math.round(v/5*100)+'%">★★★★★</span><span class="rate-num">'+v.toFixed(2)+'</span>';}
@@ -157,17 +157,55 @@
         var h='<p class="hint">'+d.hotels.length+'軒が空いています。会場に近い順です。</p><div class="qcs">';
         d.hotels.slice(0,10).forEach(function(x){
           h+='<a class="qc" href="'+esc(x.url)+'" rel="nofollow sponsored noopener" target="_blank"><span class="qc-row">'+(x.image?'<img src="'+esc(x.image)+'" alt="" loading="lazy">':'<span class="qc-noimg"></span>')+
-          '<span class="qc-body"><span class="qc-name">'+esc(x.name)+'</span><span class="qc-meta"><span class="walk">徒歩'+esc(x.walk)+'分</span>'+(x.bath?'<span class="chip chip-on">大浴場</span>':'')+'</span>'+
+          '<span class="qc-body"><span class="qc-name">'+esc(x.name)+'</span><span class="qc-meta">'+(x.walk<=20?'<span class="walk">徒歩'+esc(x.walk)+'分</span>':'<span class="walk far">電車で1〜2駅</span>')+(x.bath?'<span class="chip chip-on">大浴場</span>':'')+'</span>'+
           '<span class="qc-rate">'+stars(x.rate)+'</span><span class="qc-price">1人<strong>'+Number(x.per_person).toLocaleString()+'円</strong>から</span></span></span><span class="qc-btn">空室と料金を見る</span></a>';
         });
         out.innerHTML=h+'</div>';
       }).catch(function(){out.innerHTML='<p class="empty">空室を調べられませんでした。通信状態を確かめて、もう一度押してください。</p>';});
     });
   });
+  document.querySelectorAll('form.rec').forEach(function(f){
+    var out=f.nextElementSibling, limit=+f.dataset.limit||6, preset=JSON.parse(f.querySelector('.rec-data').textContent), cache={}, seq=0;
+    function esc(s){var d=document.createElement('div');d.textContent=s==null?'':String(s);return d.innerHTML;}
+    function stars(v){if(!v)return '<span class="sub">評価なし</span>';v=+v;return '<span class="stars" style="--r:'+Math.round(v/5*100)+'%">★★★★★</span><span class="rate-num">'+v.toFixed(2)+'</span>';}
+    function card(x){return '<a class="qc" href="'+esc(x.url)+'" rel="nofollow sponsored noopener" target="_blank"><span class="qc-row">'+(x.image?'<img src="'+esc(x.image)+'" alt="" loading="lazy">':'<span class="qc-noimg"></span>')+
+      '<span class="qc-body"><span class="qc-name">'+esc(x.name)+'</span><span class="qc-meta">'+(x.walk<=20?'<span class="walk">徒歩'+esc(x.walk)+'分</span>':'<span class="walk far">電車で1〜2駅</span>')+(x.bath?'<span class="chip chip-on">大浴場</span>':'')+'</span>'+
+      '<span class="qc-rate">'+stars(x.rate)+'</span>'+(x.per_person?'<span class="qc-price">1人<strong>'+Number(x.per_person).toLocaleString()+'円</strong>から</span>':'')+'</span></span><span class="qc-btn">空室と料金を見る</span></a>';}
+    var label={walk:'会場に近い順',price:'1人あたりの料金が安い順',rate:'レビューの評価が高い順'};
+    function show(list,date,adults,sort,all){
+      list=list.slice();
+      if(sort==='walk')list.sort(function(a,b){return a.walk-b.walk;});
+      if(sort==='price')list=list.filter(function(x){return x.per_person;}).sort(function(a,b){return a.per_person-b.per_person;});
+      if(sort==='rate')list=list.filter(function(x){return x.rate;}).sort(function(a,b){return b.rate-a.rate;});
+      if(!list.length){out.innerHTML='<p class="empty">この日に'+adults+'人で泊まれる宿は見つかりませんでした。日付か人数を変えてみてください。</p>';return;}
+      var d=new Date(date+'T00:00:00'), dl=(d.getMonth()+1)+'月'+d.getDate()+'日';
+      var h='<p class="hint">'+dl+'の夜に'+adults+'人で泊まれる宿が'+list.length+'軒あります。'+label[sort]+'です。</p><div class="qcs">';
+      list.slice(0,all?list.length:limit).forEach(function(x){h+=card(x);});
+      h+='</div>';
+      if(!all&&list.length>limit)h+='<button type="button" class="btn btn-sign btn-block rec-more">残りの'+(list.length-limit)+'軒も見る</button>';
+      out.innerHTML=h;
+      var mb=out.querySelector('.rec-more');if(mb)mb.addEventListener('click',function(){show(list,date,adults,sort,true);});
+    }
+    function update(){
+      var date=f.date.value, adults=f.querySelector('input[name=adults]:checked').value, sort=f.querySelector('input[name=sort]:checked').value, key=date+'|'+adults, my=++seq;
+      if(!date)return;
+      if(date===preset.date&&preset.people[adults]){show(preset.people[adults],date,adults,sort);return;}
+      if(cache[key]){show(cache[key],date,adults,sort);return;}
+      out.innerHTML='<p class="empty">空室を調べています…</p>';
+      fetch('/api/search.php?venue='+f.dataset.venue+'&date='+date+'&adults='+adults).then(function(r){return r.json();}).then(function(d){
+        if(my!==seq)return;
+        if(d.error){out.innerHTML='<p class="empty">'+esc(d.error)+'</p>';return;}
+        cache[key]=d.hotels;show(d.hotels,date,adults,sort);
+      }).catch(function(){if(my===seq)out.innerHTML='<p class="empty">空室を調べられませんでした。通信状態を確かめて、もう一度選び直してください。</p>';});
+    }
+    f.addEventListener('change',update);
+    f.addEventListener('submit',function(ev){ev.preventDefault();update();});
+  });
   document.querySelectorAll('.tabs').forEach(function(t){
     t.querySelectorAll('[role=tab]').forEach(function(tab){tab.addEventListener('click',function(){
       t.querySelectorAll('[role=tab]').forEach(function(o){o.setAttribute('aria-selected',o===tab)});
-      t.querySelectorAll('[role=tabpanel]').forEach(function(p){p.hidden=p.id!==tab.dataset.tab});
+      t.querySelectorAll('[role=tabpanel]').forEach(function(p){p.hidden=p.id!==tab.dataset.tab;
+        if(!p.hidden)p.querySelectorAll('.map').forEach(function(el){if(el._fit)el._fit();});});
     })});
   });
 })();
@@ -188,6 +226,17 @@ document.querySelectorAll('.map').forEach(function(el){
   }
   pts.push([d.venue.lat,d.venue.lng]);
   L.marker([d.venue.lat,d.venue.lng],{icon:L.divIcon({className:'pin-venue',html:'会場',iconSize:[44,26]})}).addTo(m);
+  if(d.spots){
+    (d.stays||[]).forEach(function(p){pts.push([p.lat,p.lng]);
+      L.marker([p.lat,p.lng],{icon:L.divIcon({className:'pin-venue pin-stay',html:'宿',iconSize:[30,26]})}).addTo(m).bindTooltip(p.name);});
+    d.spots.forEach(function(p){pts.push([p.lat,p.lng]);
+      var a=document.createElement('div');a.innerHTML='<strong></strong><br><span></span><br><a target="_blank" rel="nofollow noopener">お店の情報を見る</a>';
+      a.querySelector('strong').textContent=p.name;a.querySelector('span').textContent=p.sub;a.querySelector('a').href=p.url;
+      L.marker([p.lat,p.lng],{icon:L.divIcon({className:'pin pin-food',html:String(p.n),iconSize:[28,28]})}).addTo(m).bindPopup(a);});
+    el._fit=function(){m.invalidateSize();m.fitBounds(pts,{padding:[24,24],maxZoom:17});};
+    el._fit();
+    return;
+  }
   d.pins.forEach(function(p){
     pts.push([p.lat,p.lng]);
     var a=document.createElement('div');a.innerHTML='<strong></strong><br><span></span><br><a target="_blank" rel="nofollow sponsored noopener">空室と料金を見る</a>';
