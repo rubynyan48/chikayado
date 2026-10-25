@@ -21,6 +21,7 @@ PROMPT = """あなたはイベント会場の近くの宿を案内するサイ�
 次のイベントに泊まりがけで参加する人に向けて、短い解説を日本語で書いてください。
 
 イベント名: {name}
+公演名: {title}
 会場: {venue}（{hall}）
 開催日: {start} から {end}
 開催時間: {hours}
@@ -35,6 +36,7 @@ stay: このイベントに合わせて宿を取る人へのアドバイスを2�
 守ること
 ・上に書いた情報だけを使い、来場者数や過去の実績など書かれていない事実を作らない
 ・情報が空欄の項目には触れない
+・公演名があるときは、introの最初の文に公演名をそのまま入れる
 ・「〇〇：説明」のような書き方や箇条書きはしない。普通の文章で書く
 ・「このページでは」「いかがでしたか」のような前置きや締めは書かない
 ・です・ます調で、誇張した表現を使わない
@@ -44,7 +46,7 @@ stay: このイベントに合わせて宿を取る人へのアドバイスを2�
 def generate(event, venue):
     body = {
         "contents": [{"parts": [{"text": PROMPT.format(venue=venue["name"], **{
-            k: event.get(k) or "" for k in ("name", "hall", "start", "end", "hours", "audience", "fee", "content")})}]}],
+            k: event.get(k) or "" for k in ("name", "title", "hall", "start", "end", "hours", "audience", "fee", "content")})}]}],
         "generationConfig": {
             "temperature": 0.6,
             "responseMimeType": "application/json",

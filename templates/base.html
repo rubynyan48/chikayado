@@ -10,7 +10,8 @@
 {% if site.google_site_verification %}<meta name="google-site-verification" content="{{ site.google_site_verification }}">{% endif %}
 <title>{{ page.title }}{% if not page.is_home %} - {{ site.name }}{% endif %}</title>
 <meta name="description" content="{{ page.description }}">
-<link rel="canonical" href="{{ site.base_url }}{{ page.path }}">
+{% if page.noindex %}<meta name="robots" content="noindex,follow">
+{% endif %}<link rel="canonical" href="{{ site.base_url }}{{ page.path }}">
 <meta property="og:type" content="{{ 'website' if page.is_home else 'article' }}">
 <meta property="og:title" content="{{ page.title }}">
 <meta property="og:description" content="{{ page.description }}">

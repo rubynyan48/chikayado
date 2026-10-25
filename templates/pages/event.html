@@ -101,6 +101,7 @@
 </figure>
 {% endif %}
 <div class="table-wrap"><table class="event-facts"><tbody>
+  {% if e.title and e.title != e.name %}<tr><th>公演名</th><td>{{ e.title }}</td></tr>{% endif %}
   <tr><th>開催日</th><td>{{ period(e) }}{% if page.days > 1 %}（{{ page.days }}日間）{% endif %}</td></tr>
   <tr><th>会場</th><td><a href="/{{ venue.slug }}/">{{ venue.name }}</a>{% if e.hall %}　{{ e.hall }}{% endif %}</td></tr>
   {% if e.hours %}<tr><th>開催時間</th><td>{{ e.hours }}</td></tr>{% endif %}

@@ -704,7 +704,7 @@ def pages_for(venue, ctx):
                            "sub": f"{period(e)}　{venue['name']}", "tiles": hero_tiles(st, ctx["hotels"], ctx["near_hotels"]),
                            "alt": f"{e['name']}の会場に近いホテルの空き具合"}}
         pages.append(dict(common, **{
-            "path": path, "template": "event.html",
+            "path": path, "template": "event.html", "noindex": bool(e.get("noindex")),
             "title": f"{e['name']}に近いホテル {venue['name']}周辺の宿",
             "description": f"{e['name']}（{period(e)} {venue['name']}）の会場に近いホテルを、開催日の空室と1人あたりの料金で選べます。"
                            "人数を選ぶだけで泊まれる宿がわかり、日付を変えて空室を探すこともできます。",
@@ -815,7 +815,7 @@ def main():
                         "rate": h.get("review_avg"), "bath": bool(h.get("daiyoku") or h.get("onsen"))} for h in ctx["hotels"]],
         }, ensure_ascii=False), encoding="utf-8")
 
-    urls = "".join(f"<url><loc>{SITE['base_url']}{p['path']}</loc><lastmod>{TODAY.isoformat()}</lastmod></url>" for p, _ in jobs)
+    urls = "".join(f"<url><loc>{SITE['base_url']}{p['path']}</loc><lastmod>{TODAY.isoformat()}</lastmod></url>" for p, _ in jobs if not p.get("noindex"))
     (DIST / "sitemap.xml").write_text(
         f'<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{urls}</urlset>', encoding="utf-8")
     (DIST / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {SITE['base_url']}/sitemap.xml\n", encoding="utf-8")
