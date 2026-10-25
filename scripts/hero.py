@@ -29,16 +29,25 @@ def font(size):
 
 
 def wrap(draw, text, f, width, max_lines):
-    """文字幅に合わせて行を分ける。入りきらなければ最後を「…」にする。"""
+    """文字幅に合わせて行を分ける。英単語は途中で切らない。入りきらなければ最後を「…」にする。"""
+    import re
+    tokens = re.findall(r"[A-Za-z0-9.'\"&!?\-:/]+\s*|\s+|.", text)
     lines, cur = [], ""
-    for ch in text:
-        if draw.textlength(cur + ch, font=f) > width:
-            lines.append(cur)
-            cur = ch
+    for tk in tokens:
+        if draw.textlength((cur + tk).rstrip(), font=f) > width and cur.strip():
+            lines.append(cur.rstrip())
+            cur = tk.lstrip()
+            # 1語だけで幅を超えるときは文字で切る
+            while draw.textlength(cur, font=f) > width:
+                i = len(cur)
+                while i > 1 and draw.textlength(cur[:i], font=f) > width:
+                    i -= 1
+                lines.append(cur[:i])
+                cur = cur[i:]
         else:
-            cur += ch
-    if cur:
-        lines.append(cur)
+            cur += tk
+    if cur.strip():
+        lines.append(cur.rstrip())
     if len(lines) > max_lines:
         lines = lines[:max_lines]
         while draw.textlength(lines[-1] + "…", font=f) > width:
