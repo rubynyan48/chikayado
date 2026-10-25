@@ -407,4 +407,4 @@ td.rate { white-space: nowrap; }
 .pin-stay { background: var(--sign); color: #fff; }
 td .no { display: inline-grid; place-items: center; width: 22px; height: 22px; margin-right: 6px; border-radius: 50%; background: #E8730C; color: #fff; font-size: 12px; font-weight: 800; vertical-align: 1px; }
 
-.pr { font-size: 12px; color: var(--muted); margin: -4px 0 12px; }
+.pr { display: inline-block; font-size: 14px; font-weight: 700; color: var(--ink); background: #F1F3F5; border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; margin: 0 0 12px; }
