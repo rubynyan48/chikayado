@@ -411,3 +411,4 @@ td .no { display: inline-grid; place-items: center; width: 22px; height: 22px; m
 
 .banner { margin: 4px 0 16px; }
 .banner img { width: 100%; height: auto; border-radius: var(--radius-m); display: block; }
+@media (min-width: 1024px) { .banner { display: none; } }
