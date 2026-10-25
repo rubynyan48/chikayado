@@ -1013,7 +1013,7 @@ def main():
                         "rate": h.get("review_avg"), "bath": bool(h.get("daiyoku") or h.get("onsen"))} for h in ctx["hotels"]],
         }, ensure_ascii=False), encoding="utf-8")
 
-    urls = "".join(f"<url><loc>{SITE['base_url']}{p['path']}</loc><lastmod>{TODAY.isoformat()}</lastmod></url>" for p, _ in jobs if not p.get("noindex"))
+    urls = "".join(f"<url><loc>{SITE['base_url']}{quote(p['path'])}</loc><lastmod>{TODAY.isoformat()}</lastmod></url>" for p, _ in jobs if not p.get("noindex"))
     (DIST / "sitemap.xml").write_text(
         f'<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{urls}</urlset>', encoding="utf-8")
     (DIST / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {SITE['base_url']}/sitemap.xml\n", encoding="utf-8")

@@ -38,7 +38,7 @@ def session():
 
 
 def sitemap_urls():
-    xml = requests.get(SITE_URL + "sitemap.xml", timeout=30).text
+    xml = requests.get(SITE_URL + "sitemap.xml", timeout=30).content.decode("utf-8")
     return re.findall(r"<loc>([^<]+)</loc>", xml)
 
 
