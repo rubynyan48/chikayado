@@ -19,7 +19,7 @@ from urllib.parse import quote, unquote
 
 import requests
 
-from common import DATA, SITE, env, write_json
+from common import DATA, SITE, env, read_json, write_json
 
 SITE_URL = SITE["base_url"].rstrip("/") + "/"
 OUT = DATA / "seo"
@@ -70,7 +70,7 @@ def inspect_all(s, urls, today):
         time.sleep(0.2)
         if (i + 1) % 50 == 0:
             print(f"  {i + 1}/{len(urls)}件を調べました（{round(time.time() - started)}秒）")
-            write_json(OUT / "index_status.json", {"checked": today, "partial": True, "urls": out})
+            pass
     return out
 
 
@@ -115,8 +115,23 @@ def main():
             print(f"{name} の取得に失敗 {exc}", file=sys.stderr)
 
     urls = sitemap_urls()
-    print(f"サイトマップのURL {len(urls)}件のインデックス状況を調べます")
-    status = inspect_all(s, urls, today)
+    # 前回の結果を引き継ぎ、まだ調べていないURLと、インデックスされていないURLを先に調べる
+    old = {x["url"]: x for x in (read_json(OUT / "index_status.json", {}) or {}).get("urls", [])}
+    def priority(u):
+        o = old.get(unquote(u))
+        if not o:
+            return 0
+        if o.get("verdict") != "PASS":
+            return 1
+        return 2
+    order = sorted(urls, key=priority)
+    print(f"サイトマップのURL {len(urls)}件のうち、未調査{sum(priority(u) == 0 for u in urls)}件と未登録を優先して調べます")
+    fresh = inspect_all(s, order, today)
+    for x in fresh:
+        x["checked"] = today
+        old[x["url"]] = x
+    live = {unquote(u) for u in urls}
+    status = [x for k, x in old.items() if k in live]
     write_json(OUT / "index_status.json", {"checked": today, "urls": status})
     count = Counter(x.get("coverage") or x.get("error", "不明")[:40] for x in status)
     print("インデックス状況の内訳")

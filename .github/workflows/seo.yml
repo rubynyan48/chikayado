@@ -2,7 +2,7 @@ name: Search ConsoleとGA4の取得
 
 on:
   schedule:
-    - cron: "43 23 * * 1"   # 毎週火曜 日本時間8:43
+    - cron: "43 23 * * *"   # 毎日 日本時間8:43（URL検査は1回で約160件ずつ）
   workflow_dispatch:         # 手動実行（Claudeがコマンドで動かす）
 
 concurrency:
