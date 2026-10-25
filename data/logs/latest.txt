@@ -1,4 +1,4 @@
-実行 2026-10-25 12:08:06 workflow_dispatch
+実行 2026-10-26 00:29:59 workflow_dispatch
 設定あり RAKUTEN_APP_ID
 設定あり RAKUTEN_ACCESS_KEY
 設定あり HOTPEPPER_API_KEY
@@ -13,7 +13,7 @@
 日本武道館: 取得 35件 新規 0件 合計 35件
 両国国技館: 取得 3件 新規 0件 合計 3件
 有明アリーナ: 取得 25件 新規 0件 合計 25件
-東京ガーデンシアター: 取得 34件 新規 0件 合計 35件
+東京ガーデンシアター: 取得 33件 新規 0件 合計 34件
 国立代々木競技場: 取得 31件 新規 0件 合計 31件
 東京国際フォーラム: 取得 44件 新規 0件 合計 44件
 東京ビッグサイト: 周辺の宿 16件
@@ -32,16 +32,17 @@
 東京国際フォーラム: ランチ30件、12軒の宿の周りの飲食店を取得
 使えない画面でした グロース就活DXPO’26【秋】 HTTP 403
 解説文を0件生成しました
-437ページを書き出しました
+436ページを書き出しました
 鍵の形式は正常
 File list transfer time: 0.000 seconds
-Total bytes sent: 615,683
-Total bytes received: 601,360
+Total bytes sent: 344,681
+Total bytes received: 686,608
 
-sent 615,683 bytes  received 601,360 bytes  143,181.53 bytes/sec
-total size is 69,939,168  speedup is 57.47
+sent 344,681 bytes  received 686,608 bytes  98,218.00 bytes/sec
+total size is 77,643,251  speedup is 75.29
 転送完了（1回目）
 空室検索の設定を配置
 空室検索のテスト HTTP 200
-応答の長さ 5300
+応答の長さ 4901
 {"date":"2026-10-31","adults":2,"hotels":[{"name":"東京ベイ有明ワシントンホテル","walk":6,"distance":"341m","image":"https:\/\/img.travel.rakuten.co.jp\/share\/HOTEL\/1177\/1177.jpg","rate":4.269999999999999573674358543939888477325439453125,"bath":false,"per_person":18500,"room":"★リニューアル★スタンダード ダブル","url":"https:\/\/af.moshimo.com\/af\/c\/click?a_id=5863620&p_id=55&pc_id=55&pl_id=624&url=https%3A%2F%2Ftravel.ra
+IndexNowに436件を送りました HTTP 403 {"errorCode":"SiteVerificationNotCompleted","message":"Site Verification is not completed. Please wait for some time for the verification to complete and try again.","details":null}
