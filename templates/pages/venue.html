@@ -35,7 +35,7 @@
 {% endif %}
 
 <h2>これから開催されるイベント</h2>
-{% if trade_events and public_events %}<p class="hint">誰でも入場できるイベントを先に出しています。</p>{% endif %}
+{% if trade_events and public_events %}<p class="hint">一般のお客さん向けのイベントを先に出しています。</p>{% endif %}
 {% if events %}{{ event_table(public_events + trade_events, venue.slug, 6) }}
 {% else %}<p>{{ venue.name }}の公式サイトにはイベントの日程表がないため、日程がわかった大きなイベントから順に載せていきます。</p>{% endif %}
 {% if events %}<p><a class="btn btn-sign" href="/{{ venue.slug }}/events/">開催予定をすべて見る</a></p>{% endif %}

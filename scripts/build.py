@@ -101,8 +101,8 @@ CHIKA = {"wave": "ちかちゃん手を振る.webp", "check": "ちかちゃん�
 
 def chika(pose, text):
     """案内係のちかちゃんが一言そえる吹き出し。"""
-    return Markup(f'<div class="chika"><img src="/images/{CHIKA[pose]}" alt="ちか宿の案内係ちかちゃん" width="80" height="100" loading="lazy">'
-                  f'<p class="chika-say"><span class="chika-name">ちかちゃん</span>{text}</p></div>')
+    return Markup(f'<div class="chika"><img src="/images/{CHIKA[pose]}" alt="ちか宿の案内係" width="80" height="100" loading="lazy">'
+                  f'<p class="chika-say">{text}</p></div>')
 
 
 def banner(filename, alt):
