@@ -646,6 +646,88 @@ def venue_summary(venue):
             "stations": venue.get("stations", [])}
 
 
+AREA_GROUPS = [
+    ("有明・お台場エリア", ["tokyo-big-sight", "ariake-arena", "tokyo-garden-theater"]),
+    ("水道橋・九段下エリア", ["tokyo-dome", "nippon-budokan"]),
+    ("有楽町・東京駅エリア", ["tokyo-international-forum"]),
+    ("両国エリア", ["ryogoku-kokugikan"]),
+    ("原宿・渋谷エリア", ["yoyogi-national-gymnasium"]),
+]
+VENUE_TAGS = {
+    "tokyo-big-sight": ["展示会", "同人誌即売会", "アート"], "ariake-arena": ["ライブ", "スポーツ"],
+    "tokyo-garden-theater": ["ライブ"], "tokyo-dome": ["ライブ", "大型イベント"], "nippon-budokan": ["ライブ"],
+    "tokyo-international-forum": ["コンサート", "舞台"], "ryogoku-kokugikan": ["大相撲"],
+    "yoyogi-national-gymnasium": ["ライブ", "スポーツ"],
+}
+SPORTS = re.compile(r"大相撲|リーグ|選手権|大会|試合|ホームゲーム|開幕戦|vs|VS|BOXING|ボクシング|ONE |格闘|バスケ|バレー|フィギュア|Championship|GAME\.|太極拳")
+
+
+def home_data(ctxs):
+    """トップページ用に、全会場をまとめた情報を作る。"""
+    today = TODAY.isoformat()
+    cards, all_up = {}, []
+    for ctx in ctxs:
+        v = ctx["venue"]
+        offers = (ctx["sat_vacancy"] or {}).get("by_people", {}).get("1") or {}
+        prices = [o["per_person"] for o in offers.values() if o.get("per_person")]
+        nxt = next((e for e in ctx["events"] if e.get("public")), ctx["events"][0] if ctx["events"] else None)
+        cards[v["slug"]] = {
+            "slug": v["slug"], "name": v["name"], "area_label": v.get("area_label", ""), "tags": VENUE_TAGS.get(v["slug"], []),
+            "hotels": len(ctx["hotels"]), "near": len(ctx["near_hotels"]),
+            "nearest": walk_min(ctx["hotels"][0]["distance_m"]) if ctx["hotels"] else None,
+            "stations": sorted(v.get("stations", []), key=lambda s: s["walk_min"])[:2],
+            "min_price": min(prices) if prices else None, "next": nxt, "count": len(ctx["events"]),
+            "img": f"/{HERO_DIR}/{hero_name(v['name'] + 'に近いホテル')}",
+        }
+        for e in ctx["events"]:
+            all_up.append(dict(e, venue_slug=v["slug"], venue_name=v["name"], venue_kind=v.get("kind")))
+    all_up.sort(key=lambda e: (e["start"], e["name"]))
+    soon_end = (TODAY + timedelta(days=21)).isoformat()
+    public = [e for e in all_up if e.get("public")]
+    genres = [
+        ("展示会・見本市", [e for e in all_up if e["venue_kind"] == "exhibition" and not e.get("public")]),
+        ("同人誌・アート・ファンイベント", [e for e in all_up if e["venue_kind"] == "exhibition" and e.get("public")]),
+        ("ライブ・コンサート", [e for e in all_up if e["venue_kind"] == "arena" and not SPORTS.search(e["name"])]),
+        ("スポーツ・格闘技・相撲", [e for e in all_up if e["venue_kind"] == "arena" and SPORTS.search(e["name"])]),
+    ]
+    groups = [(g, [cards[s] for s in slugs if s in cards]) for g, slugs in AREA_GROUPS]
+    groups = [(g, cs) for g, cs in groups if cs]
+    return {"groups": groups, "soon": [e for e in public if e["start"] <= soon_end][:15], "genres": genres,
+            "total_events": len(all_up), "total_venues": len(cards), "saturday": ctxs[0]["saturday"]}
+
+
+def multi_event_table(events, limit=None):
+    """いくつかの会場のイベントをまとめた表。会場の列を付ける。"""
+    rows = events[:limit] if limit else events
+    if not rows:
+        return Markup('<p class="note">これから開催されるイベントの情報を取得しています。</p>')
+    body = "".join(
+        f'<tr><td class="date">{period(e, br=True)}</td><td><a href="/{e["venue_slug"]}/{escape(e["slug"])}/">{escape(e["name"])}</a>'
+        f'<span class="sub">{escape(e["venue_name"])}</span></td></tr>' for e in rows)
+    return Markup('<div class="table-wrap"><table class="t-events"><thead><tr><th class="date">開催日</th><th>イベントと会場</th></tr>'
+                  f"</thead><tbody>{body}</tbody></table></div>")
+
+
+def top_search(cards, default_date):
+    """トップページの検索。会場・日付・人数・並べ方を選ぶと、その場で空いている宿を出す。"""
+    opts = "".join(f'<option value="{c["slug"]}">{escape(c["name"])}</option>' for _, cs in cards for c in cs)
+    ppl = "".join(f'<label class="pp"><input type="radio" name="adults" value="{n}"{" checked" if n == "1" else ""}><span>{n}人</span></label>'
+                  for n in ("1", "2", "3", "4"))
+    sorts = "".join(f'<label class="pp"><input type="radio" name="sort" value="{k}"{" checked" if k == "walk" else ""}><span>{v}</span></label>'
+                    for k, v in (("walk", "距離"), ("price", "値段"), ("rate", "レビュー")))
+    return Markup(
+        '<form class="search rec rec-top" data-limit="6">'
+        f'<label class="search-date"><span>会場</span><select name="venue"><option value="">会場を選ぶ</option>{opts}</select></label>'
+        f'<label class="search-date"><span>泊まる日</span><input type="date" name="date" value="{default_date}" min="{TODAY.isoformat()}"></label>'
+        f'<p class="rec-label">人数</p><div class="search-people" role="group" aria-label="人数">{ppl}</div>'
+        f'<p class="rec-label">並べ方</p><div class="search-people rec-sort" role="group" aria-label="並べ方">{sorts}</div>'
+        '<script type="application/json" class="rec-data">{"date":"","people":{}}</script>'
+        '<button type="submit" class="btn btn-primary btn-block">空いている宿を探す</button></form>'
+        '<div class="rec-result" aria-live="polite"></div>'
+        '<p class="search-note">楽天トラベルの空室から、会場の近くで泊まれる宿を出します。料金は1部屋に泊まるときの1人あたりの最安値です。</p>'
+    )
+
+
 def venue_context(venue):
     hotels = load_hotels(venue)
     events = read_json(DATA / "events" / f"{venue['slug']}.json", {"events": []})["events"]
@@ -795,9 +877,9 @@ def pages_for(venue, ctx):
 def common_pages():
     home = {"name": "トップ", "path": "/"}
     return [
-        {"path": "/", "template": "home.html", "is_home": True, "no_toc": True,
-         "title": "ちか宿 イベント会場に近い宿を距離で探す", "h1": "会場に近い宿を距離で探す",
-         "description": "東京ビッグサイトなどイベント会場の近くにあるホテルを、会場からの距離順にまとめています。イベントごとの空室や、駅からの道順も案内します。",
+        {"path": "/", "template": "home.html", "is_home": True,
+         "title": "ちか宿 イベント会場に近いホテルを距離で探す", "h1": "イベント会場に近いホテルを探す",
+         "description": "東京ビッグサイト、東京ドーム、日本武道館、有明アリーナなど都内の大型イベント会場に近いホテルを、会場からの距離と開催日の空室で探せます。展示会、ライブ、同人誌即売会、スポーツのイベントごとに宿をまとめています。",
          "breadcrumbs": []},
         {"path": "/about/", "template": "about.html", "no_toc": True, "title": "運営者情報",
          "description": "ちか宿の運営者情報と、サイトに載せている情報の集め方についてです。",
@@ -824,13 +906,14 @@ def main():
                "open_time": open_time, "audience_label": audience_label,
                "event_table": event_table, "restaurant_table": restaurant_table, "dist_label": dist_label,
                "walk_min": walk_min, "yen": yen, "quick_cards": quick_cards, "people_switch": people_switch,
-               "search_box": search_box, "banner": banner, "rec_box": rec_box, "food_map": food_map, "rank_tabs": rank_tabs, "station_table": station_table, "km": km, "more_buttons": more_buttons, "route_map": route_map, "book_url": book_url, "stars": stars, "chips": chips, "jdate": jdate, "period": period, "buildings": buildings,
+               "search_box": search_box, "multi_event_table": multi_event_table, "top_search": top_search, "PEOPLE_PAGES": PEOPLE_PAGES, "banner": banner, "rec_box": rec_box, "food_map": food_map, "rank_tabs": rank_tabs, "station_table": station_table, "km": km, "more_buttons": more_buttons, "route_map": route_map, "book_url": book_url, "stars": stars, "chips": chips, "jdate": jdate, "period": period, "buildings": buildings,
                "site": SITE, "today": TODAY.isoformat(), "css_v": css_version()}
     all_venues = [v for v in venues() if v.get("publish", True)]
     main_venue = all_venues[0]
     main_ctx = venue_context(main_venue)
     venue_list = [venue_summary(v) for v in all_venues]
     helpers["venue_list"] = venue_list
+    helpers["home"] = home_data([venue_context(v) for v in all_venues])
 
     jobs = [(p, main_ctx) for p in common_pages()]
     for venue in all_venues:
@@ -861,6 +944,8 @@ def main():
             hr["src"] = f"/{HERO_DIR}/{hr['file']}"
         side = {"venue": ctx["venue"], "events": (ctx["public_events"] + ctx["trade_events"])[:6], "people": PEOPLE_PAGES,
                 "series": ctx["series"], "venues": venue_list}
+        if page.get("is_home"):
+            side = dict(side, events=helpers["home"]["soon"][:6], people=[], home=True)
         html = env.get_template("base.html").render(page=page, has_hotels=bool(ctx["hotels"]), side=side, **helpers)
         out = DIST / page["path"].lstrip("/") / "index.html"
         out.parent.mkdir(parents=True, exist_ok=True)

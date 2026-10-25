@@ -178,7 +178,10 @@ def garden_theater(venue):
             title = li.select_one(".title").get_text() if li.select_one(".title") else ""
             tag = li.select_one(".tag").get_text() if li.select_one(".tag") else ""
             a = li.find("a")
-            items.append(event(title_with_artist(player, title), min(dates), max(dates), content=tag,
+            name = title_with_artist(player, title)
+            if re.fullmatch(r"(?i)private|非公開|貸切", name):
+                continue
+            items.append(event(name, min(dates), max(dates), content=tag,
                                url=a["href"] if a and a.get("href") else ""))
     seen, out = set(), []
     for e in sorted(items, key=lambda x: x["start"]):

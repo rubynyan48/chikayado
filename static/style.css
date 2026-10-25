@@ -412,3 +412,24 @@ td .no { display: inline-grid; place-items: center; width: 22px; height: 22px; m
 .banner { margin: 4px 0 16px; }
 .banner img { width: 100%; height: auto; border-radius: var(--radius-m); display: block; }
 @media (min-width: 1024px) { .banner { display: none; } }
+
+/* トップページ */
+.search-date select { box-sizing: border-box; display: block; width: 100%; font: inherit; font-size: 18px; min-height: 52px; padding: 10px 12px; border: 2px solid var(--line); border-radius: var(--radius-s); background: #fff; color: var(--ink); }
+.rec-top .btn { margin-top: 14px; }
+.vcards { display: grid; grid-template-columns: 1fr; gap: 14px; margin: 0 0 22px; }
+@media (min-width: 720px) { .vcards { grid-template-columns: 1fr 1fr; } }
+.vcard { display: block; text-decoration: none; color: var(--ink); border: 2px solid var(--sign); border-radius: var(--radius-m); overflow: hidden; background: #fff; }
+.vcard:hover { background: var(--sign-soft); }
+.vcard img { display: block; width: 100%; height: auto; aspect-ratio: 1200 / 630; object-fit: cover; }
+.vcard-body { display: block; padding: 12px 14px 14px; }
+.vcard-body strong { display: block; font-size: 19px; color: var(--sign); margin-bottom: 6px; }
+.vcard-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+.vcard-facts { display: block; font-size: 14px; line-height: 1.7; }
+.vcard-facts span { display: block; }
+.vcard-facts b { color: var(--sign); font-size: 16px; }
+.vcard-next { display: block; margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--line); font-size: 13px; color: var(--muted); }
+.tablist-wrap { grid-auto-flow: row; grid-template-columns: 1fr 1fr; }
+.tablist-wrap button { font-size: 15px; min-height: 48px; }
+.t-people th, .t-people td { text-align: center; white-space: nowrap; }
+.t-people th[scope="row"] { text-align: left; white-space: normal; }
+.btn-small { padding: 6px 10px; font-size: 14px; min-height: 0; }

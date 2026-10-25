@@ -77,12 +77,14 @@
 </div>
 
 <aside class="side" aria-label="サイドメニュー">
+  {% if side.people %}
   <section class="side-box">
     <p class="side-title">人数で探す</p>
     <div class="side-people">
     {% for slug, n, label in side.people %}<a class="btn btn-sign" href="/{{ side.venue.slug }}/{{ slug }}/">{{ label }}</a>{% endfor %}
     </div>
   </section>
+  {% endif %}
   {% if side.series %}
   <section class="side-box">
     <p class="side-title">大型イベントで探す</p>
@@ -97,7 +99,7 @@
       {% for v in side.venues %}<li><a href="/{{ v.slug }}/">{{ v.name }}に近いホテル</a></li>{% endfor %}
     </ul>
   </section>
-  {% if side.venue.guides %}
+  {% if side.venue.guides and not side.home %}
   <section class="side-box">
     <p class="side-title">目的で選ぶ</p>
     <ul class="side-list">
@@ -112,11 +114,11 @@
   {% endif %}
   {% if side.events %}
   <section class="side-box">
-    <p class="side-title">{{ side.venue.name }}のこれからのイベント</p>
+    <p class="side-title">{% if side.home %}もうすぐ開催されるイベント{% else %}{{ side.venue.name }}のこれからのイベント{% endif %}</p>
     <ul class="side-list side-events">
-    {% for e in side.events %}<li><a href="/{{ side.venue.slug }}/{{ e.slug }}/"><span class="sub">{{ jdate(e.start, False) }}</span>{{ e.name }}</a></li>{% endfor %}
+    {% for e in side.events %}<li><a href="/{{ e.venue_slug or side.venue.slug }}/{{ e.slug }}/"><span class="sub">{{ jdate(e.start, False) }}</span>{{ e.name }}</a></li>{% endfor %}
     </ul>
-    <a class="side-more" href="/{{ side.venue.slug }}/events/">開催予定をすべて見る</a>
+    {% if not side.home %}<a class="side-more" href="/{{ side.venue.slug }}/events/">開催予定をすべて見る</a>{% endif %}
   </section>
   {% endif %}
 </aside>
@@ -189,18 +191,19 @@
       var mb=out.querySelector('.rec-more');if(mb)mb.addEventListener('click',function(){show(list,date,adults,sort,true);});
     }
     function update(){
-      var date=f.date.value, adults=f.querySelector('input[name=adults]:checked').value, sort=f.querySelector('input[name=sort]:checked').value, key=date+'|'+adults, my=++seq;
+      var venue=f.venue?f.venue.value:f.dataset.venue, date=f.date.value, adults=f.querySelector('input[name=adults]:checked').value, sort=f.querySelector('input[name=sort]:checked').value, key=venue+'|'+date+'|'+adults, my=++seq;
+      if(!venue){out.innerHTML='<p class="empty">会場を選んでください。</p>';return;}
       if(!date)return;
       if(date===preset.date&&preset.people[adults]){show(preset.people[adults],date,adults,sort);return;}
       if(cache[key]){show(cache[key],date,adults,sort);return;}
       out.innerHTML='<p class="empty">空室を調べています…</p>';
-      fetch('/api/search.php?venue='+f.dataset.venue+'&date='+date+'&adults='+adults).then(function(r){return r.json();}).then(function(d){
+      fetch('/api/search.php?venue='+venue+'&date='+date+'&adults='+adults).then(function(r){return r.json();}).then(function(d){
         if(my!==seq)return;
         if(d.error){out.innerHTML='<p class="empty">'+esc(d.error)+'</p>';return;}
         cache[key]=d.hotels;show(d.hotels,date,adults,sort);
       }).catch(function(){if(my===seq)out.innerHTML='<p class="empty">空室を調べられませんでした。通信状態を確かめて、もう一度選び直してください。</p>';});
     }
-    f.addEventListener('change',update);
+    f.addEventListener('change',function(){if(!f.venue||f.venue.value)update();});
     f.addEventListener('submit',function(ev){ev.preventDefault();update();});
   });
   document.querySelectorAll('.tabs').forEach(function(t){
