@@ -363,6 +363,26 @@ def quick_cards(items, limit=5, labels=None):
     return Markup(f'<div class="qcs">{"".join(out)}</div>')
 
 
+def rank_tabs(items, limit=5, key="rk"):
+    """近さ・レビュー・安さのボタンで、簡易ランキングを切り替える。"""
+    def rate(h):
+        try:
+            return float(h.get("review_avg") or 0)
+        except (TypeError, ValueError):
+            return 0.0
+    orders = [
+        ("近さ", sorted(items, key=lambda h: h["distance_m"])),
+        ("レビュー", sorted([h for h in items if rate(h) > 0], key=lambda h: (-rate(h), -(h.get("review_count") or 0)))),
+        ("安さ", sorted([h for h in items if price_of(h)], key=lambda h: price_of(h))),
+    ]
+    tabs, panels = [], []
+    for i, (name, lst) in enumerate(orders):
+        tabs.append(f'<button type="button" role="tab" aria-selected="{"true" if i == 0 else "false"}" data-tab="{key}{i}">{name}</button>')
+        labels = [f"{name}で{r + 1}位" for r in range(limit)]
+        panels.append(f'<div role="tabpanel" id="{key}{i}"{"" if i == 0 else " hidden"}>{quick_cards(lst, limit, labels)}</div>')
+    return Markup(f'<div class="tabs"><div class="tablist tablist-big" role="tablist" aria-label="並べ方">{"".join(tabs)}</div>{"".join(panels)}</div>')
+
+
 def people_switch(hotels, by_people, limit=5):
     """人数のボタンを押すと、その人数で泊まれる近い宿に切り替わる。"""
     tabs, panels = [], []
@@ -748,7 +768,7 @@ def main():
                "open_time": open_time, "audience_label": audience_label,
                "event_table": event_table, "restaurant_table": restaurant_table, "dist_label": dist_label,
                "walk_min": walk_min, "yen": yen, "quick_cards": quick_cards, "people_switch": people_switch,
-               "search_box": search_box, "station_table": station_table, "km": km, "more_buttons": more_buttons, "route_map": route_map, "book_url": book_url, "stars": stars, "chips": chips, "jdate": jdate, "period": period, "buildings": buildings,
+               "search_box": search_box, "rank_tabs": rank_tabs, "station_table": station_table, "km": km, "more_buttons": more_buttons, "route_map": route_map, "book_url": book_url, "stars": stars, "chips": chips, "jdate": jdate, "period": period, "buildings": buildings,
                "site": SITE, "today": TODAY.isoformat(), "css_v": css_version()}
     all_venues = [v for v in venues() if v.get("publish", True)]
     main_venue = all_venues[0]

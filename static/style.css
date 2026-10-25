@@ -337,7 +337,7 @@ td.rate { white-space: nowrap; }
 .qc-price strong { font-size: 20px; color: var(--sign); margin: 0 2px; }
 .qc-btn { margin: 0 12px 12px; background: var(--mark); box-shadow: 0 4px 0 var(--mark-deep); border-radius: 999px; text-align: center; font-weight: 800; padding: 10px; }
 
-.tablist-big { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.tablist-big { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 8px; }
 .tablist-big button { min-height: 52px; font-size: 18px; min-width: 0; }
 
 /* その場で空室を探す */
