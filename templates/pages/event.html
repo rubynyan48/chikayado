@@ -58,6 +58,7 @@
 {% if st %}
 <h2 id="numbers">{{ jdate(e.start, False) }}の宿の空き具合を数字で見る</h2>
 <p>会場から{{ km(venue) }}以内にある{{ st.total }}軒の宿について、{{ jdate(e.start) }}の夜に1部屋で泊まれるかを人数ごとに調べました。料金は1人あたりです。</p>
+{{ chika('check', jdate(e.start) ~ 'の夜に1人で泊まれる宿は' ~ st.one.open ~ '軒です。' ~ (('料金はイベントのない日の約' ~ st.ratio ~ '倍になっています。') if st.ratio else '') ~ '下の表で人数ごとの空き具合を確かめてください。') }}
 <div class="ppl">
   {% for r in st.rows %}
   <div class="ppl-card">
@@ -131,6 +132,7 @@
 {% endif %}
 
 <h2 id="tips">宿を取るときのポイント</h2>
+{{ chika('ok', '迷ったら、会場まで歩ける宿を先に押さえておけば大丈夫です。キャンセル無料のプランなら、あとで見直すこともできます。') }}
 {% if page.text %}<p>{{ page.text.stay }}</p>{% endif %}
 {% if e.start != e.end %}
 <h3>会期の初日と最終日は混みやすい</h3>
@@ -143,7 +145,7 @@
 {% if lunch or dinner %}
 <h2 id="food">会場の近くのランチと宿の近くの夕食</h2>
 {{ banner('近くのランチと夕飯.webp', '近くのランチと夕飯') }}
-<p>会期中のお昼は会場の飲食店も売店も混み合います。少し歩いて会場の外で食べる人や、夜に宿の近くで食事をする人に向けて、近くのお店をまとめました。</p>
+{{ chika('food', 'お昼は会場の中のお店も売店も混み合います。少し歩いて外のお店に入ると、ゆっくり食べられますよ。') }}
 <div class="tabs">
   <div class="tablist tablist-big" role="tablist" aria-label="食事">
     {% if lunch %}<button type="button" role="tab" aria-selected="true" data-tab="food-lunch">ランチ</button>{% endif %}

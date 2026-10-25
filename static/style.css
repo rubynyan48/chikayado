@@ -463,3 +463,10 @@ td .no { display: inline-grid; place-items: center; width: 22px; height: 22px; m
 }
 .home-hero .search-note { color: #D5E2EC; }
 .vcard img { aspect-ratio: 640 / 336; }
+
+/* 案内係ちかちゃんの吹き出し */
+.chika { display: flex; align-items: flex-end; gap: 10px; margin: 6px 0 18px; }
+.chika img { width: 80px; height: auto; flex: none; }
+.chika-say { position: relative; flex: 1; margin: 0 0 10px; padding: 10px 14px; background: #EEF5FB; border-radius: 14px; font-size: 15px; line-height: 1.7; }
+.chika-say::before { content: ""; position: absolute; left: -8px; bottom: 14px; border: 8px solid transparent; border-right-color: #EEF5FB; border-left: 0; }
+.chika-name { display: block; font-size: 12px; font-weight: 800; color: var(--sign); margin-bottom: 2px; }
