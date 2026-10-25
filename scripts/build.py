@@ -525,7 +525,7 @@ def event_table(events, venue_slug, limit=None):
 
 def restaurant_table(shops, limit=3, base="宿から", start=1, budget="予算"):
     rows = "".join(
-        f'<tr><td><span class="no">{start + i}</span><a href="{escape(s["url"])}" rel="nofollow noopener" target="_blank">{escape(s["name"])}</a>'
+        f'<tr><td><span class="no">{start + i}</span><a href="{escape(s["url"])}" rel="nofollow sponsored noopener" target="_blank">{escape(s["name"])}</a>'
         f'<span class="sub">{escape(s["genre"])}</span></td><td>{escape(s["budget"])}</td><td class="num">{dist_label(s["distance_m"])}</td></tr>'
         for i, s in enumerate(shops[:limit])
     )

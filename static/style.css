@@ -406,3 +406,5 @@ td.rate { white-space: nowrap; }
 .pin-food { background: #E8730C; }
 .pin-stay { background: var(--sign); color: #fff; }
 td .no { display: inline-grid; place-items: center; width: 22px; height: 22px; margin-right: 6px; border-radius: 50%; background: #E8730C; color: #fff; font-size: 12px; font-weight: 800; vertical-align: 1px; }
+
+.pr { font-size: 12px; color: var(--muted); margin: -4px 0 12px; }
