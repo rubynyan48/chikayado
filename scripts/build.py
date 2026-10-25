@@ -778,7 +778,7 @@ def pages_for(venue, ctx):
                            "alt": f"{e['name']}の会場に近いホテルの空き具合"}}
         pages.append(dict(common, **{
             "path": path, "template": "event.html", "noindex": bool(e.get("noindex")), "has_map": True,
-            "title": f"{e['name']}に近いホテル {venue['name']}周辺の宿",
+            "title": f"{e['name']}の会場に近いホテル {venue['name']}周辺の宿",
             "description": f"{e['name']}（{period(e)} {venue['name']}）の会場に近いホテルを、開催日の空室と1人あたりの料金で選べます。"
                            "人数を選ぶだけで泊まれる宿がわかり、日付を変えて空室を探すこともできます。",
             "breadcrumbs": [home, hub, {"name": "開催予定イベント", "path": v + "events/"}, {"name": e["name"], "path": path}],
