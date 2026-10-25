@@ -55,6 +55,7 @@
   <a href="#access">会場の建物と駅</a>
   {% if page.concurrent %}<a href="#same-day">同じ日のイベント</a>{% endif %}
   <a href="#tips">宿を取るコツ</a>
+  {% if lunch or restaurants %}<a href="#food">ランチと夕食</a>{% endif %}
 </div>
 {% set sr = (series | selectattr('slug', 'equalto', e.series) | first) if e.series else None %}
 {{ more_buttons(([('/' ~ venue.slug ~ '/' ~ sr.slug ~ '/', sr.short ~ 'の宿まとめ', '毎回の開催日と次回の空いている宿')] if sr else []) + [
@@ -144,13 +145,31 @@
 <h3>徒歩圏が埋まっていたら1〜2駅先を探す</h3>
 <p>{% if venue.guides %}会場から1km以内の宿が埋まっていても、ゆりかもめで行ける豊洲や台場、りんかい線で乗り換えなしの大井町や大崎まで広げれば見つかることが多くあります。{% else %}会場から1km以内の宿が埋まっていても、最寄り駅から乗り換えなしで1〜2駅の範囲まで広げれば見つかることが多くあります。日付と人数を変えて探す欄で、空いている宿をそのまま確かめられます。{% endif %}</p>
 
-{% set shown = namespace(n=0) %}
-{% for h in items[:8] if restaurants.get(h.hotelNo) %}{% if loop.first %}
-<h2>泊まった日の夕食</h2>
-<p>イベントのあとは会場の飲食店も混み合います。宿の近くで夕食をとるなら、歩いて行ける範囲にこんなお店があります。</p>
-{% endif %}{% if shown.n < 3 %}
-<h3>{{ h.name }}の近く</h3>
-{{ restaurant_table(restaurants[h.hotelNo], 3) }}
-{% set shown.n = shown.n + 1 %}{% endif %}{% endfor %}
+{% set dinner = items[:12] | selectattr('hotelNo', 'in', restaurants) | list %}
+{% if lunch or dinner %}
+<h2 id="food">会場の近くのランチと宿の近くの夕食</h2>
+<p>会期中のお昼は会場の飲食店も売店も混み合います。少し歩いて会場の外で食べる人や、夜に宿の近くで食事をする人に向けて、近くのお店をまとめました。</p>
+<div class="tabs">
+  <div class="tablist tablist-big" role="tablist" aria-label="食事">
+    {% if lunch %}<button type="button" role="tab" aria-selected="true" data-tab="food-lunch">ランチ</button>{% endif %}
+    {% if dinner %}<button type="button" role="tab" aria-selected="{{ 'false' if lunch else 'true' }}" data-tab="food-dinner">夕食</button>{% endif %}
+  </div>
+  {% if lunch %}
+  <div role="tabpanel" id="food-lunch">
+    <p class="hint">{{ venue.name }}から歩いて行ける、ランチ営業のあるお店です。</p>
+    {{ restaurant_table(lunch, 8, '会場から') }}
+  </div>
+  {% endif %}
+  {% if dinner %}
+  <div role="tabpanel" id="food-dinner"{% if lunch %} hidden{% endif %}>
+    <p class="hint">泊まる宿の近くで夕食をとるなら、歩いて行ける範囲にこんなお店があります。</p>
+    {% for h in dinner[:3] %}
+    <h3>{{ h.name }}の近く</h3>
+    {{ restaurant_table(restaurants[h.hotelNo], 3) }}
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>
+{% endif %}
 
 <p><a class="btn btn-primary btn-block btn-big" href="#hotels">空いている近い宿にもどる</a></p>

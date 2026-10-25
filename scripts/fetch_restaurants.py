@@ -13,9 +13,11 @@ HOTELS_PER_VENUE = 12  # 会場に近い順にこの数の宿を調べる
 RANGE = 2  # 2は半径500m
 
 
-def fetch_around(lat, lng):
-    params = {"key": env("HOTPEPPER_API_KEY"), "lat": lat, "lng": lng, "range": RANGE,
-              "order": 4, "count": 20, "format": "json"}
+def fetch_around(lat, lng, rng=RANGE, lunch=False):
+    params = {"key": env("HOTPEPPER_API_KEY"), "lat": lat, "lng": lng, "range": rng,
+              "order": 4, "count": 30 if lunch else 20, "format": "json"}
+    if lunch:
+        params["lunch"] = 1  # ランチ営業のある店だけ
     res = polite_get(URL, params, min_interval=0.5)
     if res is None:
         return []
@@ -46,9 +48,16 @@ def main():
         return 0
     failed = False
     for venue in venues():
-        if venue.get("hotel_area"):
-            continue  # 有明アリーナなどはビッグサイトのデータを使う
-        hotels = read_json(DATA / "hotels" / f"{venue['slug']}.json", {"hotels": []})["hotels"]
+        # イベントの日のランチは会場の近く（半径1km）で探す
+        try:
+            lunch = fetch_around(venue["lat"], venue["lng"], rng=3, lunch=True)
+        except Exception as exc:
+            failed = True
+            lunch = []
+            print(f"  {venue['name']}: ランチの取得に失敗 {exc}", file=sys.stderr)
+        # 有明アリーナなどは、夕食はビッグサイト周辺の宿のデータを使う
+        hotels = [] if venue.get("hotel_area") else \
+            read_json(DATA / "hotels" / f"{venue['slug']}.json", {"hotels": []})["hotels"]
         result = {}
         for h in hotels[:HOTELS_PER_VENUE]:
             try:
@@ -57,8 +66,8 @@ def main():
                 failed = True
                 print(f"  {h['name']}: 飲食店の取得に失敗 {exc}", file=sys.stderr)
         write_json(DATA / "restaurants" / f"{venue['slug']}.json",
-                   {"updated": date.today().isoformat(), "by_hotel": result})
-        print(f"{venue['name']}: {len(result)}軒の宿の周りの飲食店を取得")
+                   {"updated": date.today().isoformat(), "lunch": lunch, "by_hotel": result})
+        print(f"{venue['name']}: ランチ{len(lunch)}件、{len(result)}軒の宿の周りの飲食店を取得")
     return 1 if failed else 0
 
 

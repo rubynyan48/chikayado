@@ -456,13 +456,13 @@ def event_table(events, venue_slug, limit=None):
                   f"</thead><tbody>{body}</tbody></table></div>")
 
 
-def restaurant_table(shops, limit=3):
+def restaurant_table(shops, limit=3, base="宿から"):
     rows = "".join(
         f'<tr><td><a href="{escape(s["url"])}" rel="nofollow noopener" target="_blank">{escape(s["name"])}</a>'
         f'<span class="sub">{escape(s["genre"])}</span></td><td>{escape(s["budget"])}</td><td class="num">{dist_label(s["distance_m"])}</td></tr>'
         for s in shops[:limit]
     )
-    return Markup('<div class="table-wrap"><table><thead><tr><th>店</th><th>予算</th><th class="num">宿から</th></tr></thead>'
+    return Markup(f'<div class="table-wrap"><table><thead><tr><th>店</th><th>予算</th><th class="num">{base}</th></tr></thead>'
                   f"<tbody>{rows}</tbody></table></div>")
 
 
@@ -578,6 +578,7 @@ def venue_context(venue):
     hotels = load_hotels(venue)
     events = read_json(DATA / "events" / f"{venue['slug']}.json", {"events": []})["events"]
     restaurants = read_json(DATA / "restaurants" / f"{vslug(venue)}.json", {"by_hotel": {}})["by_hotel"]
+    lunch = (read_json(DATA / "restaurants" / f"{venue['slug']}.json", {}) or {}).get("lunch", [])
     upcoming = [e for e in events if e["end"] >= TODAY.isoformat()]
     sat = TODAY + timedelta(days=(5 - TODAY.weekday()) % 7 or 7)
     series = []
@@ -600,6 +601,7 @@ def venue_context(venue):
         "public_events": [e for e in upcoming if e.get("public")],
         "trade_events": [e for e in upcoming if not e.get("public")],
         "restaurants": restaurants,
+        "lunch": lunch,
         "shots": read_json(DATA / "shots" / f"{venue['slug']}.json", {}) or {},
         "saturday": sat.isoformat(),
         "sat_vacancy": read_json(DATA / "vacancy" / vslug(venue) / f"{sat.isoformat()}.json"),
