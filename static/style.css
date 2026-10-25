@@ -470,3 +470,7 @@ td .no { display: inline-grid; place-items: center; width: 22px; height: 22px; m
 .chika-say { position: relative; flex: 1; margin: 0 0 10px; padding: 10px 14px; background: #EEF5FB; border-radius: 14px; font-size: 15px; line-height: 1.7; }
 .chika-say::before { content: ""; position: absolute; left: -8px; bottom: 14px; border: 8px solid transparent; border-right-color: #EEF5FB; border-left: 0; }
 .chika-name { display: block; font-size: 12px; font-weight: 800; color: var(--sign); margin-bottom: 2px; }
+
+.shop { display: flex; gap: 10px; align-items: flex-start; }
+.shop-img { flex: none; }
+.shop-img img { width: 64px; height: 64px; object-fit: cover; border-radius: 8px; background: var(--wash); }

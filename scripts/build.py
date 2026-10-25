@@ -537,10 +537,17 @@ def event_table(events, venue_slug, limit=None):
                   f"</thead><tbody>{body}</tbody></table></div>")
 
 
+def shop_img(s):
+    if not s.get("photo"):
+        return ""
+    return (f'<a class="shop-img" href="{escape(s["url"])}" rel="nofollow sponsored noopener" target="_blank" tabindex="-1">'
+            f'<img src="{escape(s["photo"])}" alt="{escape(s["name"])}の料理" width="64" height="64" loading="lazy"></a>')
+
+
 def restaurant_table(shops, limit=3, base="宿から", start=1, budget="予算"):
     rows = "".join(
-        f'<tr><td><span class="no">{start + i}</span><a href="{escape(s["url"])}" rel="nofollow sponsored noopener" target="_blank">{escape(s["name"])}</a>'
-        f'<span class="sub">{escape(s["genre"])}</span></td><td>{escape(s["budget"])}</td><td class="num">{dist_label(s["distance_m"])}</td></tr>'
+        f'<tr><td><div class="shop">{shop_img(s)}<div><span class="no">{start + i}</span><a href="{escape(s["url"])}" rel="nofollow sponsored noopener" target="_blank">{escape(s["name"])}</a>'
+        f'<span class="sub">{escape(s["genre"])}</span></div></div></td><td>{escape(s["budget"])}</td><td class="num">{dist_label(s["distance_m"])}</td></tr>'
         for i, s in enumerate(shops[:limit])
     )
     return Markup(f'<div class="table-wrap"><table><thead><tr><th>店</th><th>{budget}</th><th class="num">{base}</th></tr></thead>'
