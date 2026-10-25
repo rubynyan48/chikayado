@@ -42,37 +42,40 @@ def sitemap_urls():
     return re.findall(r"<loc>([^<]+)</loc>", xml)
 
 
-def inspect_all(s, urls, today):
-    """URL検査APIで1件ずつインデックス状況を調べる（1日2000件まで）。途中でも50件ごとに保存する。"""
+def inspect_one(s, u):
     api = "https://searchconsole.googleapis.com/v1/urlInspection/index:inspect"
-    out = []
-    started = time.time()
-    for i, u in enumerate(urls):
-        if time.time() - started > 18 * 60:
-            print(f"時間がかかりすぎたので {i}件で止めます（残りは次回）")
-            break
+    for attempt in range(3):
         try:
-            r = s.post(api, json={"inspectionUrl": u, "siteUrl": SITE_URL, "languageCode": "ja"}, timeout=20)
+            r = s.post(api, json={"inspectionUrl": u, "siteUrl": SITE_URL, "languageCode": "ja"}, timeout=40)
         except Exception as exc:
-            out.append({"url": unquote(u), "error": type(exc).__name__})
+            err = type(exc).__name__
             continue
-        if i == 0:
-            print(f"  1件目の応答 HTTP {r.status_code} {round(time.time() - started, 1)}秒 {r.text[:300] if r.status_code >= 400 else ''}")
         if r.status_code == 429:
-            print("URL検査の上限に達したので、ここで止めます")
-            break
-        if r.status_code >= 400:
-            out.append({"url": unquote(u), "error": f"HTTP {r.status_code} {r.text[:200]}"})
+            time.sleep(10)
+            err = "HTTP 429"
             continue
+        if r.status_code >= 400:
+            return {"url": unquote(u), "error": f"HTTP {r.status_code} {r.text[:200]}"}
         res = r.json().get("inspectionResult", {}).get("indexStatusResult", {})
-        out.append({"url": unquote(u), "verdict": res.get("verdict"), "coverage": res.get("coverageState"),
-                    "last_crawl": res.get("lastCrawlTime"), "google_canonical": res.get("googleCanonical")})
-        time.sleep(0.2)
-        if (i + 1) % 50 == 0:
-            print(f"  {i + 1}/{len(urls)}件を調べました（{round(time.time() - started)}秒）")
-            pass
-    return out
+        return {"url": unquote(u), "verdict": res.get("verdict"), "coverage": res.get("coverageState"),
+                "last_crawl": res.get("lastCrawlTime"), "google_canonical": res.get("googleCanonical")}
+    return {"url": unquote(u), "error": err}
 
+
+def inspect_all(s, urls, today, workers=5):
+    """URL検査APIでインデックス状況を調べる（1日2000件、1分600件まで）。5件ずつ同時に問い合わせる。"""
+    from concurrent.futures import ThreadPoolExecutor
+    started = time.time()
+    out = []
+    with ThreadPoolExecutor(max_workers=workers) as ex:
+        for i, res in enumerate(ex.map(lambda u: inspect_one(s, u), urls)):
+            out.append(res)
+            if (i + 1) % 50 == 0:
+                print(f"  {i + 1}/{len(urls)}件を調べました（{round(time.time() - started)}秒）")
+            if time.time() - started > 20 * 60:
+                print(f"時間がかかりすぎたので {i + 1}件で止めます（残りは次回）")
+                break
+    return out
 
 def search_analytics(s, dims):
     api = f"https://searchconsole.googleapis.com/webmasters/v3/sites/{quote(SITE_URL, safe='')}/searchAnalytics/query"
