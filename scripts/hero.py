@@ -47,13 +47,19 @@ def wrap(draw, text, f, width, max_lines):
     return lines
 
 
+BAR = 86  # 上の帯の高さ
+
+
 def cover(photo):
-    """写真を画像の大きさいっぱいに広げて、はみ出す分を切り落とす。"""
+    """写真を上の帯より下いっぱいに広げて、はみ出す分を切り落とす。"""
     im = Image.open(photo).convert("RGB")
-    r = max(W / im.width, H / im.height)
+    h = H - BAR
+    r = max(W / im.width, h / im.height)
     im = im.resize((round(im.width * r), round(im.height * r)), Image.LANCZOS)
-    x, y = (im.width - W) // 2, (im.height - H) // 2
-    return im.crop((x, y, x + W, y + H))
+    x, y = (im.width - W) // 2, (im.height - h) // 2
+    out = Image.new("RGB", (W, H), (10, 40, 64))
+    out.paste(im.crop((x, y, x + W, y + h)), (0, BAR))
+    return out
 
 
 def shade(img):
