@@ -41,6 +41,7 @@
 {% if events %}<p><a class="btn btn-sign" href="/{{ venue.slug }}/events/">開催予定をすべて見る</a></p>{% endif %}
 
 <h2>もっと詳しく知りたいとき</h2>
+{{ banner('もっと詳しく調べる.webp', 'もっと詳しく調べる') }}
 {% if venue.guides %}
 {{ more_buttons([
   ('/' ~ venue.slug ~ '/hotels/', '地図とホテルの比較表', '全' ~ hotels|length ~ '軒を距離、料金、口コミ、大浴場で比べる'),
@@ -59,6 +60,7 @@
 ]) }}
 
 <h2>{{ venue.name }}の最寄り駅</h2>
+{{ banner('会場の最寄り駅.webp', '会場の最寄り駅') }}
 {{ station_table(venue) }}
 <p class="note">徒歩の時間は、駅と会場の位置から計算した目安です。</p>
 {% endif %}

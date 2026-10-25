@@ -96,6 +96,11 @@ def chips(h):
     return Markup(f'<span class="chips">{"".join(out)}</span>' if out else "")
 
 
+def banner(filename, alt):
+    """見出しのすぐ下に置くバナー画像。"""
+    return Markup(f'<figure class="banner"><img src="/images/{escape(filename)}" alt="{escape(alt)}" width="1000" height="333" loading="lazy"></figure>')
+
+
 def photo(filename, alt):
     if (IMAGES / filename).exists():
         with Image.open(IMAGES / filename) as im:
@@ -819,7 +824,7 @@ def main():
                "open_time": open_time, "audience_label": audience_label,
                "event_table": event_table, "restaurant_table": restaurant_table, "dist_label": dist_label,
                "walk_min": walk_min, "yen": yen, "quick_cards": quick_cards, "people_switch": people_switch,
-               "search_box": search_box, "rec_box": rec_box, "food_map": food_map, "rank_tabs": rank_tabs, "station_table": station_table, "km": km, "more_buttons": more_buttons, "route_map": route_map, "book_url": book_url, "stars": stars, "chips": chips, "jdate": jdate, "period": period, "buildings": buildings,
+               "search_box": search_box, "banner": banner, "rec_box": rec_box, "food_map": food_map, "rank_tabs": rank_tabs, "station_table": station_table, "km": km, "more_buttons": more_buttons, "route_map": route_map, "book_url": book_url, "stars": stars, "chips": chips, "jdate": jdate, "period": period, "buildings": buildings,
                "site": SITE, "today": TODAY.isoformat(), "css_v": css_version()}
     all_venues = [v for v in venues() if v.get("publish", True)]
     main_venue = all_venues[0]

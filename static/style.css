@@ -408,3 +408,6 @@ td.rate { white-space: nowrap; }
 td .no { display: inline-grid; place-items: center; width: 22px; height: 22px; margin-right: 6px; border-radius: 50%; background: #E8730C; color: #fff; font-size: 12px; font-weight: 800; vertical-align: 1px; }
 
 .pr { display: inline-block; font-size: 14px; font-weight: 700; color: var(--ink); background: #F1F3F5; border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; margin: 0 0 12px; }
+
+.banner { margin: 4px 0 16px; }
+.banner img { width: 100%; height: auto; border-radius: var(--radius-m); display: block; }
