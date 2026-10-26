@@ -1,0 +1,45 @@
+{
+  "slug": "japan-national-stadium",
+  "name": "国立競技場",
+  "formal_name": "国立競技場（MUFGスタジアム）",
+  "address": "東京都新宿区霞ヶ丘町10-1",
+  "lat": 35.67797,
+  "lng": 139.71456,
+  "search_radius_km": 1.5,
+  "source": "national_stadium",
+  "kind": "arena",
+  "area_label": "千駄ヶ谷・青山",
+  "schedule_url": "https://jns-e.com/calendar/",
+  "order": 11,
+  "max_hotels": 40,
+  "stations": [
+    {
+      "name": "国立競技場駅",
+      "line": "都営大江戸線",
+      "walk_min": 3,
+      "lat": 35.67989,
+      "lng": 139.71457
+    },
+    {
+      "name": "千駄ケ谷駅",
+      "line": "JR総武線",
+      "walk_min": 7,
+      "lat": 35.68108,
+      "lng": 139.71148
+    },
+    {
+      "name": "外苑前駅",
+      "line": "東京メトロ銀座線",
+      "walk_min": 14,
+      "lat": 35.67052,
+      "lng": 139.71781
+    },
+    {
+      "name": "信濃町駅",
+      "line": "JR総武線",
+      "walk_min": 9,
+      "lat": 35.68005,
+      "lng": 139.72018
+    }
+  ]
+}

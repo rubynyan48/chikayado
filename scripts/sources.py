@@ -252,7 +252,38 @@ def nhk_hall(venue):
     return items
 
 
+# ---- 国立競技場（MUFGスタジアム） -------------------------------------------
+def national_stadium(venue):
+    base = "https://jns-e.com/calendar/"
+    pages = [base] + [f"{base}page/{y}{m:02d}/" for y, m in months_ahead(8)[1:]]
+    items, seen = [], set()
+    for url in pages:
+        soup = get_html(url)
+        for a in soup.find_all("a", href=re.compile(r"^/calendar/\d{8}-\d+/")):
+            if a["href"] in seen:
+                continue
+            seen.add(a["href"])
+            t = a.select_one(".p-schedule-calendar-list__title")
+            if not t:
+                continue
+            cat = a.select_one(".p-schedule-calendar-list__category-label")
+            meta = {}
+            for row in a.select(".p-schedule-calendar-list__meta-row"):
+                k, v = row.find("dt"), row.find("dd")
+                if k and v:
+                    meta[clean(k.get_text())] = v.get_text(" ", strip=True)
+            dates = [date(int(y), int(mo), int(d)).isoformat()
+                     for y, mo, d in re.findall(r"(\d{4})\s*(\d{1,2})/(\d{1,2})", meta.get("日程", ""))]
+            if not dates or max(dates) < date.today().isoformat():
+                continue
+            items.append(event(t.get_text(" "), min(dates), max(dates), hours=meta.get("開始時間", ""),
+                               organizer=meta.get("主催者", ""), content=cat.get_text() if cat else "",
+                               url="https://jns-e.com" + a["href"]))
+    return sorted(items, key=lambda e: e["start"])
+
+
 SOURCES = {
+    "national_stadium": national_stadium,
     "nhk_hall": nhk_hall,
     "tokyo_dome": tokyo_dome,
     "ariake_arena": ariake_arena,

@@ -669,14 +669,16 @@ AREA_GROUPS = [
     ("有楽町・東京駅エリア", ["tokyo-international-forum"]),
     ("両国エリア", ["ryogoku-kokugikan"]),
     ("原宿・渋谷エリア", ["yoyogi-national-gymnasium", "nhk-hall"]),
+    ("千駄ヶ谷・青山エリア", ["japan-national-stadium"]),
 ]
 VENUE_TAGS = {
     "tokyo-big-sight": ["展示会", "同人誌即売会", "アート"], "ariake-arena": ["ライブ", "スポーツ"],
     "tokyo-garden-theater": ["ライブ"], "tokyo-dome": ["ライブ", "大型イベント"], "nippon-budokan": ["ライブ"],
     "tokyo-international-forum": ["コンサート", "舞台"], "ryogoku-kokugikan": ["大相撲"],
     "yoyogi-national-gymnasium": ["ライブ", "スポーツ"], "nhk-hall": ["コンサート", "公開番組"],
+    "japan-national-stadium": ["サッカー", "ライブ", "陸上"],
 }
-SPORTS = re.compile(r"大相撲|リーグ|選手権|大会|試合|ホームゲーム|開幕戦|vs|VS|BOXING|ボクシング|ONE |格闘|バスケ|バレー|フィギュア|Championship|GAME\.|太極拳")
+SPORTS = re.compile(r"サッカー|Jリーグ|J1|マラソン|ラグビー|陸上|大相撲|リーグ|選手権|大会|試合|ホームゲーム|開幕戦|vs|VS|BOXING|ボクシング|ONE |格闘|バスケ|バレー|フィギュア|Championship|GAME\.|太極拳")
 
 
 def card_image(v):
