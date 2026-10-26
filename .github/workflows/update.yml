@@ -45,10 +45,21 @@ jobs:
         with:
           python-version: "3.12"
 
+      # 画像に使う日本語フォント。aptは時間がかかることがあるので、1回落としたものを使い回す
+      - uses: actions/cache@v4
+        with:
+          path: ~/.fonts
+          key: noto-sans-cjk-bold-v1
+
       - name: 部品の準備
         run: |
           pip install -r requirements.txt
-          sudo apt-get install -y -qq fonts-noto-cjk > /dev/null
+          mkdir -p ~/.fonts
+          if [ ! -s ~/.fonts/NotoSansCJKjp-Bold.otf ]; then
+            curl -fsSL --retry 3 -o ~/.fonts/NotoSansCJKjp-Bold.otf https://github.com/notofonts/noto-cjk/raw/main/Sans/OTF/Japanese/NotoSansCJKjp-Bold.otf \
+              || { rm -f ~/.fonts/NotoSansCJKjp-Bold.otf; sudo apt-get install -y -qq fonts-noto-cjk > /dev/null; }
+          fi
+          ls -la ~/.fonts
           mkdir -p data/logs
           echo "実行 $(TZ=Asia/Tokyo date '+%F %T') ${{ github.event_name }}" > data/logs/latest.txt
           for n in RAKUTEN_APP_ID RAKUTEN_ACCESS_KEY HOTPEPPER_API_KEY GEMINI_API_KEY HOST USER_ID PORT DEST; do

@@ -15,6 +15,7 @@ SOFT = (232, 241, 247)
 LINE = (214, 222, 229)
 
 FONT_PATHS = [
+    str(Path.home() / ".fonts" / "NotoSansCJKjp-Bold.otf"),
     "/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc",
     "/usr/share/fonts/opentype/noto/NotoSansCJK-Black.ttc",
     "/usr/share/fonts/noto-cjk/NotoSansCJK-Bold.ttc",
