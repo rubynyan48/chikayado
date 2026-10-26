@@ -39,7 +39,6 @@
 {{ rec_box(venue, hotels, by_people if not ended else {}, e.start if not ended else saturday) }}
 
 <h2>もっと詳しく知りたいとき</h2>
-{{ banner('もっと詳しく調べる.webp', 'もっと詳しく調べる') }}
 <div class="jump">
   {% if st %}<a href="#numbers">数字で見る空き具合</a>{% endif %}
   {% if ot and not ended %}<a href="#depart">宿を出る時刻の目安</a>{% endif %}
@@ -58,7 +57,6 @@
 {% if st %}
 <h2 id="numbers">{{ jdate(e.start, False) }}の宿の空き具合を数字で見る</h2>
 <p>会場から{{ km(venue) }}以内にある{{ st.total }}軒の宿について、{{ jdate(e.start) }}の夜に1部屋で泊まれるかを人数ごとに調べました。料金は1人あたりです。</p>
-{{ chika('check', jdate(e.start) ~ 'の夜に1人で泊まれる宿は' ~ st.one.open ~ '軒です。' ~ (('料金はイベントのない日の約' ~ st.ratio ~ '倍になっています。') if st.ratio else '') ~ '下の表で人数ごとの空き具合を確かめてください。') }}
 <div class="ppl">
   {% for r in st.rows %}
   <div class="ppl-card">
@@ -81,7 +79,6 @@
 
 {% if ot and not ended %}
 <h2 id="depart">開場に間に合う出発時刻の目安</h2>
-{{ banner('開場に間に合う出発時刻の目安.webp', '開場に間に合う出発時刻の目安') }}
 <p>入場の列に並んだり受付で登録したりする時間を15分見込んで、宿を出る時刻の目安を出しました。</p>
 {{ depart_table(items, e.hours) }}
 <p class="note">歩ける距離の宿は道のりを直線距離の1.25倍、分速80mで計算しています。電車を使う宿は、駅までの歩き、電車で1〜2駅、駅から会場までを合わせて約35分と見ています。{% if '東展示棟' in bld %}東展示棟は会場の入口からさらに歩くので、10分ほど早めに出ると安心です。{% endif %}{% if venue.kind == 'arena' %}グッズを買う人や入場の列に並ぶ人は、さらに早めに出てください。{% endif %}</p>
@@ -112,7 +109,6 @@
 <p class="note">開催日や時間は主催者の発表をもとにしています。お出かけ前に公式サイトで確認してください。</p>
 
 <h2 id="access">会場の{% if venue.guides %}建物と{% endif %}最寄り駅</h2>
-{{ banner('会場の最寄り駅.webp', '会場の最寄り駅') }}
 {% if venue.guides %}
 <p>{% if bld %}会場は{{ venue.name }}の{{ bld|join('と') }}です。{% if '東展示棟' in bld %}東展示棟は駅から入ってガレリアと呼ばれる長い通路を進んだ奥にあり、入口からホールまでも歩きます。{% elif '西展示棟' in bld or '会議棟' in bld %}駅から近い建物なので、会場に入ってからの移動はそれほどかかりません。{% elif '南展示棟' in bld %}南展示棟は西展示棟とつながった新しい建物で、2階と4階にホールがあります。{% endif %}{% endif %}最寄り駅はゆりかもめの東京ビッグサイト駅（徒歩約3分）と、りんかい線の国際展示場駅（徒歩約7分）です。</p>
 {{ more_buttons([
@@ -132,7 +128,6 @@
 {% endif %}
 
 <h2 id="tips">宿を取るときのポイント</h2>
-{{ chika('ok', '迷ったら、会場まで歩ける宿を先に押さえておけば大丈夫です。キャンセル無料のプランなら、あとで見直すこともできます。') }}
 {% if page.text %}<p>{{ page.text.stay }}</p>{% endif %}
 {% if e.start != e.end %}
 <h3>会期の初日と最終日は混みやすい</h3>
@@ -144,8 +139,7 @@
 {% set dinner = items[:12] | selectattr('hotelNo', 'in', restaurants) | list %}
 {% if lunch or dinner %}
 <h2 id="food">会場の近くのランチと宿の近くの夕食</h2>
-{{ banner('近くのランチと夕飯.webp', '近くのランチと夕飯') }}
-{{ chika('food', 'お昼は会場の中のお店も売店も混み合います。少し歩いて外のお店に入ると、ゆっくり食べられますよ。') }}
+<p>会期中のお昼は会場の飲食店も売店も混み合います。少し歩いて会場の外で食べる人や、夜に宿の近くで食事をする人に向けて、近くのお店をまとめました。</p>
 <div class="tabs">
   <div class="tablist tablist-big" role="tablist" aria-label="食事">
     {% if lunch %}<button type="button" role="tab" aria-selected="true" data-tab="food-lunch">ランチ</button>{% endif %}
