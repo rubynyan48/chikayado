@@ -474,3 +474,10 @@ td .no { display: inline-grid; place-items: center; width: 22px; height: 22px; m
 .shop { display: flex; gap: 10px; align-items: flex-start; }
 .shop-img { flex: none; }
 .shop-img img { width: 64px; height: 64px; object-fit: cover; border-radius: 8px; background: var(--wash); }
+
+/* 地図の番号を円の真ん中に */
+.pin, .pin-venue { line-height: 1; padding: 0; box-sizing: border-box; text-align: center; }
+.pin { display: flex !important; align-items: center; justify-content: center; font-size: 13px; }
+/* 見出しは塗りつぶしの帯 */
+.body h2 { background: var(--sign); color: #fff; padding: 10px 14px; border-bottom: 0; border-radius: 8px; font-size: 20px; line-height: 1.5; }
+@media (min-width: 720px) { .body h2 { font-size: 22px; } }

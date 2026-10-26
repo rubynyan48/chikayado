@@ -291,13 +291,13 @@ def compare_table(items, price_label="料金の目安"):
 
 
 def hotel_map(items, venue, limit=20):
-    """会場とホテルの位置を地図に出す（国土地理院の地図）。"""
+    """会場とホテルの位置を地図に出す（OpenStreetMapの地図）。"""
     pins = [{"n": i, "name": h["name"], "lat": h["lat"], "lng": h["lng"], "d": dist_label(h["distance_m"]),
              "p": yen(price_of(h)), "url": book_url(h, h.get("offer"))} for i, h in enumerate(items[:limit], 1)]
     data = json.dumps({"venue": {"name": venue["name"], "lat": venue["lat"], "lng": venue["lng"]}, "pins": pins},
                       ensure_ascii=False).replace("</", "<\\/")
     return Markup(f'<div class="map" data-map=\'{escape(data)}\'></div>'
-                  '<p class="note">地図の番号は下の一覧の番号と同じです。地図は国土地理院の地理院タイルを使っています。</p>')
+                  '<p class="note">地図の番号は下の一覧の番号と同じです。地図はOpenStreetMapを使っています。</p>')
 
 
 def open_time(hours):
@@ -353,7 +353,7 @@ def route_map(venue, station_page, hotels, goal_step, via=None, via_step=None):
     pts.append({"n": goal_step, "name": f["name"], "lat": f["lat"], "lng": f["lng"]})
     data = json.dumps({"route": pts}, ensure_ascii=False).replace("</", "<\\/")
     return Markup(f'<div class="map map-route" data-map=\'{escape(data)}\'></div>'
-                  '<p class="note">地図の番号は下の道順の番号と同じです。線は道のりのおおよその向きを示した目安です。実際は歩道や階段に沿って進みます。地図は国土地理院の地理院タイルを使っています。</p>')
+                  '<p class="note">地図の番号は下の道順の番号と同じです。線は道のりのおおよその向きを示した目安です。実際は歩道や階段に沿って進みます。地図はOpenStreetMapを使っています。</p>')
 
 
 def walk_chip(m):

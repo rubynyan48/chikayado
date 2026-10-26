@@ -148,8 +148,8 @@
   {% if lunch %}
   <div role="tabpanel" id="food-lunch">
     <p class="hint">{{ venue.name }}から歩いて行ける、ランチ営業のあるお店です。地図の番号は表の番号と同じです。</p>
-    {{ food_map(venue, lunch[:8]) }}
     {{ restaurant_table(lunch, 8, '会場から', 1, '夜の予算') }}
+    {{ food_map(venue, lunch[:8]) }}
     <p class="note">予算はホットペッパーに載っている夜の平均です。ランチはこれより安いことがほとんどです。</p>
   </div>
   {% endif %}
@@ -157,13 +157,13 @@
   <div role="tabpanel" id="food-dinner"{% if lunch %} hidden{% endif %}>
     <p class="hint">泊まる宿の近くで夕食をとるなら、歩いて行ける範囲にこんなお店があります。地図の番号は表の番号と同じで、「宿」の印が泊まる宿です。</p>
     {% set dshops = namespace(l=[]) %}{% for h in dinner[:3] %}{% set dshops.l = dshops.l + restaurants[h.hotelNo][:3] %}{% endfor %}
-    {{ food_map(venue, dshops.l, dinner[:3]) }}
     {% set cnt = namespace(n=0) %}
     {% for h in dinner[:3] %}
     <h3>{{ h.name }}の近く</h3>
     {{ restaurant_table(restaurants[h.hotelNo], 3, '宿から', cnt.n + 1) }}
     {% set cnt.n = cnt.n + (restaurants[h.hotelNo][:3]|length) %}
     {% endfor %}
+    {{ food_map(venue, dshops.l, dinner[:3]) }}
   </div>
   {% endif %}
 </div>
