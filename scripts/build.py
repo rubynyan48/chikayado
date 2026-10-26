@@ -840,7 +840,7 @@ def pages_for(venue, ctx):
           for slug, n, label in PEOPLE_PAGES],
         *[{"path": f"{v}{sr['slug']}/", "template": "series.html", "series": sr,
            "vacancy": read_json(DATA / "vacancy" / vslug(venue) / f"{sr['next']['start']}.json") if sr["next"] else None,
-           "title": f"{sr['short']}の会場に近いホテル {venue['name']}周辺で空いている宿",
+           "title": f"{sr['name']}（{sr['short']}）の会場に近いホテル {venue['name']}周辺で空いている宿",
            "description": (f"次の{sr['name']}（{sr['next']['name']}）は{period(sr['next'])}に{venue['name']}で開かれます。" if sr["next"]
                            else f"{sr['name']}は{venue['name']}で開かれるイベントです。")
                           + "会場に近いホテルの空室と1人あたりの料金を、人数を選ぶだけで確かめられます。",
