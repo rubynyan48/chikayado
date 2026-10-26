@@ -1,4 +1,4 @@
-実行 2026-10-26 10:41:59 workflow_dispatch
+実行 2026-10-27 05:51:44 schedule
 設定あり RAKUTEN_APP_ID
 設定あり RAKUTEN_ACCESS_KEY
 設定あり HOTPEPPER_API_KEY
@@ -40,14 +40,14 @@ NHKホール: ランチ30件、0軒の宿の周りの飲食店を取得
 499ページを書き出しました
 鍵の形式は正常
 File list transfer time: 0.000 seconds
-Total bytes sent: 141,932
-Total bytes received: 762,768
+Total bytes sent: 552,487
+Total bytes received: 775,425
 
-sent 141,932 bytes  received 762,768 bytes  120,626.67 bytes/sec
-total size is 86,205,840  speedup is 95.29
+sent 552,487 bytes  received 775,425 bytes  156,224.94 bytes/sec
+total size is 87,709,753  speedup is 66.05
 転送完了（1回目）
 空室検索の設定を配置
 空室検索のテスト HTTP 200
-応答の長さ 4901
+応答の長さ 4891
 {"date":"2026-10-31","adults":2,"hotels":[{"name":"東京ベイ有明ワシントンホテル","walk":6,"distance":"341m","image":"https:\/\/img.travel.rakuten.co.jp\/share\/HOTEL\/1177\/1177.jpg","rate":4.269999999999999573674358543939888477325439453125,"bath":false,"per_person":18500,"room":"★リニューアル★スタンダード ダブル","url":"https:\/\/af.moshimo.com\/af\/c\/click?a_id=5863620&p_id=55&pc_id=55&pl_id=624&url=https%3A%2F%2Ftravel.ra
 IndexNowに送るURLはありません
