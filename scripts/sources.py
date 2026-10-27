@@ -284,7 +284,7 @@ def national_stadium(venue):
 
 # ---- トヨタアリーナ東京 ------------------------------------------------------
 # Bリーグ・Dリーグの公式戦は地元のファンが中心なので載せない（チャンピオンシップなどは載せる）
-SKIP_TOYOTA = re.compile(r"^(設営日|撤去日|PRIVATE|非公開)$|B\.LEAGUE 20\d\d-\d\d .+ vs |D\.LEAGUE .*REGULAR SEASON", re.I)
+SKIP_TOYOTA = re.compile(r"^(設営日|撤去日|PRIVATE|非公開)$|公演中止|開催中止|B\.LEAGUE 20\d\d-\d\d .+ vs |D\.LEAGUE .*REGULAR SEASON", re.I)
 
 
 def toyota_arena(venue):
