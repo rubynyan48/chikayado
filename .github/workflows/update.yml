@@ -85,7 +85,7 @@ jobs:
       - name: 公式サイトの画面を撮影
         if: github.event_name != 'push'
         run: |
-          pip install -q playwright==1.48.0 && python -m playwright install --with-deps chromium > /dev/null 2>&1
+          pip install -q playwright==1.48.0 opencv-python-headless==4.10.0.84 && python -m playwright install --with-deps chromium > /dev/null 2>&1
           cd scripts && python fetch_shots.py 2>&1 | python redact.py; exit ${PIPESTATUS[0]}
         continue-on-error: true
 

@@ -1,6 +1,8 @@
 """イベントの公式サイトの最初の画面を撮影して、開催概要に載せる画像にする。
 
-いまは一般の人が行けるイベントだけを撮る。撮った画像は data/shots/<会場>/ に保存し、
+いまは一般の人が行けるイベントだけを撮る。ライブ会場ではアーティストの写真が出ることが多いので、
+人の顔が写っている画面は使わない。チケットサイトや会場のページは公式サイトではないので撮らない。
+撮った画像は data/shots/<会場>/ に保存し、
 一覧を data/shots/<会場>.json に書く。14日たったら撮り直す。
 """
 import re
@@ -25,6 +27,37 @@ REMOVE_BANNERS = """
   }
 }
 """
+
+
+# 公式サイトではないページ（会場、チケット販売）
+NOT_OFFICIAL = re.compile(r"m-messe\.co\.jp|toyota-arena-tokyo\.jp|tokyo-dome\.co\.jp|jns-e\.com|ariake-arena\.tokyo|"
+                          r"shopping-sumitomo-rd\.com|jpnsport\.go\.jp|nhk-fdn\.or\.jp|nipponbudokan\.or\.jp|t-i-forum\.co\.jp|"
+                          r"eplus\.jp|t\.pia\.jp|l-tike\.com|diskgarage|ticket")
+OVERRIDES = read_json(ROOT / "config" / "shot_overrides.json", {}) or {}
+FACE_MODEL = ROOT / "assets" / "models" / "face_detection_yunet.onnx"
+
+
+def has_faces(path):
+    """写真の人の顔が写っていれば True（アニメの絵はほぼ反応しない）。"""
+    try:
+        import cv2
+    except ImportError:
+        return False
+    im = cv2.imread(str(path))
+    h, w = im.shape[:2]
+    det = cv2.FaceDetectorYN.create(str(FACE_MODEL), "", (w, h), 0.8)
+    _, faces = det.detect(im)
+    return faces is not None and any(f[2] * f[3] >= 30 * 30 for f in faces)
+
+
+def official_url(e):
+    for pattern, url in OVERRIDES.get("urls", {}).items():
+        if re.search(pattern, e["name"]):
+            return url
+    url = e.get("url") or ""
+    if not url or NOT_OFFICIAL.search(url):
+        return ""
+    return url if url.startswith("http") else "https://" + url
 
 
 def file_name(text):
@@ -90,14 +123,14 @@ def main():
         print("playwright がないので撮影を飛ばします")
         return
     today = date.today()
+    import time
+    started = time.time()
     with sync_playwright() as p:
         browser = p.chromium.launch()
         ctx = browser.new_context(viewport={"width": 1280, "height": 800}, locale="ja-JP",
                                   user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36")
         for venue in venues():
-            # ライブ会場はアーティストの写真が中心になるので撮らない
-            if venue.get("kind") != "exhibition":
-                continue
+            live_venue = venue.get("kind") != "exhibition"
             slug = venue["slug"]
             events = read_json(DATA / "events" / f"{slug}.json", {"events": []})["events"]
             series = read_json(ROOT / "config" / "series" / f"{slug}.json", []) or []
@@ -106,7 +139,9 @@ def main():
             index = read_json(index_path, {}) or {}
             folder = DATA / "shots" / slug
             folder.mkdir(parents=True, exist_ok=True)
-            targets = [e for e in events if e["end"] >= today.isoformat() and e.get("url") and is_public(e, patterns)]
+            skip = [re.compile(x) for x in OVERRIDES.get("skip", [])]
+            targets = [e for e in events if e["end"] >= today.isoformat() and official_url(e) and is_public(e, patterns)
+                       and not any(p.search(e["name"]) for p in skip)]
             done = 0
             for e in targets:
                 old = index.get(e["slug"])
@@ -115,9 +150,9 @@ def main():
                     continue
                 if old and old.get("taken", "") >= (today - timedelta(days=RETAKE_DAYS)).isoformat():
                     continue
-                if done >= MAX_PER_RUN:
+                if done >= MAX_PER_RUN or time.time() - started > 20 * 60:
                     break
-                url = e["url"] if e["url"].startswith("http") else "https://" + e["url"]
+                url = official_url(e)
                 out = folder / file_name(e["name"])
                 page = ctx.new_page()
                 try:
@@ -125,6 +160,9 @@ def main():
                     if looks_blank(out):
                         out.unlink()
                         print(f"白い画面だったので使いません {e['name']}")
+                    elif (live_venue or "音楽" in (e.get("content") or "")) and has_faces(out):
+                        out.unlink()
+                        print(f"人の顔が写っているので使いません {e['name']}")
                     else:
                         index[e["slug"]] = {"file": out.name, "url": url, "taken": today.isoformat()}
                         print(f"撮影 {e['name']}")
