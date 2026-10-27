@@ -282,7 +282,97 @@ def national_stadium(venue):
     return sorted(items, key=lambda e: e["start"])
 
 
+# ---- トヨタアリーナ東京 ------------------------------------------------------
+# Bリーグ・Dリーグの公式戦は地元のファンが中心なので載せない（チャンピオンシップなどは載せる）
+SKIP_TOYOTA = re.compile(r"^(設営日|撤去日|PRIVATE|非公開)$|B\.LEAGUE 20\d\d-\d\d .+ vs |D\.LEAGUE .*REGULAR SEASON", re.I)
+
+
+def toyota_arena(venue):
+    base = "https://www.toyota-arena-tokyo.jp"
+    items = []
+    for y, m in months_ahead(6):
+        soup = get_html(f"{base}/events/?year={y}&month={m}")
+        for li in soup.select("li.bg-gray-f5"):
+            spans = [clean(s.get_text()) for s in li.select("div.font-bold span")]
+            md = re.match(r"(\d{4})\.(\d{1,2})\.(\d{1,2})", spans[0] if spans else "")
+            p = li.select_one("p.font-bold")
+            if not md or not p:
+                continue
+            sub = p.find("span")
+            artist = clean(sub.get_text()).replace("アーティスト:", "").strip() if sub else ""
+            artist = re.sub(r"[、,]\s*(ゲストあり|ほか|他)$", "", artist)
+            if sub:
+                sub.extract()
+            title = clean(p.get_text(" "))
+            if SKIP_TOYOTA.search(title):
+                continue
+            info = li.select("p")[1:] if len(li.select("p")) > 1 else []
+            hours, organizer = "", ""
+            if info:
+                parts = info[0].find_all("span", recursive=False)
+                hours = clean(parts[0].get_text(" ")) if parts else ""
+                organizer = clean(parts[1].get_text(" ")) if len(parts) > 1 else ""
+            a = li.find("a", href=True)
+            d = date(*map(int, md.groups())).isoformat()
+            # 出演者が多いフェスは名前に入れない
+            name = title if len(artist) > 40 else title_with_artist(artist, title)
+            items.append(event(name, d, hall={"MAIN ARENA": "メインアリーナ", "SUB ARENA": "サブアリーナ"}.get(spans[1], spans[1]) if len(spans) > 1 else "", hours=hours,
+                               organizer=organizer, content="バスケットボール" if "LEAGUE" in title else "",
+                               url=base + a["href"] if a else ""))
+    return join_days(items)
+
+
+# ---- 幕張メッセ --------------------------------------------------------------
+def makuhari_messe(venue):
+    base = "https://www.m-messe.co.jp"
+    found = {}
+    for y, m in months_ahead(7):
+        for page in range(1, 8):
+            soup = get_html(f"{base}/event/?month={y}{m:02d}&page={page}")
+            lis = soup.select("li.eventInr")
+            new = 0
+            for li in lis:
+                a = li.find("a", href=True)
+                if not a or a["href"] in found:
+                    continue
+                dates = re.findall(r"(\d{4})\.(\d{2})\.(\d{2})", li.select_one(".date").get_text() if li.select_one(".date") else "")
+                if not dates:
+                    continue
+                dates = [date(*map(int, x)).isoformat() for x in dates]
+                if max(dates) < date.today().isoformat():
+                    continue
+                t = li.select_one(".eventTit")
+                tg = li.select_one(".target")
+                cat = li.select_one(".category")
+                found[a["href"]] = event(t.get_text(" ") if t else "", min(dates), max(dates),
+                                         audience=clean(tg.get_text()).replace("対象", "").strip() if tg else "",
+                                         content=cat.get_text() if cat else "", url=base + a["href"])
+                new += 1
+            if not new or not soup.find("a", href=f"javascript:pager({page + 1})"):
+                break
+    items = []
+    for href, e in found.items():
+        # 詳しいページから時間、会場のホール、料金、主催者、公式サイトを読む
+        try:
+            soup = get_html(e["url"])
+        except Exception:
+            items.append(e)
+            continue
+        def pick(sel):
+            el = soup.select_one(sel)
+            return el.get_text(" ") if el else ""
+        hall = " ".join(clean(h.get_text(" ")) for h in soup.select("dl.facility .hall"))
+        site = soup.select_one("dl.url a[href^=http]")
+        e.update(event(e["name"], e["start"], e["end"], hall=hall, hours=pick("dl.time .main"),
+                       audience=e["audience"], fee=pick("dl.person .price"), content=e["content"],
+                       organizer=pick("dl.organizer dd"), url=site["href"] if site else e["url"]))
+        items.append(e)
+    return sorted(items, key=lambda x: (x["start"], x["name"]))
+
+
 SOURCES = {
+    "toyota_arena": toyota_arena,
+    "makuhari_messe": makuhari_messe,
     "national_stadium": national_stadium,
     "nhk_hall": nhk_hall,
     "tokyo_dome": tokyo_dome,

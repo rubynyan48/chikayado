@@ -1,0 +1,31 @@
+{
+  "slug": "makuhari-messe",
+  "name": "幕張メッセ",
+  "formal_name": "幕張メッセ（日本コンベンションセンター）",
+  "address": "千葉県千葉市美浜区中瀬2-1",
+  "lat": 35.647194,
+  "lng": 140.034561,
+  "search_radius_km": 2.0,
+  "source": "makuhari_messe",
+  "kind": "exhibition",
+  "area_label": "海浜幕張",
+  "stations": [
+    {
+      "name": "海浜幕張駅",
+      "line": "JR京葉線",
+      "walk_min": 5,
+      "lat": 35.6486414297222,
+      "lng": 140.042138006944
+    },
+    {
+      "name": "幕張豊砂駅",
+      "line": "JR京葉線",
+      "walk_min": 20,
+      "lat": 35.6581708422222,
+      "lng": 140.026814934167
+    }
+  ],
+  "schedule_url": "https://www.m-messe.co.jp/event/",
+  "order": 13,
+  "max_hotels": 40
+}

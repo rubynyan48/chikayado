@@ -664,12 +664,13 @@ def venue_summary(venue):
 
 
 AREA_GROUPS = [
-    ("有明・お台場エリア", ["tokyo-big-sight", "ariake-arena", "tokyo-garden-theater"]),
+    ("有明・お台場エリア", ["tokyo-big-sight", "ariake-arena", "tokyo-garden-theater", "toyota-arena-tokyo"]),
     ("水道橋・九段下エリア", ["tokyo-dome", "nippon-budokan"]),
     ("有楽町・東京駅エリア", ["tokyo-international-forum"]),
     ("両国エリア", ["ryogoku-kokugikan"]),
     ("原宿・渋谷エリア", ["yoyogi-national-gymnasium", "nhk-hall"]),
     ("千駄ヶ谷・青山エリア", ["japan-national-stadium"]),
+    ("千葉・幕張エリア", ["makuhari-messe"]),
 ]
 VENUE_TAGS = {
     "tokyo-big-sight": ["展示会", "同人誌即売会", "アート"], "ariake-arena": ["ライブ", "スポーツ"],
@@ -677,6 +678,7 @@ VENUE_TAGS = {
     "tokyo-international-forum": ["コンサート", "舞台"], "ryogoku-kokugikan": ["大相撲"],
     "yoyogi-national-gymnasium": ["ライブ", "スポーツ"], "nhk-hall": ["コンサート", "公開番組"],
     "japan-national-stadium": ["サッカー", "ライブ", "陸上"],
+    "toyota-arena-tokyo": ["ライブ", "バスケットボール"], "makuhari-messe": ["展示会", "ライブ", "ゲーム"],
 }
 SPORTS = re.compile(r"サッカー|Jリーグ|J1|マラソン|ラグビー|陸上|大相撲|リーグ|選手権|大会|試合|ホームゲーム|開幕戦|vs|VS|BOXING|ボクシング|ONE |格闘|バスケ|バレー|フィギュア|Championship|GAME\.|太極拳")
 
@@ -917,7 +919,7 @@ def common_pages():
     return [
         {"path": "/", "template": "home.html", "is_home": True,
          "title": "ちか宿 イベント会場に近いホテルが見つかる", "h1": "イベント会場に近いホテルが見つかる",
-         "description": "東京ビッグサイト、東京ドーム、日本武道館、有明アリーナなど都内の大型イベント会場に近いホテルを、会場からの距離と開催日の空室で探せます。展示会、ライブ、同人誌即売会、スポーツのイベントごとに宿をまとめています。",
+         "description": "東京ビッグサイト、東京ドーム、日本武道館、幕張メッセなど首都圏の大型イベント会場に近いホテルを、会場からの距離と開催日の空室で探せます。展示会、ライブ、同人誌即売会、スポーツのイベントごとに宿をまとめています。",
          "breadcrumbs": []},
         {"path": "/about/", "template": "about.html", "no_toc": True, "title": "運営者情報",
          "description": "ちか宿の運営者情報と、サイトに載せている情報の集め方についてです。",

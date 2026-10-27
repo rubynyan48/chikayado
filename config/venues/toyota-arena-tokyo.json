@@ -1,0 +1,32 @@
+{
+  "slug": "toyota-arena-tokyo",
+  "name": "トヨタアリーナ東京",
+  "formal_name": "TOYOTA ARENA TOKYO（トヨタアリーナ東京）",
+  "address": "東京都江東区青海1-3-1",
+  "lat": 35.627411,
+  "lng": 139.783157,
+  "search_radius_km": 3.0,
+  "source": "toyota_arena",
+  "kind": "arena",
+  "hotel_area": "tokyo-big-sight",
+  "area_label": "お台場・青海",
+  "stations": [
+    {
+      "name": "青海駅",
+      "line": "ゆりかもめ",
+      "walk_min": 4,
+      "lat": 35.6246338911111,
+      "lng": 139.781488253333
+    },
+    {
+      "name": "東京テレポート駅",
+      "line": "りんかい線",
+      "walk_min": 5,
+      "lat": 35.6270995333333,
+      "lng": 139.778579335833
+    }
+  ],
+  "schedule_url": "https://www.toyota-arena-tokyo.jp/events/",
+  "order": 12,
+  "max_hotels": 40
+}
