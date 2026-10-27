@@ -3,6 +3,10 @@
     "^COUNTDOWN JAPAN": "https://countdownjapan.jp/"
   },
   "skip": [
-    "東京コミコン"
+    "東京コミコン",
+    "^藤井風\\ ピアノリサイタル$",
+    "^ENHYPEN\\ WORLD\\ TOUR\\ 'BLOOD\\ SAGA'\\ IN\\ JAPAN$",
+    "^Number_i\\ LIVE\\ TOUR\\ No\\.III$",
+    "^陣\\ presents\\ 『CL6th\\ LDH紅白頂上決戦』$"
   ]
 }
