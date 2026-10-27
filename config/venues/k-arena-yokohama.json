@@ -1,0 +1,39 @@
+{
+  "slug": "k-arena-yokohama",
+  "name": "Kアリーナ横浜",
+  "formal_name": "Kアリーナ横浜",
+  "address": "神奈川県横浜市西区みなとみらい6-2-14",
+  "lat": 35.464638,
+  "lng": 139.631409,
+  "search_radius_km": 2.0,
+  "source": "k_arena",
+  "kind": "arena",
+  "hotel_area": "pacifico-yokohama",
+  "area_label": "みなとみらい・横浜駅",
+  "stations": [
+    {
+      "name": "新高島駅",
+      "line": "みなとみらい線",
+      "walk_min": 5,
+      "lat": 35.4641419047222,
+      "lng": 139.626611458333
+    },
+    {
+      "name": "横浜駅",
+      "line": "JR・京急・相鉄・東急・みなとみらい線",
+      "walk_min": 9,
+      "lat": 35.4656458333333,
+      "lng": 139.620119666667
+    },
+    {
+      "name": "みなとみらい駅",
+      "line": "みなとみらい線",
+      "walk_min": 12,
+      "lat": 35.4581820738889,
+      "lng": 139.631859885833
+    }
+  ],
+  "schedule_url": "https://k-arena.com/schedule/",
+  "order": 15,
+  "max_hotels": 40
+}

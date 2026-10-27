@@ -1,0 +1,39 @@
+{
+  "slug": "pia-arena-mm",
+  "name": "ぴあアリーナMM",
+  "formal_name": "ぴあアリーナMM",
+  "address": "神奈川県横浜市西区みなとみらい3-2-2",
+  "lat": 35.455059,
+  "lng": 139.628494,
+  "search_radius_km": 2.0,
+  "source": "pia_arena",
+  "kind": "arena",
+  "hotel_area": "pacifico-yokohama",
+  "area_label": "みなとみらい",
+  "stations": [
+    {
+      "name": "みなとみらい駅",
+      "line": "みなとみらい線",
+      "walk_min": 7,
+      "lat": 35.4581820738889,
+      "lng": 139.631859885833
+    },
+    {
+      "name": "桜木町駅",
+      "line": "JR根岸線・横浜市営地下鉄",
+      "walk_min": 7,
+      "lat": 35.4509808727778,
+      "lng": 139.631347549722
+    },
+    {
+      "name": "新高島駅",
+      "line": "みなとみらい線",
+      "walk_min": 8,
+      "lat": 35.4641419047222,
+      "lng": 139.626611458333
+    }
+  ],
+  "schedule_url": "https://pia-arena-mm.jp/event/",
+  "order": 16,
+  "max_hotels": 40
+}

@@ -1,0 +1,24 @@
+{
+  "slug": "yokohama-arena",
+  "name": "横浜アリーナ",
+  "formal_name": "横浜アリーナ",
+  "address": "神奈川県横浜市港北区新横浜3-10",
+  "lat": 35.51228,
+  "lng": 139.620102,
+  "search_radius_km": 2.0,
+  "source": "yokohama_arena",
+  "kind": "arena",
+  "area_label": "新横浜",
+  "stations": [
+    {
+      "name": "新横浜駅",
+      "line": "JR横浜線・東海道新幹線・横浜市営地下鉄",
+      "walk_min": 5,
+      "lat": 35.5090489694444,
+      "lng": 139.617456681667
+    }
+  ],
+  "schedule_url": "https://www.yokohama-arena.co.jp/event/",
+  "order": 17,
+  "max_hotels": 40
+}

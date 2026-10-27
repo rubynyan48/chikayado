@@ -370,7 +370,139 @@ def makuhari_messe(venue):
     return sorted(items, key=lambda x: (x["start"], x["name"]))
 
 
+# ---- Kアリーナ横浜 -----------------------------------------------------------
+def k_arena(venue):
+    items = []
+    for y, m in months_ahead(7):
+        soup = get_html(f"https://k-arena.com/schedule/?y={y}&m={m}")
+        for li in soup.select("li.schedule-list-item"):
+            md = re.match(r"(\d{4})\.(\d{2})\.(\d{2})", clean(li.select_one(".schedule-list-item__date").get_text()) if li.select_one(".schedule-list-item__date") else "")
+            t = li.select_one(".schedule-list-item__title")
+            if not md or not t:
+                continue
+            title = clean(t.get_text())
+            if re.search(r"(?i)^private$|公演中止|開催中止|公演延期", title):
+                continue
+            artist = li.select_one(".schedule-list-item__artist")
+            artist = clean(artist.get_text()) if artist else ""
+            hours = li.select_one(".schedule-list-item__open-start")
+            a = li.find("a", href=re.compile(r"/schedule/\d{8}"))
+            name = title if len(artist) > 40 else title_with_artist(artist, title)
+            items.append(event(name, date(*map(int, md.groups())).isoformat(), hours=hours.get_text(" ") if hours else "",
+                               url=a["href"] if a else ""))
+    seen, out = set(), []
+    for e in items:
+        if (e["name"], e["start"]) not in seen:
+            seen.add((e["name"], e["start"]))
+            out.append(e)
+    return join_days(out)
+
+
+# ---- 横浜アリーナ -------------------------------------------------------------
+def yokohama_arena(venue):
+    items = []
+    for y, m in months_ahead(7):
+        time.sleep(1.5)
+        res = requests.get(f"https://www.yokohama-arena.co.jp/event/{y}{m:02d}?_format=json",
+                           headers={"User-Agent": UA}, timeout=40)
+        res.raise_for_status()
+        data = res.json()
+        for x in data if isinstance(data, list) else []:
+            title = x.get("title") or ""
+            if not x.get("date1") or re.search(r"(?i)^private$|公演中止|開催中止", title):
+                continue
+            hours = " ".join(f"開場 {o} 開演 {s}" for o, s in zip(x.get("ev_open") or [], x.get("ev_start") or []))
+            if not hours and x.get("ev_start"):
+                hours = "開演 " + " ".join(x["ev_start"])
+            url = x.get("url") or ""
+            items.append(event(title_with_artist(x.get("artist") or "", title), x["date1"], x.get("date2") or x["date1"],
+                               hours=hours, organizer=x.get("company") or "",
+                               url=url if url.startswith("http") else "https://www.yokohama-arena.co.jp" + (x.get("path") or "")))
+    return join_days(items)
+
+
+# ---- ぴあアリーナMM ----------------------------------------------------------
+def pia_arena(venue):
+    items = []
+    for y, m in months_ahead(7):
+        soup = get_html(f"https://pia-arena-mm.jp/event@p1={y}&p2={m:02d}.html")
+        for a in soup.select("a"):
+            dt = a.select_one(".event-list__date p")
+            if not dt:
+                continue
+            md = re.match(r"(\d{1,2})\.(\d{1,2})", clean(dt.get_text()))
+            parts = [clean(x.get_text()) for x in a.select(".title > *")]
+            if not md or not parts or re.fullmatch(r"(?i)private|", parts[0]):
+                continue
+            mo, d = int(md.group(1)), int(md.group(2))
+            yy = y + 1 if mo < m - 6 else y
+            artist, title = (parts + [""])[:2]
+            if re.search(r"公演中止|開催中止", artist + title):
+                continue
+            items.append(event(title_with_artist(artist, title) if title else artist, date(yy, mo, d).isoformat(),
+                               url="https://pia-arena-mm.jp/" + a["href"].lstrip("./") if a.get("href") else ""))
+    seen, out = set(), []
+    for e in items:
+        if (e["name"], e["start"]) not in seen:
+            seen.add((e["name"], e["start"]))
+            out.append(e)
+    return join_days(out)
+
+
+# ---- パシフィコ横浜（公式のGoogleカレンダー） ----------------------------------
+PACIFICO_CALENDARS = [
+    ("230f1639b8d54499f15caa874711a36b626933721072c1f9182d1282e4ddc586", "学会・会議", "関係者"),
+    ("9e043fe7408716fce55f5f54f484074002eb939a192acdb50237cfb3ffac54fb", "大会・式典", "関係者"),
+    ("78a66c66587ef8c39d987a3eb014082df0eff54f2445e9f837f94404fa0304e6", "イベント・コンサート", "一般"),
+    ("6804e72a022c5b213349f94093988a11b91248a693afc0a30328b839ea2ed120", "展示会・見本市", "関係者"),
+    ("737b19946fd8b839a17aaaa8ddc15f64af59045e36622b78fb50dcc31959992e", "物販・展示即売会", "一般"),
+    ("1d7858363ffb40c9c82e272fc18b92528e0db30df3d6e159dfc503eeee6464a5", "公開講座", "一般"),
+]
+
+
+def pacifico(venue):
+    today = date.today()
+    limit = today + timedelta(days=240)
+    items = []
+    for cal, cat, aud in PACIFICO_CALENDARS:
+        time.sleep(1.5)
+        res = requests.get(f"https://calendar.google.com/calendar/ical/{cal}%40group.calendar.google.com/public/basic.ics",
+                           headers={"User-Agent": UA}, timeout=40)
+        res.raise_for_status()
+        text = res.content.decode("utf-8").replace("\r\n ", "").replace("\n ", "")
+        for block in text.split("BEGIN:VEVENT")[1:]:
+            def field(k):
+                mm = re.search(rf"^{k}[^:\n]*:(.*)$", block, re.M)
+                return mm.group(1).strip() if mm else ""
+            ds, de = field("DTSTART")[:8], field("DTEND")[:8]
+            if not ds.isdigit():
+                continue
+            start = date(int(ds[:4]), int(ds[4:6]), int(ds[6:8]))
+            end = date(int(de[:4]), int(de[4:6]), int(de[6:8])) if de.isdigit() else start
+            if "VALUE=DATE" in block.split("DTEND")[-1][:20] or len(field("DTEND")) == 8:
+                end = end - timedelta(days=1)  # 終日の予定は終わりの日が翌日になっている
+            end = max(start, end)
+            if end < today or start > limit or field("STATUS") == "CANCELLED":
+                continue
+            name = field("SUMMARY").replace("\\,", ",").replace("\\;", ";")
+            if not name or re.search(r"(?i)^private$|中止", name):
+                continue
+            url = re.search(r'href="([^"]+)"', field("DESCRIPTION").replace("\\", ""))
+            items.append(event(name, start.isoformat(), end.isoformat(), content=cat, audience=aud,
+                               url=url.group(1) if url else ""))
+    seen, out = set(), []
+    for e in sorted(items, key=lambda x: (x["start"], x["name"])):
+        if (e["name"], e["start"]) not in seen:
+            seen.add((e["name"], e["start"]))
+            out.append(e)
+    return out
+
+
 SOURCES = {
+    "k_arena": k_arena,
+    "yokohama_arena": yokohama_arena,
+    "pia_arena": pia_arena,
+    "pacifico": pacifico,
     "toyota_arena": toyota_arena,
     "makuhari_messe": makuhari_messe,
     "national_stadium": national_stadium,

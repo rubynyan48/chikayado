@@ -1,0 +1,31 @@
+{
+  "slug": "pacifico-yokohama",
+  "name": "パシフィコ横浜",
+  "formal_name": "パシフィコ横浜（横浜国際平和会議場）",
+  "address": "神奈川県横浜市西区みなとみらい1-1-1",
+  "lat": 35.459438,
+  "lng": 139.636246,
+  "search_radius_km": 2.0,
+  "source": "pacifico",
+  "kind": "exhibition",
+  "area_label": "みなとみらい",
+  "stations": [
+    {
+      "name": "みなとみらい駅",
+      "line": "みなとみらい線",
+      "walk_min": 5,
+      "lat": 35.4581820738889,
+      "lng": 139.631859885833
+    },
+    {
+      "name": "桜木町駅",
+      "line": "JR根岸線・横浜市営地下鉄",
+      "walk_min": 12,
+      "lat": 35.4509808727778,
+      "lng": 139.631347549722
+    }
+  ],
+  "schedule_url": "https://www.pacifico.co.jp/eventInfo",
+  "order": 14,
+  "max_hotels": 40
+}
