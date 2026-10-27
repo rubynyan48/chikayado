@@ -317,7 +317,7 @@ def toyota_arena(venue):
             # 出演者が多いフェスは名前に入れない
             name = title if len(artist) > 40 else title_with_artist(artist, title)
             items.append(event(name, d, hall={"MAIN ARENA": "メインアリーナ", "SUB ARENA": "サブアリーナ"}.get(spans[1], spans[1]) if len(spans) > 1 else "", hours=hours,
-                               organizer=organizer, content="バスケットボール" if "LEAGUE" in title else "",
+                               organizer=organizer, content="バスケットボール" if re.search(r"B\.LEAGUE|バスケ", title) else "",
                                url=base + a["href"] if a else ""))
     return join_days(items)
 

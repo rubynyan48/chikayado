@@ -91,6 +91,11 @@
   <a href="{{ shot.url }}" rel="noopener" target="_blank"><img src="/images/shots/{{ shot.file }}" alt="{{ e.name }}の公式サイトの画面" loading="lazy" width="{{ shot.w or 1200 }}" height="{{ shot.h or 750 }}"></a>
   <figcaption>出典 <a href="{{ shot.url }}" rel="noopener" target="_blank">{{ e.name }}公式サイト</a></figcaption>
 </figure>
+{% elif genre_photo(e) %}{% set gp = genre_photo(e) %}
+<figure class="shot">
+  <img src="{{ gp.src }}" alt="{{ gp.alt }}" loading="lazy" width="1200" height="675">
+  <figcaption>写真はイメージです</figcaption>
+</figure>
 {% endif %}
 <div class="table-wrap"><table class="event-facts"><tbody>
   {% if e.title and e.title != e.name %}<tr><th>公演名</th><td>{{ e.title }}</td></tr>{% endif %}

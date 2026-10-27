@@ -683,6 +683,24 @@ VENUE_TAGS = {
 SPORTS = re.compile(r"サッカー|Jリーグ|J1|マラソン|ラグビー|陸上|大相撲|リーグ|選手権|大会|試合|ホームゲーム|開幕戦|vs|VS|BOXING|ボクシング|ONE |格闘|バスケ|バレー|フィギュア|Championship|GAME\.|太極拳")
 
 
+# 公式サイトの画面がないとき、開催概要に入れるジャンルの写真（ファイル名, 説明）
+GENRE_PHOTOS = [
+    (re.compile(r"バスケ|B\.LEAGUE|BASKETBALL", re.I), "バスケットボールの試合.jpg", "バスケットボールの試合のイメージ"),
+]
+
+
+def genre_photo(e):
+    text = f"{e.get('name', '')} {e.get('content', '')}"
+    for pattern, file, alt in GENRE_PHOTOS:
+        if pattern.search(text):
+            out = DIST / "images" / "photos" / file
+            if not out.exists():
+                out.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy(ROOT / "assets" / "photos" / file, out)
+            return {"src": "/images/photos/" + quote(file), "alt": alt}
+    return None
+
+
 def card_image(v):
     """トップの会場カードに使う写真。会場の写真があれば切り抜いて使い、なければファーストビューの画像。"""
     src = v.get("hero_photos", {}).get("venue")
@@ -940,7 +958,7 @@ def css_version():
 
 def main():
     env = Environment(loader=FileSystemLoader(ROOT / "templates"), autoescape=select_autoescape(["html"]))
-    helpers = {"photo": photo, "hotel_table": hotel_table, "hotel_cards": hotel_cards, "best_cards": best_cards,
+    helpers = {"genre_photo": genre_photo, "photo": photo, "hotel_table": hotel_table, "hotel_cards": hotel_cards, "best_cards": best_cards,
                "compare_table": compare_table, "hotel_map": hotel_map, "people_tabs": people_tabs,
                "with_offers": with_offers, "price_of": price_of, "event_stats": event_stats, "best_picks": best_picks, "depart_table": depart_table,
                "open_time": open_time, "audience_label": audience_label,
