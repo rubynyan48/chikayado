@@ -1,4 +1,4 @@
-実行 2026-10-28 20:43:22 workflow_dispatch
+実行 2026-10-29 05:57:11 schedule
 設定あり RAKUTEN_APP_ID
 設定あり RAKUTEN_ACCESS_KEY
 設定あり HOTPEPPER_API_KEY
@@ -112,19 +112,19 @@ Kアリーナ横浜: ランチ30件、0軒の宿の周りの飲食店を取得
 使えない画面でした 超英雄祭ALLHEROESLIVE & SHOW 2027 HTTP 406
 人の顔が写っているので使いません FRUITS ZIPPERのオールナイトニッポンX in 横浜アリーナ
 人の顔が写っているので使いません ニッポン放送 ももいろクローバーZ ももクロくらぶxoxo ~バレンタイン DE NIGHT だぁ~Z!2027「裏」「表」
-人の顔が写っているので使いません Disney on CLASSIC Premium 『塔の上のラプンツェル』イン・コンサート
-解説文を6件生成しました
-887ページを書き出しました
+使えない画面でした Disney on CLASSIC Premium 『塔の上のラプンツェル』イン・コンサート HTTP 403
+解説文を0件生成しました
+783ページを書き出しました
 鍵の形式は正常
 File list transfer time: 0.000 seconds
-Total bytes sent: 267,480
-Total bytes received: 1,442,089
+Total bytes sent: 242,935
+Total bytes received: 1,382,495
 
-sent 267,480 bytes  received 1,442,089 bytes  136,765.52 bytes/sec
-total size is 163,043,659  speedup is 95.37
+sent 242,935 bytes  received 1,382,495 bytes  130,034.40 bytes/sec
+total size is 156,659,153  speedup is 96.38
 転送完了（1回目）
 空室検索の設定を配置
 空室検索のテスト HTTP 200
-応答の長さ 4882
+応答の長さ 4902
 {"date":"2026-10-31","adults":2,"hotels":[{"name":"東京ベイ有明ワシントンホテル","walk":6,"distance":"341m","image":"https:\/\/img.travel.rakuten.co.jp\/share\/HOTEL\/1177\/1177.jpg","rate":4.269999999999999573674358543939888477325439453125,"bath":false,"per_person":18500,"room":"★リニューアル★スタンダード ダブル","url":"https:\/\/af.moshimo.com\/af\/c\/click?a_id=5863620&p_id=55&pc_id=55&pl_id=624&url=https%3A%2F%2Ftravel.ra
-IndexNowに82件を送りました HTTP 200 
+IndexNowに送るURLはありません
