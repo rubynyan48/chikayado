@@ -30,6 +30,7 @@ jobs:
           echo "SEO取得 $(TZ=Asia/Tokyo date '+%F %T')" > data/logs/seo.txt
           cd scripts && python -u seo_report.py 2>&1 | tee -a ../data/logs/seo.txt; code=${PIPESTATUS[0]}
           python -u request_list.py 2>&1 | tee -a ../data/logs/seo.txt
+          python -u sitemap_status.py 2>&1 | tee -a ../data/logs/seo.txt
           exit $code
         continue-on-error: true
         timeout-minutes: 25
