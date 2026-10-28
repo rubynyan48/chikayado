@@ -205,7 +205,10 @@
         cache[key]=d.hotels;show(d.hotels,date,adults,sort);
       }).catch(function(){if(my===seq)out.innerHTML='<p class="empty">空室を調べられませんでした。通信状態を確かめて、もう一度選び直してください。</p>';});
     }
-    f.addEventListener('change',function(){if(!f.venue||f.venue.value)update();});
+    f.addEventListener('change',function(ev){
+      if(ev.target.name==='night')f.date.value=ev.target.value;
+      if(ev.target.name==='date')f.querySelectorAll('input[name=night]').forEach(function(r){r.checked=r.value===f.date.value;});
+      if(!f.venue||f.venue.value)update();});
     f.addEventListener('submit',function(ev){ev.preventDefault();update();});
   });
   document.querySelectorAll('.tabs').forEach(function(t){

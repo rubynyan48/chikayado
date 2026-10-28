@@ -334,8 +334,10 @@ def depart_table(items, hours, limit=10):
 def audience_label(text):
     if not text:
         return ""
-    if "商談" in text:
-        return "業界関係者向け（商談が目的の展示会）"
+    if ("商談" in text or "関係者" in text) and "一般" in text:
+        return "業界関係者が中心（一般の人も入場できます。事前登録が必要なことが多いので公式サイトで確認してください）"
+    if "商談" in text or "関係者" in text:
+        return "業界関係者向け（商談や研究発表が目的です）"
     if "一般" in text:
         return "一般の方も来場できます"
     return text
@@ -410,7 +412,33 @@ def api_item(h):
             "per_person": price_of(h), "url": book_url(h, h.get("offer"))}
 
 
-def rec_box(venue, hotels, by_people, default_date, adults="1", limit=6):
+def stay_nights(e, venue):
+    """泊まる日のボタンに出す夜。展示会は設営や前泊のある前日の夜から、会期の最終日の前夜まで。"""
+    if not e:
+        return []
+    start, end = date.fromisoformat(e["start"]), date.fromisoformat(e["end"])
+    trade = is_trade(e)
+    out = []
+    md = lambda d: f"{d.month}/{d.day}"
+    if venue.get("kind") == "exhibition" or trade:
+        d = start - timedelta(days=1)
+        if d >= TODAY:
+            out.append((d.isoformat(), md(d), "前日・設営" if trade else "前日"))
+    days = (end - start).days
+    for i in range(max(days, 1)):
+        d = start + timedelta(days=i)
+        if d >= TODAY:
+            out.append((d.isoformat(), md(d), ("初日" if i == 0 else f"{i + 1}日目") if days else "当日"))
+    return out[:6] if len(out) > 1 else []
+
+
+def is_trade(e):
+    """業界関係者が中心のイベント（商談の展示会、学会など）。"""
+    a = e.get("audience") or ""
+    return "商談" in a or "関係者" in a
+
+
+def rec_box(venue, hotels, by_people, default_date, adults="1", limit=6, nights=None):
     """近いおすすめ宿。日付・人数・並べ方（距離・値段・レビュー）を選ぶと、その場で並べ替えて出し直す。"""
     adults = str(adults)
     preset = {n: [api_item(h) for h in with_offers(hotels, by_people.get(n, {}))] for n in ("1", "2", "3", "4")} if by_people else {}
@@ -424,7 +452,10 @@ def rec_box(venue, hotels, by_people, default_date, adults="1", limit=6):
             else "日付と人数を選ぶと、空いている宿に切り替わります。")
     return Markup(
         f'<form class="search rec" data-venue="{venue["slug"]}" data-limit="{limit}">'
-        f'<label class="search-date"><span>泊まる日</span><input type="date" name="date" value="{default_date}" min="{TODAY.isoformat()}"></label>'
+        + (f'<p class="rec-label">泊まる夜</p><div class="search-people rec-nights" role="group" aria-label="泊まる夜">'
+           + "".join(f'<label class="pp"><input type="radio" name="night" value="{d}"{" checked" if d == default_date else ""}><span>{md}の夜<small>{escape(l)}</small></span></label>' for d, md, l in nights)
+           + '</div>' if nights else '') +
+        f'<label class="search-date"><span>{"ほかの日" if nights else "泊まる日"}</span><input type="date" name="date" value="{default_date}" min="{TODAY.isoformat()}"></label>'
         f'<p class="rec-label">人数</p><div class="search-people" role="group" aria-label="人数">{ppl}</div>'
         f'<p class="rec-label">並べ方</p><div class="search-people rec-sort" role="group" aria-label="並べ方">{sorts}</div>'
         f'<script type="application/json" class="rec-data">{data}</script></form>'
@@ -962,7 +993,7 @@ def css_version():
 
 def main():
     env = Environment(loader=FileSystemLoader(ROOT / "templates"), autoescape=select_autoescape(["html"]))
-    helpers = {"genre_photo": genre_photo, "photo": photo, "hotel_table": hotel_table, "hotel_cards": hotel_cards, "best_cards": best_cards,
+    helpers = {"stay_nights": stay_nights, "is_trade": is_trade, "genre_photo": genre_photo, "photo": photo, "hotel_table": hotel_table, "hotel_cards": hotel_cards, "best_cards": best_cards,
                "compare_table": compare_table, "hotel_map": hotel_map, "people_tabs": people_tabs,
                "with_offers": with_offers, "price_of": price_of, "event_stats": event_stats, "best_picks": best_picks, "depart_table": depart_table,
                "open_time": open_time, "audience_label": audience_label,

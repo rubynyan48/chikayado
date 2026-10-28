@@ -481,3 +481,6 @@ td .no { display: inline-grid; place-items: center; width: 22px; height: 22px; m
 /* 見出しは塗りつぶしの帯 */
 .body h2 { background: var(--sign); color: #fff; padding: 10px 14px; border-bottom: 0; border-radius: 8px; font-size: 20px; line-height: 1.5; }
 @media (min-width: 720px) { .body h2 { font-size: 22px; } }
+.rec-nights { grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); }
+.rec-nights .pp span { font-size: 15px; line-height: 1.3; padding: 6px 4px; text-align: center; }
+.rec-nights .pp small { display: block; font-size: 12px; font-weight: 700; }
