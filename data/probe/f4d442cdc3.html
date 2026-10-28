@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#00a040">
+  <title>ウェブサイト一時公開停止のお知らせ｜インテックス大阪</title>
+  <style>
+    :root {
+      --brand: #00a040;
+      --brand-dark: #007d32;
+      --ink: #1e2b38;
+      --muted: #596978;
+      --line: #d8dedb;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { color-scheme: light; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Hiragino Kaku Gothic ProN",
+        "Hiragino Sans", Meiryo, sans-serif;
+      line-height: 1.85;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .top-rule {
+      height: 0;
+      border-top: 4px solid var(--brand);
+    }
+
+    .page {
+      width: min(840px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 38px 0 48px;
+    }
+
+    .brand {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+
+    .brand img {
+      display: block;
+      width: min(252px, 64vw);
+      height: auto;
+    }
+
+    .brand-fallback {
+      display: none;
+      color: var(--brand-dark);
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+    }
+
+    .notice {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .notice-header {
+      padding: 30px 48px 27px;
+      text-align: center;
+      border-bottom: 1px solid var(--line);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.45rem, 4vw, 2rem);
+      line-height: 1.45;
+      letter-spacing: 0.035em;
+    }
+
+    .content {
+      padding: 42px 48px 46px;
+    }
+
+    .content p { margin: 0 0 1.15em; }
+
+    .salutation {
+      margin-bottom: 1.4em !important;
+      font-weight: 700;
+    }
+
+    .parking {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      margin: 30px 0 34px;
+      padding: 18px 20px;
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--brand);
+    }
+
+    .parking p {
+      margin: 0;
+      font-weight: 650;
+      line-height: 1.65;
+    }
+
+    .button {
+      display: inline-flex;
+      flex: 0 0 auto;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 10px 21px;
+      border: 2px solid var(--brand);
+      border-radius: 4px;
+      color: var(--brand-dark);
+      background: transparent;
+      font-weight: 700;
+      line-height: 1.4;
+      text-decoration: none;
+      transition: color 160ms ease, border-color 160ms ease;
+    }
+
+    .button::after {
+      content: "↗";
+      margin-left: 0.55em;
+      font-size: 0.95em;
+    }
+
+    .button:hover {
+      color: var(--brand);
+      border-color: var(--brand-dark);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .button:focus-visible {
+      outline: 3px solid rgba(0, 160, 64, 0.24);
+      outline-offset: 3px;
+    }
+
+    .sns {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      margin: -14px 0 34px;
+      padding: 18px 20px;
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--brand);
+    }
+
+    .sns p {
+      margin: 0;
+      font-weight: 650;
+      line-height: 1.65;
+    }
+
+    .sns-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      flex: 0 0 auto;
+    }
+
+    .sns-links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      color: var(--brand-dark);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .sns-links a:hover { text-decoration: underline; text-underline-offset: 3px; }
+    .sns-links a:focus-visible { outline: 3px solid rgba(0, 160, 64, 0.24); outline-offset: 3px; }
+
+    .sns-links img {
+      display: block;
+      width: 35px;
+      height: 35px;
+      object-fit: contain;
+    }
+
+    .contact {
+      padding: 4px 0 4px 20px;
+    }
+
+    .contact h2 {
+      margin: 0 0 6px;
+      color: var(--brand-dark);
+      font-size: 0.95rem;
+      letter-spacing: 0.04em;
+    }
+
+    .contact p { margin: 0; }
+
+    .english {
+      margin-top: 44px;
+      padding-top: 42px;
+      border-top: 1px solid var(--line);
+      color: #2e3c49;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.72;
+    }
+
+    .english h2 {
+      margin: 0 0 22px;
+      font-size: clamp(1.25rem, 3vw, 1.55rem);
+      line-height: 1.4;
+    }
+
+    .english .salutation { margin-bottom: 1.2em !important; }
+
+    .footer {
+      margin-top: 25px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      text-align: center;
+    }
+
+    @media (max-width: 680px) {
+      .page {
+        width: min(100% - 24px, 840px);
+        padding-top: 27px;
+      }
+
+      .brand { margin-bottom: 22px; }
+
+      .notice-header { padding: 27px 22px 24px; }
+
+      .content { padding: 31px 22px 36px; }
+
+      .parking {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 15px;
+        margin: 25px 0 30px;
+      }
+
+      .button { width: 100%; }
+
+      .sns {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 15px;
+        margin: -10px 0 30px;
+      }
+
+      .english {
+        margin-top: 34px;
+        padding-top: 34px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .button { transition: none; }
+    }
+
+    @media print {
+      .page { width: 100%; padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="top-rule" aria-hidden="true"></div>
+
+  <main class="page">
+    <div class="brand">
+      <img
+        src="https://intex-osaka.com/intex_logo.png"
+        alt="インテックス大阪"
+        onerror="this.hidden=true; this.nextElementSibling.style.display='block'"
+      >
+    </div>
+
+    <article class="notice">
+      <header class="notice-header">
+        <h1>Webサイト一時休止のお知らせ</h1>
+      </header>
+
+      <div class="content">
+        <section aria-labelledby="ja-title">
+          <h2 id="ja-title" hidden>日本語でのお知らせ</h2>
+          <p>
+            現在、システムの緊急メンテナンスのため、Webサイトの公開を一時休止しております。<br>ご利用の皆さまには、ご不便、ご迷惑をおかけしておりますことを深くお詫び申し上げます。
+          </p>
+
+          <div class="parking">
+            <p>駐車場満空状況はこちらで公開しております。</p>
+            <a
+              class="button"
+              href="https://area31.smp.ne.jp/area/table/58357/KaZuKB/M?S=tfrbt2mhqjpb"
+              target="_blank"
+              rel="noopener noreferrer"
+            >駐車場満空状況</a>
+          </div>
+
+          <div class="sns">
+            <p>イベント、レストランなどの最新情報はSNSで発信しています。</p>
+            <div class="sns-links">
+              <a href="https://x.com/intex_osaka" target="_blank" rel="noopener noreferrer" aria-label="X（新しいタブで開きます）"><img src="https://intex-osaka.com/logo-black.png" alt=""></a>
+              <a href="https://www.facebook.com/intexosaka" target="_blank" rel="noopener noreferrer" aria-label="Facebook（新しいタブで開きます）"><img src="https://intex-osaka.com/Facebook_Logo_Primary.png" alt=""></a>
+            </div>
+          </div>
+
+          <div class="contact">
+            <h2>お問合せ</h2>
+            <p>一般財団法人 大阪国際経済振興センター（インテックス大阪）</p>
+            <p>TEL：<a href="tel:0666128800">06-6612-8800</a></p>
+          </div>
+        </section>
+
+        <section class="english" lang="en" aria-labelledby="en-title">
+          <h2 id="en-title">Temporary Website Maintenance</h2>
+          <p>
+            Our website is currently undergoing emergency system maintenance and is temporarily unavailable.<br>
+			  We apologize for any inconvenience this may cause.
+          </p>
+
+          <div class="contact">
+            <h2>Contact</h2>
+            <p>Osaka International Business Promotion Center (INTEX OSAKA)</p>
+            <p>TEL: <a href="tel:+81666128800">+81-6-6612-8800</a></p>
+          </div>
+        </section>
+      </div>
+    </article>
+
+    <p class="footer">© INTEX OSAKA</p>
+  </main>
+</body>
+</html>
