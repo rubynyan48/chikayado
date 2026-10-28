@@ -1,0 +1,27 @@
+{
+  "slug": "trc-tokyo",
+  "name": "東京流通センター",
+  "formal_name": "東京流通センター（TRC）",
+  "address": "東京都大田区平和島6-1-1",
+  "lat": 35.580963,
+  "lng": 139.74826,
+  "search_radius_km": 2.5,
+  "source": "eventernote",
+  "eventernote_id": 1079,
+  "kind": "exhibition",
+  "area_label": "平和島・大森",
+  "stations": [
+    {
+      "name": "流通センター駅",
+      "line": "東京モノレール",
+      "walk_min": 2,
+      "lat": 35.5815472627778,
+      "lng": 139.749357877778
+    }
+  ],
+  "schedule_url": "https://www.eventernote.com/places/1079/events",
+  "events_credit": "イベンターノート 東京流通センター(TRC)のイベント一覧",
+  "events_credit_url": "https://www.eventernote.com/places/1079/events",
+  "order": 18,
+  "max_hotels": 40
+}

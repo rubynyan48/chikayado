@@ -460,36 +460,42 @@ PACIFICO_CALENDARS = [
 ]
 
 
-def pacifico(venue):
+def read_gcal(cal, cat, aud, days=240):
+    """公開されているGoogleカレンダー（iCal）から、これからの予定を読む。"""
     today = date.today()
-    limit = today + timedelta(days=240)
+    limit = today + timedelta(days=days)
+    time.sleep(1.5)
+    res = requests.get(f"https://calendar.google.com/calendar/ical/{cal.replace('@', '%40')}/public/basic.ics",
+                       headers={"User-Agent": UA}, timeout=40)
+    res.raise_for_status()
+    text = res.content.decode("utf-8").replace("\r\n ", "").replace("\n ", "")
     items = []
-    for cal, cat, aud in PACIFICO_CALENDARS:
-        time.sleep(1.5)
-        res = requests.get(f"https://calendar.google.com/calendar/ical/{cal}%40group.calendar.google.com/public/basic.ics",
-                           headers={"User-Agent": UA}, timeout=40)
-        res.raise_for_status()
-        text = res.content.decode("utf-8").replace("\r\n ", "").replace("\n ", "")
-        for block in text.split("BEGIN:VEVENT")[1:]:
-            def field(k):
-                mm = re.search(rf"^{k}[^:\n]*:(.*)$", block, re.M)
-                return mm.group(1).strip() if mm else ""
-            ds, de = field("DTSTART")[:8], field("DTEND")[:8]
-            if not ds.isdigit():
-                continue
-            start = date(int(ds[:4]), int(ds[4:6]), int(ds[6:8]))
-            end = date(int(de[:4]), int(de[4:6]), int(de[6:8])) if de.isdigit() else start
-            if "VALUE=DATE" in block.split("DTEND")[-1][:20] or len(field("DTEND")) == 8:
-                end = end - timedelta(days=1)  # 終日の予定は終わりの日が翌日になっている
-            end = max(start, end)
-            if end < today or start > limit or field("STATUS") == "CANCELLED":
-                continue
-            name = field("SUMMARY").replace("\\,", ",").replace("\\;", ";")
-            if not name or re.search(r"(?i)^private$|中止", name):
-                continue
-            url = re.search(r'href="([^"]+)"', field("DESCRIPTION").replace("\\", ""))
-            items.append(event(name, start.isoformat(), end.isoformat(), content=cat, audience=aud,
-                               url=url.group(1) if url else ""))
+    for block in text.split("BEGIN:VEVENT")[1:]:
+        def field(k):
+            mm = re.search(rf"^{k}[^:\n]*:(.*)$", block, re.M)
+            return mm.group(1).strip() if mm else ""
+        ds, de = field("DTSTART")[:8], field("DTEND")[:8]
+        if not ds.isdigit():
+            continue
+        start = date(int(ds[:4]), int(ds[4:6]), int(ds[6:8]))
+        end = date(int(de[:4]), int(de[4:6]), int(de[6:8])) if de.isdigit() else start
+        if len(field("DTEND")) == 8:
+            end = end - timedelta(days=1)  # 終日の予定は終わりの日が翌日になっている
+        end = max(start, end)
+        if end < today or start > limit or field("STATUS") == "CANCELLED":
+            continue
+        name = field("SUMMARY").replace("\\,", ",").replace("\\;", ";")
+        if not name or re.search(r"(?i)^private$|中止", name):
+            continue
+        desc = field("DESCRIPTION").replace("\\", "")
+        url = re.search(r'href="([^"]+)"', desc)
+        note = clean(re.sub(r"<[^>]+>", " ", desc.split("<br")[0]))
+        items.append(event(name, start.isoformat(), end.isoformat(), content=note if note and not re.match(r"(?i)http|event website|website$|公式サイト$", note) else cat,
+                           audience=aud, url=url.group(1) if url else ""))
+    return items
+
+
+def unique(items):
     seen, out = set(), []
     for e in sorted(items, key=lambda x: (x["start"], x["name"])):
         if (e["name"], e["start"]) not in seen:
@@ -498,7 +504,69 @@ def pacifico(venue):
     return out
 
 
+def pacifico(venue):
+    return unique([e for cal, cat, aud in PACIFICO_CALENDARS for e in read_gcal(cal, cat, aud)])
+
+
+def gcal(venue):
+    """会場の設定にあるGoogleカレンダーから読む（インテックス大阪、ポートメッセなごや）。"""
+    return unique([e for cal, cat, aud in venue["calendars"] for e in read_gcal(cal, cat, aud)])
+
+
+# ---- 東京流通センター（イベンターノートの会場ページ） ---------------------------
+def eventernote(venue):
+    items = []
+    for page in (1, 2):
+        soup = get_html(f"https://www.eventernote.com/places/{venue['eventernote_id']}/events?limit=30&page={page}")
+        lis = soup.select(".gb_event_list li")
+        for li in lis:
+            if "past" in (li.get("class") or []):
+                continue
+            d = re.search(r"(\d{4})-(\d{2})-(\d{2})", li.select_one(".date").get_text() if li.select_one(".date") else "")
+            a = li.select_one("h4 a")
+            if not d or not a or "重複削除" in a.get_text():
+                continue
+            hours = li.select(".place")
+            items.append(event(a.get_text(), date(*map(int, d.groups())).isoformat(),
+                               hours=hours[1].get_text(" ") if len(hours) > 1 else "",
+                               url="https://www.eventernote.com" + a["href"]))
+        if not lis or all("past" in (li.get("class") or []) for li in lis):
+            break
+    return join_days(unique(items))
+
+
+# ---- サンシャインシティ（展示ホールと文化会館のイベント） -------------------------
+def sunshine(venue):
+    import json as _json
+    time.sleep(1.5)
+    res = requests.get("https://sunshinecity.jp/js/event.js", headers={"User-Agent": UA}, timeout=40)
+    res.raise_for_status()
+    text = res.content.decode("utf-8")
+    data = _json.loads(text[text.index("["):text.rindex("]") + 1])
+    today = date.today().isoformat()
+    items = []
+    for x in data:
+        places = [p for p in x.get("venue") or [] if p]
+        halls = [p for p in places if re.search(r"展示ホール|文化会館|ワールドインポートマート|コンファレンスルーム", p)]
+        if not halls:
+            continue
+        start, end = x.get("startdate") or "", x.get("openenddate") or x.get("enddate") or x.get("startdate") or ""
+        if not re.match(r"\d{4}-\d{2}-\d{2}$", start) or end.startswith("9999") or end < today:
+            continue
+        # 何か月も続く展示は宿のページにしない
+        if (date.fromisoformat(end) - date.fromisoformat(start)).days > 14:
+            continue
+        cats = [c for c in x.get("category") or [] if c]
+        hours = f"{x.get('time_start') or ''}〜{x.get('time_end') or ''}" if x.get("time_start") else ""
+        items.append(event(x["title"], start, end, hall="・".join(halls), hours=hours, content="・".join(cats),
+                           audience="商談" if "展示商談会・ビジネスショー" in cats else "一般", url=x.get("url") or ""))
+    return unique(items)
+
+
 SOURCES = {
+    "gcal": gcal,
+    "eventernote": eventernote,
+    "sunshine": sunshine,
     "k_arena": k_arena,
     "yokohama_arena": yokohama_arena,
     "pia_arena": pia_arena,

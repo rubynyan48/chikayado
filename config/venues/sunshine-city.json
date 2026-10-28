@@ -1,0 +1,31 @@
+{
+  "slug": "sunshine-city",
+  "name": "サンシャインシティ",
+  "formal_name": "サンシャインシティ 展示ホール・文化会館",
+  "address": "東京都豊島区東池袋3-1-4",
+  "lat": 35.727917,
+  "lng": 139.719849,
+  "search_radius_km": 1.5,
+  "source": "sunshine",
+  "kind": "exhibition",
+  "area_label": "池袋",
+  "stations": [
+    {
+      "name": "東池袋駅",
+      "line": "東京メトロ有楽町線",
+      "walk_min": 3,
+      "lat": 35.7262634861111,
+      "lng": 139.719013616944
+    },
+    {
+      "name": "池袋駅",
+      "line": "JR・東京メトロ・西武線・東武線",
+      "walk_min": 8,
+      "lat": 35.7300525447222,
+      "lng": 139.711085945278
+    }
+  ],
+  "schedule_url": "https://sunshinecity.jp/facility/exhibition.html",
+  "order": 19,
+  "max_hotels": 40
+}

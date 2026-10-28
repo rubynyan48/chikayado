@@ -701,9 +701,13 @@ AREA_GROUPS = [
     ("両国エリア", ["ryogoku-kokugikan"]),
     ("原宿・渋谷エリア", ["yoyogi-national-gymnasium", "nhk-hall"]),
     ("千駄ヶ谷・青山エリア", ["japan-national-stadium"]),
+    ("池袋エリア", ["sunshine-city"]),
+    ("平和島・大森エリア", ["trc-tokyo"]),
     ("横浜・みなとみらいエリア", ["pacifico-yokohama", "k-arena-yokohama", "pia-arena-mm"]),
     ("新横浜エリア", ["yokohama-arena"]),
     ("千葉・幕張エリア", ["makuhari-messe"]),
+    ("大阪エリア", ["intex-osaka"]),
+    ("名古屋エリア", ["portmesse-nagoya"]),
 ]
 VENUE_TAGS = {
     "tokyo-big-sight": ["展示会", "同人誌即売会", "アート"], "ariake-arena": ["ライブ", "スポーツ"],
@@ -714,6 +718,8 @@ VENUE_TAGS = {
     "toyota-arena-tokyo": ["ライブ", "バスケットボール"], "makuhari-messe": ["展示会", "ライブ", "ゲーム"],
     "pacifico-yokohama": ["学会", "展示会", "コンサート"], "k-arena-yokohama": ["ライブ"], "pia-arena-mm": ["ライブ"],
     "yokohama-arena": ["ライブ", "スポーツ"],
+    "trc-tokyo": ["同人誌即売会", "ファンイベント"], "sunshine-city": ["展示会", "アニメ・ゲーム"],
+    "intex-osaka": ["展示会"], "portmesse-nagoya": ["展示会"],
 }
 SPORTS = re.compile(r"サッカー|Jリーグ|J1|マラソン|ラグビー|陸上|大相撲|リーグ|選手権|大会|試合|ホームゲーム|開幕戦|vs|VS|BOXING|ボクシング|ONE |格闘|バスケ|バレー|フィギュア|Championship|GAME\.|太極拳")
 
@@ -979,7 +985,7 @@ def common_pages():
     return [
         {"path": "/", "template": "home.html", "is_home": True,
          "title": "ちか宿 イベント会場に近いホテルが見つかる", "h1": "イベント会場に近いホテルが見つかる",
-         "description": "東京ビッグサイト、東京ドーム、日本武道館、幕張メッセなど首都圏の大型イベント会場に近いホテルを、会場からの距離と開催日の空室で探せます。展示会、ライブ、同人誌即売会、スポーツのイベントごとに宿をまとめています。",
+         "description": "東京ビッグサイト、東京ドーム、日本武道館、幕張メッセ、インテックス大阪など首都圏と大阪・名古屋の大型イベント会場に近いホテルを、会場からの距離と開催日の空室で探せます。展示会、ライブ、同人誌即売会、スポーツのイベントごとに宿をまとめています。",
          "breadcrumbs": []},
         {"path": "/about/", "template": "about.html", "no_toc": True, "title": "運営者情報",
          "description": "ちか宿の運営者情報と、サイトに載せている情報の集め方についてです。",

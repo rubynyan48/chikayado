@@ -273,7 +273,7 @@ document.querySelectorAll('.map').forEach(function(el){
   <div class="wrap credits">
     {% if has_hotels %}<p>宿の情報は楽天トラベルのデータを使っています。<a href="https://developers.rakuten.com/" rel="noopener" target="_blank">Supported by Rakuten Developers</a></p>{% endif %}
     {% if page.hotpepper %}<p><a href="http://webservice.recruit.co.jp/" rel="noopener" target="_blank">Powered by ホットペッパーグルメ Webサービス</a></p>{% endif %}
-    {% if page.events_credit %}<p>イベント情報の出典は「<a href="{{ page.events_credit.events_credit_url }}" rel="noopener" target="_blank">{{ page.events_credit.events_credit }}</a>」で、当サイトで加工して掲載しています。</p>{% endif %}
+    {% set ec = page.events_credit %}{% if ec and ec.events_credit %}<p>イベント情報の出典は「<a href="{{ ec.events_credit_url }}" rel="noopener" target="_blank">{{ ec.events_credit }}</a>」で、当サイトで加工して掲載しています。</p>{% elif ec and ec.schedule_url %}<p>イベント情報は「<a href="{{ ec.schedule_url }}" rel="noopener" target="_blank">{{ ec.name }}の公式スケジュール</a>」をもとに、当サイトでまとめて掲載しています。</p>{% endif %}
   </div>
   {% if site.moshimo and site.moshimo.a_id and has_hotels %}<img src="https://i.moshimo.com/af/i/impression?a_id={{ site.moshimo.a_id }}&p_id={{ site.moshimo.p_id }}&pc_id={{ site.moshimo.pc_id }}&pl_id={{ site.moshimo.pl_id }}" width="1" height="1" alt="" loading="lazy" style="border:none;position:absolute">{% endif %}
   <p class="wrap copyright">© 2026 {{ site.name }}（{{ site.display_domain }}）</p>

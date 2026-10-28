@@ -1,0 +1,33 @@
+{
+  "slug": "portmesse-nagoya",
+  "name": "ポートメッセなごや",
+  "formal_name": "ポートメッセなごや（名古屋市国際展示場）",
+  "address": "愛知県名古屋市港区金城ふ頭2-2",
+  "lat": 35.047825,
+  "lng": 136.844147,
+  "search_radius_km": 3.0,
+  "source": "gcal",
+  "calendars": [
+    [
+      "rtitlphjs5jnvr2mb8efq9214k@group.calendar.google.com",
+      "展示会・見本市",
+      "商談"
+    ]
+  ],
+  "kind": "exhibition",
+  "area_label": "金城ふ頭",
+  "stations": [
+    {
+      "name": "金城ふ頭駅",
+      "line": "あおなみ線",
+      "walk_min": 8,
+      "lat": 35.0488273333333,
+      "lng": 136.849361944444
+    }
+  ],
+  "schedule_url": "https://www.tenjikai.biz/portmessenagoya_calendar",
+  "events_credit": "展示会Biz ポートメッセなごや展示会カレンダー",
+  "events_credit_url": "https://www.tenjikai.biz/portmessenagoya_calendar",
+  "order": 21,
+  "max_hotels": 40
+}

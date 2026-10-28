@@ -1,0 +1,40 @@
+{
+  "slug": "intex-osaka",
+  "name": "インテックス大阪",
+  "formal_name": "インテックス大阪（大阪国際見本市会場）",
+  "address": "大阪府大阪市住之江区南港北1-5-102",
+  "lat": 34.636971,
+  "lng": 135.41713,
+  "search_radius_km": 3.0,
+  "source": "gcal",
+  "calendars": [
+    [
+      "2e3ckidh4s77098ggnoc83r288@group.calendar.google.com",
+      "展示会・見本市",
+      "商談"
+    ]
+  ],
+  "kind": "exhibition",
+  "area_label": "南港・咲洲",
+  "stations": [
+    {
+      "name": "中ふ頭駅",
+      "line": "ニュートラム（大阪メトロ南港ポートタウン線）",
+      "walk_min": 5,
+      "lat": 34.6340915380556,
+      "lng": 135.4173941225
+    },
+    {
+      "name": "トレードセンター前駅",
+      "line": "ニュートラム（大阪メトロ南港ポートタウン線）",
+      "walk_min": 8,
+      "lat": 34.6387753525,
+      "lng": 135.412146758889
+    }
+  ],
+  "schedule_url": "https://www.tenjikai.biz/intexosakacalender",
+  "events_credit": "展示会Biz インテックス大阪展示会カレンダー",
+  "events_credit_url": "https://www.tenjikai.biz/intexosakacalender",
+  "order": 20,
+  "max_hotels": 40
+}
