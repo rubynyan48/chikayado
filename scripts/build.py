@@ -141,6 +141,46 @@ def book_url(h, vac=None):
     return h.get("plan_url") or h.get("info_url") or "#"
 
 
+def moshimo(url):
+    """楽天トラベルのページへの「どこでもリンク」。"""
+    m = SITE.get("moshimo") or {}
+    if not m.get("a_id"):
+        return url
+    return (f"https://af.moshimo.com/af/c/click?a_id={m['a_id']}&p_id={m['p_id']}&pc_id={m['pc_id']}"
+            f"&pl_id={m['pl_id']}&url={quote(url, safe='')}")
+
+
+# 楽天トラベルの高速バスで使う都道府県の書き方と、会場ごとに遠くから来る人の多い出発地
+PREF_CODE = {"東京都": "tokyo", "千葉県": "tiba", "神奈川県": "kanagawa", "埼玉県": "saitama", "大阪府": "osaka"}
+BUS_FROM = {
+    "kanto": [("大阪", "osaka"), ("名古屋", "aichi"), ("京都", "kyoto"), ("仙台", "miyagi"), ("新潟", "niigata")],
+    "osaka": [("東京", "tokyo"), ("名古屋", "aichi"), ("広島", "hiroshima"), ("福岡", "hukuoka")],
+}
+
+
+def bus_rows(e, venue):
+    """遠くから来る人向けに、楽天トラベルの高速バスの空席を、前日発と当日発で探すリンクを作る。"""
+    pref = next((name for name in PREF_CODE if venue.get("address", "").startswith(name)), None)
+    if not pref or not e or e["start"] < TODAY.isoformat():
+        return []
+    dest = PREF_CODE[pref]
+    origins = BUS_FROM["osaka" if dest == "osaka" else "kanto"]
+    start = date.fromisoformat(e["start"])
+
+    def link(code, d):
+        url = ("https://bus.travel.rakuten.co.jp/bus/SearchOpenSeatAction.do?f_teikei=&f_sky=price&f_prcsq=0"
+               f"&f_dpcpcd={code}&f_dpctcd=ALL&f_dscpcd={dest}&f_dsctcd=ALL"
+               f"&startDay={d.day:02d}&startMonth={d.month:02d}&startYear={d.year}&adult=1&child=0")
+        return moshimo(url)
+    rows = []
+    for name, code in origins:
+        before = start - timedelta(days=1)
+        rows.append({"from": name, "to": pref.rstrip("都府県"),
+                     "before": (jdate(before.isoformat(), False), link(code, before)) if before >= TODAY else None,
+                     "same": (jdate(start.isoformat(), False), link(code, start)) if start >= TODAY else None})
+    return rows
+
+
 def hotel_table(hotels, limit=None):
     if not hotels:
         return Markup('<p class="note">宿の情報を取得しています。しばらくしてからもう一度ご覧ください。</p>')
@@ -1030,7 +1070,7 @@ def css_version():
 
 def main():
     env = Environment(loader=FileSystemLoader(ROOT / "templates"), autoescape=select_autoescape(["html"]))
-    helpers = {"price_cond": price_cond, "stay_nights": stay_nights, "is_trade": is_trade, "genre_photo": genre_photo, "photo": photo, "hotel_table": hotel_table, "hotel_cards": hotel_cards, "best_cards": best_cards,
+    helpers = {"bus_rows": bus_rows, "price_cond": price_cond, "stay_nights": stay_nights, "is_trade": is_trade, "genre_photo": genre_photo, "photo": photo, "hotel_table": hotel_table, "hotel_cards": hotel_cards, "best_cards": best_cards,
                "compare_table": compare_table, "hotel_map": hotel_map, "people_tabs": people_tabs,
                "with_offers": with_offers, "price_of": price_of, "event_stats": event_stats, "best_picks": best_picks, "depart_table": depart_table,
                "open_time": open_time, "audience_label": audience_label,

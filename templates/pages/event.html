@@ -182,4 +182,16 @@
 </div>
 {% endif %}
 
+{% set buses = bus_rows(e, venue) %}
+{% if buses %}
+<h2 id="bus">遠くから行くときの高速バス</h2>
+<p>{{ buses[0].to }}より遠くから来るなら、高速バスもあります。夜行バスは前の日の夜に出て、{{ jdate(e.start, False) }}の朝に着きます。宿代を1泊分減らしたい人や、新幹線より安く行きたい人に向いています。ボタンを押すと、楽天トラベルの高速バスでその日の空席がある便の一覧が出ます。</p>
+<div class="table-wrap"><table class="t-bus"><thead><tr><th>出発地</th><th>前の日に出る便</th><th>当日に出る便</th></tr></thead><tbody>
+{% for b in buses %}<tr><th scope="row">{{ b.from }}から</th>
+<td>{% if b.before %}<a class="btn btn-sign btn-small" href="{{ b.before[1] }}" rel="nofollow sponsored noopener" target="_blank">{{ b.before[0] }}発</a>{% else %}<span class="sub">出発日を過ぎました</span>{% endif %}</td>
+<td>{% if b.same %}<a class="btn btn-sign btn-small" href="{{ b.same[1] }}" rel="nofollow sponsored noopener" target="_blank">{{ b.same[0] }}発</a>{% else %}<span class="sub">出発日を過ぎました</span>{% endif %}</td></tr>
+{% endfor %}</tbody></table></div>
+<p class="note">夜行バスは早朝に着く便が多く、宿のチェックインは午後からです。荷物は会場の近くのコインロッカーか、泊まる宿に預けられるか確かめておくと安心です。</p>
+{% endif %}
+
 <p><a class="btn btn-primary btn-block btn-big" href="#hotels">空いている近い宿にもどる</a></p>
