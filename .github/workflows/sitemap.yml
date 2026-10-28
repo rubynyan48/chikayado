@@ -1,0 +1,26 @@
+name: サイトマップの読み込み状況
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    env:
+      GOOGLE_SA_KEY: ${{ secrets.GOOGLE_SA_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -q -r requirements.txt google-auth==2.35.0
+      - run: cd scripts && python -u sitemap_status.py
+      - run: |
+          git config user.name "chikayado-bot"
+          git config user.email "chikayado-bot@users.noreply.github.com"
+          git add data/seo/sitemaps.json
+          git diff --cached --quiet || git commit -qm "サイトマップの状況 [skip ci]"
+          git pull --rebase -q && git push
