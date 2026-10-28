@@ -465,6 +465,8 @@ def read_gcal(cal, cat, aud, days=240):
     today = date.today()
     limit = today + timedelta(days=days)
     time.sleep(1.5)
+    if "@" not in cal:
+        cal += "@group.calendar.google.com"
     res = requests.get(f"https://calendar.google.com/calendar/ical/{cal.replace('@', '%40')}/public/basic.ics",
                        headers={"User-Agent": UA}, timeout=40)
     res.raise_for_status()
