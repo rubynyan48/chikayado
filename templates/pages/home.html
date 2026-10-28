@@ -22,7 +22,7 @@
     <span class="vcard-facts">
       {% if c.stations %}<span>{{ c.stations[0].name }}から徒歩約{{ c.stations[0].walk_min }}分</span>{% endif %}
       <span>近くの宿{{ c.hotels }}軒{% if c.near %}（歩いて行ける宿{{ c.near }}軒）{% endif %}</span>
-      {% if c.min_price %}<span>{{ jdate(hd.saturday, False) }}は1人<b>{{ yen(c.min_price) }}</b>から</span>{% endif %}
+      {% if c.min_price %}<span>{{ jdate(hd.saturday, False) }}は1人1室で<b>{{ yen(c.min_price) }}</b>から</span>{% endif %}
     </span>
     {% if c.next %}<span class="vcard-next">次のイベント　{{ jdate(c.next.start, False) }}　{{ c.next.name }}</span>{% endif %}
   </span>

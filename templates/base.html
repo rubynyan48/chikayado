@@ -164,7 +164,7 @@
         d.hotels.slice(0,10).forEach(function(x){
           h+='<a class="qc" href="'+esc(x.url)+'" rel="nofollow sponsored noopener" target="_blank"><span class="qc-row">'+(x.image?'<img src="'+esc(x.image)+'" alt="" loading="lazy">':'<span class="qc-noimg"></span>')+
           '<span class="qc-body"><span class="qc-name">'+esc(x.name)+'</span><span class="qc-meta">'+(x.walk<=20?'<span class="walk">徒歩'+esc(x.walk)+'分</span>':'<span class="walk far">電車で1〜2駅</span>')+(x.bath?'<span class="chip chip-on">大浴場</span>':'')+'</span>'+
-          '<span class="qc-rate">'+stars(x.rate)+'</span><span class="qc-price">1人<strong>'+Number(x.per_person).toLocaleString()+'円</strong>から</span></span></span><span class="qc-btn">空室と料金を見る</span></a>';
+          '<span class="qc-rate">'+stars(x.rate)+'</span><span class="qc-price">'+(+adults>1?adults+'人1室で1人あたり':'1人1室で')+'<strong>'+Number(x.per_person).toLocaleString()+'円</strong>から</span></span></span><span class="qc-btn">空室と料金を見る</span></a>';
         });
         out.innerHTML=h+'</div>';
       }).catch(function(){out.innerHTML='<p class="empty">空室を調べられませんでした。通信状態を確かめて、もう一度押してください。</p>';});
@@ -176,10 +176,10 @@
     function stars(v){if(!v)return '<span class="sub">評価なし</span>';v=+v;return '<span class="stars" style="--r:'+Math.round(v/5*100)+'%">★★★★★</span><span class="rate-num">'+v.toFixed(2)+'</span>';}
     function card(x){return '<a class="qc" href="'+esc(x.url)+'" rel="nofollow sponsored noopener" target="_blank"><span class="qc-row">'+(x.image?'<img src="'+esc(x.image)+'" alt="" loading="lazy">':'<span class="qc-noimg"></span>')+
       '<span class="qc-body"><span class="qc-name">'+esc(x.name)+'</span><span class="qc-meta">'+(x.walk<=20?'<span class="walk">徒歩'+esc(x.walk)+'分</span>':'<span class="walk far">電車で1〜2駅</span>')+(x.bath?'<span class="chip chip-on">大浴場</span>':'')+'</span>'+
-      '<span class="qc-rate">'+stars(x.rate)+'</span>'+(x.per_person?'<span class="qc-price">1人<strong>'+Number(x.per_person).toLocaleString()+'円</strong>から</span>':'')+'</span></span><span class="qc-btn">空室と料金を見る</span></a>';}
+      '<span class="qc-rate">'+stars(x.rate)+'</span>'+(x.per_person?'<span class="qc-price">'+(x.adults>1?x.adults+'人1室で1人あたり':'1人1室で')+'<strong>'+Number(x.per_person).toLocaleString()+'円</strong>から</span>':'')+'</span></span><span class="qc-btn">空室と料金を見る</span></a>';}
     var label={walk:'会場に近い順',price:'1人あたりの料金が安い順',rate:'レビューの評価が高い順'};
     function show(list,date,adults,sort,all){
-      list=list.slice();
+      list=list.map(function(x){return Object.assign({},x,{adults:+adults});});
       if(sort==='walk')list.sort(function(a,b){return a.walk-b.walk;});
       if(sort==='price')list=list.filter(function(x){return x.per_person;}).sort(function(a,b){return a.per_person-b.per_person;});
       if(sort==='rate')list=list.filter(function(x){return x.rate;}).sort(function(a,b){return b.rate-a.rate;});

@@ -167,7 +167,7 @@ def hotel_cards(hotels, limit=6, vacancy=None, checkin=None, numbered=False):
         if h.get("station"):
             rows.append(f'<tr><th>最寄り駅</th><td>{escape(h["station"])}駅</td></tr>')
         if vac:
-            rows.append(f'<tr><th>{jdate(checkin, False)}の料金</th><td>1人{yen(vac.get("per_person") or vac["total"])}から<span class="sub">{escape(vac.get("room") or "")}</span></td></tr>')
+            rows.append(f'<tr><th>{jdate(checkin, False)}の料金</th><td>{price_cond(vac)}{yen(vac.get("per_person") or vac["total"])}から{f"（1室{yen(vac['total'])}）" if adults_of(vac) > 1 else ""}<span class="sub">{escape(vac.get("room") or "")}</span></td></tr>')
         elif h.get("min_charge"):
             rows.append(f'<tr><th>料金の目安</th><td>{yen(h["min_charge"])}から</td></tr>')
         if h.get("review_avg"):
@@ -186,6 +186,20 @@ def hotel_cards(hotels, limit=6, vacancy=None, checkin=None, numbered=False):
             f'rel="nofollow sponsored noopener" target="_blank">楽天トラベルで空室と料金を見る</a></div></section>'
         )
     return Markup("".join(out))
+
+
+def adults_of(offer):
+    """空室の料金が何人で1部屋に泊まるときのものか（合計と1人あたりから出す）。"""
+    try:
+        return max(1, round(offer["total"] / offer["per_person"]))
+    except (KeyError, TypeError, ZeroDivisionError):
+        return 1
+
+
+def price_cond(offer):
+    """楽天の決まりに合わせて、料金の前に人数の条件を付ける。"""
+    n = adults_of(offer)
+    return "1人1室で" if n == 1 else f"{n}人1室で1人あたり"
 
 
 def price_of(h):
@@ -221,14 +235,16 @@ def best_picks(items):
     near = [h for h in items if h["distance_m"] <= 1000]
     rated = [h for h in items if (h.get("review_count") or 0) >= 30]
     take("会場にいちばん近い", lambda h: f"会場まで徒歩約{walk_min(h['distance_m'])}分", items, lambda h: h["distance_m"])
-    take("歩いて行けて安い", lambda h: f"{yen(price_of(h))}から", near, price_of)
+    def price_reason(h):
+        return f"{price_cond(h['offer'])}{yen(price_of(h))}から" if h.get("offer") else f"最安{yen(price_of(h))}から"
+    take("歩いて行けて安い", price_reason, near, price_of)
     take("口コミの評価が高い", lambda h: f"評価{float(h['review_avg']):.2f}（{int(h['review_count']):,}件）", rated,
          lambda h: float(h["review_avg"]) if h.get("review_avg") else None, reverse=True)
     take("大浴場でくつろげる", lambda h: f"{'温泉の大浴場' if h.get('onsen') else '大浴場'}あり　会場まで{dist_label(h['distance_m'])}",
          [h for h in items if h.get("daiyoku") or h.get("onsen")], lambda h: h["distance_m"])
     take("食事の評価が高い", lambda h: f"食事の評価{float(h['ratings']['meal']):.2f}", rated,
          lambda h: float(h["ratings"]["meal"]) if h.get("ratings", {}).get("meal") else None, reverse=True)
-    take("とにかく安く泊まる", lambda h: f"{yen(price_of(h))}から", items, price_of)
+    take("とにかく安く泊まる", price_reason, items, price_of)
     return picks
 
 
@@ -373,7 +389,7 @@ def quick_cards(items, limit=5, labels=None):
         label = f'<span class="qc-label">{escape(labels[i])}</span>' if labels else ""
         img = f'<img src="{escape(h["image"])}" alt="" loading="lazy">' if h.get("image") else '<span class="qc-noimg"></span>'
         bath = '<span class="chip chip-on">大浴場</span>' if h.get("daiyoku") or h.get("onsen") else ""
-        price_html = (f'<span class="qc-price">{"1人" if h.get("offer") else ""}<strong>{yen(price)}</strong>から</span>'
+        price_html = (f'<span class="qc-price">{price_cond(h["offer"]) if h.get("offer") else "最安"}<strong>{yen(price)}</strong>から</span>'
                       if price else "")
         out.append(
             f'<a class="qc" href="{escape(book_url(h, h.get("offer")))}" rel="nofollow sponsored noopener" target="_blank">'
@@ -409,7 +425,8 @@ def api_item(h):
     """画面の中で並べ替えるための、宿1軒分の情報（空室検索の返事と同じ形）。"""
     return {"name": h["name"], "walk": walk_min(h["distance_m"]), "image": h.get("image", ""),
             "rate": h.get("review_avg"), "bath": bool(h.get("daiyoku") or h.get("onsen")),
-            "per_person": price_of(h), "url": book_url(h, h.get("offer"))}
+            "per_person": price_of(h), "adults": adults_of(h["offer"]) if h.get("offer") else 0,
+            "url": book_url(h, h.get("offer"))}
 
 
 def stay_nights(e, venue):
@@ -551,7 +568,7 @@ def people_tabs(hotels, by_people, checkin):
         items = with_offers(hotels, by_people.get(n, {}))
         tabs.append(f'<button type="button" role="tab" aria-selected="{"true" if i == 0 else "false"}" data-tab="p{n}">{n}人</button>')
         head = f'<p class="note">{jdate(checkin)}に大人{n}人が1部屋に泊まれる宿は{len(items)}軒です。料金は1人あたりの最安値です。</p>'
-        panels.append(f'<div role="tabpanel" id="p{n}"{"" if i == 0 else " hidden"}>{head}{compare_table(items, "1人あたり")}</div>')
+        panels.append(f'<div role="tabpanel" id="p{n}"{"" if i == 0 else " hidden"}>{head}{compare_table(items, f"{n}人1室で1人あたり")}</div>')
     return Markup(f'<div class="tabs"><div class="tablist" role="tablist" aria-label="人数">{"".join(tabs)}</div>{"".join(panels)}</div>')
 
 
@@ -1005,7 +1022,7 @@ def css_version():
 
 def main():
     env = Environment(loader=FileSystemLoader(ROOT / "templates"), autoescape=select_autoescape(["html"]))
-    helpers = {"stay_nights": stay_nights, "is_trade": is_trade, "genre_photo": genre_photo, "photo": photo, "hotel_table": hotel_table, "hotel_cards": hotel_cards, "best_cards": best_cards,
+    helpers = {"price_cond": price_cond, "stay_nights": stay_nights, "is_trade": is_trade, "genre_photo": genre_photo, "photo": photo, "hotel_table": hotel_table, "hotel_cards": hotel_cards, "best_cards": best_cards,
                "compare_table": compare_table, "hotel_map": hotel_map, "people_tabs": people_tabs,
                "with_offers": with_offers, "price_of": price_of, "event_stats": event_stats, "best_picks": best_picks, "depart_table": depart_table,
                "open_time": open_time, "audience_label": audience_label,

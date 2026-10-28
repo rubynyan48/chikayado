@@ -11,7 +11,7 @@
 
 <h2>ホテルの比較表</h2>
 <p>ボタンで並べ替え、チェックで絞り込みができます。立地、部屋、食事は楽天トラベルの口コミの項目別の評価です。{% if sat_vacancy %}料金は{{ jdate(saturday) }}に1人で泊まる場合の最安値です。{% endif %}</p>
-{{ compare_table(items, "1人の料金" if sat_vacancy else "料金の目安") }}
+{{ compare_table(items, "1人1室の料金" if sat_vacancy else "料金の目安") }}
 
 <h2>1軒ずつ詳しく見る</h2>
 <p>番号は地図の番号と同じです。</p>

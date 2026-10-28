@@ -14,7 +14,7 @@
   {% elif first %}
   <p class="answer-q">{{ jdate(e.start) }}に泊まれる、会場にいちばん近い宿</p>
   <p class="answer-a">{{ first.name }}</p>
-  <p class="answer-facts"><span class="walk">会場まで徒歩{{ walk_min(first.distance_m) }}分</span>{% if first.offer %}<span class="fact-price">1人<strong>{{ yen(first.offer.per_person) }}</strong>から</span>{% endif %}</p>
+  <p class="answer-facts"><span class="walk">会場まで徒歩{{ walk_min(first.distance_m) }}分</span>{% if first.offer %}<span class="fact-price">{{ price_cond(first.offer) }}<strong>{{ yen(first.offer.per_person) }}</strong>から</span>{% endif %}</p>
   {% endif %}
 </div>
 {% if first %}

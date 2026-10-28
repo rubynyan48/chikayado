@@ -6,7 +6,7 @@
 {% if cheap %}
 <div class="answer">
   <p class="answer-q">{{ venue.name }}の近くに{{ page.people_label }}で泊まるなら</p>
-  <p class="answer-a">1人<span class="num">{{ yen(cheap.offer.per_person) }}</span>から</p>
+  <p class="answer-a">{{ price_cond(cheap.offer) }}<span class="num">{{ yen(cheap.offer.per_person) }}</span>から</p>
   <p class="answer-note">{{ jdate(saturday) }}に大人{{ n }}人で1部屋に泊まれる宿は{{ items|length }}軒、そのうち会場まで歩ける宿は{{ near_items|length }}軒です。いちばん安いのは{{ cheap.name }}です。</p>
 </div>
 <div class="book"><p>予約はこちら</p><a class="btn btn-primary btn-block" href="{{ book_url(cheap, cheap.offer) }}" rel="nofollow sponsored noopener" target="_blank">{{ cheap.name }}の空室を見る</a></div>
@@ -31,7 +31,7 @@
 
 <h2>{{ page.people_label }}で泊まれるホテルの比較</h2>
 <p>ボタンで近い順、安い順、評価が高い順に並べ替えられます。</p>
-{{ compare_table(items, "1人あたり") }}
+{{ compare_table(items, n ~ "人1室で1人あたり") }}
 
 
 <h2>{{ page.people_label }}で泊まるときのポイント</h2>
