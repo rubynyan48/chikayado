@@ -147,7 +147,9 @@ def merge(venue, fresh):
         e.update(slug=slug, first_seen=today, last_seen=today)
         by_key[key] = e
         added += 1
-    events = sorted(by_key.values(), key=lambda e: (e["start"], e["name"]))
+    # 法要や入社式など、関係者だけの集まりは宿のページにしない
+    private = re.compile(r"法要|追随式典|入社式|決起大会|二十歳の門出|成人式")
+    events = sorted((e for e in by_key.values() if not private.search(e["name"])), key=lambda e: (e["start"], e["name"]))
     write_json(path, {"venue": venue["slug"], "updated": today, "events": events})
     print(f"{venue['name']}: 取得 {len(fresh)}件 新規 {added}件 合計 {len(events)}件")
 

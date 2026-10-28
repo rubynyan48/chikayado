@@ -785,7 +785,9 @@ def home_data(ctxs):
     ]
     groups = [(g, [cards[s] for s in slugs if s in cards]) for g, slugs in AREA_GROUPS]
     groups = [(g, cs) for g, cs in groups if cs]
-    return {"groups": groups, "soon": [e for e in public if e["start"] <= soon_end][:15], "genres": genres,
+    all_series = [dict(sr, venue_slug=c["venue"]["slug"], venue_name=c["venue"]["name"]) for c in ctxs for sr in c["series"]]
+    return {"series_public": [x for x in all_series if not x.get("trade")], "series_trade": [x for x in all_series if x.get("trade")],
+            "groups": groups, "soon": [e for e in public if e["start"] <= soon_end][:15], "genres": genres,
             "total_events": len(all_up), "total_venues": len(cards), "saturday": ctxs[0]["saturday"]}
 
 
@@ -841,7 +843,8 @@ def venue_context(venue):
     for e in events:
         e["series"] = next((sr["slug"] for sr in series if e in sr["events"]), None)
         # 一般の人が来られるイベント（泊まりで来る人が多い）
-        e["public"] = bool(e["series"]) or "一般" in (e.get("audience") or "")
+        trade_series = any(sr.get("trade") for sr in series if sr["slug"] == e["series"])
+        e["public"] = (bool(e["series"]) and not trade_series) or "一般" in (e.get("audience") or "")
     return {
         "series": series,
         "venue": venue,
@@ -958,9 +961,13 @@ def pages_for(venue, ctx):
                            "alt": f"{e['name']}の会場に近いホテルの空き具合"}}
         pages.append(dict(common, **{
             "path": path, "template": "event.html", "noindex": bool(e.get("noindex")), "has_map": True,
-            "title": f"{e['name']}の会場に近いホテル {venue['name']}周辺の宿",
-            "description": f"{e['name']}（{period(e)} {venue['name']}）の会場に近いホテルを、開催日の空室と1人あたりの料金で選べます。"
-                           "人数を選ぶだけで泊まれる宿がわかり、日付を変えて空室を探すこともできます。",
+            "title": (f"{e['name']}の会場に近いホテル {venue['name']}周辺で前泊にも使える宿" if is_trade(e) and e["start"] != e["end"]
+                      else f"{e['name']}の会場に近いホテル {venue['name']}周辺の宿"),
+            "description": (f"{e['name']}（{period(e)} {venue['name']}）の会場に近いホテルを、設営や前泊のある前日の夜から会期中の夜まで、"
+                            "空室と1人あたりの料金で選べます。出張で何泊かするときの宿の取り方もまとめています。"
+                            if is_trade(e) and e["start"] != e["end"] else
+                            f"{e['name']}（{period(e)} {venue['name']}）の会場に近いホテルを、開催日の空室と1人あたりの料金で選べます。"
+                            "人数を選ぶだけで泊まれる宿がわかり、日付を変えて空室を探すこともできます。"),
             "breadcrumbs": [home, hub, {"name": "開催予定イベント", "path": v + "events/"}, {"name": e["name"], "path": path}],
             "float_cta": {"href": "#hotels", "label": "空いている近い宿を見る"},
         }))

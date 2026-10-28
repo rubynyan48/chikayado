@@ -28,7 +28,7 @@
 <!--body-->
 <h2>近いおすすめ宿</h2>
 <div id="hotels"></div>
-{{ rec_box(venue, hotels, by_people, e.start if e else saturday) }}
+{{ rec_box(venue, hotels, by_people, e.start if e else saturday, nights=stay_nights(e, venue) if e else []) }}
 
 <h2>{{ sr.short }}の開催日</h2>
 <p>これまでに調べた{{ sr.name }}の開催日です。イベント名を選ぶと、その回の空き具合や宿を出る時刻の目安が見られます。</p>

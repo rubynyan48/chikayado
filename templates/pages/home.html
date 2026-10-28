@@ -48,12 +48,18 @@
   {% endfor %}
 </div>
 
-{% if series %}
+{% if hd.series_public or hd.series_trade %}
 <h2 id="series">大型イベントの宿まとめ</h2>
-<p>毎年開かれる大きなイベントは、開催のたびに会場周辺の宿が埋まります。次回の日程と空いている宿をまとめています。</p>
+<p>毎年開かれる大きなイベントや展示会は、開催のたびに会場周辺の宿が埋まります。次回の日程と空いている宿をまとめています。</p>
+{% if hd.series_public %}<h3>即売会・フェス・ファンイベント</h3>
 <div class="people-links">
-{% for sr in series %}<a class="btn btn-sign" href="/{{ venue.slug }}/{{ sr.slug }}/">{{ sr.short }}の宿</a>{% endfor %}
-</div>
+{% for sr in hd.series_public %}<a class="btn btn-sign" href="/{{ sr.venue_slug }}/{{ sr.slug }}/">{{ sr.short }}の宿</a>{% endfor %}
+</div>{% endif %}
+{% if hd.series_trade %}<h3>業界向けの展示会</h3>
+<p>出展や出張で泊まる人向けに、設営のある前日の夜から空室を確かめられます。</p>
+<div class="people-links">
+{% for sr in hd.series_trade %}<a class="btn btn-sign" href="/{{ sr.venue_slug }}/{{ sr.slug }}/">{{ sr.short }}の宿</a>{% endfor %}
+</div>{% endif %}
 {% endif %}
 
 <h2 id="people">人数で探す</h2>
