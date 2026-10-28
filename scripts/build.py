@@ -572,6 +572,9 @@ def people_tabs(hotels, by_people, checkin):
     return Markup(f'<div class="tabs"><div class="tablist" role="tablist" aria-label="人数">{"".join(tabs)}</div>{"".join(panels)}</div>')
 
 
+REDIRECTS = []
+
+
 def event_table(events, venue_slug, limit=None):
     rows = events[:limit] if limit else events
     if not rows:
@@ -579,8 +582,9 @@ def event_table(events, venue_slug, limit=None):
     cells = []
     for e in rows:
         hall = f'<span class="sub">{escape(e["hall"])}</span>' if e.get("hall") else ""
-        cells.append(f'<tr><td class="date">{period(e, br=True)}</td>'
-                     f'<td><a href="/{venue_slug}/{escape(e["slug"])}/">{escape(e["name"])}</a>{hall}</td></tr>')
+        name = (escape(e["name"]) if e["end"] < TODAY.isoformat()
+                else f'<a href="/{venue_slug}/{escape(e["slug"])}/">{escape(e["name"])}</a>')
+        cells.append(f'<tr><td class="date">{period(e, br=True)}</td><td>{name}{hall}</td></tr>')
     body = "".join(cells)
     return Markup('<div class="table-wrap"><table class="t-events"><thead><tr><th class="date">開催日</th><th>イベント</th></tr>'
                   f"</thead><tbody>{body}</tbody></table></div>")
@@ -966,6 +970,10 @@ def pages_for(venue, ctx):
         ]
     for e in ctx["all_events"]:
         path = f"{v}{e['slug']}/"
+        # 終わった回はページを作らず、まとめページ（なければ会場のイベント一覧）へ転送する
+        if e["end"] < TODAY.isoformat():
+            REDIRECTS.append((path, f"{v}{e['series']}/" if e.get("series") else f"{v}events/"))
+            continue
         concurrent = [o for o in ctx["all_events"] if o is not e and o["start"] <= e["end"] and o["end"] >= e["start"]]
         days = (date.fromisoformat(e["end"]) - date.fromisoformat(e["start"])).days + 1
         vac = read_json(DATA / "vacancy" / vslug(venue) / f"{e['start']}.json") if e["end"] >= TODAY.isoformat() else None
@@ -1101,6 +1109,11 @@ def main():
         }, ensure_ascii=False), encoding="utf-8")
 
     urls = "".join(f"<url><loc>{SITE['base_url']}{quote(p['path'])}</loc><lastmod>{TODAY.isoformat()}</lastmod></url>" for p, _ in jobs if not p.get("noindex"))
+    # 終わったイベントの転送先を .htaccess に足す
+    ht = DIST / ".htaccess"
+    rules = "".join(f'Redirect 301 "{src}" "{dst}"\n' for src, dst in sorted(set(REDIRECTS)))
+    ht.write_text((ht.read_text(encoding="utf-8") if ht.exists() else "")
+                  + "\n# 終わったイベントのページは、まとめページか会場のイベント一覧へ\n" + rules, encoding="utf-8")
     (DIST / "sitemap.xml").write_text(
         f'<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{urls}</urlset>', encoding="utf-8")
     (DIST / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {SITE['base_url']}/sitemap.xml\n", encoding="utf-8")
