@@ -1116,8 +1116,31 @@ def main():
                   + "\n# 終わったイベントのページは、まとめページか会場のイベント一覧へ\n" + rules, encoding="utf-8")
     (DIST / "sitemap.xml").write_text(
         f'<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{urls}</urlset>', encoding="utf-8")
+    write_feed([p for p, _ in jobs if p.get("event") and not p.get("noindex")])
     (DIST / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {SITE['base_url']}/sitemap.xml\n", encoding="utf-8")
     print(f"{len(jobs)}ページを書き出しました")
+
+
+def write_feed(pages, limit=100):
+    """新しく載せたイベントのページを新しい順に並べたRSS。Search Consoleにサイトマップとしても登録できる。"""
+    from email.utils import format_datetime
+    from datetime import datetime, timezone
+    jst = timezone(timedelta(hours=9))
+    pages = sorted(pages, key=lambda p: (p["event"].get("first_seen") or "", p["event"]["start"]), reverse=True)[:limit]
+    items = []
+    for p in pages:
+        e = p["event"]
+        seen = datetime.fromisoformat((e.get("first_seen") or TODAY.isoformat()) + "T06:00:00").replace(tzinfo=jst)
+        link = f"{SITE['base_url']}{quote(p['path'])}"
+        items.append(f"<item><title>{escape(p['title'])}</title><link>{link}</link><guid isPermaLink=\"true\">{link}</guid>"
+                     f"<pubDate>{format_datetime(seen)}</pubDate><description>{escape(p['description'])}</description></item>")
+    now = format_datetime(datetime.now(jst).replace(microsecond=0))
+    (DIST / "feed.xml").write_text(
+        '<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel>'
+        f"<title>{escape(SITE.get('name', 'ちか宿'))} 新しく載せたイベント</title><link>{SITE['base_url']}/</link>"
+        f'<atom:link href="{SITE["base_url"]}/feed.xml" rel="self" type="application/rss+xml"/>'
+        "<description>イベント会場に近いホテルのページを、新しく載せた順にお知らせします。</description>"
+        f"<language>ja</language><lastBuildDate>{now}</lastBuildDate>{''.join(items)}</channel></rss>", encoding="utf-8")
 
 
 if __name__ == "__main__":
