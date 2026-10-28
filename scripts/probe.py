@@ -39,6 +39,6 @@ for url in (ROOT / "scripts" / "probe_urls.txt").read_text().split():
         r = requests.get(url, headers={"User-Agent": UA, "Accept-Language": "ja"}, timeout=30)
         r.encoding = r.apparent_encoding if r.encoding in (None, "ISO-8859-1") else r.encoding
         (out / f"{name}.html").write_text(r.text, encoding="utf-8")
-        print(r.status_code, len(r.text), name, url, r.url)
+        print(r.status_code, len(r.text), name, url, r.url, r.headers.get("content-type"), r.headers.get("x-robots-tag"))
     except Exception as e:
         print("ERR", name, url, type(e).__name__)
