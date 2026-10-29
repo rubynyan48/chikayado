@@ -108,7 +108,7 @@ def main():
     today = date.today().isoformat()
     failed = False
 
-    for name, dims in (("search_pages", ["page"]), ("search_queries", ["query"])):
+    for name, dims in (("search_pages", ["page"]), ("search_queries", ["query"]), ("search_daily", ["date"])):
         try:
             rows = search_analytics(s, dims)
             write_json(OUT / f"{name}.json", {"checked": today, "rows": rows})
