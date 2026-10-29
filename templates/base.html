@@ -32,7 +32,7 @@
 <script type="application/ld+json">{{ page.breadcrumb_ld | safe }}</script>
 {% endif %}
 </head>
-<body>
+<body{% if page.genre %} data-genre="{{ page.genre.key }}" style="--sign:{{ page.genre.color }};--sign-soft:{{ page.genre.soft }}"{% endif %}>
 <header class="site-header">
   <div class="header-inner">
     <a class="logo" href="/">

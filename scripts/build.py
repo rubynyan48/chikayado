@@ -929,6 +929,62 @@ VENUE_TAGS = {
 SPORTS = re.compile(r"サッカー|Jリーグ|J1|マラソン|ラグビー|陸上|大相撲|リーグ|選手権|大会|試合|ホームゲーム|開幕戦|vs|VS|BOXING|ボクシング|ONE |格闘|バスケ|バレー|フィギュア|Championship|GAME\.|太極拳")
 
 
+# ---- イベントのジャンル（検索結果の文言と色を変える） ------------------------
+# 同じ日に展示会とライブが重なっても、タイトル・説明文・色・最初の一文が変わる。
+GENRES = {
+    "trade": {"label": "展示会・商談会", "tail": "前泊と連泊ができる宿", "color": "#12507A", "soft": "#E8F1F7",
+              "lead": "出展や出張で泊まる人向けに、設営のある前日の夜から会期中まで、1人1室の料金と空室を並べています。"},
+    "academic": {"label": "学会・試験", "tail": "前日入りして泊まる宿", "color": "#4A5D73", "soft": "#EDF0F4",
+                 "lead": "前日の夜に入って朝ゆっくり会場に着けるよう、会場から近い順に、前日の空室と朝食つきのプランを見つけやすくしています。"},
+    "sports": {"label": "スポーツ・格闘技", "tail": "試合の後に泊まる宿", "color": "#1F6B4A", "soft": "#E7F3EC",
+               "lead": "試合が終わってから歩いて戻れる距離を基準に、2人で1室にしたときの1人あたりの料金もあわせて出しています。"},
+    "pop": {"label": "即売会・ファンイベント", "tail": "朝いちばんに会場へ着ける宿", "color": "#C2561B", "soft": "#FBEFE6",
+            "lead": "始発より早く並びたい人向けに、会場まで歩ける宿と、宿を出る時刻の目安を先に出しています。"},
+    "live": {"label": "ライブ・公演", "tail": "終演後に歩いて帰れる宿", "color": "#2B2F4A", "soft": "#ECEDF3",
+             "lead": "終演後に電車に乗らずに戻れる距離の宿を先に並べ、1人でも2人でも泊まれる料金を出しています。"},
+    "general": {"label": "一般向けイベント", "tail": "開催日に空いている宿", "color": "#13697A", "soft": "#E6F2F4",
+                "lead": "開催日の夜に空いている宿を会場から近い順に並べ、人数を選ぶだけで1人あたりの料金がわかります。"},
+}
+GENRE_RULES = [
+    ("academic", re.compile(r"学会|学術|研究会|研究大会|入学試験|入試|試験|検定|審査|カンファレンス|Conference|シンポジウム", re.I)),
+    ("general", re.compile(r"就活|就職|インターン|キャリア|セミナー|説明会|合同企業|コンテスト|学校選び|相談会", re.I)),
+    ("pop", re.compile(r"コミックマーケット|コミケ|COMIC|コミコン|即売会|同人|ゲームショウ|ホビー|ワンダーフェスティバル|ワンフェス|カードゲーム|ポケモン|デザインフェスタ|ハンドメイド|謎解|ファンフェスティバル|ファンフェス|AnimeJapan|アニメ|超会議|フリマ|フリーマーケット|バザール|ふるさと納税", re.I)),
+    ("sports", re.compile(r"サッカー|Jリーグ|J1|マラソン|EKIDEN|駅伝|ラグビー|陸上|大相撲|B\.LEAGUE|リーグ|選手権|試合|ホームゲーム|開幕戦|\bvs\b|BOXING|ボクシング|RIZIN|K-1|格闘|プロレス|バスケ|バレー|フィギュアスケート|Championship|カップ|Cup|天皇杯|皇后杯|体操|ダンス|バトン|ZUMBA|SLS", re.I)),
+    ("live", re.compile(r"LIVE|ライブ|TOUR|ツアー|コンサート|CONCERT|公演|フェス|FES|FESTIVAL|歌合戦|ミュージカル|ファンミ|FAN-?CON|Fan Event|ファンイベント|感謝祭|ワンマン|Anniversary|定期演奏|リサイタル|舞台|Day ?\d", re.I)),
+    ("trade", re.compile(r"EXPO|展|フェア|WEEK|ウィーク|見本市|SEMICON|JIMTOF|メッセ|総合展|技術展|Japan ?20\d\d|ショー|Show", re.I)),
+]
+
+
+def genre_key(e, venue=None):
+    text = f"{e.get('name', '')} {e.get('content', '')}"
+    content = e.get("content") or ""
+    if "即売会" in content:
+        return "pop"
+    if "スポーツ" in content:
+        return "sports"
+    if "音楽" in content:
+        return "live"
+    if "学会" in content or "試験" in content:
+        return "academic"
+    for key, pat in GENRE_RULES:
+        if pat.search(text):
+            return key
+    if is_trade(e) or "展示会" in content:
+        return "trade"
+    if (venue or {}).get("kind") == "arena" or (e.get("venue_kind") == "arena"):
+        return "live"
+    return "general"
+
+
+def genre(e, venue=None):
+    return dict(GENRES[genre_key(e, venue)], key=genre_key(e, venue))
+
+
+def short_period(e):
+    a, b = date.fromisoformat(e["start"]), date.fromisoformat(e["end"])
+    return f"{a.month}/{a.day}" if a == b else f"{a.month}/{a.day}〜{b.month}/{b.day}"
+
+
 # 公式サイトの画面がないとき、開催概要に入れるジャンルの写真（ファイル名, 説明）
 GENRE_PHOTOS = [
     (re.compile(r"バスケ|B\.LEAGUE|BASKETBALL", re.I), "バスケットボールの試合.jpg", "バスケットボールの試合のイメージ"),
@@ -1193,6 +1249,7 @@ def pages_for(venue, ctx):
         base_date = (read_json(DATA / "baseline" / f"{vslug(venue)}.json", {}) or {}).get(kind)
         base_vac = read_json(DATA / "vacancy" / vslug(venue) / f"{base_date}.json") if base_date else None
         st = event_stats(ctx["hotels"], vac, base_vac, hist) if vac else None
+        g = genre(e, venue)
         common = {"event": e, "vacancy": vac, "text": text, "concurrent": concurrent[:12], "days": days, "credit_events": True,
                   "history": hist, "base_vacancy": base_vac, "base_kind": kind,
                   "hero": {"file": hero_name(f"{e['name']}の会場に近いホテル"), "title": e["name"], "photo": next((s.get("hero_photo") for s in ctx["series"] if s["slug"] == e.get("series") and s.get("hero_photo")), None) or venue.get("hero_photos", {}).get("event"),
@@ -1200,13 +1257,16 @@ def pages_for(venue, ctx):
                            "alt": f"{e['name']}の会場に近いホテルの空き具合"}}
         pages.append(dict(common, **{
             "path": path, "template": "event.html", "noindex": bool(e.get("noindex")), "has_map": True,
-            "title": (f"{e['name']}の会場に近いホテル {venue['name']}周辺で前泊にも使える宿" if is_trade(e) and e["start"] != e["end"]
-                      else f"{e['name']}の会場に近いホテル {venue['name']}周辺の宿"),
-            "description": (f"{e['name']}（{period(e)} {venue['name']}）の会場に近いホテルを、設営や前泊のある前日の夜から会期中の夜まで、"
-                            "空室と1人あたりの料金で選べます。出張で何泊かするときの宿の取り方もまとめています。"
-                            if is_trade(e) and e["start"] != e["end"] else
-                            f"{e['name']}（{period(e)} {venue['name']}）の会場に近いホテルを、開催日の空室と1人あたりの料金で選べます。"
-                            "人数を選ぶだけで泊まれる宿がわかり、日付を変えて空室を探すこともできます。"),
+            "genre": g,
+            "title": f"{e['name']}の会場に近いホテル {venue['name']}周辺で{g['tail']}【{short_period(e)}】",
+            "h1": f"{e['name']}の会場に近いホテル {venue['name']}周辺で{g['tail']}",
+            "description": (f"{e['name']}（{period(e)} {venue['name']}）の会場に近いホテルを、"
+                            + ("設営や前泊のある前日の夜から会期中の夜まで、空室と1人1室の料金で選べます。出張で何泊かするときの宿の取り方もまとめています。" if g["key"] == "trade" else
+                               "前日の夜の空室と1人あたりの料金で選べます。前日入りして朝ゆっくり会場に着ける宿をまとめています。" if g["key"] == "academic" else
+                               "試合の後に歩いて戻れる距離と、2人で1室にしたときの1人あたりの料金で選べます。" if g["key"] == "sports" else
+                               "朝いちばんに会場へ着ける距離と、宿を出る時刻の目安で選べます。開催日の空室も見られます。" if g["key"] == "pop" else
+                               "終演後に歩いて帰れる距離と、開催日の空室と1人あたりの料金で選べます。人数を選ぶだけで泊まれる宿がわかります。" if g["key"] == "live" else
+                               "開催日の空室と1人あたりの料金で選べます。人数を選ぶだけで泊まれる宿がわかり、日付を変えて空室を探すこともできます。")),
             "breadcrumbs": [home, hub, {"name": "開催予定イベント", "path": v + "events/"}, {"name": e["name"], "path": path}],
             "float_cta": {"href": "#hotels", "label": "空いている近い宿を見る"},
         }))
@@ -1239,7 +1299,7 @@ def css_version():
 
 def main():
     env = Environment(loader=FileSystemLoader(ROOT / "templates"), autoescape=select_autoescape(["html"]))
-    helpers = {"night_rows": night_rows, "fill_pace": fill_pace, "pair_saving": pair_saving, "entrance_for": entrance_for, "hotels_from_entrance": hotels_from_entrance, "lunch_split": lunch_split, "far_links": far_links, "group_title": group_title, "bus_rows": bus_rows, "price_cond": price_cond, "stay_nights": stay_nights, "is_trade": is_trade, "genre_photo": genre_photo, "photo": photo, "hotel_table": hotel_table, "hotel_cards": hotel_cards, "best_cards": best_cards,
+    helpers = {"night_rows": night_rows, "fill_pace": fill_pace, "pair_saving": pair_saving, "entrance_for": entrance_for, "hotels_from_entrance": hotels_from_entrance, "lunch_split": lunch_split, "far_links": far_links, "group_title": group_title, "bus_rows": bus_rows, "price_cond": price_cond, "stay_nights": stay_nights, "is_trade": is_trade, "genre": genre, "genre_photo": genre_photo, "photo": photo, "hotel_table": hotel_table, "hotel_cards": hotel_cards, "best_cards": best_cards,
                "compare_table": compare_table, "hotel_map": hotel_map, "people_tabs": people_tabs,
                "with_offers": with_offers, "price_of": price_of, "event_stats": event_stats, "best_picks": best_picks, "depart_table": depart_table,
                "open_time": open_time, "audience_label": audience_label,
@@ -1317,7 +1377,14 @@ def main():
                         "rate": h.get("review_avg"), "bath": bool(h.get("daiyoku") or h.get("onsen"))} for h in ctx["hotels"]],
         }, ensure_ascii=False), encoding="utf-8")
 
-    urls = "".join(f"<url><loc>{SITE['base_url']}{quote(p['path'])}</loc><lastmod>{TODAY.isoformat()}</lastmod></url>" for p, _ in jobs if not p.get("noindex"))
+    # サイトマップに載せるのは、会場・まとめ・案内のページと、開催45日以内のイベント。
+    # 遠い回のページも作って内部リンクでたどれるが、検索エンジンに先に見てほしいのは近い回なので絞る。
+    def in_sitemap(p):
+        if p.get("noindex"):
+            return False
+        ev = p.get("event")
+        return not ev or (date.fromisoformat(ev["start"]) - TODAY).days <= 45
+    urls = "".join(f"<url><loc>{SITE['base_url']}{quote(p['path'])}</loc><lastmod>{TODAY.isoformat()}</lastmod></url>" for p, _ in jobs if in_sitemap(p))
     # 終わったイベントの転送先を .htaccess に足す
     ht = DIST / ".htaccess"
     rules = "".join(f'Redirect 301 "{src}" "{dst}"\n' for src, dst in sorted(set(REDIRECTS)))

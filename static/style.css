@@ -79,6 +79,7 @@ h1 { font-size: 26px; line-height: 1.45; margin: 8px 0 6px; letter-spacing: .01e
   border: 2px solid var(--sign); border-radius: var(--radius-m); padding: 16px 18px; margin: 4px 0 18px;
   background: var(--sign-soft);
 }
+.answer-genre { display: inline-block; font-size: 12px; font-weight: 800; letter-spacing: .04em; color: #fff; background: var(--sign); padding: 2px 10px; border-radius: 999px; margin: 0 0 8px; }
 .answer-q { font-size: 14px; font-weight: 700; color: var(--sign); margin: 0 0 4px; }
 .answer-a { font-size: 20px; font-weight: 800; line-height: 1.5; margin: 0; }
 .answer-a .num { font-size: 30px; color: var(--sign); font-variant-numeric: tabular-nums; }

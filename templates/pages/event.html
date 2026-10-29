@@ -12,9 +12,11 @@
   <p class="answer-a">会場にいちばん近い宿は<br>{{ first.name if first else '' }}</p>
   <p class="answer-note">次回の日程が出たらこのページを更新します。</p>
   {% elif first %}
+  <p class="answer-genre">{{ page.genre.label }}</p>
   <p class="answer-q">{{ jdate(e.start) }}に泊まれる、会場にいちばん近い宿</p>
   <p class="answer-a">{{ first.name }}</p>
   <p class="answer-facts"><span class="walk">会場まで徒歩{{ walk_min(first.distance_m) }}分</span>{% if first.offer %}<span class="fact-price">{{ price_cond(first.offer) }}<strong>{{ yen(first.offer.per_person) }}</strong>から</span>{% endif %}</p>
+  <p class="answer-note">{{ page.genre.lead }}</p>
   {% endif %}
 </div>
 {% if first %}
@@ -40,10 +42,13 @@
 
 <h2>もっと詳しく知りたいとき</h2>
 <div class="jump">
-  {% if st %}<a href="#numbers">数字で見る空き具合</a>{% endif %}
-  {% if ot and not ended %}<a href="#depart">宿を出る時刻の目安</a>{% endif %}
+  {% set gk = page.genre.key %}
+  {% if gk == 'pop' and ot and not ended %}<a href="#depart">朝いちばんに着く出発時刻</a>{% endif %}
+  {% if gk in ('live', 'sports') %}<a href="#access">終演後の帰り道と駅</a>{% endif %}
+  {% if st %}<a href="#numbers">{{ '前日の夜の空き具合' if gk in ('trade', 'academic') else '数字で見る空き具合' }}</a>{% endif %}
+  {% if ot and not ended and gk != 'pop' %}<a href="#depart">宿を出る時刻の目安</a>{% endif %}
   <a href="#about">開催の内容と時間</a>
-  <a href="#access">会場の建物と駅</a>
+  {% if gk not in ('live', 'sports') %}<a href="#access">会場の建物と駅</a>{% endif %}
   {% if page.concurrent %}<a href="#same-day">同じ日のイベント</a>{% endif %}
   <a href="#tips">宿を取るコツ</a>
   {% if lunch or restaurants %}<a href="#food">ランチと夕食</a>{% endif %}
