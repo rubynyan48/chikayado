@@ -612,6 +612,107 @@ def people_tabs(hotels, by_people, checkin):
     return Markup(f'<div class="tabs"><div class="tablist" role="tablist" aria-label="人数">{"".join(tabs)}</div>{"".join(panels)}</div>')
 
 
+# ---- イベントごとに違う中身を、毎日のデータから作る --------------------------
+def _hist_at(history, days_ago, key="open1"):
+    """履歴から、だいたいdays_ago日前の値を返す（その日がなければいちばん近い古い日）。"""
+    log = (history or {}).get("log", [])
+    target = (TODAY - timedelta(days=days_ago)).isoformat()
+    older = [x for x in log if x["checked"] <= target]
+    if not older:
+        return None
+    return older[-1].get(key)
+
+
+def night_rows(e, venue, hotels):
+    """泊まる夜ごとの空き具合。歩ける宿の空き、全体の空き、1人1室と2人1室の最安、1週間前との差。"""
+    out = []
+    ids = {h["hotelNo"] for h in hotels}
+    near = {h["hotelNo"] for h in hotels if h["distance_m"] <= 1000}
+    for d, md, label in stay_nights(e, venue) or [(e["start"], f"{int(e['start'][5:7])}/{int(e['start'][8:10])}", "当日")]:
+        vac = read_json(DATA / "vacancy" / vslug(venue) / f"{d}.json")
+        if not vac:
+            continue
+        hist = read_json(DATA / "vacancy_history" / vslug(venue) / f"{d}.json")
+        one = {k: o for k, o in vac["by_people"].get("1", {}).items() if k in ids}
+        two = {k: o for k, o in vac["by_people"].get("2", {}).items() if k in ids}
+        week = _hist_at(hist, 7)
+        out.append({"date": d, "label": label, "open": len(one), "near_open": len(set(one) & near),
+                    "min1": min((o["per_person"] for o in one.values()), default=None),
+                    "min2": min((o["per_person"] for o in two.values()), default=None),
+                    "week_ago": week, "diff": (len(one) - week) if week is not None else None,
+                    "checked": vac.get("checked")})
+    return out
+
+
+def fill_pace(venue):
+    """この会場で、空きが1週間にどれくらい減っているか（記録のある全日付の中央値）。"""
+    rates = []
+    for f in (DATA / "vacancy_history" / vslug(venue)).glob("*.json"):
+        h = read_json(f)
+        log = (h or {}).get("log", [])
+        if len(log) < 2 or h["checkin"] < TODAY.isoformat():
+            continue
+        first, last = log[0], log[-1]
+        days = (date.fromisoformat(last["checked"]) - date.fromisoformat(first["checked"])).days
+        if days >= 5 and first.get("open1"):
+            rates.append((first["open1"] - last["open1"]) / days * 7)
+    if len(rates) < 3:
+        return None
+    return {"per_week": round(median(rates), 1), "dates": len(rates)}
+
+
+def pair_saving(e, venue, hotels):
+    """2人で来るとき、1室にすると1人あたりいくら安いか（両方の料金がある宿の中央値）。"""
+    vac = read_json(DATA / "vacancy" / vslug(venue) / f"{e['start']}.json")
+    if not vac:
+        return None
+    ids = {h["hotelNo"] for h in hotels}
+    one, two = vac["by_people"].get("1", {}), vac["by_people"].get("2", {})
+    both = [k for k in one if k in two and k in ids]
+    if len(both) < 3:
+        return None
+    diff = median(one[k]["per_person"] - two[k]["per_person"] for k in both)
+    return {"saving": int(diff), "hotels": len(both), "two_open": len([k for k in two if k in ids])}
+
+
+def entrance_for(e, venue):
+    """このイベントが使うホールの入口。会場の設定に入口の場所があるときだけ。"""
+    for ent in venue.get("entrances", []):
+        if re.search(ent["match"], e.get("hall") or ""):
+            return ent
+    return None
+
+
+def hotels_from_entrance(hotels, ent, limit=5):
+    """ホールの入口から近い順に宿を並べ直す。"""
+    out = []
+    for h in hotels:
+        m = round(math.hypot((h["lat"] - ent["lat"]) * 111000, (h["lng"] - ent["lng"]) * 111000 * math.cos(math.radians(ent["lat"]))))
+        out.append(dict(h, entrance_m=m))
+    return sorted(out, key=lambda h: h["entrance_m"])[:limit]
+
+
+def lunch_split(lunch):
+    """ランチを、一人で手早く済ませる店と、打ち合わせや会食に使える店に分ける（予算から）。"""
+    def low(b):
+        m = re.search(r"(\d+)", (b or "").replace(",", ""))
+        return int(m.group(1)) if m else 0
+    quick = [s for s in lunch if low(s.get("budget")) <= 1501 and "居酒屋" not in (s.get("genre") or "")]
+    meet = [s for s in lunch if low(s.get("budget")) >= 2001]
+    return quick[:5], meet[:5]
+
+
+def far_links(e, venue):
+    """新幹線や飛行機で帰る人向けに、ターミナル駅の周りの宿を楽天で日付入りで探すリンク。"""
+    out = []
+    d = date.fromisoformat(e["start"])
+    for a in venue.get("far_areas", []):
+        url = (f"https://search.travel.rakuten.co.jp/ds/vacant/searchVacant/?f_teikei=&f_dai=japan&f_keyword={quote(a['keyword'])}"
+               f"&f_hi1={d.isoformat()}&f_hi2={(d + timedelta(days=1)).isoformat()}&f_otona_su=1&f_heya_su=1")
+        out.append({"name": a["name"], "why": a.get("why", ""), "url": moshimo(url)})
+    return out
+
+
 REDIRECTS = []
 
 
@@ -1149,7 +1250,7 @@ def css_version():
 
 def main():
     env = Environment(loader=FileSystemLoader(ROOT / "templates"), autoescape=select_autoescape(["html"]))
-    helpers = {"group_title": group_title, "bus_rows": bus_rows, "price_cond": price_cond, "stay_nights": stay_nights, "is_trade": is_trade, "genre_photo": genre_photo, "photo": photo, "hotel_table": hotel_table, "hotel_cards": hotel_cards, "best_cards": best_cards,
+    helpers = {"night_rows": night_rows, "fill_pace": fill_pace, "pair_saving": pair_saving, "entrance_for": entrance_for, "hotels_from_entrance": hotels_from_entrance, "lunch_split": lunch_split, "far_links": far_links, "group_title": group_title, "bus_rows": bus_rows, "price_cond": price_cond, "stay_nights": stay_nights, "is_trade": is_trade, "genre_photo": genre_photo, "photo": photo, "hotel_table": hotel_table, "hotel_cards": hotel_cards, "best_cards": best_cards,
                "compare_table": compare_table, "hotel_map": hotel_map, "people_tabs": people_tabs,
                "with_offers": with_offers, "price_of": price_of, "event_stats": event_stats, "best_picks": best_picks, "depart_table": depart_table,
                "open_time": open_time, "audience_label": audience_label,

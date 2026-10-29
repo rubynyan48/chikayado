@@ -294,7 +294,7 @@ def main():
             failed = True
             print(f"{venue['name']}: 宿の取得に失敗 {exc}", file=sys.stderr)
             continue
-        events = [e for v in all_venues if v["slug"] == venue["slug"] or v.get("hotel_area") == venue["slug"]
+        events = [dict(e, _kind=v.get("kind")) for v in all_venues if v["slug"] == venue["slug"] or v.get("hotel_area") == venue["slug"]
                   for e in read_json(DATA / "events" / f"{v['slug']}.json", {"events": []})["events"]]
         # イベントの初日と、人数別ページに使う次の土曜日。同じ日は1回だけ調べる
         dates = {next_saturday(today)}
@@ -315,9 +315,15 @@ def main():
                 dates.add(d)
         write_json(DATA / "baseline" / f"{venue['slug']}.json", base)
         for event in events:
-            start = date.fromisoformat(event["start"])
-            if today <= start <= today + timedelta(days=VACANCY_DAYS_AHEAD):
-                dates.add(start)
+            start, end = date.fromisoformat(event["start"]), date.fromisoformat(event["end"])
+            if not (today <= start <= today + timedelta(days=VACANCY_DAYS_AHEAD)):
+                continue
+            # 泊まる夜ごとに調べる。展示会と業界向けのイベントは、設営や前泊のある前日の夜も
+            trade = event.get("_kind") == "exhibition" or any(k in (event.get("audience") or "") for k in ("商談", "関係者"))
+            nights = [start + timedelta(days=i) for i in range(max((end - start).days, 1))][:3]
+            if trade:
+                nights = [start - timedelta(days=1)] + nights
+            dates.update(n for n in nights if n >= today)
         # 古い日付のファイルは消す
         folder = DATA / "vacancy" / venue["slug"]
         if folder.exists():
