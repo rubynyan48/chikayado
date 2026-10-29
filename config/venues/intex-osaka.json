@@ -40,5 +40,28 @@
   "hero_photos": {
     "event": "インテックス大阪外観.jpg",
     "venue": "インテックス大阪外観.jpg"
-  }
+  },
+  "far_areas": [
+    {
+      "name": "新大阪",
+      "chu": "osaka",
+      "shou": "shi",
+      "sai": "A",
+      "why": "新幹線で帰る人。会場へは地下鉄とニュートラムで約40分"
+    },
+    {
+      "name": "大阪駅・梅田",
+      "chu": "osaka",
+      "shou": "shi",
+      "sai": "B",
+      "why": "宿の数が多く、夜に街へ出たい人"
+    },
+    {
+      "name": "なんば・心斎橋",
+      "chu": "osaka",
+      "shou": "shi",
+      "sai": "D",
+      "why": "関空へ南海で直通。観光も兼ねる人"
+    }
+  ]
 }

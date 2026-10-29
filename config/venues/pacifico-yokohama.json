@@ -31,5 +31,28 @@
   "hero_photos": {
     "event": "パシフィコ横浜外観.jpg",
     "venue": "パシフィコ横浜外観.jpg"
-  }
+  },
+  "far_areas": [
+    {
+      "name": "横浜駅周辺",
+      "chu": "kanagawa",
+      "shou": "yokohama",
+      "sai": "",
+      "why": "宿の数が多く、みなとみらい線で1〜2駅"
+    },
+    {
+      "name": "品川・羽田空港",
+      "chu": "tokyo",
+      "shou": "tokyo",
+      "sai": "E",
+      "why": "飛行機か新幹線で帰る人。横浜まで京急・JRで約20分"
+    },
+    {
+      "name": "東京駅・銀座",
+      "chu": "tokyo",
+      "shou": "tokyo",
+      "sai": "A",
+      "why": "東北・上越新幹線で帰る人"
+    }
+  ]
 }

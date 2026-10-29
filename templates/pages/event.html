@@ -63,6 +63,27 @@
 
 {% if st %}
 <h2 id="numbers">{{ jdate(e.start, False) }}の宿の空き具合を数字で見る</h2>
+{% set nights = night_rows(e, venue, hotels) %}
+{% if nights|length > 1 %}
+<h3>泊まる夜ごとの空き</h3>
+<p>{{ e.name }}に行く人が泊まる可能性のある夜について、{{ jdate(nights[-1].checked, False) }}時点の空きを並べました。「歩ける宿」は会場から1km以内です。1週間前と比べた増減も出しています。</p>
+<div class="table-wrap"><table class="t-nights"><thead><tr><th>泊まる夜</th><th>歩ける宿の空き</th><th>全体の空き</th><th>1人1室の最安</th><th>2人1室で1人あたり</th><th>1週間前から</th></tr></thead><tbody>
+{% for n in nights %}<tr><th scope="row">{{ jdate(n.date, False) }}<span class="sub">{{ n.label }}</span></th><td class="num">{{ n.near_open }}軒</td><td class="num">{{ n.open }}軒</td><td class="num">{{ yen(n.min1) if n.min1 else 'ー' }}</td><td class="num">{{ yen(n.min2) if n.min2 else 'ー' }}</td><td class="num">{% if n.diff is none %}記録なし{% elif n.diff < 0 %}<span class="down">{{ n.diff }}軒</span>{% elif n.diff > 0 %}+{{ n.diff }}軒{% else %}変わらず{% endif %}</td></tr>
+{% endfor %}</tbody></table></div>
+{% set tight = nights | sort(attribute='near_open') | first %}
+<p>{% if tight.near_open == 0 %}{{ jdate(tight.date, False) }}の夜は、歩ける宿がもう空いていません。電車で1〜2駅の宿に広げるか、日付をずらせるなら前後の夜を見てください。{% elif tight.near_open <= 3 %}いちばん埋まっているのは{{ jdate(tight.date, False) }}の夜で、歩ける宿の空きは{{ tight.near_open }}軒です。この夜に泊まる人は先に押さえた方がよさそうです。{% else %}いちばん埋まっているのは{{ jdate(tight.date, False) }}の夜で、歩ける宿の空きは{{ tight.near_open }}軒です。{% endif %}</p>
+{% endif %}
+{% set pace = fill_pace(venue) %}
+{% if pace %}
+<h3>いつまでに取るか</h3>
+<p>{{ venue.name }}の周りの宿は、これから開かれる{{ pace.dates }}の開催日について空きの数を毎日記録しています。{% if pace.per_week > 0.5 %}今は1人で泊まれる宿が1週間に中央値で{{ pace.per_week }}軒ずつ減っています。{% if st.one.near %}{{ jdate(e.start, False) }}の歩ける宿の空きは{{ st.one.near }}軒なので、{% if (st.one.near / pace.per_week) < 4 %}このままだと{{ ((st.one.near / pace.per_week) | round(0, 'floor')) | int }}週間ほどで歩ける宿はなくなる計算です。{% else %}まだ余裕はありますが、会期の2〜3週間前からは減り方が速くなります。{% endif %}{% endif %}{% else %}この1週間は、空きの数は減っていません。キャンセルや新しいプランで空きが戻ることもあります。ただ会期の2〜3週間前からは減り方が速くなるので、{{ jdate(e.start, False) }}の歩ける宿{{ st.one.near }}軒のうちどれかに決めているなら、先に押さえておく方が確実です。{% endif %}</p>
+{% endif %}
+{% set ps = pair_saving(e, venue, hotels) %}
+{% if ps and ps.saving > 500 %}
+<h3>2人で行くなら1室にすると安い</h3>
+<p>{{ jdate(e.start, False) }}の夜に1人用と2人用の両方のプランがある{{ ps.hotels }}軒で比べると、2人で1室に泊まる方が1人あたり{{ yen(ps.saving) }}安くなります（中央値）。同僚と来るなら、2室取る前にツインの空きを見てください。2人で泊まれる宿は{{ ps.two_open }}軒あります。</p>
+{% endif %}
+<h3>人数ごとの空き</h3>
 <p>会場から{{ km(venue) }}以内にある{{ st.total }}軒の宿について、{{ jdate(e.start) }}の夜に1部屋で泊まれるかを人数ごとに調べました。料金は1人あたりです。</p>
 <div class="ppl">
   {% for r in st.rows %}
@@ -144,6 +165,14 @@
 {{ station_table(venue) }}
 <p class="note">徒歩の時間は、駅と会場の位置から計算した目安です。</p>
 {% endif %}
+{% set ent = entrance_for(e, venue) %}
+{% if ent %}
+<h3>{{ ent.name }}から近い宿</h3>
+<p>{{ e.name }}が使う{{ e.hall }}は{{ ent.name }}から入ります。{{ ent.note }}会場の中心ではなく、この入口からの近さで並べ直すと順番が変わります。</p>
+<div class="table-wrap"><table class="t-ent"><thead><tr><th>ホテル</th><th class="num">入口まで</th><th class="num">会場の中心まで</th></tr></thead><tbody>
+{% for h in hotels_from_entrance(hotels, ent) %}<tr><td><a href="{{ book_url(h, (by_people.get('1') or {}).get(h.hotelNo)) }}" rel="nofollow sponsored noopener" target="_blank">{{ h.name }}</a></td><td class="num">徒歩約{{ walk_min(h.entrance_m) }}分</td><td class="num">徒歩約{{ walk_min(h.distance_m) }}分</td></tr>
+{% endfor %}</tbody></table></div>
+{% endif %}
 
 {% if page.concurrent %}
 <h2 id="same-day">同じ時期に開かれるイベント</h2>
@@ -180,7 +209,16 @@
   {% if lunch %}
   <div role="tabpanel" id="food-lunch">
     <p class="hint">{{ venue.name }}から歩いて行ける、ランチ営業のあるお店です。地図の番号は表の番号と同じです。</p>
+    {% set quick, meet = lunch_split(lunch) %}
+    {% if quick and meet %}
+    <h3>一人で手早く済ませる</h3>
+    {{ restaurant_table(quick, 5, '会場から', 1, '予算') }}
+    <h3>打ち合わせや会食に</h3>
+    {{ restaurant_table(meet, 5, '会場から', quick|length + 1, '予算') }}
+    {% set lunch = quick[:5] + meet[:5] %}
+    {% else %}
     {{ restaurant_table(lunch, 8, '会場から', 1, '夜の予算') }}
+    {% endif %}
     {{ food_map(venue, lunch[:8]) }}
     <p class="note">予算はホットペッパーに載っている夜の平均です。ランチはこれより安いことがほとんどです。</p>
   </div>
@@ -199,6 +237,15 @@
   </div>
   {% endif %}
 </div>
+{% endif %}
+
+{% set far = far_links(e, venue) if not ended else [] %}
+{% if far %}
+<h2 id="far">新幹線や飛行機で帰る人の泊まり方</h2>
+<p>会場の近くに泊まると朝は楽ですが、最終日にそのまま帰るなら、帰りの駅や空港に近い宿の方が動きやすいことがあります。{{ jdate(e.start, False) }}の夜で、ターミナル駅の周りの空室を楽天トラベルで探すリンクです。</p>
+<div class="table-wrap"><table class="t-far"><thead><tr><th>泊まる場所</th><th>向いている人</th><th></th></tr></thead><tbody>
+{% for a in far %}<tr><th scope="row">{{ a.name }}</th><td>{{ a.why }}</td><td><a class="btn btn-sign btn-small" href="{{ a.url }}" rel="nofollow sponsored noopener" target="_blank">空室を見る</a></td></tr>
+{% endfor %}</tbody></table></div>
 {% endif %}
 
 {% set buses = bus_rows(e, venue) %}

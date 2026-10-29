@@ -706,9 +706,12 @@ def far_links(e, venue):
     """新幹線や飛行機で帰る人向けに、ターミナル駅の周りの宿を楽天で日付入りで探すリンク。"""
     out = []
     d = date.fromisoformat(e["start"])
+    d2 = d + timedelta(days=1)
     for a in venue.get("far_areas", []):
-        url = (f"https://search.travel.rakuten.co.jp/ds/vacant/searchVacant/?f_teikei=&f_dai=japan&f_keyword={quote(a['keyword'])}"
-               f"&f_hi1={d.isoformat()}&f_hi2={(d + timedelta(days=1)).isoformat()}&f_otona_su=1&f_heya_su=1")
+        url = ("https://search.travel.rakuten.co.jp/ds/vacant/searchVacant/?f_teikei=&f_dai=japan"
+               f"&f_chu={a['chu']}&f_shou={a['shou']}&f_sai={a.get('sai', '')}"
+               f"&f_nen1={d.year}&f_tuki1={d.month}&f_hi1={d.day}&f_nen2={d2.year}&f_tuki2={d2.month}&f_hi2={d2.day}"
+               "&f_otona_su=1&f_heya_su=1&f_hyoji=30&f_image=1&f_sort=hotel&f_layout=list&f_ptn=jd&f_cd=02")
         out.append({"name": a["name"], "why": a.get("why", ""), "url": moshimo(url)})
     return out
 

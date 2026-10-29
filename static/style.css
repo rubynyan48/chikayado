@@ -490,3 +490,6 @@ td .no { display: inline-grid; place-items: center; width: 22px; height: 22px; m
 .members-list { margin: 0 0 6px; display: flex; flex-wrap: wrap; gap: 6px 10px; }
 .members-list a { font-size: 14px; }
 .members .note { margin: 0; }
+
+.t-nights .sub, .t-ent .sub { display: block; font-size: 12px; color: var(--muted); }
+.t-nights .down { color: #b3261e; font-weight: 700; }
