@@ -1035,43 +1035,26 @@ def top_search(cards, default_date):
 
 
 def group_events(venue, events):
-    """同じ会期の同時開催展（JAPAN BUILD TOKYOの構成展など）を1つのイベントにまとめる。
+    """同じ会期の同時開催展（JAPAN BUILD TOKYOの構成展など）に、お互いへのリンクを持たせる。
 
-    まとめた先は代表の展示会（main）で、ほかの構成展は members に入る。
-    構成展のURLは代表のページへ転送する。名前だけ違うページを何十枚も作らないため。
+    ページは展示会ごとに1枚ずつ残す。検索する人は自分の行く展示会の名前で探すので、
+    まとめページにするとタイトルから名前が消えて弱くなる。代わりに各ページから同時開催の
+    展示会へ行き来できるようにする。
     """
     rules = read_json(ROOT / "config" / "groups" / f"{venue['slug']}.json", []) or []
-    if not rules:
-        return events
-    out, taken = [], set()
     for rule in rules:
-        pat, main_pat = re.compile(rule["match"]), re.compile(rule["main"])
-        hits = [e for e in events if pat.search(e["name"]) and id(e) not in taken]
-        by_term = {}
+        pat = re.compile(rule["match"])
+        hits = [e for e in events if pat.search(e["name"])]
+        by_start = {}
         for e in hits:
-            by_term.setdefault(e["start"], []).append(e)
-        for start, members in by_term.items():
+            by_start.setdefault(e["start"], []).append(e)
+        for start, members in by_start.items():
             if len(members) < 2:
                 continue
-            main = next((e for e in members if main_pat.search(e["name"])), None)
-            if not main:
-                continue
-            others = [e for e in members if e is not main]
-            main["members"] = others
-            main["group_label"] = rule["label"]
-            main["group_slug"] = rule["slug"]
-            main["group_lead"] = rule.get("lead", [])
-            main["end"] = max(e["end"] for e in members)
-            # 代表に書かれていない情報は構成展から補う
-            for k in ("hours", "fee", "audience", "organizer", "url"):
-                if not main.get(k):
-                    main[k] = next((e[k] for e in others if e.get(k)), "")
-            halls = {h for e in members for h in re.split(r"[、,]", e.get("hall") or "") if h}
-            main["hall"] = main.get("hall") or "・".join(sorted(halls))
-            for e in others:
-                taken.add(id(e))
-                e["grouped_into"] = main["slug"]
-    return [e for e in events if id(e) not in taken]
+            for e in members:
+                e["group_label"] = rule["label"]
+                e["siblings"] = [{"name": m["name"], "slug": m["slug"], "hall": m.get("hall", "")} for m in members if m is not e]
+    return events
 
 
 def venue_context(venue):
@@ -1195,9 +1178,6 @@ def pages_for(venue, ctx):
          "breadcrumbs": [home, hub, {"name": "出展者の宿の選び方", "path": v + "exhibitor/"}], "float_cta": cta},
         ]
     for e in ctx["all_events"]:
-        for m in e.get("members", []):
-            REDIRECTS.append((f"{v}{m['slug']}/", f"{v}{e['slug']}/"))
-    for e in ctx["all_events"]:
         path = f"{v}{e['slug']}/"
         # 終わった回はページを作らず、まとめページ（なければ会場のイベント一覧）へ転送する
         if e["end"] < TODAY.isoformat():
@@ -1215,19 +1195,14 @@ def pages_for(venue, ctx):
         st = event_stats(ctx["hotels"], vac, base_vac, hist) if vac else None
         common = {"event": e, "vacancy": vac, "text": text, "concurrent": concurrent[:12], "days": days, "credit_events": True,
                   "history": hist, "base_vacancy": base_vac, "base_kind": kind,
-                  "hero": {"file": hero_name(f"{e['name']}の会場に近いホテル"), "title": e["name"] + (f" ほか同時開催{len(e['members'])}展" if e.get("members") else ""), "photo": next((s.get("hero_photo") for s in ctx["series"] if s["slug"] == e.get("series") and s.get("hero_photo")), None) or venue.get("hero_photos", {}).get("event"),
+                  "hero": {"file": hero_name(f"{e['name']}の会場に近いホテル"), "title": e["name"], "photo": next((s.get("hero_photo") for s in ctx["series"] if s["slug"] == e.get("series") and s.get("hero_photo")), None) or venue.get("hero_photos", {}).get("event"),
                            "sub": f"{period(e)}　{venue['name']}", "tiles": hero_tiles(st, ctx["hotels"], ctx["near_hotels"]),
                            "alt": f"{e['name']}の会場に近いホテルの空き具合"}}
         pages.append(dict(common, **{
             "path": path, "template": "event.html", "noindex": bool(e.get("noindex")), "has_map": True,
-            "title": (f"{group_title(e)}の会場に近いホテル {venue['name']}周辺で前泊にも使える宿" if e.get("members")
-                      else f"{e['name']}の会場に近いホテル {venue['name']}周辺で前泊にも使える宿" if is_trade(e) and e["start"] != e["end"]
+            "title": (f"{e['name']}の会場に近いホテル {venue['name']}周辺で前泊にも使える宿" if is_trade(e) and e["start"] != e["end"]
                       else f"{e['name']}の会場に近いホテル {venue['name']}周辺の宿"),
-            "description": (f"{e['name']}と同時開催の{'、'.join(m['name'] for m in e['members'][:6])}"
-                            f"{'など' if len(e['members']) > 6 else ''}（{period(e)} {venue['name']}）の会場に近いホテルを、"
-                            "前日の夜から会期中の夜まで空室と1人あたりの料金で選べます。"
-                            if e.get("members") else
-                            f"{e['name']}（{period(e)} {venue['name']}）の会場に近いホテルを、設営や前泊のある前日の夜から会期中の夜まで、"
+            "description": (f"{e['name']}（{period(e)} {venue['name']}）の会場に近いホテルを、設営や前泊のある前日の夜から会期中の夜まで、"
                             "空室と1人あたりの料金で選べます。出張で何泊かするときの宿の取り方もまとめています。"
                             if is_trade(e) and e["start"] != e["end"] else
                             f"{e['name']}（{period(e)} {venue['name']}）の会場に近いホテルを、開催日の空室と1人あたりの料金で選べます。"
