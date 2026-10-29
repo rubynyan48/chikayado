@@ -482,7 +482,9 @@ def stay_nights(e, venue):
         if d >= TODAY:
             out.append((d.isoformat(), md(d), "前日・設営" if trade else "前日"))
     days = (end - start).days
-    for i in range(max(days, 1)):
+    # 展示会は最終日の夜は泊まらない。ライブや大会は公演のあった夜に泊まるので最終日の夜まで
+    count = max(days, 1) if (venue.get("kind") == "exhibition" or trade) else days + 1
+    for i in range(count):
         d = start + timedelta(days=i)
         if d >= TODAY:
             out.append((d.isoformat(), md(d), ("初日" if i == 0 else f"{i + 1}日目") if days else "当日"))

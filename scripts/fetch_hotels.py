@@ -320,7 +320,9 @@ def main():
                 continue
             # 泊まる夜ごとに調べる。展示会と業界向けのイベントは、設営や前泊のある前日の夜も
             trade = event.get("_kind") == "exhibition" or any(k in (event.get("audience") or "") for k in ("商談", "関係者"))
-            nights = [start + timedelta(days=i) for i in range(max((end - start).days, 1))][:3]
+            days = (end - start).days
+            count = max(days, 1) if trade else days + 1  # ライブは公演のあった夜にも泊まる
+            nights = [start + timedelta(days=i) for i in range(count)][:3]
             if trade:
                 nights = [start - timedelta(days=1)] + nights
             dates.update(n for n in nights if n >= today)
