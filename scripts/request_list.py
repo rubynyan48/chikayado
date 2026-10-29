@@ -28,9 +28,14 @@ def main():
             kind[f"{base}{sr['slug']}/"] = ("まとめ", None)
         for e in read_json(DATA / "events" / f"{v['slug']}.json", {"events": []})["events"]:
             kind[f"{base}{e['slug']}/"] = ("イベント", e)
+    # 転送しているURL（終わった回、まとめた構成展）は申請しない
+    ht = ROOT / "dist" / ".htaccess"
+    redirected = {l.split('"')[1] for l in ht.read_text(encoding="utf-8").splitlines() if l.startswith("Redirect 301")} if ht.exists() else set()
     rows = []
     for x in status:
         url = unquote(x["url"])
+        if "/" + url.split("/", 3)[3] in redirected:
+            continue
         path = "/" + url.split("/", 3)[3] if url.count("/") >= 3 else "/"
         indexed = x.get("verdict") == "PASS"
         if indexed and url in shown:

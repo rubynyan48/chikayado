@@ -20,6 +20,13 @@
 {% if first %}
 <a class="btn btn-primary btn-block btn-big" href="{{ book_url(first, first.offer) }}" rel="nofollow sponsored noopener" target="_blank">{{ first.name }}の空室を見る</a>
 {% endif %}
+{% if e.members %}
+<div class="members">
+  <p class="members-head">{{ e.name }}と同じ会期・同じ会場で開かれる{{ e.members|length }}展</p>
+  <p class="members-list">{% for m in e.members %}<a href="#about-{{ loop.index }}">{{ m.name }}</a>{% endfor %}</p>
+  <p class="note">どの展示会に行く人も宿の条件は同じです。このページで空いている宿をまとめて確かめられます。</p>
+</div>
+{% endif %}
 <div class="event-strip">
   <div><span>開催日</span><strong>{{ period(e) }}</strong></div>
   <div><span>会場</span><strong>{{ e.hall or venue.name }}</strong></div>
@@ -109,6 +116,18 @@
   {% if e.url %}<tr><th>公式サイト</th><td><a href="{{ e.url if e.url.startswith('http') else 'https://' ~ e.url }}" rel="noopener" target="_blank">{{ e.url }}</a></td></tr>{% endif %}
 </tbody></table></div>
 {% if page.text %}<p>{{ page.text.intro }}</p>{% endif %}
+{% for m in e.members %}
+<h3 id="about-{{ loop.index }}">{{ m.name }}の開催概要</h3>
+<div class="table-wrap"><table class="event-facts"><tbody>
+  {% if m.hall and m.hall != e.hall %}<tr><th>会場</th><td>{{ venue.name }}　{{ m.hall }}</td></tr>{% endif %}
+  {% if m.hours and m.hours != e.hours %}<tr><th>開催時間</th><td>{{ m.hours }}</td></tr>{% endif %}
+  {% if m.audience and m.audience != e.audience %}<tr><th>来場できる人</th><td>{{ audience_label(m.audience) }}</td></tr>{% endif %}
+  {% if m.fee and m.fee != e.fee %}<tr><th>入場料</th><td>{{ m.fee }}</td></tr>{% endif %}
+  {% if m.content %}<tr><th>内容</th><td>{{ m.content }}</td></tr>{% endif %}
+  {% if m.organizer and m.organizer != e.organizer %}<tr><th>問い合わせ先</th><td>{{ m.organizer }}</td></tr>{% endif %}
+  {% if m.url %}<tr><th>公式サイト</th><td><a href="{{ m.url if m.url.startswith('http') else 'https://' ~ m.url }}" rel="noopener" target="_blank">{{ m.url }}</a></td></tr>{% endif %}
+</tbody></table></div>
+{% endfor %}
 {% set esr = (series | selectattr('slug', 'equalto', e.series) | first) if e.series else None %}
 {% if esr and esr.photos and not ended %}{{ photo(esr.photos[0].file, esr.photos[0].alt) }}<p class="note">写真はイメージです。</p>{% endif %}
 <p class="note">開催日や時間は主催者の発表をもとにしています。お出かけ前に公式サイトで確認してください。</p>
