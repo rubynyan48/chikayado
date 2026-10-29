@@ -3,18 +3,30 @@
   "slug": "nextech",
   "label": "NexTech Week",
   "main": "^NexTech Week",
-  "match": "NexTech Week|XR産業活用展|ヒューマノイドロボット EXPO|フィジカルAI EXPO|AI時代の人材・組織改革EXPO|AI・人工知能 EXPO|ブロックチェーン EXPO|量子コンピューティング EXPO"
+  "match": "NexTech Week|XR産業活用展|ヒューマノイドロボット EXPO|フィジカルAI EXPO|AI時代の人材・組織改革EXPO|AI・人工知能 EXPO|ブロックチェーン EXPO|量子コンピューティング EXPO",
+  "lead": [
+   "AI・人工知能 EXPO",
+   "NexTech Week"
+  ]
  },
  {
   "slug": "event-expo",
   "label": "イベント総合 EXPO",
   "main": "イベント総合 EXPO",
-  "match": "イベント総合 EXPO|ライブ・エンターテイメント EXPO|ファンエンゲージメント|スポーツチーム・アスリート向け総合展|熱中症・暑さ対策ワールド|アスリートパフォーマンスEXPO|スタジアム・アリーナEXPO|チーム運営支援EXPO"
+  "match": "イベント総合 EXPO|ライブ・エンターテイメント EXPO|ファンエンゲージメント|スポーツチーム・アスリート向け総合展|熱中症・暑さ対策ワールド|アスリートパフォーマンスEXPO|スタジアム・アリーナEXPO|チーム運営支援EXPO",
+  "lead": [
+   "イベント総合 EXPO",
+   "ライブ・エンターテイメント EXPO"
+  ]
  },
  {
   "slug": "bizcrew",
   "label": "DX総合EXPO",
   "main": "DX ?総合EXPO",
-  "match": "AI World|DX ?総合EXPO|ビジネスイノベーション Japan"
+  "match": "AI World|DX ?総合EXPO|ビジネスイノベーション Japan",
+  "lead": [
+   "DX ?総合EXPO",
+   "AI World"
+  ]
  }
 ]

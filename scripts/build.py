@@ -804,19 +804,27 @@ def short_name(n):
 
 
 def group_title(e):
-    """同時開催をまとめたページの名前。代表の展示会名と、構成展の名前を2つまで。"""
-    main = short_name(e["name"]) or e["name"]
-    short, seen = [], {main}
-    for m in e.get("members", []):
+    """同時開催をまとめたページの名前。検索される名前（lead）を先頭に、2〜3展まで並べる。"""
+    members = [e] + list(e.get("members", []))
+    names, seen = [], set()
+    for pat in e.get("group_lead", []):
+        for m in members:
+            if re.search(pat, m["name"]):
+                x = short_name(m["name"])
+                if x and x not in seen:
+                    seen.add(x)
+                    names.append(x)
+                break
+    for m in members:
         x = short_name(m["name"])
         if x and x not in seen:
             seen.add(x)
-            short.append(x)
-    shown = short[:2]
-    rest = len(short) - len(shown)
-    if not shown:
-        return main
-    return f"{main}と{'・'.join(shown)}{f'ほか{rest}展' if rest > 0 else ''}"
+            names.append(x)
+    shown = names[:3]
+    rest = len(names) - len(shown)
+    if len(shown) == 1:
+        return shown[0]
+    return "・".join(shown) + (f"ほか{rest}展" if rest > 0 else "")
 
 
 def hero_tiles(stats, hotels, near):
@@ -1050,6 +1058,7 @@ def group_events(venue, events):
             main["members"] = others
             main["group_label"] = rule["label"]
             main["group_slug"] = rule["slug"]
+            main["group_lead"] = rule.get("lead", [])
             main["end"] = max(e["end"] for e in members)
             # 代表に書かれていない情報は構成展から補う
             for k in ("hours", "fee", "audience", "organizer", "url"):

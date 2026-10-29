@@ -3,25 +3,43 @@
   "slug": "japan-build",
   "label": "JAPAN BUILD TOKYO",
   "main": "JAPAN BUILD TOKYO",
-  "match": "JAPAN BUILD TOKYO|スマートビルディング EXPO|建材・設備 EXPO|マンション経営・管理支援 EXPO|住宅DX展|建設現場イノベーション展|建物の脱炭素 EXPO|建設DX展|不動産テックEXPO|スマートホーム.?EXPO|建物リニューアルEXPO"
+  "match": "JAPAN BUILD TOKYO|スマートビルディング EXPO|建材・設備 EXPO|マンション経営・管理支援 EXPO|住宅DX展|建設現場イノベーション展|建物の脱炭素 EXPO|建設DX展|不動産テックEXPO|スマートホーム.?EXPO|建物リニューアルEXPO",
+  "lead": [
+   "建設DX展",
+   "建材・設備 EXPO",
+   "JAPAN BUILD"
+  ]
  },
  {
   "slug": "food-week",
   "label": "FOOD展",
   "main": "^FOOD展",
-  "match": "^FOOD-|^FOOD展|フードシステムソリューション|フードセーフティジャパン|フードディストリビューション|フードファクトリー|惣菜・デリカJAPAN"
+  "match": "^FOOD-|^FOOD展|フードシステムソリューション|フードセーフティジャパン|フードディストリビューション|フードファクトリー|惣菜・デリカJAPAN",
+  "lead": [
+   "FOOD展",
+   "フードファクトリー",
+   "FOOD-DX"
+  ]
  },
  {
   "slug": "jfex",
   "label": "JFEX",
   "main": "^JFEX",
-  "match": "JFEX|日本の食品 輸出EXPO"
+  "match": "JFEX|日本の食品 輸出EXPO",
+  "lead": [
+   "JFEX",
+   "ワイン・酒 EXPO"
+  ]
  },
  {
   "slug": "homeshow",
   "label": "ジャパンホームショー",
   "main": "Japan Home Show",
-  "match": "Japan Home Show|ジャパンホームショー|ホテル・オフィス・店舗・商業空間展|団地・マンションリノベーション展|上質住空間・インテリア展|ふるさと建材・家具見本市|建築ソフト・DX・業務サポート展|リフォーム・リノベーション展"
+  "match": "Japan Home Show|ジャパンホームショー|ホテル・オフィス・店舗・商業空間展|団地・マンションリノベーション展|上質住空間・インテリア展|ふるさと建材・家具見本市|建築ソフト・DX・業務サポート展|リフォーム・リノベーション展",
+  "lead": [
+   "ジャパンホームショー",
+   "リフォーム・リノベーション展"
+  ]
  },
  {
   "slug": "food-factory-week",
@@ -33,19 +51,30 @@
   "slug": "careweek",
   "label": "東京ケアウィーク",
   "main": "^東京ケアウィーク",
-  "match": "東京ケアウィーク|CareTEX東京|Careテクノロジー東京|ヘルスケアJAPAN東京|からだケアEXPO東京|障害福祉サービス展|ケアフード展"
+  "match": "東京ケアウィーク|CareTEX東京|Careテクノロジー東京|ヘルスケアJAPAN東京|からだケアEXPO東京|障害福祉サービス展|ケアフード展",
+  "lead": [
+   "CareTEX東京26【冬】",
+   "東京ケアウィーク"
+  ]
  },
  {
   "slug": "eight-expo",
   "label": "Eight EXPO",
   "main": "^Eight EXPO",
-  "match": "^Eight EXPO|【AI-PAX|【AI-SEL|【AI-SEM|【MSX|【PHAISE|【SDX"
+  "match": "^Eight EXPO|【AI-PAX|【AI-SEL|【AI-SEM|【MSX|【PHAISE|【SDX",
+  "lead": [
+   "AI-PAX",
+   "Eight EXPO"
+  ]
  },
  {
   "slug": "dxpo",
   "label": "DXPO東京",
   "main": "バックオフィスDXPO|IT・情シスDXPO",
-  "match": "DXPO東京"
+  "match": "DXPO東京",
+  "lead": [
+   "DXPO"
+  ]
  },
  {
   "slug": "bilmen",
@@ -75,18 +104,30 @@
   "slug": "nikkan-tech",
   "label": "高精度・難加工技術展ほか日刊工業新聞社の同時開催展",
   "main": "^高精度・難加工技術展",
-  "match": "^高精度・難加工技術展|^表面改質展|洗浄総合展|VACUUM.*真空展|sampe Japan|スマートファクトリーJapan"
+  "match": "^高精度・難加工技術展|^表面改質展|洗浄総合展|VACUUM.*真空展|sampe Japan|スマートファクトリーJapan",
+  "lead": [
+   "高精度・難加工技術展",
+   "スマートファクトリーJapan"
+  ]
  },
  {
   "slug": "nanotech",
   "label": "nano tech",
   "main": "^nano tech",
-  "match": "^nano tech|新機能性材料展|3DECOtech|CONVERTECH|グリーンマテリアル|SURTECH|MEMSセンシング|InterAqua|TCT Japan|WELL-BEING TECHNOLOGY"
+  "match": "^nano tech|新機能性材料展|3DECOtech|CONVERTECH|グリーンマテリアル|SURTECH|MEMSセンシング|InterAqua|TCT Japan|WELL-BEING TECHNOLOGY",
+  "lead": [
+   "nano tech",
+   "TCT Japan"
+  ]
  },
  {
   "slug": "enex",
   "label": "ENEX",
   "main": "^ENEX",
-  "match": "^ENEX|再生可能エネルギー世界展示会|Offshore Tech"
+  "match": "^ENEX|再生可能エネルギー世界展示会|Offshore Tech",
+  "lead": [
+   "ENEX",
+   "再生可能エネルギー"
+  ]
  }
 ]
