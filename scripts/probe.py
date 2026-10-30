@@ -34,6 +34,15 @@ for url in (ROOT / "scripts" / "probe_urls.txt").read_text().split():
         except Exception as e:
             print("ERR", name, url, type(e).__name__, e)
         continue
+    if url.startswith("bingbot:"):
+        # Bingのクローラーを名乗ったときにサーバーが弾かないかを確かめる
+        url = url[8:]
+        try:
+            r = requests.get(url, headers={"User-Agent": "Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)"}, timeout=30, allow_redirects=False)
+            print("BINGBOT", r.status_code, len(r.content), r.headers.get("Server"), r.headers.get("Location"), r.headers.get("X-Robots-Tag"), url)
+        except Exception as e:
+            print("ERR bingbot", url, type(e).__name__, e)
+        continue
     name = hashlib.md5(url.encode()).hexdigest()[:10]
     try:
         r = requests.get(url, headers={"User-Agent": UA, "Accept-Language": "ja"}, timeout=30)
