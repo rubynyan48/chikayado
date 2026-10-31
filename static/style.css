@@ -496,6 +496,14 @@ td .no { display: inline-grid; place-items: center; width: 22px; height: 22px; m
 .t-nights .down { color: #b3261e; font-weight: 700; }
 
 /* クリニックの近くの宿の比較表 */
-.t-stay td:first-child { min-width: 9em; }
+
 .t-stay td:nth-child(3) { white-space: nowrap; font-size: 13px; }
 .t-stay .chip { margin: 0 4px 4px 0; }
+.pin-venue { display: block; line-height: 22px; }
+.t-stay td:first-child { min-width: 7.5em; }
+.t-stay td:last-child { min-width: 9em; }
+.t-stay td:last-child .chip { display: inline-block; white-space: nowrap; }
+.t-clinic th { white-space: nowrap; width: 1%; }
+.t-stay { table-layout: fixed; }
+.t-stay th:nth-child(1) { width: 38%; } .t-stay th:nth-child(2) { width: 24%; } .t-stay th:nth-child(3) { width: 38%; }
+.t-stay td:first-child, .t-stay td:last-child { min-width: 0; }
