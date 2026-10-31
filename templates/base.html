@@ -32,7 +32,7 @@
 <script type="application/ld+json">{{ page.breadcrumb_ld | safe }}</script>
 {% endif %}
 </head>
-<body{% if page.genre %} data-genre="{{ page.genre.key }}" style="--sign:{{ page.genre.color }};--sign-soft:{{ page.genre.soft }}"{% endif %}>
+<body{% if page.place_word %} data-place="{{ page.place_word }}"{% endif %}{% if page.genre %} data-genre="{{ page.genre.key }}" style="--sign:{{ page.genre.color }};--sign-soft:{{ page.genre.soft }}"{% endif %}>
 <header class="site-header">
   <div class="header-inner">
     <a class="logo" href="/">
@@ -161,7 +161,7 @@
       fetch('/api/search.php?venue='+f.dataset.venue+'&date='+date+'&adults='+adults).then(function(r){return r.json();}).then(function(d){
         if(d.error){out.innerHTML='<p class="empty">'+esc(d.error)+'</p>';return;}
         if(!d.hotels.length){out.innerHTML='<p class="empty">この日に'+adults+'人で泊まれる宿は見つかりませんでした。日付か人数を変えてみてください。</p>';return;}
-        var h='<p class="hint">'+d.hotels.length+'軒が空いています。会場に近い順です。</p><div class="qcs">';
+        var h='<p class="hint">'+d.hotels.length+'軒が空いています。'+(document.body.dataset.place||'会場')+'に近い順です。</p><div class="qcs">';
         d.hotels.slice(0,10).forEach(function(x){
           h+='<a class="qc" href="'+esc(x.url)+'" rel="nofollow sponsored noopener" target="_blank"><span class="qc-row">'+(x.image?'<img src="'+esc(x.image)+'" alt="'+esc(x.name)+'の外観" loading="lazy">':'<span class="qc-noimg"></span>')+
           '<span class="qc-body"><span class="qc-name">'+esc(x.name)+'</span><span class="qc-meta">'+(x.walk<=20?'<span class="walk">徒歩'+esc(x.walk)+'分</span>':'<span class="walk far">電車で1〜2駅</span>')+(x.bath?'<span class="chip chip-on">大浴場</span>':'')+'</span>'+
@@ -178,7 +178,7 @@
     function card(x){return '<a class="qc" href="'+esc(x.url)+'" rel="nofollow sponsored noopener" target="_blank"><span class="qc-row">'+(x.image?'<img src="'+esc(x.image)+'" alt="'+esc(x.name)+'の外観" loading="lazy">':'<span class="qc-noimg"></span>')+
       '<span class="qc-body"><span class="qc-name">'+esc(x.name)+'</span><span class="qc-meta">'+(x.walk<=20?'<span class="walk">徒歩'+esc(x.walk)+'分</span>':'<span class="walk far">電車で1〜2駅</span>')+(x.bath?'<span class="chip chip-on">大浴場</span>':'')+'</span>'+
       '<span class="qc-rate">'+stars(x.rate)+'</span>'+(x.per_person?'<span class="qc-price">'+(x.adults>1?x.adults+'人1室で1人あたり':'1人1室で')+'<strong>'+Number(x.per_person).toLocaleString()+'円</strong>から</span>':'')+'</span></span><span class="qc-btn">空室と料金を見る</span></a>';}
-    var label={walk:'会場に近い順',price:'1人あたりの料金が安い順',rate:'レビューの評価が高い順'};
+    var label={walk:(document.body.dataset.place||'会場')+'に近い順',price:'1人あたりの料金が安い順',rate:'レビューの評価が高い順'};
     function show(list,date,adults,sort,all){
       list=list.map(function(x){return Object.assign({},x,{adults:+adults});});
       if(sort==='walk')list.sort(function(a,b){return a.walk-b.walk;});
@@ -236,7 +236,7 @@ document.querySelectorAll('.map').forEach(function(el){
     return;
   }
   pts.push([d.venue.lat,d.venue.lng]);
-  L.marker([d.venue.lat,d.venue.lng],{icon:L.divIcon({className:'pin-venue',html:'会場',iconSize:[44,26]})}).addTo(m);
+  L.marker([d.venue.lat,d.venue.lng],{icon:L.divIcon({className:'pin-venue',html:(document.body.dataset.place?'院':'会場'),iconSize:[44,26]})}).addTo(m);
   if(d.spots){
     (d.stays||[]).forEach(function(p){pts.push([p.lat,p.lng]);
       L.marker([p.lat,p.lng],{icon:L.divIcon({className:'pin-venue pin-stay',html:'宿',iconSize:[30,26]})}).addTo(m).bindTooltip(p.name);});
@@ -251,7 +251,7 @@ document.querySelectorAll('.map').forEach(function(el){
   d.pins.forEach(function(p){
     pts.push([p.lat,p.lng]);
     var a=document.createElement('div');a.innerHTML='<strong></strong><br><span></span><br><a target="_blank" rel="nofollow sponsored noopener">空室と料金を見る</a>';
-    a.querySelector('strong').textContent=p.name;a.querySelector('span').textContent='会場まで'+p.d+(p.p?'　'+p.p+'から':'');a.querySelector('a').href=p.url;
+    a.querySelector('strong').textContent=p.name;a.querySelector('span').textContent=(document.body.dataset.place||'会場')+'まで'+p.d+(p.p?'　'+p.p+'から':'');a.querySelector('a').href=p.url;
     L.marker([p.lat,p.lng],{icon:L.divIcon({className:'pin',html:String(p.n),iconSize:[28,28]})}).addTo(m).bindPopup(a);
   });
   m.fitBounds(pts,{padding:[24,24]});

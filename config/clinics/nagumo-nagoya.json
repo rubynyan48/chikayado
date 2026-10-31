@@ -1,0 +1,31 @@
+{
+  "slug": "nagumo-nagoya",
+  "name": "ナグモクリニック 名古屋院",
+  "group": "ナグモクリニック",
+  "city": "名古屋",
+  "address": "愛知県名古屋市中区丸の内1-16-4 BPRプレイス名古屋丸の内1F",
+  "lat": 35.173851,
+  "lng": 136.895126,
+  "search_radius_km": 1.5,
+  "max_hotels": 30,
+  "menu": "豊胸",
+  "official_url": "https://www.nagumo.or.jp/",
+  "stations": [
+    {
+      "name": "丸の内駅",
+      "line": "名古屋市営地下鉄鶴舞線・桜通線",
+      "walk_min": 3,
+      "lat": 35.173458,
+      "lng": 136.896944
+    },
+    {
+      "name": "伏見駅",
+      "line": "名古屋市営地下鉄鶴舞線・東山線",
+      "walk_min": 9,
+      "lat": 35.169273,
+      "lng": 136.897427
+    }
+  ],
+  "order": 7,
+  "place_word": "クリニック"
+}

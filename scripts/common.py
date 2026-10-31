@@ -20,6 +20,13 @@ def venues():
     return sorted(found, key=lambda v: (v.get("order", 99), v["slug"]))
 
 
+def clinics():
+    """宿のページを作るクリニック（config/clinics/*.json）。"""
+    folder = CONFIG / "clinics"
+    found = [json.loads(p.read_text(encoding="utf-8")) for p in folder.glob("*.json")] if folder.exists() else []
+    return sorted(found, key=lambda v: (v.get("order", 99), v["slug"]))
+
+
 def read_json(path, default=None):
     path = Path(path)
     if not path.exists():

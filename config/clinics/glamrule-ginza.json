@@ -1,0 +1,31 @@
+{
+  "slug": "glamrule-ginza",
+  "name": "グラムルールクリニック銀座",
+  "group": "グラムルールクリニック",
+  "city": "東京",
+  "address": "東京都中央区銀座5-12-6 CURA GINZA 10F",
+  "lat": 35.669331,
+  "lng": 139.766418,
+  "search_radius_km": 1.5,
+  "max_hotels": 30,
+  "menu": "豊胸",
+  "official_url": "https://clinic.beauty.hotpepper.jp/H000719221/",
+  "stations": [
+    {
+      "name": "東銀座駅",
+      "line": "東京メトロ日比谷線・都営浅草線",
+      "walk_min": 1,
+      "lat": 35.669464,
+      "lng": 139.767253
+    },
+    {
+      "name": "銀座駅",
+      "line": "東京メトロ銀座線・丸ノ内線・日比谷線",
+      "walk_min": 6,
+      "lat": 35.671989,
+      "lng": 139.763965
+    }
+  ],
+  "order": 10,
+  "place_word": "クリニック"
+}

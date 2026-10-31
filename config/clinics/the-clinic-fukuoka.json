@@ -1,0 +1,31 @@
+{
+  "slug": "the-clinic-fukuoka",
+  "name": "THE CLINIC 福岡院",
+  "group": "THE CLINIC",
+  "city": "福岡",
+  "address": "福岡県福岡市中央区大名2-1-18 BROOM Fukuoka 4F",
+  "lat": 33.5882,
+  "lng": 130.394592,
+  "search_radius_km": 1.5,
+  "max_hotels": 30,
+  "menu": "豊胸",
+  "official_url": "https://www.theclinic.jp/clinic/",
+  "stations": [
+    {
+      "name": "赤坂駅",
+      "line": "福岡市地下鉄空港線",
+      "walk_min": 6,
+      "lat": 33.589124,
+      "lng": 130.391005
+    },
+    {
+      "name": "天神駅",
+      "line": "福岡市地下鉄空港線",
+      "walk_min": 9,
+      "lat": 33.591346,
+      "lng": 130.39906
+    }
+  ],
+  "order": 5,
+  "place_word": "クリニック"
+}

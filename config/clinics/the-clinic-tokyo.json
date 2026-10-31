@@ -1,0 +1,31 @@
+{
+  "slug": "the-clinic-tokyo",
+  "name": "THE CLINIC 東京院",
+  "group": "THE CLINIC",
+  "city": "東京",
+  "address": "東京都港区西麻布3-16-23",
+  "lat": 35.658123,
+  "lng": 139.72522,
+  "search_radius_km": 1.5,
+  "max_hotels": 30,
+  "menu": "豊胸",
+  "official_url": "https://www.theclinic.jp/clinic/",
+  "stations": [
+    {
+      "name": "広尾駅",
+      "line": "東京メトロ日比谷線",
+      "walk_min": 10,
+      "lat": 35.652279,
+      "lng": 139.722202
+    },
+    {
+      "name": "六本木駅",
+      "line": "東京メトロ日比谷線・都営大江戸線",
+      "walk_min": 15,
+      "lat": 35.662836,
+      "lng": 139.731443
+    }
+  ],
+  "order": 1,
+  "place_word": "クリニック"
+}

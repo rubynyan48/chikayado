@@ -1,0 +1,24 @@
+{
+  "slug": "the-clinic-yokohama",
+  "name": "THE CLINIC 横浜院",
+  "group": "THE CLINIC",
+  "city": "横浜",
+  "address": "神奈川県横浜市西区北幸1-1-8 エキニア横浜8F",
+  "lat": 35.467426,
+  "lng": 139.621674,
+  "search_radius_km": 1.5,
+  "max_hotels": 30,
+  "menu": "豊胸",
+  "official_url": "https://www.theclinic.jp/clinic/",
+  "stations": [
+    {
+      "name": "横浜駅",
+      "line": "JR・東急東横線・みなとみらい線・相鉄線",
+      "walk_min": 5,
+      "lat": 35.466195,
+      "lng": 139.622704
+    }
+  ],
+  "order": 2,
+  "place_word": "クリニック"
+}

@@ -1,0 +1,38 @@
+{
+  "slug": "nagumo-osaka",
+  "name": "ナグモクリニック 大阪院",
+  "group": "ナグモクリニック",
+  "city": "大阪",
+  "address": "大阪府大阪市北区梅田2-6-20 パシフィックマークス西梅田14F",
+  "lat": 34.697544,
+  "lng": 135.490341,
+  "search_radius_km": 1.5,
+  "max_hotels": 30,
+  "menu": "豊胸",
+  "official_url": "https://www.nagumo.or.jp/",
+  "stations": [
+    {
+      "name": "西梅田駅",
+      "line": "大阪メトロ四つ橋線",
+      "walk_min": 8,
+      "lat": 34.6986,
+      "lng": 135.4952
+    },
+    {
+      "name": "北新地駅",
+      "line": "JR東西線",
+      "walk_min": 10,
+      "lat": 34.6995,
+      "lng": 135.4964
+    },
+    {
+      "name": "大阪駅",
+      "line": "JR",
+      "walk_min": 12,
+      "lat": 34.702398,
+      "lng": 135.495951
+    }
+  ],
+  "order": 8,
+  "place_word": "クリニック"
+}

@@ -8,7 +8,7 @@ import sys
 import unicodedata
 from datetime import date, timedelta
 
-from common import DATA, REFERER, SITE, distance_m, env, polite_get, read_json, venues, write_json
+from common import DATA, REFERER, SITE, clinics, distance_m, env, polite_get, read_json, venues, write_json
 
 HOTEL_URL = "https://openapi.rakuten.co.jp/engine/api/Travel/SimpleHotelSearch/20260731"
 VACANT_URL = "https://openapi.rakuten.co.jp/engine/api/Travel/VacantHotelSearch/20170426"
@@ -340,6 +340,29 @@ def main():
             except Exception as exc:
                 failed = True
                 print(f"  {d}: 空室の取得に失敗 {exc}", file=sys.stderr)
+    # クリニックの近くの宿は、次の土曜と次の水曜の夜だけ空室を調べる（日程が人それぞれなので）
+    sat = next_saturday(today)
+    wed = today + timedelta(days=(2 - today.weekday()) % 7 or 7)
+    for clinic in clinics():
+        try:
+            fetch_hotels(clinic)
+        except Exception as exc:
+            failed = True
+            print(f"{clinic['name']}: 宿の取得に失敗 {exc}", file=sys.stderr)
+            continue
+        folder = DATA / "vacancy" / clinic["slug"]
+        if folder.exists():
+            for f in folder.glob("*.json"):
+                if f.stem < today.isoformat():
+                    f.unlink()
+        for d in sorted({sat, wed}):
+            if fresh_enough(clinic, d, today):
+                continue
+            try:
+                fetch_date(clinic, d)
+            except Exception as exc:
+                failed = True
+                print(f"  {clinic['name']} {d}: 空室の取得に失敗 {exc}", file=sys.stderr)
     return 1 if failed else 0
 
 

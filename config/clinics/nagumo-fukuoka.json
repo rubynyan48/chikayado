@@ -1,0 +1,31 @@
+{
+  "slug": "nagumo-fukuoka",
+  "name": "ナグモクリニック 福岡院",
+  "group": "ナグモクリニック",
+  "city": "福岡",
+  "address": "福岡県福岡市中央区大名2-8-1 肥後天神宝ビル7F",
+  "lat": 33.590702,
+  "lng": 130.395599,
+  "search_radius_km": 1.5,
+  "max_hotels": 30,
+  "menu": "豊胸",
+  "official_url": "https://www.nagumo.or.jp/",
+  "stations": [
+    {
+      "name": "天神駅",
+      "line": "福岡市地下鉄空港線",
+      "walk_min": 6,
+      "lat": 33.591346,
+      "lng": 130.39906
+    },
+    {
+      "name": "赤坂駅",
+      "line": "福岡市地下鉄空港線",
+      "walk_min": 8,
+      "lat": 33.589124,
+      "lng": 130.391005
+    }
+  ],
+  "order": 9,
+  "place_word": "クリニック"
+}

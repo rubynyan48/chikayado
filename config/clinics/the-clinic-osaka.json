@@ -1,0 +1,38 @@
+{
+  "slug": "the-clinic-osaka",
+  "name": "THE CLINIC 大阪院",
+  "group": "THE CLINIC",
+  "city": "大阪",
+  "address": "大阪府大阪市北区曽根崎2-12-4 コフレ梅田6F",
+  "lat": 34.700905,
+  "lng": 135.499771,
+  "search_radius_km": 1.5,
+  "max_hotels": 30,
+  "menu": "豊胸",
+  "official_url": "https://www.theclinic.jp/clinic/",
+  "stations": [
+    {
+      "name": "東梅田駅",
+      "line": "大阪メトロ谷町線",
+      "walk_min": 1,
+      "lat": 34.701031,
+      "lng": 135.49969
+    },
+    {
+      "name": "梅田駅",
+      "line": "大阪メトロ御堂筋線",
+      "walk_min": 6,
+      "lat": 34.703765,
+      "lng": 135.497496
+    },
+    {
+      "name": "大阪駅",
+      "line": "JR",
+      "walk_min": 7,
+      "lat": 34.702398,
+      "lng": 135.495951
+    }
+  ],
+  "order": 4,
+  "place_word": "クリニック"
+}

@@ -1,0 +1,31 @@
+{
+  "slug": "nagumo-tokyo",
+  "name": "ナグモクリニック 東京院",
+  "group": "ナグモクリニック",
+  "city": "東京",
+  "address": "東京都千代田区三番町3-10 乳房再建センタービル",
+  "lat": 35.689297,
+  "lng": 139.744202,
+  "search_radius_km": 1.5,
+  "max_hotels": 30,
+  "menu": "豊胸",
+  "official_url": "https://www.nagumo.or.jp/",
+  "stations": [
+    {
+      "name": "半蔵門駅",
+      "line": "東京メトロ半蔵門線",
+      "walk_min": 8,
+      "lat": 35.685703,
+      "lng": 139.74163
+    },
+    {
+      "name": "市ケ谷駅",
+      "line": "東京メトロ南北線・有楽町線・JR中央線",
+      "walk_min": 12,
+      "lat": 35.691295,
+      "lng": 139.736642
+    }
+  ],
+  "order": 6,
+  "place_word": "クリニック"
+}

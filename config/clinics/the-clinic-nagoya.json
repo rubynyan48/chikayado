@@ -1,0 +1,31 @@
+{
+  "slug": "the-clinic-nagoya",
+  "name": "THE CLINIC 名古屋院",
+  "group": "THE CLINIC",
+  "city": "名古屋",
+  "address": "愛知県名古屋市中区丸の内3-22-24 名古屋桜通ビル1F",
+  "lat": 35.173672,
+  "lng": 136.903275,
+  "search_radius_km": 1.5,
+  "max_hotels": 30,
+  "menu": "豊胸",
+  "official_url": "https://www.theclinic.jp/clinic/",
+  "stations": [
+    {
+      "name": "久屋大通駅",
+      "line": "名古屋市営地下鉄名城線・桜通線",
+      "walk_min": 3,
+      "lat": 35.173784,
+      "lng": 136.908156
+    },
+    {
+      "name": "丸の内駅",
+      "line": "名古屋市営地下鉄桜通線・鶴舞線",
+      "walk_min": 4,
+      "lat": 35.173098,
+      "lng": 136.898113
+    }
+  ],
+  "order": 3,
+  "place_word": "クリニック"
+}
