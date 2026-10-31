@@ -48,6 +48,17 @@ def main():
     for o in out:
         print(o["time"], o["device"], o["source"], o["domain"], o["page"])
     write_json(DATA / "seo" / "ga4_clicks.json", out)
+    # どこから来た人が、どのページに着いたか（AIの回答から来た人を見分けるため）
+    rows = run(s, prop, {
+        "dateRanges": [{"startDate": "14daysAgo", "endDate": "today"}],
+        "dimensions": [{"name": "sessionSource"}, {"name": "landingPage"}],
+        "metrics": [{"name": "sessions"}, {"name": "engagedSessions"}, {"name": "averageSessionDuration"}],
+        "orderBys": [{"metric": {"metricName": "sessions"}, "desc": True}], "limit": 300}) or []
+    print("--- 来た場所と着いたページ（直近14日） ---")
+    for r in rows:
+        d = [x["value"] for x in r["dimensionValues"]]
+        m = [x["value"] for x in r["metricValues"]]
+        print(d[0], unquote(d[1])[:70], "訪問", m[0], "しっかり見た", m[1], "平均", round(float(m[2])), "秒")
     print(f"外部リンクのクリック {len(out)}行")
 
 
