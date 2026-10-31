@@ -39,6 +39,7 @@
 <div class="tabs">
   <div class="tablist tablist-big tablist-wrap" role="tablist" aria-label="ジャンル">
     {% for name, evs in hd.genres %}<button type="button" role="tab" aria-selected="{{ 'true' if loop.first else 'false' }}" data-tab="genre{{ loop.index }}">{{ name }}</button>{% endfor %}
+    {% if clinic_list %}<button type="button" role="tab" aria-selected="false" data-tab="genre-clinic">美容医療</button>{% endif %}
   </div>
   {% for name, evs in hd.genres %}
   <div role="tabpanel" id="genre{{ loop.index }}"{% if not loop.first %} hidden{% endif %}>
@@ -46,6 +47,17 @@
     {{ multi_event_table(evs, 10) }}
   </div>
   {% endfor %}
+  {% if clinic_list %}
+  <div role="tabpanel" id="genre-clinic" hidden>
+    <p class="hint">美容外科の手術で遠方から行く人向けに、クリニックの近くの宿をまとめています。</p>
+    {% set tokyo = clinic_list | selectattr('city', 'equalto', '東京') | list %}
+    {% set others = clinic_list | rejectattr('city', 'equalto', '東京') | list %}
+    <div class="clinic-links">
+    {% for c in (tokyo + others)[:10] %}<a href="/clinic/{{ c.slug }}/"><strong>{{ c.name }}</strong><span>{{ c.stations[0].name }}から徒歩{{ c.stations[0].walk_min }}分</span></a>{% endfor %}
+    </div>
+    <p><a class="btn btn-sign btn-block" href="/clinic/">美容医療クリニック近くのホテルをすべて見る</a></p>
+  </div>
+  {% endif %}
 </div>
 
 {% if hd.series_public or hd.series_trade %}
@@ -61,15 +73,6 @@
 {% for sr in hd.series_trade %}<a class="btn btn-sign" href="/{{ sr.venue_slug }}/{{ sr.slug }}/">{{ sr.short }}の宿</a>{% endfor %}
 </div>{% endif %}
 {% endif %}
-
-<h2 id="clinic">美容医療クリニック近くのホテル</h2>
-<p>美容外科のクリニックは提携のホテルを用意していないことが多く、遠方から手術を受けに行く人は自分で宿を探すことになります。院ごとに、歩いて行ける宿と部屋で過ごしやすい設備を比べられます。</p>
-{% for city in clinic_list | map(attribute='city') | unique %}
-<h3>{{ city }}</h3>
-<div class="clinic-links">
-{% for c in clinic_list if c.city == city %}<a href="/clinic/{{ c.slug }}/"><strong>{{ c.name }}</strong><span>{{ c.stations[0].name }}から徒歩{{ c.stations[0].walk_min }}分</span></a>{% endfor %}
-</div>
-{% endfor %}
 
 <h2 id="people">人数で探す</h2>
 <p>1部屋に泊まる人数を選ぶと、その人数で泊まれる宿を近さ、レビュー、安さで比べられます。</p>

@@ -873,6 +873,9 @@ def km(venue):
 
 
 # ---- クリニックの近くの宿 ---------------------------------------------------
+# 美容医療を連想させる茶色系（イベントのページとは色を分ける）
+CLINIC_COLORS = {"key": "clinic", "color": "#7A5440", "soft": "#F6EFE9", "mark": "#E3B873", "mark_deep": "#A97B35"}
+
 def stay_points(h):
     """術後に部屋で過ごす時間が長い人が見ておきたい点を、楽天の施設情報から拾う。医療の説明はしない。"""
     texts = " ".join((h.get("facilities") or []) + (h.get("room_facilities") or []) + [h.get("special") or ""])
@@ -912,16 +915,24 @@ def clinic_pages(clinic, ctx, all_clinics):
     return [{
         "path": path, "template": "clinic.html", "has_map": True, "place_word": "クリニック",
         # 美容医療を連想させる茶色系（イベントのページとは色を分ける）
-        "genre": {"key": "clinic", "color": "#7A5440", "soft": "#F6EFE9", "mark": "#E3B873", "mark_deep": "#A97B35"},
+        "genre": CLINIC_COLORS,
         "clinic": clinic,
         "title": f"{clinic['name']}に近いホテル 手術の前後に泊まれる宿{len(ctx['hotels'])}軒",
         "description": (f"{clinic['name']}（{clinic['address'].split(' ')[0]}）から近い順に、泊まれるホテルを{len(ctx['hotels'])}軒まとめました。"
                         + (f"いちばん近いのは{near['name']}で歩いて約{walk_min(near['distance_m'])}分です。" if near else "")
                         + "チェックアウトの時刻やルームサービスなど、部屋で過ごしやすい設備も比べられます。"),
-        "breadcrumbs": [{"name": "トップ", "path": "/"}, {"name": clinic["name"], "path": path}],
+        "breadcrumbs": [{"name": "トップ", "path": "/"}, {"name": "美容医療クリニック近くのホテル", "path": "/clinic/"}, {"name": clinic["name"], "path": path}],
         "shot": shot,
         "float_cta": {"href": "#hotels", "label": "空いている近い宿を見る"},
     }]
+
+
+def clinic_hub(all_clinics, ctxs):
+    return {"path": "/clinic/", "template": "clinics.html", "place_word": "クリニック", "clinics": all_clinics, "clinic_ctx": ctxs,
+            "genre": CLINIC_COLORS,
+            "title": f"美容医療クリニック近くのホテル 遠方から手術を受ける人の宿{len(all_clinics)}院分",
+            "description": "美容外科の手術を受けるために遠方からクリニックへ行く人に向けて、院ごとに歩いて行けるホテルを近い順にまとめました。部屋で過ごしやすい設備や、診療時間と駅からのアクセスも確かめられます。",
+            "breadcrumbs": [{"name": "トップ", "path": "/"}, {"name": "美容医療クリニック近くのホテル", "path": "/clinic/"}]}
 
 
 def station_table(venue):
@@ -1387,6 +1398,9 @@ def main():
         ctx["near_hotels"] = [h for h in ctx["hotels"] if h["distance_m"] <= 1000]
         clinic_ctxs[clinic["slug"]] = ctx
         jobs += [(p, ctx) for p in clinic_pages(clinic, ctx, all_clinics)]
+    if all_clinics:
+        jobs.append((clinic_hub(all_clinics, {k: {"hotels": len(c["hotels"]), "nearest": c["hotels"][0] if c["hotels"] else None}
+                                              for k, c in clinic_ctxs.items()}), main_ctx))
 
     if DIST.exists():
         shutil.rmtree(DIST)
@@ -1416,7 +1430,7 @@ def main():
             hr["src"] = f"/{HERO_DIR}/{hr['file']}"
         side = {"venue": ctx["venue"], "events": (ctx["public_events"] + ctx["trade_events"])[:6], "people": PEOPLE_PAGES,
                 "series": ctx["series"], "venues": venue_list}
-        if page.get("clinic"):
+        if page.get("clinic") or page.get("clinics"):
             side = dict(side, venue=None, events=[], people=[], series=[], home=True)
         if page.get("is_home"):
             side = dict(side, events=helpers["home"]["soon"][:6], people=[], home=True)
