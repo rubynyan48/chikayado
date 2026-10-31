@@ -1,0 +1,39 @@
+name: AIのクローラーの来訪の確認
+
+on:
+  workflow_dispatch:
+
+jobs:
+  log:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      HOST: ${{ secrets.XSERVER_HOST }}
+      USER_ID: ${{ secrets.XSERVER_USER }}
+      PORT: ${{ secrets.XSERVER_PORT }}
+      DEST: ${{ secrets.XSERVER_PATH }}
+      KEY: ${{ secrets.XSERVER_SSH_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          mkdir -p ~/.ssh && printf '%s\n' "$KEY" | tr -d '\r' > ~/.ssh/x && chmod 600 ~/.ssh/x
+          LOG="${DEST%/public_html*}/log"
+          ssh -p ${PORT:-10022} -i ~/.ssh/x -o StrictHostKeyChecking=accept-new -o BatchMode=yes "$USER_ID@$HOST" "
+            cd '$LOG' 2>/dev/null || { echo 'ログのフォルダがありません'; exit 0; }
+            echo '--- ファイル'; ls | head -20
+            echo '--- ボットごとの回数（ログ全体）'
+            (cat *access_log* 2>/dev/null; zcat *access_log*.gz 2>/dev/null) > /tmp/chika_all.log
+            for b in OAI-SearchBot ChatGPT-User GPTBot PerplexityBot Perplexity-User ClaudeBot Claude-User Claude-SearchBot Google-Extended Googlebot bingbot Applebot YandexBot; do
+              echo \"\$b \$(grep -c \"\$b\" /tmp/chika_all.log)\"
+            done
+            echo '--- ChatGPTが取りに来たページ（最新30件）'
+            grep -E 'OAI-SearchBot|ChatGPT-User' /tmp/chika_all.log | awk '{print \$4, \$7, \$9}' | tail -30
+            echo '--- 最初にChatGPTが来た日'
+            grep -E 'OAI-SearchBot|ChatGPT-User' /tmp/chika_all.log | head -3 | awk '{print \$4, \$7, \$9}'
+            echo '--- bingbotの最新'
+            grep bingbot /tmp/chika_all.log | tail -5 | awk '{print \$4, \$7, \$9}'
+            rm -f /tmp/chika_all.log
+          " > out.txt 2>&1 || true
+          rm -f ~/.ssh/x
+          body=$(python scripts/redact.py < out.txt | head -c 7000 | sed ':a;N;$!ba;s/%/%25/g;s/\r//g;s/\n/%0A/g')
+          echo "::notice title=bots::$body"
