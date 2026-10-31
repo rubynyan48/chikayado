@@ -315,7 +315,7 @@ def compare_table(items, price_label="料金の目安"):
     for h in items:
         r = h.get("ratings", {})
         price = price_of(h)
-        thumb = f'<img src="{escape(h["image"])}" alt="" loading="lazy">' if h.get("image") else ""
+        thumb = f'<img src="{escape(h["image"])}" alt="{escape(h["name"])}の外観" loading="lazy">' if h.get("image") else ""
         rate = stars(h.get("review_avg"))
         names = {"location": "立地", "room": "部屋", "meal": "食事"}
         subs = "".join(f'<td class="num" data-label="{names[k]}の評価">{float(r[k]):.1f}</td>' if r.get(k)
@@ -427,7 +427,7 @@ def quick_cards(items, limit=5, labels=None):
     for i, h in enumerate(items[:limit]):
         price = price_of(h)
         label = f'<span class="qc-label">{escape(labels[i])}</span>' if labels else ""
-        img = f'<img src="{escape(h["image"])}" alt="" loading="lazy">' if h.get("image") else '<span class="qc-noimg"></span>'
+        img = f'<img src="{escape(h["image"])}" alt="{escape(h["name"])}の外観" loading="lazy">' if h.get("image") else '<span class="qc-noimg"></span>'
         bath = '<span class="chip chip-on">大浴場</span>' if h.get("daiyoku") or h.get("onsen") else ""
         price_html = (f'<span class="qc-price">{price_cond(h["offer"]) if h.get("offer") else "最安"}<strong>{yen(price)}</strong>から</span>'
                       if price else "")
@@ -660,7 +660,11 @@ def fill_pace(venue):
             rates.append((first["open1"] - last["open1"]) / days * 7)
     if len(rates) < 3:
         return None
-    return {"per_week": round(median(rates), 1), "dates": len(rates)}
+    # 空きが減っていない日（0）も数に入れる。共通のmedianは0を外すので、ここでは使わない
+    rates.sort()
+    m = len(rates) // 2
+    mid = rates[m] if len(rates) % 2 else (rates[m - 1] + rates[m]) / 2
+    return {"per_week": round(mid, 1), "dates": len(rates)}
 
 
 def pair_saving(e, venue, hotels):

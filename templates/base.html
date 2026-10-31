@@ -163,7 +163,7 @@
         if(!d.hotels.length){out.innerHTML='<p class="empty">この日に'+adults+'人で泊まれる宿は見つかりませんでした。日付か人数を変えてみてください。</p>';return;}
         var h='<p class="hint">'+d.hotels.length+'軒が空いています。会場に近い順です。</p><div class="qcs">';
         d.hotels.slice(0,10).forEach(function(x){
-          h+='<a class="qc" href="'+esc(x.url)+'" rel="nofollow sponsored noopener" target="_blank"><span class="qc-row">'+(x.image?'<img src="'+esc(x.image)+'" alt="" loading="lazy">':'<span class="qc-noimg"></span>')+
+          h+='<a class="qc" href="'+esc(x.url)+'" rel="nofollow sponsored noopener" target="_blank"><span class="qc-row">'+(x.image?'<img src="'+esc(x.image)+'" alt="'+esc(x.name)+'の外観" loading="lazy">':'<span class="qc-noimg"></span>')+
           '<span class="qc-body"><span class="qc-name">'+esc(x.name)+'</span><span class="qc-meta">'+(x.walk<=20?'<span class="walk">徒歩'+esc(x.walk)+'分</span>':'<span class="walk far">電車で1〜2駅</span>')+(x.bath?'<span class="chip chip-on">大浴場</span>':'')+'</span>'+
           '<span class="qc-rate">'+stars(x.rate)+'</span><span class="qc-price">'+(+adults>1?adults+'人1室で1人あたり':'1人1室で')+'<strong>'+Number(x.per_person).toLocaleString()+'円</strong>から</span></span></span><span class="qc-btn">空室と料金を見る</span></a>';
         });
@@ -175,7 +175,7 @@
     var out=f.nextElementSibling, limit=+f.dataset.limit||6, preset=JSON.parse(f.querySelector('.rec-data').textContent), cache={}, seq=0;
     function esc(s){var d=document.createElement('div');d.textContent=s==null?'':String(s);return d.innerHTML;}
     function stars(v){if(!v)return '<span class="sub">評価なし</span>';v=+v;return '<span class="stars" style="--r:'+Math.round(v/5*100)+'%">★★★★★</span><span class="rate-num">'+v.toFixed(2)+'</span>';}
-    function card(x){return '<a class="qc" href="'+esc(x.url)+'" rel="nofollow sponsored noopener" target="_blank"><span class="qc-row">'+(x.image?'<img src="'+esc(x.image)+'" alt="" loading="lazy">':'<span class="qc-noimg"></span>')+
+    function card(x){return '<a class="qc" href="'+esc(x.url)+'" rel="nofollow sponsored noopener" target="_blank"><span class="qc-row">'+(x.image?'<img src="'+esc(x.image)+'" alt="'+esc(x.name)+'の外観" loading="lazy">':'<span class="qc-noimg"></span>')+
       '<span class="qc-body"><span class="qc-name">'+esc(x.name)+'</span><span class="qc-meta">'+(x.walk<=20?'<span class="walk">徒歩'+esc(x.walk)+'分</span>':'<span class="walk far">電車で1〜2駅</span>')+(x.bath?'<span class="chip chip-on">大浴場</span>':'')+'</span>'+
       '<span class="qc-rate">'+stars(x.rate)+'</span>'+(x.per_person?'<span class="qc-price">'+(x.adults>1?x.adults+'人1室で1人あたり':'1人1室で')+'<strong>'+Number(x.per_person).toLocaleString()+'円</strong>から</span>':'')+'</span></span><span class="qc-btn">空室と料金を見る</span></a>';}
     var label={walk:'会場に近い順',price:'1人あたりの料金が安い順',rate:'レビューの評価が高い順'};
@@ -276,7 +276,7 @@ document.querySelectorAll('.map').forEach(function(el){
     {% if page.hotpepper %}<p><a href="http://webservice.recruit.co.jp/" rel="noopener" target="_blank">Powered by ホットペッパーグルメ Webサービス</a></p>{% endif %}
     {% set ec = page.events_credit %}{% if ec and ec.events_credit %}<p>イベント情報の出典は「<a href="{{ ec.events_credit_url }}" rel="noopener" target="_blank">{{ ec.events_credit }}</a>」で、当サイトで加工して掲載しています。</p>{% elif ec and ec.schedule_url %}<p>イベント情報は「<a href="{{ ec.schedule_url }}" rel="noopener" target="_blank">{{ ec.name }}の公式スケジュール</a>」をもとに、当サイトでまとめて掲載しています。</p>{% endif %}
   </div>
-  {% if site.moshimo and site.moshimo.a_id and has_hotels %}<img src="https://i.moshimo.com/af/i/impression?a_id={{ site.moshimo.a_id }}&p_id={{ site.moshimo.p_id }}&pc_id={{ site.moshimo.pc_id }}&pl_id={{ site.moshimo.pl_id }}" width="1" height="1" alt="" loading="lazy" style="border:none;position:absolute">{% endif %}
+  {% if site.moshimo and site.moshimo.a_id and has_hotels %}<img src="https://i.moshimo.com/af/i/impression?a_id={{ site.moshimo.a_id }}&p_id={{ site.moshimo.p_id }}&pc_id={{ site.moshimo.pc_id }}&pl_id={{ site.moshimo.pl_id }}" width="1" height="1" alt="楽天トラベルの計測用画像" aria-hidden="true" loading="lazy" style="border:none;position:absolute">{% endif %}
   <p class="wrap copyright">© 2026 {{ site.name }}（{{ site.display_domain }}）</p>
 </footer>
 </body>
