@@ -29,31 +29,28 @@
 {{ rec_box(c, hotels, by_people, saturday, people=("1", "2")) }}
 
 <h2>部屋で過ごしやすい宿を比べる</h2>
-<p>手術のあとは、外に出ずに部屋で過ごす時間が長くなりがちです。チェックアウトが遅い宿、ルームサービスや電子レンジが使える宿、コインランドリーのある宿は、連泊するときにも助かります。下の表は{{ c.name }}から近い順です。設備は楽天トラベルに宿が載せている情報から拾っているので、予約の前に宿のページでも確かめてください。</p>
+<p>手術のあとは、外に出ずに部屋で過ごす時間が長くなりがちです。ルームサービスや電子レンジが使える宿、コインランドリーのある宿は、連泊するときにも助かります。下の表は{{ c.name }}から近い順です。設備は楽天トラベルに宿が載せている情報から拾っているので、予約の前に宿のページでも確かめてください。</p>
 {{ stay_table(items) }}
+
+<h2>{{ c.name }}の概要とアクセス</h2>
+{% if page.shot %}<figure class="shot"><img src="{{ page.shot.src }}" alt="{{ page.shot.alt }}" width="1200" height="750" loading="lazy"><figcaption>{{ c.group }}の公式サイト</figcaption></figure>{% endif %}
+<p>{{ c.about }}</p>
+<div class="table-wrap"><table class="t-clinic"><tbody>
+<tr><th>住所</th><td>{{ c.address }}</td></tr>
+<tr><th>診療時間</th><td>{{ c.hours }}{% if c.reserve %}<span class="sub">{{ c.reserve }}</span>{% endif %}</td></tr>
+<tr><th>休診日</th><td>{{ c.closed }}</td></tr>
+{% for s in c.stations %}<tr><th>{{ '最寄り駅' if loop.first else '' }}</th><td>{{ s.name }}（{{ s.line }}）から徒歩約{{ s.walk_min }}分</td></tr>
+{% endfor %}
+</tbody></table></div>
+<p class="note">駅からの時間は、クリニックの案内と地図上の距離をもとにした目安です。診療時間や休診日は変わることがあるので、予約の前に{% if c.official_url %}<a href="{{ c.official_url }}" rel="nofollow noopener" target="_blank">{{ c.group }}の公式サイト</a>{% else %}クリニック{% endif %}で確かめてください。</p>
 
 <h2>クリニックとホテルの位置</h2>
 {{ hotel_map(items, c) }}
 
-<h2>{{ c.name }}の場所と最寄り駅</h2>
-<p>{{ c.name }}の住所は{{ c.address }}です。駅からの時間は、{% if c.official_url %}クリニックの案内と{% endif %}地図上の距離をもとにした目安です。</p>
-{{ station_table(c) }}
-{% if c.official_url %}<p class="note">診療時間や予約の方法は<a href="{{ c.official_url }}" rel="nofollow noopener" target="_blank">{{ c.group }}の公式サイト</a>で確認してください。</p>{% endif %}
-
-<h2>泊まる夜の決め方</h2>
+<h2>泊まる日の選び方</h2>
 <h3>手術の前の夜に入るか当日に泊まるか</h3>
-<p>遠方から行く人は、朝早い予約に合わせて前の夜に入るか、手術の日の夜に泊まって翌日に帰るかのどちらかが多くなります。カウンセリングと手術が同じ日か、翌日以降に診察があるかはクリニックによって違うので、予約のときに確かめてから泊まる夜を決めましょう。上の「近いおすすめ宿」で日付を選ぶと、その夜に空いている宿に切り替わります。</p>
+<p>遠方から行く人は、朝早い予約に合わせて前の夜に入るか、手術の日の夜に泊まって翌日に帰るかのどちらかが多くなります。カウンセリングと手術が同じ日か、翌日以降に診察があるかはクリニックによって違うので、予約のときに確かめてから泊まる日を決めましょう。上の「近いおすすめ宿」で日付を選ぶと、その夜に空いている宿に切り替わります。</p>
 <h3>付き添いの人と泊まるなら2人1室</h3>
 <p>家族や友人が付き添う場合は、2人で1部屋に泊まると1人あたりの料金が下がることが多くなります。人数の2人を選ぶと、2人で泊まれる宿と1人あたりの料金に切り替わります。</p>
 <h3>帰りの移動が楽な場所を選ぶ</h3>
 <p>手術の翌日に新幹線や飛行機で帰るなら、クリニックの近くか、帰りに使う駅の近くの宿にすると移動が短くてすみます。重い荷物を持ち歩かなくてすむよう、駅から近い宿を選ぶのもひとつの方法です。</p>
-
-{% if page.same_city %}
-<h2>{{ c.city }}にあるほかの美容外科のクリニック</h2>
-<div class="more-links">
-{% for o in page.same_city %}
-  <a class="btn btn-sign" href="/clinic/{{ o.slug }}/">{{ o.name }}に近いホテル</a>
-{% endfor %}
-</div>
-{% endif %}
-<p><a href="/clinic/">美容外科のクリニックに近いホテルの一覧へ</a></p>
