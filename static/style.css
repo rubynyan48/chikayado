@@ -494,3 +494,8 @@ td .no { display: inline-grid; place-items: center; width: 22px; height: 22px; m
 
 .t-nights .sub, .t-ent .sub { display: block; font-size: 12px; color: var(--muted); }
 .t-nights .down { color: #b3261e; font-weight: 700; }
+
+/* クリニックの近くの宿の比較表 */
+.t-stay td:first-child { min-width: 9em; }
+.t-stay td:nth-child(3) { white-space: nowrap; font-size: 13px; }
+.t-stay .chip { margin: 0 4px 4px 0; }

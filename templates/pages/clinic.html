@@ -10,7 +10,7 @@
   <p class="answer-q">{{ c.name }}にいちばん近い宿</p>
   <p class="answer-a">{{ first.name }}</p>
   <p class="answer-facts"><span class="walk">クリニックまで徒歩{{ walk_min(first.distance_m) }}分</span>{% if first_offer %}<span class="fact-price">{{ jdate(saturday) }}の夜は1人1室で<strong>{{ yen(first_offer.per_person) }}</strong>から</span>{% endif %}</p>
-  <p class="answer-note">{{ c.name }}から{{ km(c) }}以内に泊まれる宿は{{ hotels|length }}軒あり、そのうち歩いて10分以内の宿は{{ hotels | selectattr('distance_m', 'le', 800) | list | length }}軒です。</p>
+  <p class="answer-note">{{ c.name }}から{{ km(c) }}以内に泊まれる宿は{{ hotels|length }}軒あり、そのうち歩いて5分以内の宿は{{ hotels | selectattr('distance_m', 'le', 400) | list | length }}軒です。</p>
   {% else %}
   <p class="answer-q">{{ c.name }}の近くの宿</p>
   <p class="answer-a">宿を調べています</p>

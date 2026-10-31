@@ -1390,6 +1390,10 @@ def main():
     clinic_ctxs = {}
     for clinic in all_clinics:
         ctx = venue_context(clinic)
+        # 手術の前後に泊まるので、相部屋や共同のシャワーになりやすいカプセルやホステルは外す
+        shared = re.compile(r"(?i)カプセル|キャビン|cabin|ドミトリー|ゲストハウス|ホステル|hostel|ネットカフェ|サウナ")
+        ctx["hotels"] = [h for h in ctx["hotels"] if not shared.search(h["name"])]
+        ctx["near_hotels"] = [h for h in ctx["hotels"] if h["distance_m"] <= 1000]
         clinic_ctxs[clinic["slug"]] = ctx
         jobs += [(p, ctx) for p in clinic_pages(clinic, ctx, all_clinics)]
     if all_clinics:
