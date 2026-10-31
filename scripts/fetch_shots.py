@@ -1,6 +1,6 @@
 """イベントの公式サイトの最初の画面を撮影して、開催概要に載せる画像にする。
 
-いまは一般の人が行けるイベントだけを撮る。ライブ会場ではアーティストの写真が出ることが多いので、
+業界向けの展示会も含めて撮る。ライブ会場ではアーティストの写真が出ることが多いので、
 人の顔が写っている画面は使わない。チケットサイトや会場のページは公式サイトではないので撮らない。
 撮った画像は data/shots/<会場>/ に保存し、
 一覧を data/shots/<会場>.json に書く。14日たったら撮り直す。
@@ -14,7 +14,9 @@ from PIL import Image, ImageStat
 
 from common import DATA, ROOT, read_json, venues, write_json
 
-MAX_PER_RUN = 30
+import os
+MAX_PER_RUN = int(os.environ.get("SHOTS_MAX", 30))      # 1会場あたり1回に撮る数
+MAX_MINUTES = int(os.environ.get("SHOTS_MINUTES", 20))  # 撮影にかける時間の上限
 RETAKE_DAYS = 14
 # クッキーの同意やお知らせの窓を閉じるときに押すボタンの文字
 CLOSE_WORDS = ["同意", "同意する", "すべて同意", "許可", "OK", "Accept", "Accept All", "Agree", "閉じる", "Close", "×"]
@@ -140,8 +142,10 @@ def main():
             folder = DATA / "shots" / slug
             folder.mkdir(parents=True, exist_ok=True)
             skip = [re.compile(x) for x in OVERRIDES.get("skip", [])]
-            targets = [e for e in events if e["end"] >= today.isoformat() and official_url(e) and is_public(e, patterns)
+            # 業界向けの展示会も撮る（芸能人の写真が出やすいライブ会場と音楽イベントは、下で顔の写り込みを確かめる）
+            targets = [e for e in events if e["end"] >= today.isoformat() and official_url(e)
                        and not any(p.search(e["name"]) for p in skip)]
+            targets.sort(key=lambda e: e["start"])  # 開催が近い順に撮る
             done = 0
             for e in targets:
                 old = index.get(e["slug"])
@@ -150,7 +154,7 @@ def main():
                     continue
                 if old and old.get("taken", "") >= (today - timedelta(days=RETAKE_DAYS)).isoformat():
                     continue
-                if done >= MAX_PER_RUN or time.time() - started > 20 * 60:
+                if done >= MAX_PER_RUN or time.time() - started > MAX_MINUTES * 60:
                     break
                 url = official_url(e)
                 out = folder / file_name(e["name"])
