@@ -497,14 +497,14 @@ def is_trade(e):
     return "商談" in a or "関係者" in a
 
 
-def rec_box(venue, hotels, by_people, default_date, adults="1", limit=6, nights=None):
+def rec_box(venue, hotels, by_people, default_date, adults="1", limit=6, nights=None, people=("1", "2", "3", "4")):
     """近いおすすめ宿。日付・人数・並べ方（距離・値段・レビュー）を選ぶと、その場で並べ替えて出し直す。"""
     adults = str(adults)
     preset = {n: [api_item(h) for h in with_offers(hotels, by_people.get(n, {}))] for n in ("1", "2", "3", "4")} if by_people else {}
     first = with_offers(hotels, by_people.get(adults, {})) if by_people else with_offers(hotels, None)
     data = json.dumps({"date": default_date if by_people else "", "people": preset}, ensure_ascii=False).replace("</", "<\\/")
     ppl = "".join(f'<label class="pp"><input type="radio" name="adults" value="{n}"{" checked" if n == adults else ""}><span>{n}人</span></label>'
-                  for n in ("1", "2", "3", "4"))
+                  for n in people)
     sorts = "".join(f'<label class="pp"><input type="radio" name="sort" value="{k}"{" checked" if k == "walk" else ""}><span>{v}</span></label>'
                     for k, v in (("walk", "距離"), ("price", "値段"), ("rate", "レビュー")))
     hint = (f'{jdate(default_date)}の夜に{adults}人で1部屋に泊まれる宿が{len(first)}軒あります。会場に近い順です。' if by_people
@@ -910,7 +910,7 @@ def stay_table(items, limit=15):
 
 def clinic_pages(clinic, ctx, all_clinics):
     path = f"/clinic/{clinic['slug']}/"
-    hub = {"name": "豊胸のクリニックに近いホテル", "path": "/clinic/"}
+    hub = {"name": "美容外科のクリニックに近いホテル", "path": "/clinic/"}
     near = ctx["hotels"][0] if ctx["hotels"] else None
     same_city = [c for c in all_clinics if c["city"] == clinic["city"] and c["slug"] != clinic["slug"]]
     for c in same_city:
@@ -918,7 +918,7 @@ def clinic_pages(clinic, ctx, all_clinics):
     return [{
         "path": path, "template": "clinic.html", "has_map": True, "place_word": "クリニック",
         "clinic": clinic, "same_city": sorted(same_city, key=lambda c: c["_dist"]),
-        "title": f"{clinic['name']}に近いホテル 豊胸の手術の前後に泊まれる{len(ctx['hotels'])}軒",
+        "title": f"{clinic['name']}に近いホテル 手術の前後に泊まれる宿{len(ctx['hotels'])}軒",
         "description": (f"{clinic['name']}（{clinic['address'].split(' ')[0]}）から近い順に、泊まれるホテルを{len(ctx['hotels'])}軒まとめました。"
                         + (f"いちばん近いのは{near['name']}で歩いて約{walk_min(near['distance_m'])}分です。" if near else "")
                         + "チェックアウトの時刻やルームサービスなど、部屋で過ごしやすい設備も比べられます。"),
@@ -929,9 +929,9 @@ def clinic_pages(clinic, ctx, all_clinics):
 
 def clinic_hub(all_clinics, ctxs):
     return {"path": "/clinic/", "template": "clinics.html", "place_word": "クリニック", "clinics": all_clinics, "clinic_ctx": ctxs,
-            "title": f"豊胸のクリニックに近いホテル 遠方から手術を受ける人の宿{len(all_clinics)}院分",
-            "description": "豊胸の手術を受けるために遠方からクリニックへ行く人に向けて、THE CLINIC、ナグモクリニック、グラムルールクリニックなどの院ごとに、歩いて行けるホテルを近い順にまとめました。",
-            "breadcrumbs": [{"name": "トップ", "path": "/"}, {"name": "豊胸のクリニックに近いホテル", "path": "/clinic/"}]}
+            "title": f"美容外科のクリニックに近いホテル 遠方から手術を受ける人の宿{len(all_clinics)}院分",
+            "description": "美容外科の手術を受けるために遠方からクリニックへ行く人に向けて、THE CLINIC、ナグモクリニック、グラムルールクリニックなどの院ごとに、歩いて行けるホテルを近い順にまとめました。",
+            "breadcrumbs": [{"name": "トップ", "path": "/"}, {"name": "美容外科のクリニックに近いホテル", "path": "/clinic/"}]}
 
 
 def station_table(venue):

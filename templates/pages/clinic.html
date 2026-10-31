@@ -5,7 +5,7 @@
 {% set cheap = (items | sort(attribute='offer.per_person') | first) if by_people and items else None %}
 {% set first_offer = (by_people.get('1') or {}).get(first.hotelNo) if first else None %}
 <div class="answer">
-  <p class="answer-genre">豊胸の手術で泊まる</p>
+  <p class="answer-genre">美容外科の手術で泊まる</p>
   {% if first %}
   <p class="answer-q">{{ c.name }}にいちばん近い宿</p>
   <p class="answer-a">{{ first.name }}</p>
@@ -26,7 +26,7 @@
 <!--body-->
 <h2>近いおすすめ宿</h2>
 <div id="hotels"></div>
-{{ rec_box(c, hotels, by_people, saturday) }}
+{{ rec_box(c, hotels, by_people, saturday, people=("1", "2")) }}
 
 <h2>部屋で過ごしやすい宿を比べる</h2>
 <p>手術のあとは、外に出ずに部屋で過ごす時間が長くなりがちです。チェックアウトが遅い宿、ルームサービスや電子レンジが使える宿、コインランドリーのある宿は、連泊するときにも助かります。下の表は{{ c.name }}から近い順です。設備は楽天トラベルに宿が載せている情報から拾っているので、予約の前に宿のページでも確かめてください。</p>
@@ -49,11 +49,11 @@
 <p>手術の翌日に新幹線や飛行機で帰るなら、クリニックの近くか、帰りに使う駅の近くの宿にすると移動が短くてすみます。重い荷物を持ち歩かなくてすむよう、駅から近い宿を選ぶのもひとつの方法です。</p>
 
 {% if page.same_city %}
-<h2>{{ c.city }}にあるほかの豊胸のクリニック</h2>
+<h2>{{ c.city }}にあるほかの美容外科のクリニック</h2>
 <div class="more-links">
 {% for o in page.same_city %}
   <a class="btn btn-sign" href="/clinic/{{ o.slug }}/">{{ o.name }}に近いホテル</a>
 {% endfor %}
 </div>
 {% endif %}
-<p><a href="/clinic/">豊胸のクリニックに近いホテルの一覧へ</a></p>
+<p><a href="/clinic/">美容外科のクリニックに近いホテルの一覧へ</a></p>

@@ -257,7 +257,7 @@ def fresh_enough(venue, checkin, today):
 
 def fetch_date(venue, checkin):
     by_people = {}
-    for n in PEOPLE:
+    for n in venue.get("people", PEOPLE):
         by_people[str(n)] = fetch_vacancy_day(venue, checkin, n)
     write_json(DATA / "vacancy" / venue["slug"] / f"{checkin.isoformat()}.json",
                {"checked": date.today().isoformat(), "checkin": checkin.isoformat(), "by_people": by_people})
@@ -346,6 +346,7 @@ def main():
     for clinic in clinics():
         try:
             fetch_hotels(clinic)
+            clinic = dict(clinic, people=(1, 2))
         except Exception as exc:
             failed = True
             print(f"{clinic['name']}: 宿の取得に失敗 {exc}", file=sys.stderr)
