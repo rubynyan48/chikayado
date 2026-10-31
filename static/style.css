@@ -508,11 +508,6 @@ td .no { display: inline-grid; place-items: center; width: 22px; height: 22px; m
 .t-stay th:nth-child(1) { width: 38%; } .t-stay th:nth-child(2) { width: 24%; } .t-stay th:nth-child(3) { width: 38%; }
 .t-stay td:first-child, .t-stay td:last-child { min-width: 0; }
 
-/* トップのクリニックへの入口 */
-.clinic-entry { display: block; margin: 0 0 20px; padding: 14px 16px; border: 2px solid var(--sign); border-radius: var(--radius-m); background: var(--sign-soft); color: var(--ink); text-decoration: none; }
-.clinic-entry strong { display: block; font-size: 17px; color: var(--sign); }
-.clinic-entry strong::after { content: " ›"; }
-.clinic-entry span { display: block; font-size: 13px; color: var(--muted); margin-top: 2px; }
 .clinic-links { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 0 0 16px; }
 @media (min-width: 720px) { .clinic-links { grid-template-columns: 1fr 1fr; } }
 .clinic-links a { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 10px 14px; border: 1px solid var(--line); border-radius: var(--radius-s); text-decoration: none; color: var(--ink); background: #fff; }
