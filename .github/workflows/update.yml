@@ -4,6 +4,12 @@ on:
   schedule:
     - cron: "17 20 * * *"   # 毎日 日本時間5:17
   workflow_dispatch:         # 手動実行
+    inputs:
+      scope:
+        description: "all=全部 / clinics=クリニックの宿だけ取り直してページを作る"
+        type: choice
+        options: [all, clinics]
+        default: all
   push:
     branches: [main]
     paths:
@@ -30,6 +36,7 @@ env:
   USER_ID: ${{ secrets.XSERVER_USER }}
   PORT: ${{ secrets.XSERVER_PORT }}
   DEST: ${{ secrets.XSERVER_PATH }}
+  SCOPE: ${{ github.event.inputs.scope || 'all' }}
 
 jobs:
   update:
@@ -68,7 +75,7 @@ jobs:
 
       # push のときはデータを取り直さず、ページの作り直しと転送だけ行う
       - name: イベント情報の取得
-        if: github.event_name != 'push'
+        if: github.event_name != 'push' && env.SCOPE != 'clinics'
         run: cd scripts && python fetch_events.py 2>&1 | python redact.py; exit ${PIPESTATUS[0]}
         continue-on-error: true
 
@@ -78,19 +85,28 @@ jobs:
         continue-on-error: true
 
       - name: ホットペッパーの飲食店の取得
-        if: github.event_name != 'push'
+        if: github.event_name != 'push' && env.SCOPE != 'clinics'
         run: cd scripts && python fetch_restaurants.py 2>&1 | python redact.py; exit ${PIPESTATUS[0]}
         continue-on-error: true
 
       - name: 公式サイトの画面を撮影
-        if: github.event_name != 'push'
+        if: github.event_name != 'push' && env.SCOPE != 'clinics'
         run: |
           pip install -q playwright==1.48.0 opencv-python-headless==4.10.0.84 && python -m playwright install --with-deps chromium > /dev/null 2>&1
-          cd scripts && python fetch_shots.py 2>&1 | python redact.py; exit ${PIPESTATUS[0]}
+          cd scripts && python fetch_shots.py 2>&1 | python redact.py; code=${PIPESTATUS[0]}
+          python clinic_shots.py 2>&1 | python redact.py
+          exit $code
+        continue-on-error: true
+
+      - name: クリニックの公式サイトを撮影（クリニックだけのとき）
+        if: env.SCOPE == 'clinics'
+        run: |
+          pip install -q playwright==1.48.0 opencv-python-headless==4.10.0.84 && python -m playwright install --with-deps chromium > /dev/null 2>&1
+          cd scripts && python clinic_shots.py 2>&1 | python redact.py; exit ${PIPESTATUS[0]}
         continue-on-error: true
 
       - name: 解説文の生成（新しいイベントだけ）
-        if: github.event_name != 'push'
+        if: github.event_name != 'push' && env.SCOPE != 'clinics'
         run: cd scripts && python write_texts.py 2>&1 | python redact.py; exit ${PIPESTATUS[0]}
         continue-on-error: true
 

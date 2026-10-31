@@ -3,6 +3,7 @@
 必要な環境変数: RAKUTEN_APP_ID, RAKUTEN_ACCESS_KEY
 アフィリエイトIDは config/site.json の rakuten_affiliate_id に入れると、予約リンクが自動で切り替わる。
 """
+import os
 import re
 import sys
 import unicodedata
@@ -283,7 +284,8 @@ def main():
         return 0
     failed = False
     today = date.today()
-    all_venues = venues()
+    # SCOPE=clinics のときはイベント会場を飛ばし、クリニックの宿だけ取り直す
+    all_venues = [] if os.environ.get("SCOPE") == "clinics" else venues()
     for venue in all_venues:
         # 有明アリーナなどはビッグサイトの宿と空室をそのまま使う
         if venue.get("hotel_area"):
