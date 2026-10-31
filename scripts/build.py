@@ -911,6 +911,8 @@ def clinic_pages(clinic, ctx, all_clinics):
     shot = {"src": "/images/shots/" + quote(s["file"].split("/", 1)[1]), "alt": f"{clinic['group']}の公式サイトの画面"} if s else None
     return [{
         "path": path, "template": "clinic.html", "has_map": True, "place_word": "クリニック",
+        # 美容医療を連想させる茶色系（イベントのページとは色を分ける）
+        "genre": {"key": "clinic", "color": "#7A5440", "soft": "#F6EFE9", "mark": "#E3B873", "mark_deep": "#A97B35"},
         "clinic": clinic,
         "title": f"{clinic['name']}に近いホテル 手術の前後に泊まれる宿{len(ctx['hotels'])}軒",
         "description": (f"{clinic['name']}（{clinic['address'].split(' ')[0]}）から近い順に、泊まれるホテルを{len(ctx['hotels'])}軒まとめました。"
