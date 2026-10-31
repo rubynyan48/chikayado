@@ -42,7 +42,7 @@
 {% for s in c.stations %}<tr><th>{{ '最寄り駅' if loop.first else '' }}</th><td>{{ s.name }}（{{ s.line }}）から徒歩約{{ s.walk_min }}分</td></tr>
 {% endfor %}
 </tbody></table></div>
-<p class="note">駅からの時間は、クリニックの案内と地図上の距離をもとにした目安です。診療時間や休診日は変わることがあるので、予約の前に{% if c.official_url and 'hotpepper' not in c.official_url %}<a href="{{ c.official_url }}" rel="nofollow noopener" target="_blank">{{ c.group }}の公式サイト</a>{% else %}クリニック{% endif %}で確かめてください。</p>
+<p class="note">駅からの時間は、クリニックの案内と地図上の距離をもとにした目安です。診療時間や休診日は変わることがあるので、予約の前に{% if c.official_url %}<a href="{{ c.official_url }}" rel="nofollow noopener" target="_blank">{{ c.group }}の公式サイト</a>{% else %}クリニック{% endif %}で確かめてください。</p>
 
 <h2>クリニックとホテルの位置</h2>
 {{ hotel_map(items, c) }}
