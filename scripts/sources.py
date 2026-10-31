@@ -565,9 +565,44 @@ def sunshine(venue):
     return unique(items)
 
 
+# ---- 横浜BUNTAI（月ごとのイベント一覧） ------------------------------------------
+def yokohama_buntai(venue):
+    items = []
+    for y, m in months_ahead(7):
+        soup = get_html(f"https://yokohama-buntai.jp/event/?y={y}&m={m}")
+        for ev in soup.select("div.event"):
+            dates = [clean(d.get_text()) for d in ev.select(".event-date .date")]
+            ds = []
+            for d in dates:
+                md = re.match(r"(\d{1,2})\.(\d{1,2})$", d)
+                if md:
+                    mm, dd = int(md.group(1)), int(md.group(2))
+                    ds.append(date(y + (1 if mm < m else 0), mm, dd))
+            t = ev.select_one(".info-title")
+            if not ds or not t:
+                continue
+            title = clean(t.get_text(" "))
+            # 地元チームのリーグ戦は試合ごとのページにしない（トヨタアリーナ東京と同じ扱い）
+            if re.search(r"(?i)^private$|公演中止|開催中止|公演延期|B\.LEAGUE.*(SEASON|HOMEGAME)", title):
+                continue
+            hours, url = "", ""
+            for info in ev.select(".info"):
+                left = info.select_one(".info-left")
+                right = info.select_one(".info-right")
+                if not left or not right:
+                    continue
+                if "公演時間" in left.get_text():
+                    hours = clean(right.get_text(" "))[:120]
+                if "公式サイト" in left.get_text() and right.find("a"):
+                    url = right.find("a")["href"]
+            items.append(event(title, min(ds).isoformat(), max(ds).isoformat(), hours=hours, url=url))
+    return unique(items)
+
+
 SOURCES = {
     "gcal": gcal,
     "eventernote": eventernote,
+    "yokohama_buntai": yokohama_buntai,
     "sunshine": sunshine,
     "k_arena": k_arena,
     "yokohama_arena": yokohama_arena,
