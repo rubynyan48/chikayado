@@ -1,13 +1,15 @@
 {% set c = page.clinic %}
 {% set by_people = (sat_vacancy or {}).get('by_people', {}) %}
 {% set items = with_offers(hotels, by_people.get('1')) if by_people else with_offers(hotels, None) %}
-{% set first = hotels|first if hotels else None %}
-{% set cheap = (items | sort(attribute='offer.per_person') | first) if by_people and items else None %}
-{% set first_offer = (by_people.get('1') or {}).get(first.hotelNo) if first else None %}
+{# 次の土曜に1人で泊まれる宿のうち、いちばん近い宿を出す。空きのデータがなければ、いちばん近い宿 #}
+{% set open1 = by_people.get('1') or {} %}
+{% set open_hotels = hotels | selectattr('hotelNo', 'in', open1) | list %}
+{% set first = (open_hotels|first) if open_hotels else (hotels|first if hotels else None) %}
+{% set first_offer = open1.get(first.hotelNo) if first else None %}
 <div class="answer">
   <p class="answer-genre">美容外科の手術で泊まる</p>
   {% if first %}
-  <p class="answer-q">{{ c.name }}にいちばん近い宿</p>
+  <p class="answer-q">{% if first_offer %}{{ jdate(saturday) }}に泊まれる、{% endif %}{{ c.name }}にいちばん近い宿</p>
   <p class="answer-a">{{ first.name }}</p>
   <p class="answer-facts"><span class="walk">クリニックまで徒歩{{ walk_min(first.distance_m) }}分</span>{% if first_offer %}<span class="fact-price">{{ jdate(saturday) }}の夜は1人1室で<strong>{{ yen(first_offer.per_person) }}</strong>から</span>{% endif %}</p>
   <p class="answer-note">{{ c.name }}から{{ km(c) }}以内に泊まれる宿は{{ hotels|length }}軒あり、そのうち歩いて5分以内の宿は{{ hotels | selectattr('distance_m', 'le', 400) | list | length }}軒です。</p>

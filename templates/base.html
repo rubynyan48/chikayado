@@ -32,7 +32,7 @@
 <script type="application/ld+json">{{ page.breadcrumb_ld | safe }}</script>
 {% endif %}
 </head>
-<body{% if page.place_word %} data-place="{{ page.place_word }}"{% endif %}{% if page.genre %} data-genre="{{ page.genre.key }}" style="--sign:{{ page.genre.color }};--sign-soft:{{ page.genre.soft }}"{% endif %}>
+<body{% if page.place_word %} data-place="{{ page.place_word }}"{% endif %}{% if page.genre %} data-genre="{{ page.genre.key }}" style="--sign:{{ page.genre.color }};--sign-soft:{{ page.genre.soft }}{% if page.genre.mark %};--mark:{{ page.genre.mark }};--mark-deep:{{ page.genre.mark_deep }}{% endif %}"{% endif %}>
 <header class="site-header">
   <div class="header-inner">
     <a class="logo" href="/">
