@@ -18,8 +18,13 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -q -r requirements.txt google-auth==2.35.0
-      - run: cd scripts && python -u ga4_clicks.py 2>&1 | python redact.py | tee ../data/seo/ga4_clicks.log
       - run: |
+          cd scripts && python -u ga4_clicks.py 2>&1 | python redact.py > ../clicks.txt
+          # 結果をこの実行の注記として残す（ログを開かなくても読めるように）
+          body=$(head -c 6000 ../clicks.txt | sed ':a;N;$!ba;s/%/%25/g;s/\r//g;s/\n/%0A/g')
+          echo "::notice title=clicks::$body"
+      - continue-on-error: true
+        run: |
           git config user.name "chikayado-bot"
           git config user.email "chikayado-bot@users.noreply.github.com"
           git add data/seo
