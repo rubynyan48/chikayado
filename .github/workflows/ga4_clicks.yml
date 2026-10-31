@@ -1,0 +1,27 @@
+name: 予約サイトへのクリックの確認
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  clicks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GOOGLE_SA_KEY: ${{ secrets.GOOGLE_SA_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -q -r requirements.txt google-auth==2.35.0
+      - run: cd scripts && python -u ga4_clicks.py | python redact.py
+      - run: |
+          git config user.name "chikayado-bot"
+          git config user.email "chikayado-bot@users.noreply.github.com"
+          git add data/seo/ga4_clicks.json
+          git diff --cached --quiet || git commit -qm "予約サイトへのクリック [skip ci]"
+          git pull --rebase -X theirs -q && git push
