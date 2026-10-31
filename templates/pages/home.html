@@ -7,6 +7,7 @@
   {{ top_search(hd.groups, hd.saturday) }}
 </section>
 <p class="pr">本ページはプロモーションが含まれています</p>
+<a class="clinic-entry" href="#clinic"><strong>美容医療クリニック近くのホテル</strong><span>遠方から手術を受けに行く人向けに、{{ clinic_list|length }}院の近くの宿をまとめています</span></a>
 <!--body-->
 <h2 id="venues">会場から探す</h2>
 <p>会場のある場所ごとに分けています。会場を選ぶと、近い宿のおすすめ、地図と比較表、開催予定のイベントが見られます。</p>
@@ -28,6 +29,15 @@
   </span>
 </a>
 {% endfor %}
+</div>
+{% endfor %}
+
+<h2 id="clinic">美容医療クリニック近くのホテル</h2>
+<p>美容外科のクリニックは提携のホテルを用意していないことが多く、遠方から手術を受けに行く人は自分で宿を探すことになります。院ごとに、歩いて行ける宿と部屋で過ごしやすい設備を比べられます。</p>
+{% for city in clinic_list | map(attribute='city') | unique %}
+<h3>{{ city }}</h3>
+<div class="clinic-links">
+{% for c in clinic_list if c.city == city %}<a href="/clinic/{{ c.slug }}/"><strong>{{ c.name }}</strong><span>{{ c.stations[0].name }}から徒歩{{ c.stations[0].walk_min }}分</span></a>{% endfor %}
 </div>
 {% endfor %}
 
@@ -75,11 +85,6 @@
 <p><a href="/tokyo-big-sight/rinkai/">りんかい線の国際展示場駅からの道順</a><br><a href="/tokyo-big-sight/yurikamome/">ゆりかもめの東京ビッグサイト駅からの道順</a><br><a href="/tokyo-big-sight/halls/">東展示棟と西展示棟と南展示棟の違い</a><br><a href="/tokyo-big-sight/area/">泊まるエリアは有明か豊洲か台場か</a><br><a href="/tokyo-big-sight/access/">東京駅や新宿駅や羽田空港からの行き方</a><br><a href="/tokyo-big-sight/exhibitor/">展示会に出展するときの宿の選び方</a></p>
 <h3>ほかの会場</h3>
 <p>{% for g, cs in hd.groups %}{% for c in cs if c.slug != 'tokyo-big-sight' %}<a href="/{{ c.slug }}/">{{ c.name }}の最寄り駅と近いホテル</a><br>{% endfor %}{% endfor %}</p>
-
-<h2 id="clinic">イベントのほかに</h2>
-<h3>美容外科の手術で遠方から行く人の宿</h3>
-<p>美容外科のクリニックは提携のホテルを用意していないことが多く、遠方から手術を受けに行く人は自分で宿を探すことになります。院ごとに、歩いて行ける宿をまとめました。</p>
-<p>{% for c in clinic_list %}<a href="/clinic/{{ c.slug }}/">{{ c.name }}に近いホテル</a><br>{% endfor %}</p>
 
 <h2 id="howto">ちか宿の見方</h2>
 <h3>距離と徒歩の時間</h3>
