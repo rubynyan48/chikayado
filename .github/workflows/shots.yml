@@ -22,7 +22,7 @@ jobs:
           pip install -q -r requirements.txt playwright==1.48.0 opencv-python-headless==4.10.0.84
           python -m playwright install --with-deps chromium > /dev/null 2>&1
           cd scripts && python fetch_shots.py 2>&1 | python redact.py | tail -40
-      # 撮った画像を保存する。data/shots が変わるとサイト更新（ページの作り直しと転送）が自動で動く
+      # 撮った画像を保存する。サイトに出るのは次のサイト更新（毎朝5時台）から
       - run: |
           git config user.name "chikayado-bot"
           git config user.email "chikayado-bot@users.noreply.github.com"
