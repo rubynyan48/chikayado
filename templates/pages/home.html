@@ -32,15 +32,6 @@
 </div>
 {% endfor %}
 
-<h2 id="clinic">美容医療クリニック近くのホテル</h2>
-<p>美容外科のクリニックは提携のホテルを用意していないことが多く、遠方から手術を受けに行く人は自分で宿を探すことになります。院ごとに、歩いて行ける宿と部屋で過ごしやすい設備を比べられます。</p>
-{% for city in clinic_list | map(attribute='city') | unique %}
-<h3>{{ city }}</h3>
-<div class="clinic-links">
-{% for c in clinic_list if c.city == city %}<a href="/clinic/{{ c.slug }}/"><strong>{{ c.name }}</strong><span>{{ c.stations[0].name }}から徒歩{{ c.stations[0].walk_min }}分</span></a>{% endfor %}
-</div>
-{% endfor %}
-
 <h2 id="soon">もうすぐ開催されるイベント</h2>
 <p>これから3週間のうちに開かれる、一般のお客さん向けのライブや即売会などです。業界関係者向けの展示会は除いています。チケットや入場券が必要なものもあるので、詳しくは各イベントのページで確かめてください。開催日が近いほど宿は埋まっていきます。</p>
 {{ multi_event_table(hd.soon) }}
@@ -71,6 +62,15 @@
 {% for sr in hd.series_trade %}<a class="btn btn-sign" href="/{{ sr.venue_slug }}/{{ sr.slug }}/">{{ sr.short }}の宿</a>{% endfor %}
 </div>{% endif %}
 {% endif %}
+
+<h2 id="clinic">美容医療クリニック近くのホテル</h2>
+<p>美容外科のクリニックは提携のホテルを用意していないことが多く、遠方から手術を受けに行く人は自分で宿を探すことになります。院ごとに、歩いて行ける宿と部屋で過ごしやすい設備を比べられます。</p>
+{% for city in clinic_list | map(attribute='city') | unique %}
+<h3>{{ city }}</h3>
+<div class="clinic-links">
+{% for c in clinic_list if c.city == city %}<a href="/clinic/{{ c.slug }}/"><strong>{{ c.name }}</strong><span>{{ c.stations[0].name }}から徒歩{{ c.stations[0].walk_min }}分</span></a>{% endfor %}
+</div>
+{% endfor %}
 
 <h2 id="people">人数で探す</h2>
 <p>1部屋に泊まる人数を選ぶと、その人数で泊まれる宿を近さ、レビュー、安さで比べられます。</p>
