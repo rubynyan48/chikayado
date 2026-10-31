@@ -19,8 +19,10 @@ jobs:
           mkdir -p ~/.ssh && printf '%s\n' "$KEY" | tr -d '\r' > ~/.ssh/x && chmod 600 ~/.ssh/x
           LOG="${DEST%/public_html*}/log"
           ssh -p ${PORT:-10022} -i ~/.ssh/x -o StrictHostKeyChecking=accept-new -o BatchMode=yes "$USER_ID@$HOST" "
+            echo '--- ドメインのフォルダ'; ls -la '${DEST%/public_html*}' | awk '{print \$5, \$9}'
+            echo '--- ログらしいファイル'; find ~ -maxdepth 4 -iname '*xn--u8j0b149r*log*' 2>/dev/null | head; find '${DEST%/public_html*}' -maxdepth 2 -iname '*log*' | head
             cd '$LOG' 2>/dev/null || { echo 'ログのフォルダがありません'; exit 0; }
-            echo '--- ファイル'; ls | head -20
+            echo '--- ファイル'; ls -la | head -20
             echo '--- ボットごとの回数（ログ全体）'
             (cat *access_log* 2>/dev/null; zcat *access_log*.gz 2>/dev/null) > /tmp/chika_all.log
             for b in OAI-SearchBot ChatGPT-User GPTBot PerplexityBot Perplexity-User ClaudeBot Claude-User Claude-SearchBot Google-Extended Googlebot bingbot Applebot YandexBot; do
