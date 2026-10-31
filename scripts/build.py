@@ -913,9 +913,9 @@ AREA_GROUPS = [
     ("千駄ヶ谷・青山エリア", ["japan-national-stadium"]),
     ("池袋エリア", ["sunshine-city"]),
     ("平和島・大森エリア", ["trc-tokyo"]),
-    ("横浜・みなとみらいエリア", ["pacifico-yokohama", "k-arena-yokohama", "pia-arena-mm"]),
+    ("横浜・みなとみらいエリア", ["pacifico-yokohama", "k-arena-yokohama", "pia-arena-mm", "yokohama-buntai"]),
     ("新横浜エリア", ["yokohama-arena"]),
-    ("千葉・幕張エリア", ["makuhari-messe"]),
+    ("千葉・幕張エリア", ["makuhari-messe", "lala-arena-tokyo-bay"]),
     ("大阪エリア", ["intex-osaka"]),
 ]
 VENUE_TAGS = {
@@ -929,6 +929,7 @@ VENUE_TAGS = {
     "yokohama-arena": ["ライブ", "スポーツ"],
     "trc-tokyo": ["同人誌即売会", "ファンイベント"], "sunshine-city": ["展示会", "アニメ・ゲーム"],
     "intex-osaka": ["展示会"],
+    "lala-arena-tokyo-bay": ["ライブ", "バスケットボール"], "yokohama-buntai": ["ライブ", "スポーツ"],
 }
 SPORTS = re.compile(r"サッカー|Jリーグ|J1|マラソン|ラグビー|陸上|大相撲|リーグ|選手権|大会|試合|ホームゲーム|開幕戦|vs|VS|BOXING|ボクシング|ONE |格闘|バスケ|バレー|フィギュア|Championship|GAME\.|太極拳")
 

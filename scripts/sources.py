@@ -529,7 +529,11 @@ def eventernote(venue):
             if not d or not a or "重複削除" in a.get_text():
                 continue
             hours = li.select(".place")
-            items.append(event(a.get_text(), date(*map(int, d.groups())).isoformat(),
+            name = a.get_text()
+            if venue.get("strip_day"):
+                # 「DAY1」「2日目」「千葉公演 DAY2」のような日ごとの名前をそろえて、続く日を1つの公演にまとめる
+                name = re.sub(r"(?i)[\s　]*(?:[^\s　]+公演[\s　]*)?(?:day[\s.]*\d+|\d+日目)[\s　]*$", "", clean(name))
+            items.append(event(name, date(*map(int, d.groups())).isoformat(),
                                hours=hours[1].get_text(" ") if len(hours) > 1 else "",
                                url="https://www.eventernote.com" + a["href"]))
         if not lis or all("past" in (li.get("class") or []) for li in lis):

@@ -1,0 +1,58 @@
+{
+  "slug": "lala-arena-tokyo-bay",
+  "name": "LaLa arena TOKYO-BAY",
+  "formal_name": "LaLa arena TOKYO-BAY（ららアリーナ 東京ベイ）",
+  "address": "千葉県船橋市浜町2-5-15",
+  "lat": 35.684605,
+  "lng": 139.987,
+  "search_radius_km": 3.0,
+  "source": "eventernote",
+  "eventernote_id": 18839,
+  "strip_day": true,
+  "kind": "arena",
+  "area_label": "南船橋",
+  "stations": [
+    {
+      "name": "南船橋駅",
+      "line": "JR京葉線・武蔵野線",
+      "walk_min": 6,
+      "lat": 35.681804,
+      "lng": 139.995773
+    },
+    {
+      "name": "船橋競馬場駅",
+      "line": "京成本線",
+      "walk_min": 16,
+      "lat": 35.689606,
+      "lng": 139.997998
+    }
+  ],
+  "schedule_url": "https://www.eventernote.com/places/18839/events",
+  "events_credit": "イベンターノート LaLa arena TOKYO-BAYのイベント一覧",
+  "events_credit_url": "https://www.eventernote.com/places/18839/events",
+  "order": 20,
+  "max_hotels": 40,
+  "far_areas": [
+    {
+      "name": "東京駅・銀座",
+      "chu": "tokyo",
+      "shou": "tokyo",
+      "sai": "A",
+      "why": "新幹線で帰る人。京葉線で南船橋まで約25分"
+    },
+    {
+      "name": "千葉市内",
+      "chu": "tiba",
+      "shou": "chiba",
+      "sai": "",
+      "why": "会場の近くが埋まったとき。京葉線で海浜幕張や千葉みなとへ"
+    },
+    {
+      "name": "上野・錦糸町・北千住",
+      "chu": "tokyo",
+      "shou": "tokyo",
+      "sai": "I",
+      "why": "東北・上越新幹線で帰る人。総武線で船橋へ出て乗り換え"
+    }
+  ]
+}

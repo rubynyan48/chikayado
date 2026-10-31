@@ -1,0 +1,61 @@
+{
+  "slug": "yokohama-buntai",
+  "name": "横浜BUNTAI",
+  "formal_name": "横浜BUNTAI（横浜武道館）",
+  "address": "神奈川県横浜市中区不老町2-7-1",
+  "lat": 35.441059,
+  "lng": 139.636475,
+  "search_radius_km": 2.0,
+  "source": "yokohama_buntai",
+  "kind": "arena",
+  "area_label": "関内",
+  "stations": [
+    {
+      "name": "伊勢佐木長者町駅",
+      "line": "横浜市営地下鉄ブルーライン",
+      "walk_min": 4,
+      "lat": 35.441044,
+      "lng": 139.633176
+    },
+    {
+      "name": "関内駅",
+      "line": "横浜市営地下鉄ブルーライン",
+      "walk_min": 5,
+      "lat": 35.445821,
+      "lng": 139.635855
+    },
+    {
+      "name": "関内駅（南口）",
+      "line": "JR根岸線",
+      "walk_min": 6,
+      "lat": 35.443336,
+      "lng": 139.636984
+    }
+  ],
+  "schedule_url": "https://yokohama-buntai.jp/event/",
+  "order": 21,
+  "max_hotels": 40,
+  "far_areas": [
+    {
+      "name": "横浜駅周辺",
+      "chu": "kanagawa",
+      "shou": "yokohama",
+      "sai": "",
+      "why": "宿の数が多く、JRか地下鉄で関内まで2駅"
+    },
+    {
+      "name": "品川・羽田空港",
+      "chu": "tokyo",
+      "shou": "tokyo",
+      "sai": "E",
+      "why": "飛行機か新幹線で帰る人。品川から関内まで京浜東北線で約30分"
+    },
+    {
+      "name": "東京駅・銀座",
+      "chu": "tokyo",
+      "shou": "tokyo",
+      "sai": "A",
+      "why": "東北・上越新幹線で帰る人"
+    }
+  ]
+}

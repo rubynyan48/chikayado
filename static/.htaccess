@@ -7,6 +7,9 @@ RewriteRule ^(.*)$ https://xn--u8j0b149r.jp/$1 [R=301,L]
 # 以前のイベントの詳しいページはイベントのページへまとめた
 RewriteRule ^(tokyo-big-sight/[^/]+)/guide/?$ /$1/ [R=301,L]
 
+# 外した会場（ポートメッセなごや）のページはトップへ
+RedirectMatch 301 ^/portmesse-nagoya(/.*)?$ https://xn--u8j0b149r.jp/
+
 ErrorDocument 404 /404.html
 
 <IfModule mod_headers.c>
