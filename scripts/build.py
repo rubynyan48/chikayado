@@ -39,7 +39,7 @@ def period(e, br=False):
         # 同じ公演が日をあけて何度かあるとき。3日程までは全部、それより多ければ最初の2つと数
         one = lambda a, b: jdate(a) if a == b else f"{jdate(a)}〜{jdate(b)}"
         texts = [one(a, b) for a, b in runs]
-        return "、".join(texts) if len(texts) <= 3 else "、".join(texts[:2]) + f"ほか全{len(texts)}日程"
+        return "、".join(texts)
     if e["start"] == e["end"]:
         return jdate(e["start"])
     sep = "<br>〜" if br else "〜"
@@ -638,6 +638,26 @@ def _hist_at(history, days_ago, key="open1"):
     if not older:
         return None
     return older[-1].get(key)
+
+
+def run_rows(e, venue, hotels):
+    """同じ公演の日程ごとに、その夜に空いている宿の数、歩いて行ける宿の空き、いちばん近い空いている宿と料金を出す。"""
+    if len(e.get("runs") or []) < 2:
+        return []
+    near = {h["hotelNo"] for h in hotels if h["distance_m"] <= 1000}
+    order = {h["hotelNo"]: h for h in hotels}
+    rows = []
+    for d, md, label in stay_nights(e, venue):
+        vac = read_json(DATA / "vacancy" / vslug(venue) / f"{d}.json")
+        one = ((vac or {}).get("by_people") or {}).get("1") or {}
+        two = ((vac or {}).get("by_people") or {}).get("2") or {}
+        open_h = [order[k] for k in one if k in order]
+        first = min(open_h, key=lambda h: h["distance_m"]) if open_h else None
+        rows.append({"date": d, "label": f"{jdate(d)}の夜", "checked": bool(vac), "open": len(open_h), "near": len(set(one) & near),
+                     "min1": min((o["per_person"] for o in one.values()), default=None),
+                     "min2": min((o["per_person"] for o in two.values()), default=None),
+                     "first": first, "first_price": one[first["hotelNo"]]["per_person"] if first else None})
+    return rows
 
 
 def night_rows(e, venue, hotels):
@@ -1408,7 +1428,7 @@ def css_version():
 
 def main():
     env = Environment(loader=FileSystemLoader(ROOT / "templates"), autoescape=select_autoescape(["html"]))
-    helpers = {"night_rows": night_rows, "fill_pace": fill_pace, "pair_saving": pair_saving, "entrance_for": entrance_for, "hotels_from_entrance": hotels_from_entrance, "lunch_split": lunch_split, "far_links": far_links, "group_title": group_title, "bus_rows": bus_rows, "price_cond": price_cond, "stay_nights": stay_nights, "is_trade": is_trade, "genre": genre, "genre_photo": genre_photo, "photo": photo, "hotel_table": hotel_table, "hotel_cards": hotel_cards, "best_cards": best_cards,
+    helpers = {"night_rows": night_rows, "run_rows": run_rows, "fill_pace": fill_pace, "pair_saving": pair_saving, "entrance_for": entrance_for, "hotels_from_entrance": hotels_from_entrance, "lunch_split": lunch_split, "far_links": far_links, "group_title": group_title, "bus_rows": bus_rows, "price_cond": price_cond, "stay_nights": stay_nights, "is_trade": is_trade, "genre": genre, "genre_photo": genre_photo, "photo": photo, "hotel_table": hotel_table, "hotel_cards": hotel_cards, "best_cards": best_cards,
                "compare_table": compare_table, "hotel_map": hotel_map, "people_tabs": people_tabs,
                "with_offers": with_offers, "price_of": price_of, "event_stats": event_stats, "best_picks": best_picks, "depart_table": depart_table,
                "open_time": open_time, "audience_label": audience_label,
