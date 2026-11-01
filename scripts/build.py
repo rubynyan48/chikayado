@@ -34,6 +34,12 @@ def jdate(iso, weekday=True):
 
 
 def period(e, br=False):
+    runs = e.get("runs") or []
+    if len(runs) > 1:
+        # 同じ公演が日をあけて何度かあるとき。3日程までは全部、それより多ければ最初の2つと数
+        one = lambda a, b: jdate(a) if a == b else f"{jdate(a)}〜{jdate(b)}"
+        texts = [one(a, b) for a, b in runs]
+        return "、".join(texts) if len(texts) <= 3 else "、".join(texts[:2]) + f"ほか全{len(texts)}日程"
     if e["start"] == e["end"]:
         return jdate(e["start"])
     sep = "<br>〜" if br else "〜"
@@ -473,6 +479,15 @@ def stay_nights(e, venue):
     """泊まる日のボタンに出す夜。展示会は設営や前泊のある前日の夜から、会期の最終日の前夜まで。"""
     if not e:
         return []
+    if len(e.get("runs") or []) > 1:
+        # 日程ごとの夜をつなげる（同じ公演の別の日もここで選べる）
+        out = []
+        for a, b in e["runs"]:
+            out += stay_nights(dict(e, start=a, end=b, runs=None), venue) or [
+                (a, f"{date.fromisoformat(a).month}/{date.fromisoformat(a).day}", "当日")] if a >= TODAY.isoformat() else []
+        # 日程が複数あると「初日」「2日目」が何度も並んで紛らわしいので、曜日を出す
+        out = [(d, m, l if "前日" in l else WEEKDAYS[date.fromisoformat(d).weekday()] + "曜") for d, m, l in out]
+        return out[:12] if len(out) > 1 else []
     start, end = date.fromisoformat(e["start"]), date.fromisoformat(e["end"])
     trade = is_trade(e)
     out = []
@@ -1050,6 +1065,8 @@ def genre(e, venue=None):
 
 def short_period(e):
     a, b = date.fromisoformat(e["start"]), date.fromisoformat(e["end"])
+    if len(e.get("runs") or []) > 1:
+        return f"{a.month}/{a.day}ほか"
     return f"{a.month}/{a.day}" if a == b else f"{a.month}/{a.day}〜{b.month}/{b.day}"
 
 
@@ -1181,6 +1198,30 @@ def group_events(venue, events):
     return events
 
 
+def merge_runs(venue, events):
+    """同じ会場で同じ名前の公演が日をあけて何度かあるとき、1つのページにまとめる。
+    URLは日付の付いていない最初のものを使い、ほかの日程のURLはそこへ転送する。"""
+    by = {}
+    for e in events:
+        by.setdefault(e["name"], []).append(e)
+    out = []
+    for name, es in by.items():
+        if len(es) == 1:
+            out.append(es[0])
+            continue
+        es = sorted(es, key=lambda x: x["start"])
+        base = next((x for x in es if not re.search(r"-\d{8}$", x["slug"])), es[0])
+        up = [x for x in es if x["end"] >= TODAY.isoformat()]
+        main = dict(up[0] if up else es[-1])
+        main["slug"] = base["slug"]
+        main["runs"] = [(x["start"], x["end"]) for x in (up or es)]
+        out.append(main)
+        for x in es:
+            if x["slug"] != base["slug"]:
+                REDIRECTS.append((f"/{venue['slug']}/{x['slug']}/", f"/{venue['slug']}/{base['slug']}/"))
+    return sorted(out, key=lambda x: (x["start"], x["name"]))
+
+
 def venue_context(venue):
     hotels = load_hotels(venue)
     events = read_json(DATA / "events" / f"{venue['slug']}.json", {"events": []})["events"]
@@ -1190,7 +1231,7 @@ def venue_context(venue):
     pub = [s for s in lunch if "居酒屋" in (s.get("genre") or "")]
     lunch = sorted([s for s in lunch if s not in pub], key=lambda s: s["distance_m"])[:8]
     lunch += sorted(pub, key=lambda s: s["distance_m"])[:max(0, 8 - len(lunch))]
-    events = group_events(venue, events)
+    events = group_events(venue, merge_runs(venue, events))
     upcoming = [e for e in events if e["end"] >= TODAY.isoformat()]
     sat = TODAY + timedelta(days=(5 - TODAY.weekday()) % 7 or 7)
     series = []
