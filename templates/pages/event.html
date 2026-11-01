@@ -23,7 +23,7 @@
   </div>
   <ul class="answer-runs">
   {% for r in known %}
-    <li><span class="ar-date">{{ jdate(r.date) }}の夜</span>
+    <li><span class="ar-date">{{ jdate(r.date) }}の夜<span class="ar-count">空いている宿{{ r.open }}軒（歩いて行ける宿{{ r.near }}軒）</span></span>
     {% for k in ['walk', 'price', 'rate'] %}{% set pk = r.picks[k] %}
       <div class="ar-pick" data-k="{{ k }}"{% if k != 'walk' %} hidden{% endif %}>
       {% if pk %}<a class="ar-hotel" href="{{ book_url(pk.h, None) }}" rel="nofollow sponsored noopener" target="_blank">{{ pk.h.name }}</a><span class="ar-facts"><span class="walk">徒歩{{ walk_min(pk.h.distance_m) }}分</span>{% if pk.h.review_avg %}<span>評価{{ '%.2f' % (pk.h.review_avg|float) }}</span>{% endif %}<span>1人1室で<strong>{{ yen(pk.price) }}</strong>から</span></span>
@@ -67,27 +67,7 @@
 <h2>近いおすすめ宿</h2>
 <div id="hotels"></div>
 {{ rec_box(venue, hotels, by_people if not ended else {}, e.start if not ended else saturday, nights=stay_nights(e, venue) if not ended else []) }}
-{% set runs = run_rows(e, venue, hotels) if not ended else [] %}
-{% if runs %}
-<h2 id="runs">日程ごとの空きと料金</h2>
-<p>{{ e.name }}は{{ venue.name }}で{{ e.runs|length }}回に分けて開かれます。泊まる夜ごとに、空いている宿の数と、いちばん近い空いている宿、1人あたりの料金を並べました。空室と料金は毎朝調べ直しています。</p>
-<div class="table-wrap"><table class="t-runs">
-<thead><tr><th>泊まる夜</th><th class="num">空いている宿</th><th>いちばん近い空いている宿</th><th class="num">1人1室で</th><th class="num">2人1室で1人あたり</th></tr></thead>
-<tbody>
-{% for r in runs %}
-<tr><td class="date">{{ r.label }}</td>
-{% if r.checked %}
-<td class="num">{{ r.open }}軒<span class="sub">歩いて行ける宿{{ r.near }}軒</span></td>
-<td>{% if r.first %}{{ r.first.name }}<span class="sub">会場まで徒歩約{{ walk_min(r.first.distance_m) }}分</span>{% else %}近くに空きなし{% endif %}</td>
-<td class="num">{{ yen(r.min1) if r.min1 else '-' }}</td><td class="num">{{ yen(r.min2) if r.min2 else '-' }}</td>
-{% else %}
-<td colspan="4">開催の120日前から調べ始めます</td>
-{% endif %}
-</tr>
-{% endfor %}
-</tbody></table></div>
-<p class="note">1人1室と2人1室の料金は、その夜に空いている宿のいちばん安いプランです。上の「近いおすすめ宿」で夜を選ぶと、その夜に空いている宿に切り替わります。</p>
-{% endif %}
+
 
 <h2>もっと詳しく知りたいとき</h2>
 <div class="jump">
