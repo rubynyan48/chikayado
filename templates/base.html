@@ -279,5 +279,12 @@ document.querySelectorAll('.map').forEach(function(el){
   {% if site.moshimo and site.moshimo.a_id and has_hotels %}<img src="https://i.moshimo.com/af/i/impression?a_id={{ site.moshimo.a_id }}&p_id={{ site.moshimo.p_id }}&pc_id={{ site.moshimo.pc_id }}&pl_id={{ site.moshimo.pl_id }}" width="1" height="1" alt="楽天トラベルの計測用画像" aria-hidden="true" loading="lazy" style="border:none;position:absolute">{% endif %}
   <p class="wrap copyright">© 2026 {{ site.name }}（{{ site.display_domain }}）</p>
 </footer>
+<script>
+/* 開催日別の宿を、距離・値段・レビューで切り替える */
+(function(){var box=document.querySelector('.ar-sort');if(!box)return;var t=document.querySelector('.ar-title');
+box.addEventListener('change',function(ev){var k=ev.target.value;
+document.querySelectorAll('.ar-pick').forEach(function(el){el.hidden=el.dataset.k!==k;});
+if(t&&t.dataset[k])t.textContent=t.dataset[k];});})();
+</script>
 </body>
 </html>

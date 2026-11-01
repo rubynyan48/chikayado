@@ -532,3 +532,8 @@ td .no { display: inline-grid; place-items: center; width: 22px; height: 22px; m
 .ar-facts strong { font-size: 17px; color: var(--sign); margin: 0 2px; }
 .event-strip.has-runs { grid-template-columns: 1fr 1fr; }
 @media (max-width: 360px) { .es-runs strong { grid-template-columns: 1fr; } }
+.ar-sort { margin: 8px 0 4px; }
+.ar-pick { display: grid; gap: 2px; }
+.ar-pick[hidden] { display: none; }
+.ar-sort { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.ar-sort .pp span { padding-left: 4px; padding-right: 4px; }

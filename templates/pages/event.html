@@ -17,10 +17,20 @@
   {% set known = rr | selectattr('checked') | list %}
   {% set later = rr | rejectattr('checked') | list %}
   <p class="answer-genre">{{ page.genre.label }}</p>
-  <p class="answer-q">泊まる夜ごとの、会場にいちばん近い空いている宿</p>
+  <p class="answer-q ar-title" data-walk="開催日別の会場に一番近い空いている宿" data-price="開催日別の一番安い空いている宿" data-rate="開催日別のレビューが一番高い空いている宿">開催日別の会場に一番近い空いている宿</p>
+  <div class="search-people ar-sort" role="group" aria-label="並べ方">
+    {% for k, v in [('walk', '距離'), ('price', '値段'), ('rate', 'レビュー')] %}<label class="pp"><input type="radio" name="ar-sort" value="{{ k }}"{% if loop.first %} checked{% endif %}><span>{{ v }}</span></label>{% endfor %}
+  </div>
   <ul class="answer-runs">
   {% for r in known %}
-    <li><span class="ar-date">{{ jdate(r.date) }}の夜</span>{% if r.first %}<a class="ar-hotel" href="{{ book_url(r.first, None) }}" rel="nofollow sponsored noopener" target="_blank">{{ r.first.name }}</a><span class="ar-facts"><span class="walk">徒歩{{ walk_min(r.first.distance_m) }}分</span>{% if r.first_price %}<span>1人1室で<strong>{{ yen(r.first_price) }}</strong>から</span>{% endif %}</span>{% else %}<span class="ar-hotel">近くに空きなし</span>{% endif %}</li>
+    <li><span class="ar-date">{{ jdate(r.date) }}の夜</span>
+    {% for k in ['walk', 'price', 'rate'] %}{% set pk = r.picks[k] %}
+      <div class="ar-pick" data-k="{{ k }}"{% if k != 'walk' %} hidden{% endif %}>
+      {% if pk %}<a class="ar-hotel" href="{{ book_url(pk.h, None) }}" rel="nofollow sponsored noopener" target="_blank">{{ pk.h.name }}</a><span class="ar-facts"><span class="walk">徒歩{{ walk_min(pk.h.distance_m) }}分</span>{% if pk.h.review_avg %}<span>評価{{ '%.2f' % (pk.h.review_avg|float) }}</span>{% endif %}<span>1人1室で<strong>{{ yen(pk.price) }}</strong>から</span></span>
+      {% else %}<span class="ar-hotel">近くに空きなし</span>{% endif %}
+      </div>
+    {% endfor %}
+    </li>
   {% endfor %}
   </ul>
   {% if later %}<p class="answer-note">{{ jdate(later[0].date, False) }}の夜より先の日程は、開催の120日前から空室を調べ始めます。</p>{% endif %}

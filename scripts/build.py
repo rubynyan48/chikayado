@@ -661,7 +661,13 @@ def run_rows(e, venue, hotels):
         two = ((vac or {}).get("by_people") or {}).get("2") or {}
         open_h = [order[k] for k in one if k in order]
         first = min(open_h, key=lambda h: h["distance_m"]) if open_h else None
+        price = lambda h: one[h["hotelNo"]]["per_person"]
+        cheap = min(open_h, key=price) if open_h else None
+        rated = [h for h in open_h if h.get("review_avg")]
+        best = max(rated, key=lambda h: (float(h["review_avg"]), -h["distance_m"])) if rated else None
+        picks = {"walk": first, "price": cheap, "rate": best}
         rows.append({"date": d, "label": f"{jdate(d)}の夜", "checked": bool(vac), "open": len(open_h), "near": len(set(one) & near),
+                     "picks": {k: ({"h": h, "price": price(h)} if h else None) for k, h in picks.items()},
                      "min1": min((o["per_person"] for o in one.values()), default=None),
                      "min2": min((o["per_person"] for o in two.values()), default=None),
                      "first": first, "first_price": one[first["hotelNo"]]["per_person"] if first else None})
