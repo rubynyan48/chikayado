@@ -537,3 +537,5 @@ td .no { display: inline-grid; place-items: center; width: 22px; height: 22px; m
 .ar-pick[hidden] { display: none; }
 .ar-sort { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
 .ar-sort .pp span { padding-left: 4px; padding-right: 4px; }
+.ar-date { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; }
+.ar-count { font-size: 12px; font-weight: 700; color: var(--muted); }
