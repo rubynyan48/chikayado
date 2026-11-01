@@ -518,3 +518,22 @@ td .no { display: inline-grid; place-items: center; width: 22px; height: 22px; m
 .clinic-links a strong { display: block; }
 .clinic-links a span { display: block; white-space: normal; margin-top: 2px; }
 .clinic-links a::after { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); }
+
+/* 同じ公演が何日もあるとき */
+.event-strip .es-runs { grid-column: 1 / -1; }
+.es-runs strong { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 12px; margin-top: 4px; }
+.es-runs em { font-style: normal; white-space: nowrap; }
+.answer-runs { list-style: none; margin: 8px 0 4px; padding: 0; }
+.answer-runs li { display: grid; grid-template-columns: 1fr; gap: 2px; padding: 10px 0; border-top: 1px solid var(--line); }
+.answer-runs li:first-child { border-top: 0; }
+.ar-date { font-size: 13px; font-weight: 800; color: var(--sign); }
+.ar-hotel { font-size: 17px; font-weight: 800; color: var(--ink); }
+.ar-facts { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; font-size: 13px; color: var(--muted); }
+.ar-facts strong { font-size: 17px; color: var(--sign); margin: 0 2px; }
+.event-strip.has-runs { grid-template-columns: 1fr 1fr; }
+@media (max-width: 360px) { .es-runs strong { grid-template-columns: 1fr; } }
+.ar-sort { margin: 8px 0 4px; }
+.ar-pick { display: grid; gap: 2px; }
+.ar-pick[hidden] { display: none; }
+.ar-sort { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.ar-sort .pp span { padding-left: 4px; padding-right: 4px; }

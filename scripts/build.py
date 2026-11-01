@@ -640,6 +640,14 @@ def _hist_at(history, days_ago, key="open1"):
     return older[-1].get(key)
 
 
+def run_labels(e):
+    """開催日の欄に1行ずつ出す日程（例 2/20（土）〜2/21（日））。"""
+    def md(iso):
+        d = date.fromisoformat(iso)
+        return f"{d.month}/{d.day}（{WEEKDAYS[d.weekday()]}）"
+    return [md(a) if a == b else f"{md(a)}〜{md(b)}" for a, b in (e.get("runs") or [])]
+
+
 def run_rows(e, venue, hotels):
     """同じ公演の日程ごとに、その夜に空いている宿の数、歩いて行ける宿の空き、いちばん近い空いている宿と料金を出す。"""
     if len(e.get("runs") or []) < 2:
@@ -653,7 +661,13 @@ def run_rows(e, venue, hotels):
         two = ((vac or {}).get("by_people") or {}).get("2") or {}
         open_h = [order[k] for k in one if k in order]
         first = min(open_h, key=lambda h: h["distance_m"]) if open_h else None
+        price = lambda h: one[h["hotelNo"]]["per_person"]
+        cheap = min(open_h, key=price) if open_h else None
+        rated = [h for h in open_h if h.get("review_avg")]
+        best = max(rated, key=lambda h: (float(h["review_avg"]), -h["distance_m"])) if rated else None
+        picks = {"walk": first, "price": cheap, "rate": best}
         rows.append({"date": d, "label": f"{jdate(d)}の夜", "checked": bool(vac), "open": len(open_h), "near": len(set(one) & near),
+                     "picks": {k: ({"h": h, "price": price(h)} if h else None) for k, h in picks.items()},
                      "min1": min((o["per_person"] for o in one.values()), default=None),
                      "min2": min((o["per_person"] for o in two.values()), default=None),
                      "first": first, "first_price": one[first["hotelNo"]]["per_person"] if first else None})
@@ -1382,7 +1396,8 @@ def pages_for(venue, ctx):
         common = {"event": e, "vacancy": vac, "text": text, "concurrent": concurrent[:12], "days": days, "credit_events": True,
                   "history": hist, "base_vacancy": base_vac, "base_kind": kind,
                   "hero": {"file": hero_name(f"{e['name']}の会場に近いホテル"), "title": e["name"], "photo": next((s.get("hero_photo") for s in ctx["series"] if s["slug"] == e.get("series") and s.get("hero_photo")), None) or venue.get("hero_photos", {}).get("event"),
-                           "sub": f"{period(e)}　{venue['name']}", "tiles": hero_tiles(st, ctx["hotels"], ctx["near_hotels"]),
+                           "sub": (f"{run_labels(e)[0]}ほか全{len(e['runs'])}日程　{venue['name']}" if len(e.get("runs") or []) > 1
+                                   else f"{period(e)}　{venue['name']}"), "tiles": hero_tiles(st, ctx["hotels"], ctx["near_hotels"]),
                            "alt": f"{e['name']}の会場に近いホテルの空き具合"}}
         pages.append(dict(common, **{
             "path": path, "template": "event.html", "noindex": bool(e.get("noindex")), "has_map": True,
@@ -1428,7 +1443,7 @@ def css_version():
 
 def main():
     env = Environment(loader=FileSystemLoader(ROOT / "templates"), autoescape=select_autoescape(["html"]))
-    helpers = {"night_rows": night_rows, "run_rows": run_rows, "fill_pace": fill_pace, "pair_saving": pair_saving, "entrance_for": entrance_for, "hotels_from_entrance": hotels_from_entrance, "lunch_split": lunch_split, "far_links": far_links, "group_title": group_title, "bus_rows": bus_rows, "price_cond": price_cond, "stay_nights": stay_nights, "is_trade": is_trade, "genre": genre, "genre_photo": genre_photo, "photo": photo, "hotel_table": hotel_table, "hotel_cards": hotel_cards, "best_cards": best_cards,
+    helpers = {"night_rows": night_rows, "run_rows": run_rows, "run_labels": run_labels, "fill_pace": fill_pace, "pair_saving": pair_saving, "entrance_for": entrance_for, "hotels_from_entrance": hotels_from_entrance, "lunch_split": lunch_split, "far_links": far_links, "group_title": group_title, "bus_rows": bus_rows, "price_cond": price_cond, "stay_nights": stay_nights, "is_trade": is_trade, "genre": genre, "genre_photo": genre_photo, "photo": photo, "hotel_table": hotel_table, "hotel_cards": hotel_cards, "best_cards": best_cards,
                "compare_table": compare_table, "hotel_map": hotel_map, "people_tabs": people_tabs,
                "with_offers": with_offers, "price_of": price_of, "event_stats": event_stats, "best_picks": best_picks, "depart_table": depart_table,
                "open_time": open_time, "audience_label": audience_label,

@@ -11,6 +11,30 @@
   <p class="answer-q">{{ e.name }}は{{ period(e) }}に開催されました</p>
   <p class="answer-a">会場にいちばん近い宿は<br>{{ first.name if first else '' }}</p>
   <p class="answer-note">次回の日程が出たらこのページを更新します。</p>
+  {% elif e.runs and e.runs|length > 1 and first %}
+  {# 同じ公演が何日もあるときは、泊まる夜ごとに、いちばん近い空いている宿を並べる #}
+  {% set rr = run_rows(e, venue, hotels) %}
+  {% set known = rr | selectattr('checked') | list %}
+  {% set later = rr | rejectattr('checked') | list %}
+  <p class="answer-genre">{{ page.genre.label }}</p>
+  <p class="answer-q ar-title" data-walk="開催日別の会場に一番近い空いている宿" data-price="開催日別の一番安い空いている宿" data-rate="開催日別のレビューが一番高い空いている宿">開催日別の会場に一番近い空いている宿</p>
+  <div class="search-people ar-sort" role="group" aria-label="並べ方">
+    {% for k, v in [('walk', '距離'), ('price', '値段'), ('rate', 'レビュー')] %}<label class="pp"><input type="radio" name="ar-sort" value="{{ k }}"{% if loop.first %} checked{% endif %}><span>{{ v }}</span></label>{% endfor %}
+  </div>
+  <ul class="answer-runs">
+  {% for r in known %}
+    <li><span class="ar-date">{{ jdate(r.date) }}の夜</span>
+    {% for k in ['walk', 'price', 'rate'] %}{% set pk = r.picks[k] %}
+      <div class="ar-pick" data-k="{{ k }}"{% if k != 'walk' %} hidden{% endif %}>
+      {% if pk %}<a class="ar-hotel" href="{{ book_url(pk.h, None) }}" rel="nofollow sponsored noopener" target="_blank">{{ pk.h.name }}</a><span class="ar-facts"><span class="walk">徒歩{{ walk_min(pk.h.distance_m) }}分</span>{% if pk.h.review_avg %}<span>評価{{ '%.2f' % (pk.h.review_avg|float) }}</span>{% endif %}<span>1人1室で<strong>{{ yen(pk.price) }}</strong>から</span></span>
+      {% else %}<span class="ar-hotel">近くに空きなし</span>{% endif %}
+      </div>
+    {% endfor %}
+    </li>
+  {% endfor %}
+  </ul>
+  {% if later %}<p class="answer-note">{{ jdate(later[0].date, False) }}の夜より先の日程は、開催の120日前から空室を調べ始めます。</p>{% endif %}
+  <p class="answer-note">{{ page.genre.lead }}</p>
   {% elif first %}
   <p class="answer-genre">{{ page.genre.label }}</p>
   <p class="answer-q">{{ jdate(e.start) }}に泊まれる、会場にいちばん近い宿</p>
@@ -22,8 +46,12 @@
 {% if first %}
 <a class="btn btn-primary btn-block btn-big" href="{{ book_url(first, first.offer) }}" rel="nofollow sponsored noopener" target="_blank">{{ first.name }}の空室を見る</a>
 {% endif %}
-<div class="event-strip">
+<div class="event-strip{% if e.runs and e.runs|length > 1 %} has-runs{% endif %}">
+  {% if e.runs and e.runs|length > 1 %}
+  <div class="es-runs"><span>開催日（全{{ e.runs|length }}日程）</span><strong>{% for t in run_labels(e) %}<em>{{ t }}</em>{% endfor %}</strong></div>
+  {% else %}
   <div><span>開催日</span><strong>{{ period(e) }}</strong></div>
+  {% endif %}
   <div><span>会場</span><strong>{{ e.hall or venue.name }}</strong></div>
   {% if ot %}<div><span>開始</span><strong>{{ ot[0] }}:{{ '%02d' % ot[1] }}</strong></div>{% endif %}
 </div>
