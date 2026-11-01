@@ -11,6 +11,20 @@
   <p class="answer-q">{{ e.name }}は{{ period(e) }}に開催されました</p>
   <p class="answer-a">会場にいちばん近い宿は<br>{{ first.name if first else '' }}</p>
   <p class="answer-note">次回の日程が出たらこのページを更新します。</p>
+  {% elif e.runs and e.runs|length > 1 and first %}
+  {# 同じ公演が何日もあるときは、泊まる夜ごとに、いちばん近い空いている宿を並べる #}
+  {% set rr = run_rows(e, venue, hotels) %}
+  {% set known = rr | selectattr('checked') | list %}
+  {% set later = rr | rejectattr('checked') | list %}
+  <p class="answer-genre">{{ page.genre.label }}</p>
+  <p class="answer-q">泊まる夜ごとの、会場にいちばん近い空いている宿</p>
+  <ul class="answer-runs">
+  {% for r in known %}
+    <li><span class="ar-date">{{ jdate(r.date) }}の夜</span>{% if r.first %}<a class="ar-hotel" href="{{ book_url(r.first, None) }}" rel="nofollow sponsored noopener" target="_blank">{{ r.first.name }}</a><span class="ar-facts"><span class="walk">徒歩{{ walk_min(r.first.distance_m) }}分</span>{% if r.first_price %}<span>1人1室で<strong>{{ yen(r.first_price) }}</strong>から</span>{% endif %}</span>{% else %}<span class="ar-hotel">近くに空きなし</span>{% endif %}</li>
+  {% endfor %}
+  </ul>
+  {% if later %}<p class="answer-note">{{ jdate(later[0].date, False) }}の夜より先の日程は、開催の120日前から空室を調べ始めます。</p>{% endif %}
+  <p class="answer-note">{{ page.genre.lead }}</p>
   {% elif first %}
   <p class="answer-genre">{{ page.genre.label }}</p>
   <p class="answer-q">{{ jdate(e.start) }}に泊まれる、会場にいちばん近い宿</p>
@@ -22,8 +36,12 @@
 {% if first %}
 <a class="btn btn-primary btn-block btn-big" href="{{ book_url(first, first.offer) }}" rel="nofollow sponsored noopener" target="_blank">{{ first.name }}の空室を見る</a>
 {% endif %}
-<div class="event-strip">
+<div class="event-strip{% if e.runs and e.runs|length > 1 %} has-runs{% endif %}">
+  {% if e.runs and e.runs|length > 1 %}
+  <div class="es-runs"><span>開催日（全{{ e.runs|length }}日程）</span><strong>{% for t in run_labels(e) %}<em>{{ t }}</em>{% endfor %}</strong></div>
+  {% else %}
   <div><span>開催日</span><strong>{{ period(e) }}</strong></div>
+  {% endif %}
   <div><span>会場</span><strong>{{ e.hall or venue.name }}</strong></div>
   {% if ot %}<div><span>開始</span><strong>{{ ot[0] }}:{{ '%02d' % ot[1] }}</strong></div>{% endif %}
 </div>
