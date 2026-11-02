@@ -46,5 +46,4 @@ jobs:
           git config user.email "chikayado-bot@users.noreply.github.com"
           git checkout -- config data/logs 2>/dev/null || true
           git add -A data/*/kyocera-dome-osaka* data/*/osaka-jo-hall*
-          git status --short | head -50
           git commit -qm "大阪2会場の見本用データ [skip ci]" && git pull --rebase -q && git push
