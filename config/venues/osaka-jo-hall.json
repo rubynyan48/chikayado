@@ -1,0 +1,68 @@
+{
+  "slug": "osaka-jo-hall",
+  "name": "大阪城ホール",
+  "formal_name": "大阪城ホール",
+  "address": "大阪府大阪市中央区大阪城3-1",
+  "lat": 34.68944,
+  "lng": 135.52972,
+  "search_radius_km": 2.0,
+  "source": "osaka_johall",
+  "kind": "arena",
+  "area_label": "大阪城公園・京橋",
+  "stations": [
+    {
+      "name": "大阪城公園駅",
+      "line": "JR大阪環状線",
+      "walk_min": 5,
+      "lat": 34.68858,
+      "lng": 135.534482
+    },
+    {
+      "name": "大阪ビジネスパーク駅",
+      "line": "大阪メトロ長堀鶴見緑地線",
+      "walk_min": 5,
+      "lat": 34.692144,
+      "lng": 135.529688
+    },
+    {
+      "name": "京橋駅",
+      "line": "JR大阪環状線・JR東西線・京阪本線",
+      "walk_min": 10,
+      "lat": 34.696047,
+      "lng": 135.534253
+    },
+    {
+      "name": "森ノ宮駅",
+      "line": "JR大阪環状線・大阪メトロ中央線",
+      "walk_min": 15,
+      "lat": 34.680412,
+      "lng": 135.533996
+    }
+  ],
+  "schedule_url": "https://www.osaka-johall.com/event/",
+  "order": 19,
+  "max_hotels": 40,
+  "far_areas": [
+    {
+      "name": "大阪駅・梅田",
+      "chu": "osaka",
+      "shou": "shi",
+      "sai": "B",
+      "why": "宿の数が多い。JR大阪環状線で大阪城公園まで約10分"
+    },
+    {
+      "name": "新大阪",
+      "chu": "osaka",
+      "shou": "shi",
+      "sai": "A",
+      "why": "新幹線で帰る人。JRで大阪城公園まで約20分"
+    },
+    {
+      "name": "なんば・心斎橋",
+      "chu": "osaka",
+      "shou": "shi",
+      "sai": "D",
+      "why": "関空へ南海で直通。地下鉄長堀鶴見緑地線で大阪ビジネスパークへ"
+    }
+  ]
+}
