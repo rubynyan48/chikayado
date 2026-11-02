@@ -1,0 +1,68 @@
+{
+  "slug": "kyocera-dome-osaka",
+  "name": "京セラドーム大阪",
+  "formal_name": "京セラドーム大阪",
+  "address": "大阪府大阪市西区千代崎3-中2-1",
+  "lat": 34.6693,
+  "lng": 135.476103,
+  "search_radius_km": 1.5,
+  "source": "kyocera_dome",
+  "kind": "arena",
+  "area_label": "ドーム前・九条",
+  "stations": [
+    {
+      "name": "ドーム前千代崎駅",
+      "line": "大阪メトロ長堀鶴見緑地線",
+      "walk_min": 3,
+      "lat": 34.670757,
+      "lng": 135.479415
+    },
+    {
+      "name": "ドーム前駅",
+      "line": "阪神なんば線",
+      "walk_min": 3,
+      "lat": 34.670266,
+      "lng": 135.478313
+    },
+    {
+      "name": "大正駅",
+      "line": "JR大阪環状線・大阪メトロ長堀鶴見緑地線",
+      "walk_min": 7,
+      "lat": 34.665582,
+      "lng": 135.479932
+    },
+    {
+      "name": "九条駅",
+      "line": "大阪メトロ中央線・阪神なんば線",
+      "walk_min": 10,
+      "lat": 34.673412,
+      "lng": 135.474483
+    }
+  ],
+  "schedule_url": "https://www.kyoceradome-osaka.jp/event/",
+  "order": 19,
+  "max_hotels": 40,
+  "far_areas": [
+    {
+      "name": "なんば・心斎橋",
+      "chu": "osaka",
+      "shou": "shi",
+      "sai": "D",
+      "why": "阪神なんば線で大阪難波からドーム前まで約5分。夜に街へ出たい人"
+    },
+    {
+      "name": "大阪駅・梅田",
+      "chu": "osaka",
+      "shou": "shi",
+      "sai": "B",
+      "why": "宿の数が多い。JR大阪環状線で大正まで約15分"
+    },
+    {
+      "name": "新大阪",
+      "chu": "osaka",
+      "shou": "shi",
+      "sai": "A",
+      "why": "新幹線で帰る人。地下鉄と環状線を乗り継いで約30分"
+    }
+  ]
+}

@@ -603,7 +603,59 @@ def yokohama_buntai(venue):
     return unique(items)
 
 
+# ---- 京セラドーム大阪 --------------------------------------------------------
+def kyocera_dome(venue):
+    """公式サイトのスケジュール欄（コンサート）を読む。野球は地元のファンが中心なので載せない。"""
+    soup = get_html("https://www.kyoceradome-osaka.jp/event/")
+    items = []
+    for a in soup.select('ul.ul-dotted li a[href*="schedule/?"]'):
+        if "cat=concert" not in a["href"]:
+            continue
+        par, ch = a.select_one("p.parent"), a.select_one("p.children")
+        ds = re.findall(r"(\d{4})/(\d{1,2})/(\d{1,2})", par.get_text() if par else "")
+        if not ds or not ch:
+            continue
+        ds = [date(int(y), int(m), int(d)).isoformat() for y, m, d in ds]
+        name = clean(ch.get_text())
+        if re.search(r"公演中止|開催中止|公演延期", name):
+            continue
+        items.append(event(name, ds[0], ds[-1], content="コンサート", url=urljoin("https://www.kyoceradome-osaka.jp/", a["href"])))
+    return unique(items)
+
+
+# ---- 大阪城ホール ------------------------------------------------------------
+def osaka_johall(venue):
+    items = []
+    for y, m in months_ahead(6):
+        soup = get_html(f"https://www.osaka-johall.com/event?ym={y}{m:02d}")
+        for li in soup.select("li.event-detail"):
+            day = li.select_one(".date-num")
+            t = li.select_one(".event-ttl")
+            if not day or not t or not day.get_text(strip=True).isdigit():
+                continue
+            name = clean(t.get_text(" "))
+            if re.search(r"公演中止|開催中止|公演延期", name):
+                continue
+            d = date(y, m, int(day.get_text(strip=True))).isoformat()
+            info = {}
+            for dd in li.select("dd.event-schedule"):
+                for row in dd.select("li") or [dd]:
+                    k, v = row.select_one(".d-ttl"), row.select_one(".d-txt")
+                    if k and v:
+                        info[clean(k.get_text())] = clean(v.get_text(" "))
+            hours = " ".join(f"{k} {info[k]}" for k in ("開場", "開演", "開始") if info.get(k))
+            genre = li.select_one(".event-genre")
+            place = li.select_one(".event-place")
+            a = t.find("a")
+            items.append(event(name, d, hours=hours, fee=info.get("座席", "")[:200], organizer=info.get("主催", ""),
+                               content=clean(genre.get_text()) if genre else "", hall=clean(place.get_text()) if place else "",
+                               url=a["href"] if a and a.get("href", "").startswith("http") else ""))
+    return join_days(items)
+
+
 SOURCES = {
+    "kyocera_dome": kyocera_dome,
+    "osaka_johall": osaka_johall,
     "gcal": gcal,
     "eventernote": eventernote,
     "yokohama_buntai": yokohama_buntai,
