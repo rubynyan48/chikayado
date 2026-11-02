@@ -20,7 +20,7 @@
 {% set st = event_stats(hotels, page.vacancy, None, None) if e else None %}
 {% if st %}
 <div class="stats">
-  <div><span>{{ jdate(e.start, False) }}に空いている宿</span><strong>{{ st.one.open }}<small>/{{ st.total }}軒</small></strong></div>
+  <div><span>{{ jdate(stay_from(e), False) }}に空いている宿</span><strong>{{ st.one.open }}<small>/{{ st.total }}軒</small></strong></div>
   <div><span>歩いて行ける宿の空き</span><strong>{{ st.one.near }}<small>/{{ st.near_total }}軒</small></strong></div>
   {% if st.one.min %}<div><span>いちばん安い宿</span><strong>{{ '{:,}'.format(st.one.min) }}<small>円</small></strong></div>{% endif %}
 </div>
@@ -28,7 +28,7 @@
 <!--body-->
 <h2>近いおすすめ宿</h2>
 <div id="hotels"></div>
-{{ rec_box(venue, hotels, by_people, e.start if e else saturday, nights=stay_nights(e, venue) if e else []) }}
+{{ rec_box(venue, hotels, by_people, stay_from(e) if e else saturday, nights=stay_nights(e, venue) if e else []) }}
 
 <h2>{{ sr.short }}の開催日</h2>
 <p>これまでに調べた{{ sr.name }}の開催日です。イベント名を選ぶと、その回の空き具合や宿を出る時刻の目安が見られます。</p>

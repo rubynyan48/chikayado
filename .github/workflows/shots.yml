@@ -6,6 +6,9 @@ on:
 permissions:
   contents: write
 
+env:
+  TZ: Asia/Tokyo  # 日付を日本時間で数える
+
 jobs:
   shots:
     runs-on: ubuntu-latest

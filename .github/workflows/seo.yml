@@ -12,6 +12,9 @@ concurrency:
 permissions:
   contents: write
 
+env:
+  TZ: Asia/Tokyo  # 日付を日本時間で数える
+
 jobs:
   report:
     runs-on: ubuntu-latest

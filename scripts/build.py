@@ -507,6 +507,11 @@ def stay_nights(e, venue):
     return out[:6] if len(out) > 1 else []
 
 
+def stay_from(e):
+    """宿を探す最初の夜。開催中のイベントは、もう過ぎた初日ではなく今日の夜から。"""
+    return max(e["start"], TODAY.isoformat())
+
+
 def is_trade(e):
     """業界関係者が中心のイベント（商談の展示会、学会など）。"""
     a = e.get("audience") or ""
@@ -680,7 +685,8 @@ def night_rows(e, venue, hotels):
     out = []
     ids = {h["hotelNo"] for h in hotels}
     near = {h["hotelNo"] for h in hotels if h["distance_m"] <= 1000}
-    for d, md, label in stay_nights(e, venue) or [(e["start"], f"{int(e['start'][5:7])}/{int(e['start'][8:10])}", "当日")]:
+    sd = stay_from(e)
+    for d, md, label in stay_nights(e, venue) or [(sd, f"{int(sd[5:7])}/{int(sd[8:10])}", "当日")]:
         vac = read_json(DATA / "vacancy" / vslug(venue) / f"{d}.json")
         if not vac:
             continue
@@ -719,7 +725,7 @@ def fill_pace(venue):
 
 def pair_saving(e, venue, hotels):
     """2人で来るとき、1室にすると1人あたりいくら安いか（両方の料金がある宿の中央値）。"""
-    vac = read_json(DATA / "vacancy" / vslug(venue) / f"{e['start']}.json")
+    vac = read_json(DATA / "vacancy" / vslug(venue) / f"{stay_from(e)}.json")
     if not vac:
         return None
     ids = {h["hotelNo"] for h in hotels}
@@ -1351,14 +1357,14 @@ def pages_for(venue, ctx):
            "float_cta": {"href": "#best", "label": f"{label}で泊まれるおすすめを見る"}, "has_map": True}
           for slug, n, label in PEOPLE_PAGES],
         *[{"path": f"{v}{sr['slug']}/", "template": "series.html", "series": sr,
-           "vacancy": read_json(DATA / "vacancy" / vslug(venue) / f"{sr['next']['start']}.json") if sr["next"] else None,
+           "vacancy": read_json(DATA / "vacancy" / vslug(venue) / f"{stay_from(sr['next'])}.json") if sr["next"] else None,
            "title": f"{sr['name']}（{sr['short']}）の会場に近いホテル {venue['name']}周辺で空いている宿",
            "description": (f"次の{sr['name']}（{sr['next']['name']}）は{period(sr['next'])}に{venue['name']}で開かれます。" if sr["next"]
                            else f"{sr['name']}は{venue['name']}で開かれるイベントです。")
                           + "会場に近いホテルの空室と1人あたりの料金を、人数を選ぶだけで確かめられます。",
            "hero": {"file": hero_name(f"{sr['short']}の会場に近いホテル"), "title": sr["name"], "photo": sr.get("hero_photo") or venue.get("hero_photos", {}).get("venue"),
                     "sub": (f"次回 {period(sr['next'])}　{venue['name']}" if sr["next"] else venue["name"]),
-                    "tiles": hero_tiles(event_stats(ctx["hotels"], read_json(DATA / "vacancy" / vslug(venue) / f"{sr['next']['start']}.json"), None, None)
+                    "tiles": hero_tiles(event_stats(ctx["hotels"], read_json(DATA / "vacancy" / vslug(venue) / f"{stay_from(sr['next'])}.json"), None, None)
                                         if sr["next"] else None, ctx["hotels"], ctx["near_hotels"]),
                     "alt": f"{sr['name']}の会場に近いホテルの空き具合"},
            "breadcrumbs": [home, hub, {"name": f"{sr['short']}の宿", "path": f"{v}{sr['slug']}/"}],
@@ -1404,17 +1410,18 @@ def pages_for(venue, ctx):
             continue
         concurrent = [o for o in ctx["all_events"] if o is not e and o["start"] <= e["end"] and o["end"] >= e["start"]]
         days = (date.fromisoformat(e["end"]) - date.fromisoformat(e["start"])).days + 1
-        vac = read_json(DATA / "vacancy" / vslug(venue) / f"{e['start']}.json") if e["end"] >= TODAY.isoformat() else None
+        sd = stay_from(e)
+        vac = read_json(DATA / "vacancy" / vslug(venue) / f"{sd}.json") if e["end"] >= TODAY.isoformat() else None
         text = read_json(DATA / "texts" / venue["slug"] / f"{e['slug']}.json")
-        hist = read_json(DATA / "vacancy_history" / vslug(venue) / f"{e['start']}.json")
+        hist = read_json(DATA / "vacancy_history" / vslug(venue) / f"{sd}.json")
         # 比べる相手は、同じ曜日の種類（金土の夜は週末、それ以外は平日）でイベントのない日
-        kind = "weekend" if date.fromisoformat(e["start"]).weekday() in (4, 5) else "weekday"
+        kind = "weekend" if date.fromisoformat(sd).weekday() in (4, 5) else "weekday"
         base_date = (read_json(DATA / "baseline" / f"{vslug(venue)}.json", {}) or {}).get(kind)
         base_vac = read_json(DATA / "vacancy" / vslug(venue) / f"{base_date}.json") if base_date else None
         st = event_stats(ctx["hotels"], vac, base_vac, hist) if vac else None
         g = genre(e, venue)
         common = {"event": e, "vacancy": vac, "text": text, "concurrent": concurrent[:12], "days": days, "credit_events": True,
-                  "history": hist, "base_vacancy": base_vac, "base_kind": kind,
+                  "history": hist, "base_vacancy": base_vac, "base_kind": kind, "stay_date": sd,
                   "hero": {"file": hero_name(f"{e['name']}の会場に近いホテル"), "title": e["name"], "photo": next((s.get("hero_photo") for s in ctx["series"] if s["slug"] == e.get("series") and s.get("hero_photo")), None) or venue.get("hero_photos", {}).get("event"),
                            "sub": (f"{run_labels(e)[0]}ほか全{len(e['runs'])}日程　{venue['name']}" if len(e.get("runs") or []) > 1
                                    else f"{period(e)}　{venue['name']}"), "tiles": hero_tiles(st, ctx["hotels"], ctx["near_hotels"]),
@@ -1463,7 +1470,7 @@ def css_version():
 
 def main():
     env = Environment(loader=FileSystemLoader(ROOT / "templates"), autoescape=select_autoescape(["html"]))
-    helpers = {"night_rows": night_rows, "run_rows": run_rows, "run_labels": run_labels, "fill_pace": fill_pace, "pair_saving": pair_saving, "entrance_for": entrance_for, "hotels_from_entrance": hotels_from_entrance, "lunch_split": lunch_split, "far_links": far_links, "group_title": group_title, "bus_rows": bus_rows, "price_cond": price_cond, "stay_nights": stay_nights, "is_trade": is_trade, "genre": genre, "genre_photo": genre_photo, "photo": photo, "hotel_table": hotel_table, "hotel_cards": hotel_cards, "best_cards": best_cards,
+    helpers = {"night_rows": night_rows, "run_rows": run_rows, "run_labels": run_labels, "fill_pace": fill_pace, "pair_saving": pair_saving, "entrance_for": entrance_for, "hotels_from_entrance": hotels_from_entrance, "lunch_split": lunch_split, "far_links": far_links, "group_title": group_title, "bus_rows": bus_rows, "price_cond": price_cond, "stay_nights": stay_nights, "stay_from": stay_from, "is_trade": is_trade, "genre": genre, "genre_photo": genre_photo, "photo": photo, "hotel_table": hotel_table, "hotel_cards": hotel_cards, "best_cards": best_cards,
                "compare_table": compare_table, "hotel_map": hotel_map, "people_tabs": people_tabs,
                "with_offers": with_offers, "price_of": price_of, "event_stats": event_stats, "best_picks": best_picks, "depart_table": depart_table,
                "open_time": open_time, "audience_label": audience_label,
