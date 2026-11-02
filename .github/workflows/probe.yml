@@ -17,12 +17,9 @@ jobs:
       - run: pip install -q -r requirements.txt
       - run: if grep -q "^render:" scripts/probe_urls.txt; then pip install -q playwright==1.48.0 && python -m playwright install --with-deps chromium > /dev/null 2>&1; fi
       - run: mkdir -p data/probe && python scripts/probe.py | tee data/probe/result.txt
-      - env:
-          RAKUTEN_APP_ID: ${{ secrets.RAKUTEN_APP_ID }}
-          RAKUTEN_ACCESS_KEY: ${{ secrets.RAKUTEN_ACCESS_KEY }}
-        run: cd scripts && python probe_hotels.py 2>&1 | python redact.py | tee ../data/probe/hotels.txt
       - run: |
           git config user.name "chikayado-bot"
           git config user.email "chikayado-bot@users.noreply.github.com"
+          git checkout -- data/logs 2>/dev/null || true
           git add data/probe
           git commit -qm "会場サイトの下調べ [skip ci]" && git pull --rebase -q && git push
