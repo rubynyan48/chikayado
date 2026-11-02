@@ -29,6 +29,7 @@ jobs:
         run: |
           git config user.name "chikayado-bot"
           git config user.email "chikayado-bot@users.noreply.github.com"
+          git checkout -- data/logs 2>/dev/null || true
           git add data/seo
           git diff --cached --quiet || git commit -qm "予約サイトへのクリック [skip ci]"
           git pull --rebase -X theirs -q && git push
