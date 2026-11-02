@@ -37,6 +37,7 @@ https://xn--u8j0b149r.jp/ （ちか宿.jp）。静的サイトを Python + Jinja
 - 予約サイトへのクリックとChatGPTから来た訪問は ga4_clicks.yml で取れる（結果は実行の注記に出る）。
 - 公式サイトの画面のまとめ撮りは shots.yml、クリニックは clinic_shots.yml。
 - 下調べは probe.yml（scripts/probe_urls.txt に URL。render: でブラウザ表示、bingbot: でBingのふりをして確認）。終わったら data/probe を消す。
+- 日付は日本時間で数える（各ワークフローの env に TZ: Asia/Tokyo。11/2までは世界標準時で、朝の更新が前日の夜の空室を取っていた）。開催中のイベントは build.py の stay_from で今日の夜から宿を出す。
 - XServerのアクセスログはSSHからは見えない（持ち主がサーバーパネルから落として渡してくれる）。
 
 ## 今の状態（2026-11-02）
