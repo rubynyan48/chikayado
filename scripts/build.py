@@ -7,6 +7,7 @@ import json
 from urllib.parse import quote
 import math
 import re
+import unicodedata
 import shutil
 from datetime import date, timedelta
 from html import escape, unescape
@@ -1232,12 +1233,30 @@ def group_events(venue, events):
     return events
 
 
+def event_key(e):
+    """同じイベントかどうかをイベント名で見るための形。空白や記号、全角半角の違いをなくす。"""
+    return re.sub(r"[\W_]", "", unicodedata.normalize("NFKC", e["name"]).lower())
+
+
+def same_titled(a, b):
+    if not (a["start"] <= b["end"] and b["start"] <= a["end"]) or not a.get("url") or a.get("url") != b.get("url"):
+        return False
+    q = [re.search(r"[「『]([^」』]+)[」』]", unicodedata.normalize("NFKC", x["name"])) for x in (a, b)]
+    return bool(q[0] and q[1]) and event_key({"name": q[0].group(1)}) == event_key({"name": q[1].group(1)})
+
+
 def merge_runs(venue, events):
     """同じ会場で同じ名前の公演が日をあけて何度かあるとき、1つのページにまとめる。
     URLは日付の付いていない最初のものを使い、ほかの日程のURLはそこへ転送する。"""
     by = {}
     for e in events:
-        by.setdefault(e["name"], []).append(e)
+        key = event_key(e)
+        # 書き方の違う同じ公演（UNICORNとユニコーンなど）は、会期が重なり、公式サイトと「」の中の題名が同じなら同じものとみなす
+        for k, es in by.items():
+            if any(same_titled(e, x) for x in es):
+                key = k
+                break
+        by.setdefault(key, []).append(e)
     out = []
     for name, es in by.items():
         if len(es) == 1:
@@ -1248,7 +1267,8 @@ def merge_runs(venue, events):
         up = [x for x in es if x["end"] >= TODAY.isoformat()]
         main = dict(up[0] if up else es[-1])
         main["slug"] = base["slug"]
-        main["runs"] = [(x["start"], x["end"]) for x in (up or es)]
+        main["name"] = base["name"]
+        main["runs"] = sorted({(x["start"], x["end"]) for x in (up or es)})
         out.append(main)
         for x in es:
             if x["slug"] != base["slug"]:
