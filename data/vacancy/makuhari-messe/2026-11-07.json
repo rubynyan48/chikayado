@@ -1,14 +1,14 @@
 {
- "checked": "2026-11-01",
+ "checked": "2026-11-03",
  "checkin": "2026-11-07",
  "by_people": {
   "1": {
    "179005": {
-    "total": 37900,
-    "per_person": 37900,
+    "total": 37990,
+    "per_person": 37990,
     "plan": "【素泊まり】事前カード決済プラン",
-    "room": "スタンダードシングル",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=179005&f_syu=sin002&f_hi1=2026-11-07&f_hi2=2026-11-08&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5253717"
+    "room": "バンクツイン(2段ベッドルーム)",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=179005&f_syu=twn01&f_hi1=2026-11-07&f_hi2=2026-11-08&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5253717"
    },
    "51637": {
     "total": 39420,
@@ -18,11 +18,18 @@
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=51637&f_syu=o2&f_hi1=2026-11-07&f_hi2=2026-11-08&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4955899"
    },
    "188719": {
-    "total": 49300,
-    "per_person": 49300,
+    "total": 47900,
+    "per_person": 47900,
     "plan": "【朝食なし】19時チェックインのショートステイ",
     "room": "禁煙 スーペリアシングル(バス・トイレ別)1名利用",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=188719&f_syu=sas&f_hi1=2026-11-07&f_hi2=2026-11-08&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5831287"
+   },
+   "199205": {
+    "total": 49600,
+    "per_person": 49600,
+    "plan": "【 2026年6月開業 】 KOKO HOTELS スタンダードプラン / 素泊まり",
+    "room": "スタンダードツイン with エキストラベッド",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=199205&f_syu=t2e&f_hi1=2026-11-07&f_hi2=2026-11-08&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6470053"
    },
    "29726": {
     "total": 55000,
@@ -31,19 +38,12 @@
     "room": "スタンダードツイン(禁煙)",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=29726&f_syu=stn-0&f_hi1=2026-11-07&f_hi2=2026-11-08&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4943943"
    },
-   "199205": {
-    "total": 55000,
-    "per_person": 55000,
-    "plan": "【 2026年6月開業 】 KOKO HOTELS スタンダードプラン / 素泊まり",
-    "room": "スタンダードツイン with ソファベッド",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=199205&f_syu=t2s&f_hi1=2026-11-07&f_hi2=2026-11-08&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6470053"
-   },
    "191532": {
-    "total": 89600,
-    "per_person": 89600,
+    "total": 82800,
+    "per_person": 82800,
     "plan": "【シンプルステイ】ラグジュアリーな空間で過ごす大人のひとり旅<ラウンジ/朝食付き>",
-    "room": "デラックスツインルーム",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=191532&f_syu=dxtwin&f_hi1=2026-11-07&f_hi2=2026-11-08&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5924170"
+    "room": "スーペリアツインルーム",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=191532&f_syu=superior&f_hi1=2026-11-07&f_hi2=2026-11-08&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5924170"
    },
    "1609": {
     "total": 129000,
@@ -54,47 +54,54 @@
    }
   },
   "2": {
+   "1520": {
+    "total": 38000,
+    "per_person": 19000,
+    "plan": "",
+    "room": "【禁煙】スタンダードダブル",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=1520&f_syu=hsd&f_hi1=2026-11-07&f_hi2=2026-11-08&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
+   },
    "51637": {
-    "total": 41760,
-    "per_person": 20880,
-    "plan": "素泊まり 部屋タイプおまかせ※リクエスト不可",
-    "room": "□禁煙室 【部屋タイプはホテルおまかせ】2名利用",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=51637&f_syu=o4&f_hi1=2026-11-07&f_hi2=2026-11-08&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4955899"
+    "total": 42120,
+    "per_person": 21060,
+    "plan": "【東京ベイ幕張20周年記念】12時チェックアウト! ダブルルームお得に満喫!素泊まりプラン",
+    "room": "禁煙室 ダブルルーム(セントラルタワー) 2名利用",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=51637&f_syu=newd2k&f_hi1=2026-11-07&f_hi2=2026-11-08&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6506196"
    },
    "188719": {
-    "total": 49300,
-    "per_person": 24650,
+    "total": 48900,
+    "per_person": 24450,
     "plan": "【朝食なし】19時チェックインのショートステイ",
     "room": "禁煙 スーペリアシングル(バス・トイレ別)2名利用",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=188719&f_syu=sad&f_hi1=2026-11-07&f_hi2=2026-11-08&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5831287"
    },
-   "29726": {
-    "total": 53000,
-    "per_person": 26500,
-    "plan": "Best Rate ■ 素泊り ■ 幕張満喫・観光・レジャーにおすすめ",
-    "room": "スタジオツイン(禁煙)",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=29726&f_syu=dx-a&f_hi1=2026-11-07&f_hi2=2026-11-08&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4943787"
-   },
    "199205": {
-    "total": 55000,
-    "per_person": 27500,
+    "total": 49600,
+    "per_person": 24800,
     "plan": "【 2026年6月開業 】 KOKO HOTELS スタンダードプラン / 素泊まり",
-    "room": "スタンダードツイン with ソファベッド",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=199205&f_syu=t2s&f_hi1=2026-11-07&f_hi2=2026-11-08&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6470053"
+    "room": "スタンダードツイン with エキストラベッド",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=199205&f_syu=t2e&f_hi1=2026-11-07&f_hi2=2026-11-08&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6470053"
+   },
+   "29726": {
+    "total": 56000,
+    "per_person": 28000,
+    "plan": "Best Rate ■ 素泊り ■ 幕張満喫・観光・レジャーにおすすめ",
+    "room": "スタンダードツイン(禁煙)",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=29726&f_syu=stn-0&f_hi1=2026-11-07&f_hi2=2026-11-08&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4943787"
    },
    "179005": {
-    "total": 65600,
-    "per_person": 32800,
-    "plan": "カップルにおすすめ!!【素泊まり】★共同浴場完備★京葉線・新習志野駅徒歩2分",
-    "room": "セミダブル",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=179005&f_syu=sin02&f_hi1=2026-11-07&f_hi2=2026-11-08&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4670456"
+    "total": 68620,
+    "per_person": 34310,
+    "plan": "【素泊まり】事前カード決済プラン",
+    "room": "バンクツイン(2段ベッドルーム)",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=179005&f_syu=twn01&f_hi1=2026-11-07&f_hi2=2026-11-08&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5253717"
    },
    "191532": {
-    "total": 89600,
-    "per_person": 44800,
+    "total": 82800,
+    "per_person": 41400,
     "plan": "【シンプルステイ】ラグジュアリーな空間で過ごす非日常のひと時<ラウンジ/朝食付き>",
-    "room": "デラックスツインルーム",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=191532&f_syu=dxtwin&f_hi1=2026-11-07&f_hi2=2026-11-08&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5924181"
+    "room": "スーペリアツインルーム",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=191532&f_syu=superior&f_hi1=2026-11-07&f_hi2=2026-11-08&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5924181"
    },
    "1609": {
     "total": 139000,
@@ -105,19 +112,19 @@
    }
   },
   "3": {
+   "199205": {
+    "total": 54600,
+    "per_person": 18200,
+    "plan": "【 2026年6月開業 】 KOKO HOTELS スタンダードプラン / 素泊まり",
+    "room": "スタンダードツイン with エキストラベッド",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=199205&f_syu=t2e&f_hi1=2026-11-07&f_hi2=2026-11-08&f_heya_su=1&f_otona_su=3&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6470053"
+   },
    "179005": {
     "total": 54720,
     "per_person": 18240,
     "plan": "【素泊まり】事前カード決済プラン",
     "room": "キャビンル−ム 4名",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=179005&f_syu=cab01&f_hi1=2026-11-07&f_hi2=2026-11-08&f_heya_su=1&f_otona_su=3&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5253717"
-   },
-   "199205": {
-    "total": 60000,
-    "per_person": 20000,
-    "plan": "【 2026年6月開業 】 KOKO HOTELS スタンダードプラン / 素泊まり",
-    "room": "スタンダードツイン with ソファベッド",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=199205&f_syu=t2s&f_hi1=2026-11-07&f_hi2=2026-11-08&f_heya_su=1&f_otona_su=3&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6470053"
    },
    "29726": {
     "total": 64392,
@@ -130,8 +137,8 @@
     "total": 66150,
     "per_person": 22050,
     "plan": "素泊まりプラン",
-    "room": "□禁煙室 ウエストウイングトリプル",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=51637&f_syu=wrk&f_hi1=2026-11-07&f_hi2=2026-11-08&f_heya_su=1&f_otona_su=3&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=273200"
+    "room": "□禁煙室 イーストウイングトリプル",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=51637&f_syu=erk&f_hi1=2026-11-07&f_hi2=2026-11-08&f_heya_su=1&f_otona_su=3&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=273200"
    },
    "188719": {
     "total": 68280,
@@ -162,6 +169,13 @@
     "plan": "【素泊まり】事前カード決済プラン",
     "room": "キャビンル−ム 4名",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=179005&f_syu=cab01&f_hi1=2026-11-07&f_hi2=2026-11-08&f_heya_su=1&f_otona_su=4&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5253717"
+   },
+   "29726": {
+    "total": 77200,
+    "per_person": 19300,
+    "plan": "Best Rate ■ 素泊り ■ 幕張満喫・観光・レジャーにおすすめ",
+    "room": "ラージツイン(禁煙)",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=29726&f_syu=ltn-0&f_hi1=2026-11-07&f_hi2=2026-11-08&f_heya_su=1&f_otona_su=4&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4943787"
    },
    "51637": {
     "total": 108000,

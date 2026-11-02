@@ -1,21 +1,21 @@
 {
- "checked": "2026-10-30",
+ "checked": "2026-11-03",
  "checkin": "2026-12-21",
  "by_people": {
   "1": {
-   "199071": {
-    "total": 7600,
-    "per_person": 7600,
-    "plan": "【素泊】新横浜駅から徒歩5分!ビジネス・イベントの拠点に最適なシンプルステイ",
-    "room": "【禁煙】ダブル",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=199071&f_syu=doublensmk&f_hi1=2026-12-21&f_hi2=2026-12-22&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6453574"
-   },
    "1429": {
     "total": 8000,
     "per_person": 8000,
     "plan": "ベーシック 素泊りプラン",
     "room": "ダブルルーム 禁煙DAタイプ",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=1429&f_syu=dap&f_hi1=2026-12-21&f_hi2=2026-12-22&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=2852531"
+   },
+   "199071": {
+    "total": 8100,
+    "per_person": 8100,
+    "plan": "【素泊】新横浜駅から徒歩5分!ビジネス・イベントの拠点に最適なシンプルステイ",
+    "room": "【禁煙】ダブル",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=199071&f_syu=doublensmk&f_hi1=2026-12-21&f_hi2=2026-12-22&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6453574"
    },
    "69374": {
     "total": 8925,
@@ -38,13 +38,6 @@
     "room": "【リニューアル】シングル 禁煙/エアウィーヴマットレス",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=18170&f_syu=rnsa&f_hi1=2026-12-21&f_hi2=2026-12-22&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6230348"
    },
-   "70195": {
-    "total": 10400,
-    "per_person": 10400,
-    "plan": "【早期割30】30日前までの予約でお得なプラン〜素泊まり〜",
-    "room": "【禁煙・18平米】◆スタンダードダブル(1名利用)◆",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=70195&f_syu=sn&f_hi1=2026-12-21&f_hi2=2026-12-22&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6165560"
-   },
    "151063": {
     "total": 10400,
     "per_person": 10400,
@@ -56,8 +49,15 @@
     "total": 10625,
     "per_person": 10625,
     "plan": "【リブ得セール】〜15%OFF〜 東海道新幹線「新横浜」駅 徒歩 約5分! 《素泊り》",
-    "room": "シングルルーム☆禁煙☆セミダブルベッド(×1台)☆",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=180432&f_syu=sr-sn&f_hi1=2026-12-21&f_hi2=2026-12-22&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5741483"
+    "room": "シングルルーム★喫煙★セミダブルベッド(×1台)★",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=180432&f_syu=sr-s&f_hi1=2026-12-21&f_hi2=2026-12-22&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5741483"
+   },
+   "70195": {
+    "total": 10800,
+    "per_person": 10800,
+    "plan": "【早期割30】30日前までの予約でお得なプラン〜素泊まり〜",
+    "room": "【禁煙・18平米】◆スタンダードダブル(1名利用)◆",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=70195&f_syu=sn&f_hi1=2026-12-21&f_hi2=2026-12-22&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6165560"
    },
    "178162": {
     "total": 12960,
@@ -142,15 +142,8 @@
     "total": 11900,
     "per_person": 5950,
     "plan": "【リブ得セール】〜15%OFF〜 東海道新幹線「新横浜」駅 徒歩 約5分! 《素泊り》",
-    "room": "シングルルーム☆禁煙☆セミダブルベッド(×1台)☆",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=180432&f_syu=sr-sn&f_hi1=2026-12-21&f_hi2=2026-12-22&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5741483"
-   },
-   "70195": {
-    "total": 12400,
-    "per_person": 6200,
-    "plan": "【早期割30】30日前までの予約でお得なプラン〜素泊まり〜",
-    "room": "【禁煙・18平米】◆スタンダードダブル(2名利用)◆",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=70195&f_syu=dn&f_hi1=2026-12-21&f_hi2=2026-12-22&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6165560"
+    "room": "シングルルーム★喫煙★セミダブルベッド(×1台)★",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=180432&f_syu=sr-s&f_hi1=2026-12-21&f_hi2=2026-12-22&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5741483"
    },
    "18170": {
     "total": 12600,
@@ -159,12 +152,12 @@
     "room": "【リニューアル】シングル2名利用 /禁煙 西川のエアー",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=18170&f_syu=rnni2&f_hi1=2026-12-21&f_hi2=2026-12-22&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6231035"
    },
-   "199071": {
+   "70195": {
     "total": 12800,
     "per_person": 6400,
-    "plan": "【素泊】新横浜駅から徒歩5分!ビジネス・イベントの拠点に最適なシンプルステイ",
-    "room": "【禁煙】ダブル",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=199071&f_syu=doublensmk&f_hi1=2026-12-21&f_hi2=2026-12-22&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6453574"
+    "plan": "【早期割30】30日前までの予約でお得なプラン〜素泊まり〜",
+    "room": "【禁煙・18平米】◆スタンダードダブル(2名利用)◆",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=70195&f_syu=dn&f_hi1=2026-12-21&f_hi2=2026-12-22&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6165560"
    },
    "178162": {
     "total": 12960,
@@ -172,6 +165,13 @@
     "plan": "早割30 ■ 素泊り ■ 30日前のご予約がだんぜんお得 ◇事前決済限定 変更キャンセル不可◇",
     "room": "禁煙モデレートダブルルーム 2名(15平米)",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=178162&f_syu=mdrdbl2&f_hi1=2026-12-21&f_hi2=2026-12-22&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4594190"
+   },
+   "199071": {
+    "total": 13000,
+    "per_person": 6500,
+    "plan": "【素泊】新横浜駅から徒歩5分!ビジネス・イベントの拠点に最適なシンプルステイ",
+    "room": "【喫煙】ダブル",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=199071&f_syu=doublesmk&f_hi1=2026-12-21&f_hi2=2026-12-22&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6453574"
    },
    "151063": {
     "total": 13200,
