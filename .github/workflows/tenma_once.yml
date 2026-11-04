@@ -15,4 +15,9 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -q -r requirements.txt
-      - run: cd scripts && python -u tenma_once.py
+      # 見本用に、安い宿のデータを取って成果物として残す（ブランチには書き込まない）
+      - run: cd scripts && python -u fetch_cheap.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cheap
+          path: data/cheap
