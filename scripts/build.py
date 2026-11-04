@@ -463,7 +463,7 @@ def cheap_picks(venue, d, hotels):
             continue
         checked = max(checked or "", data["checked"])
         for h in data["hotels"]:
-            if h["hotelNo"] in near or h["price"] < 1000 or CHEAP_RESTRICTED.search(h.get("plan") or ""):
+            if h["hotelNo"] in near or h["price"] <= 2500 or CHEAP_RESTRICTED.search(h.get("plan") or ""):
                 continue
             m = distance_m(venue["lat"], venue["lng"], h["lat"], h["lng"])
             if m > CHEAP_MAX_KM * 1000:
