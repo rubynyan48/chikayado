@@ -448,6 +448,8 @@ def quick_cards(items, limit=5, labels=None):
     return Markup(f'<div class="qcs">{"".join(out)}</div>')
 
 
+# 誰でも使えるわけではないプラン（fetch_cheap.py の RESTRICTED と同じ）
+CHEAP_RESTRICTED = re.compile(r"歳以上|才以上|歳以下|限定.*身分証|身分証.*限定|会員限定|会員様限定|学生|女性限定|男性限定|レディース|カップル|ご夫婦|連泊|[2-9２-９]泊以上|シニア|誕生日|記念日")
 CHEAP_MAX_KM = 12  # 安い宿を探す範囲（会場からの直線距離）。電車で30分前後で着く目安
 
 
@@ -461,7 +463,7 @@ def cheap_picks(venue, d, hotels):
             continue
         checked = max(checked or "", data["checked"])
         for h in data["hotels"]:
-            if h["hotelNo"] in near:
+            if h["hotelNo"] in near or h["price"] < 1000 or CHEAP_RESTRICTED.search(h.get("plan") or ""):
                 continue
             m = distance_m(venue["lat"], venue["lng"], h["lat"], h["lng"])
             if m > CHEAP_MAX_KM * 1000:
@@ -489,7 +491,7 @@ def cheap_cards(items):
             f'<span class="qc-row">{img}<span class="qc-body"><span class="qc-name">{escape(h["name"])}</span>'
             f'<span class="qc-meta"><span class="walk far">会場から約{h["distance_m"] / 1000:.1f}km</span>{st}{kind}</span>'
             f'<span class="qc-rate">{stars(h.get("review_avg"))}</span>'
-            f'<span class="qc-price">1人1室で<strong>{yen(h["price"])}</strong>から</span></span></span>'
+            f'<span class="qc-price">{"ベッド1台" if h.get("dorm") else "1人1室"}で<strong>{yen(h["price"])}</strong>から</span></span></span>'
             f'<span class="qc-btn">空室と料金を見る</span></a>'
         )
     return Markup(f'<div class="qcs">{"".join(out)}</div>')

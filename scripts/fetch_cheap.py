@@ -21,6 +21,9 @@ REGIONS = {
 }
 DAYS_AHEAD = 45  # サイトマップに載せるイベントと同じ範囲
 TIME_LIMIT = 15 * 60  # 毎朝の更新全体が長くなりすぎないよう、15分で打ち切る（残りは翌日）
+# 誰でも使えるわけではないプラン（年齢・会員・性別などの条件付きや連泊が前提）は、安くても外す。11/4に「80歳以上限定」の1円プランが出た
+RESTRICTED = re.compile(r"歳以上|才以上|歳以下|限定.*身分証|身分証.*限定|会員限定|会員様限定|学生|女性限定|男性限定|レディース|カップル|ご夫婦|連泊|[2-9２-９]泊以上|シニア|誕生日|記念日")
+MIN_PRICE = 1000
 DORM = re.compile(r"ドミトリー|ドミ|相部屋|カプセル|キャビン|CABIN|Cabin|dormitory|Dormitory|ベッド1台|女性専用フロア.*ベッド")
 
 
@@ -49,7 +52,9 @@ def fetch_day(region, d):
         if res is None:  # 空室なし（404）や通信の失敗
             continue
         for entry in res.json().get("hotels", []):
-            h, plans = flatten_hotel(entry), room_charges(entry)
+            h = flatten_hotel(entry)
+            plans = [x for x in room_charges(entry)
+                     if int(x["total"]) >= MIN_PRICE and not RESTRICTED.search(x.get("planName") or "")]
             if not h.get("hotelNo") or not plans or not h.get("latitude"):
                 continue
             c = min(plans, key=lambda x: x["total"])
