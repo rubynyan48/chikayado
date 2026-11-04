@@ -1,0 +1,18 @@
+name: 天満の宿を一度だけ調べる
+on:
+  push:
+    branches: [tenma-1114]
+env:
+  TZ: Asia/Tokyo
+  RAKUTEN_APP_ID: ${{ secrets.RAKUTEN_APP_ID }}
+  RAKUTEN_ACCESS_KEY: ${{ secrets.RAKUTEN_ACCESS_KEY }}
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -q -r requirements.txt
+      - run: cd scripts && python -u tenma_once.py
