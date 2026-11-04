@@ -448,6 +448,53 @@ def quick_cards(items, limit=5, labels=None):
     return Markup(f'<div class="qcs">{"".join(out)}</div>')
 
 
+CHEAP_MAX_KM = 12  # 安い宿を探す範囲（会場からの直線距離）。電車で30分前後で着く目安
+
+
+def cheap_picks(venue, d, hotels):
+    """会場の近く（3km以内の40軒）より外で、その夜に大人1人で安く泊まれる宿。fetch_cheap.py のデータから選ぶ。"""
+    near = {h["hotelNo"] for h in hotels}
+    rows, checked = {}, None
+    for folder in sorted((DATA / "cheap").glob("*")):
+        data = read_json(folder / f"{d}.json")
+        if not data:
+            continue
+        checked = max(checked or "", data["checked"])
+        for h in data["hotels"]:
+            if h["hotelNo"] in near:
+                continue
+            m = distance_m(venue["lat"], venue["lng"], h["lat"], h["lng"])
+            if m > CHEAP_MAX_KM * 1000:
+                continue
+            if h["hotelNo"] not in rows or h["price"] < rows[h["hotelNo"]]["price"]:
+                rows[h["hotelNo"]] = dict(h, distance_m=m)
+    if not rows:
+        return None
+    items = sorted(rows.values(), key=lambda h: h["price"])
+    private = [h for h in items if not h["dorm"]]
+    dorm = [h for h in items if h["dorm"]]
+    return {"private": private[:5], "dorm": dorm[:2], "checked": checked, "count": len(items),
+            "min": private[0]["price"] if private else None}
+
+
+def cheap_cards(items):
+    """少し離れた安い宿のカード。会場からの直線距離と最寄り駅を出す（徒歩の分数は出さない）。"""
+    out = []
+    for h in items:
+        img = f'<img src="{escape(h["image"])}" alt="{escape(h["name"])}の外観" loading="lazy">' if h.get("image") else '<span class="qc-noimg"></span>'
+        st = f'<span class="chip">最寄り {escape(h["station"])}</span>' if h.get("station") else ""
+        kind = '<span class="chip">相部屋・カプセル</span>' if h.get("dorm") else ""
+        out.append(
+            f'<a class="qc" href="{escape(book_url(h, h))}" rel="nofollow sponsored noopener" target="_blank">'
+            f'<span class="qc-row">{img}<span class="qc-body"><span class="qc-name">{escape(h["name"])}</span>'
+            f'<span class="qc-meta"><span class="walk far">会場から約{h["distance_m"] / 1000:.1f}km</span>{st}{kind}</span>'
+            f'<span class="qc-rate">{stars(h.get("review_avg"))}</span>'
+            f'<span class="qc-price">1人1室で<strong>{yen(h["price"])}</strong>から</span></span></span>'
+            f'<span class="qc-btn">空室と料金を見る</span></a>'
+        )
+    return Markup(f'<div class="qcs">{"".join(out)}</div>')
+
+
 def rank_tabs(items, limit=5, key="rk"):
     """近さ・レビュー・安さのボタンで、簡易ランキングを切り替える。"""
     def rate(h):
@@ -1470,7 +1517,7 @@ def css_version():
 
 def main():
     env = Environment(loader=FileSystemLoader(ROOT / "templates"), autoescape=select_autoescape(["html"]))
-    helpers = {"night_rows": night_rows, "run_rows": run_rows, "run_labels": run_labels, "fill_pace": fill_pace, "pair_saving": pair_saving, "entrance_for": entrance_for, "hotels_from_entrance": hotels_from_entrance, "lunch_split": lunch_split, "far_links": far_links, "group_title": group_title, "bus_rows": bus_rows, "price_cond": price_cond, "stay_nights": stay_nights, "stay_from": stay_from, "is_trade": is_trade, "genre": genre, "genre_photo": genre_photo, "photo": photo, "hotel_table": hotel_table, "hotel_cards": hotel_cards, "best_cards": best_cards,
+    helpers = {"night_rows": night_rows, "run_rows": run_rows, "run_labels": run_labels, "fill_pace": fill_pace, "pair_saving": pair_saving, "entrance_for": entrance_for, "hotels_from_entrance": hotels_from_entrance, "lunch_split": lunch_split, "far_links": far_links, "group_title": group_title, "bus_rows": bus_rows, "price_cond": price_cond, "stay_nights": stay_nights, "stay_from": stay_from, "cheap_picks": cheap_picks, "cheap_max_km": CHEAP_MAX_KM, "cheap_cards": cheap_cards, "is_trade": is_trade, "genre": genre, "genre_photo": genre_photo, "photo": photo, "hotel_table": hotel_table, "hotel_cards": hotel_cards, "best_cards": best_cards,
                "compare_table": compare_table, "hotel_map": hotel_map, "people_tabs": people_tabs,
                "with_offers": with_offers, "price_of": price_of, "event_stats": event_stats, "best_picks": best_picks, "depart_table": depart_table,
                "open_time": open_time, "audience_label": audience_label,

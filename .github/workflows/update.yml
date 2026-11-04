@@ -85,6 +85,11 @@ jobs:
         run: cd scripts && python fetch_hotels.py 2>&1 | python redact.py; exit ${PIPESTATUS[0]}
         continue-on-error: true
 
+      - name: 少し離れた安い宿の取得
+        if: github.event_name != 'push' && env.SCOPE != 'clinics'
+        run: cd scripts && python fetch_cheap.py 2>&1 | python redact.py; exit ${PIPESTATUS[0]}
+        continue-on-error: true
+
       - name: ホットペッパーの飲食店の取得
         if: github.event_name != 'push' && env.SCOPE != 'clinics'
         run: cd scripts && python fetch_restaurants.py 2>&1 | python redact.py; exit ${PIPESTATUS[0]}
