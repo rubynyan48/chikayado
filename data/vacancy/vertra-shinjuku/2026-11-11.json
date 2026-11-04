@@ -1,15 +1,8 @@
 {
- "checked": "2026-11-04",
+ "checked": "2026-11-05",
  "checkin": "2026-11-11",
  "by_people": {
   "1": {
-   "187660": {
-    "total": 3145,
-    "per_person": 3145,
-    "plan": "【15%OFF】新宿・歌舞伎町でお得にカプセルステイ〜♪♪",
-    "room": "【女性専用】幅90cmレギュラーカプセル",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=187660&f_syu=01&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5739535"
-   },
    "31109": {
     "total": 3400,
     "per_person": 3400,
@@ -17,12 +10,19 @@
     "room": "【男性専用・上段限定】プラン",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=31109&f_syu=notvjoudan&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5630003"
    },
+   "187660": {
+    "total": 3570,
+    "per_person": 3570,
+    "plan": "【15%OFF】新宿・歌舞伎町でお得にカプセルステイ〜♪♪",
+    "room": "【男性専用】幅90cmレギュラーカプセル",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=187660&f_syu=02&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5739535"
+   },
    "153488": {
     "total": 3700,
     "per_person": 3700,
     "plan": "",
-    "room": "男性用カプセル",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=153488&f_syu=man&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
+    "room": "女性用カプセル",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=153488&f_syu=woman&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
    },
    "56749": {
     "total": 3929,
@@ -46,18 +46,18 @@
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=167870&f_syu=main&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6476065"
    },
    "167230": {
-    "total": 6000,
-    "per_person": 6000,
+    "total": 6500,
+    "per_person": 6500,
     "plan": "",
     "room": "SINGLE",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=167230&f_syu=01&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
    },
    "149368": {
-    "total": 6030,
-    "per_person": 6030,
+    "total": 6570,
+    "per_person": 6570,
     "plan": "【モニタープラン】口コミ投稿でご優待料金☆(食事なし)",
-    "room": "【男性限定】ドミトリー◆ベッド10台のうち1台利用",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=149368&f_syu=mdb&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5065371"
+    "room": "【男性限定】ドミトリー◆ベッド6台のうち1台利用",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=149368&f_syu=md6&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5065371"
    },
    "199052": {
     "total": 10214,
@@ -66,26 +66,33 @@
     "room": "【女性専用】カプセル+睡眠レポート(質・いびき・無呼吸)",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=199052&f_syu=f01s&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6455137"
    },
+   "168747": {
+    "total": 12109,
+    "per_person": 12109,
+    "plan": "",
+    "room": "男女共用ドミトリー",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=168747&f_syu=mdr&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
+   },
    "147662": {
-    "total": 12996,
-    "per_person": 12996,
-    "plan": "<男性専用>7日前でお得♪ 5%OFF 早割おまかせプラン【返金不可】",
-    "room": "【早割】カプセル【男性専用】",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=147662&f_syu=roh&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6404393"
+    "total": 13180,
+    "per_person": 13180,
+    "plan": "<男性専用> 飛行機/新幹線/有料特急列車/高速バスのご利用で500円OFF♪",
+    "room": "【上段】カプセル【男性専用】",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=147662&f_syu=27112024&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6403770"
    },
    "183845": {
     "total": 13357,
     "per_person": 13357,
-    "plan": "睡眠解析付・返金不可・オンライン決済プラン",
-    "room": "女性向けカプセル+睡眠レポート(いびき・無呼吸など)",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=183845&f_syu=sf1_pax&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5916525"
+    "plan": "返金不可・オンライン決済プラン",
+    "room": "女性向けカプセル ※睡眠測定サービスなし",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=183845&f_syu=f1_pax&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5916523"
    },
-   "168747": {
-    "total": 13455,
-    "per_person": 13455,
+   "134834": {
+    "total": 13500,
+    "per_person": 13500,
     "plan": "",
-    "room": "男女共用ドミトリー",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=168747&f_syu=mdr&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
+    "room": "◇ツインB-Type(Twin B-Type)",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=134834&f_syu=t02&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
    },
    "188858": {
     "total": 14549,
@@ -108,26 +115,12 @@
     "room": "椿(トリプルルーム)",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=177819&f_syu=tubaki&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4716261"
    },
-   "190900": {
-    "total": 18189,
-    "per_person": 18189,
-    "plan": "ダブルベッド1台+ソファーベッド1台",
-    "room": "スタンダードルーム",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=190900&f_syu=1019307_3&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6106950"
-   },
    "43928": {
     "total": 18300,
     "per_person": 18300,
     "plan": "新宿HOTEL N.U.T.S東京リラックス素泊まりプラン",
     "room": "スタンダードダブル★スマートチェックイン対応★",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=43928&f_syu=tl&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=2959692"
-   },
-   "184880": {
-    "total": 19800,
-    "per_person": 19800,
-    "plan": "【23時〜IN◆スタンダードルーム】カップル割 レコードとシャンパンを愉しむ◆大画面でシアター鑑賞",
-    "room": "スタンダードルーム",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=184880&f_syu=a3&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5617610"
    },
    "149021": {
     "total": 19800,
@@ -136,13 +129,6 @@
     "room": "マンションタイプ One-Bedroom 個室A3",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=149021&f_syu=sophi34&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
    },
-   "858": {
-    "total": 20000,
-    "per_person": 20000,
-    "plan": "【秋SALE】今だけこの価格!スペシャルプラン★カップルや夫婦の秋休みのご旅行に(食事なし)",
-    "room": "禁煙シングルルーム【ベッド幅:120cm】",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=858&f_syu=csgl&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4950729"
-   },
    "195534": {
     "total": 20880,
     "per_person": 20880,
@@ -150,12 +136,12 @@
     "room": "さくら代々木204",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=195534&f_syu=r20695_2&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6362966"
    },
-   "147193": {
-    "total": 21300,
-    "per_person": 21300,
-    "plan": "キャッシュレスde時短♪オンライン決済限定プラン☆人工炭酸泉&焼きたてパン朝食ビュッフェ付",
-    "room": "【禁煙】エクストラダブルルーム【ダブルベッド+広々デスク】",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=147193&f_syu=k2&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5136167"
+   "858": {
+    "total": 21500,
+    "per_person": 21500,
+    "plan": "【秋SALE】今だけこの価格!スペシャルプラン★カップルや夫婦の秋休みのご旅行に(食事なし)",
+    "room": "禁煙セミダブルルーム【ベッド幅:120cm】",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=858&f_syu=csdb&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4950729"
    },
    "195577": {
     "total": 22040,
@@ -165,32 +151,11 @@
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=195577&f_syu=r21018_1&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6439050"
    },
    "180333": {
-    "total": 24930,
-    "per_person": 24930,
+    "total": 27180,
+    "per_person": 27180,
     "plan": "【素泊まり・事前決済限定】1秒チェックインにおすすめ!",
     "room": "スタンダードルーム(1名利用)禁煙室【本館12階以下】",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=180333&f_syu=s1k&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5643572"
-   },
-   "195530": {
-    "total": 25056,
-    "per_person": 25056,
-    "plan": "402新宿三丁目駅から徒歩7分/新宿エリア/最大2名/Wi-Fi",
-    "room": "402",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=195530&f_syu=r21030_2&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6439044"
-   },
-   "168436": {
-    "total": 25940,
-    "per_person": 25940,
-    "plan": "お得な♪シンプルステイプラン♪【素泊まり 全室禁煙】",
-    "room": "ハリウッドツイン",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=168436&f_syu=h-tw&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4311651"
-   },
-   "41389": {
-    "total": 26600,
-    "per_person": 26600,
-    "plan": "素泊まり アットホームなマイホテル ♪人気の定番",
-    "room": "☆★喫煙 シングルルーム★☆",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=41389&f_syu=s2a&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=2121520"
    },
    "160689": {
     "total": 27180,
@@ -199,19 +164,12 @@
     "room": "シングル 禁煙室",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=160689&f_syu=s1k&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5189612"
    },
-   "658": {
+   "168436": {
     "total": 27700,
     "per_person": 27700,
-    "plan": "スマートtheプライス≪素泊り≫スタンダードな料金変動プラン",
-    "room": "◆禁煙◆リニューアルシングル(広さ13.0平米)",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=658&f_syu=kbn05&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4423334"
-   },
-   "144994": {
-    "total": 27830,
-    "per_person": 27830,
-    "plan": "シンプルプラン<素泊まり>",
-    "room": "エコノミーツイン(禁煙)",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=144994&f_syu=ecotwin&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=3132884"
+    "plan": "贅沢アメニティが充実!上質な休息プラン",
+    "room": "ユニバーサル【全室禁煙】",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=168436&f_syu=ud&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6196658"
    },
    "172974": {
     "total": 28100,
@@ -220,13 +178,6 @@
     "room": "モデレートクイーン(12.5平米)【禁煙】",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=172974&f_syu=mq2&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4518841"
    },
-   "138038": {
-    "total": 28260,
-    "per_person": 28260,
-    "plan": "【素泊まり・事前決済限定】1秒チェックインにおすすめ!",
-    "room": "□禁煙室□シングルルーム〜11平米 エコ&コンパクト設計〜",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=138038&f_syu=sk&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5125896"
-   },
    "147545": {
     "total": 28260,
     "per_person": 28260,
@@ -234,12 +185,26 @@
     "room": "シングル【禁煙室】",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=147545&f_syu=sk&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5124462"
    },
-   "195537": {
-    "total": 28768,
-    "per_person": 28768,
-    "plan": "A301〈新宿エリア〉12路線利用可能/新宿駅チカ*新宿三丁目駅から徒歩5分/2名収容",
-    "room": "エブリネット新宿I301",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=195537&f_syu=r20722_2&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6362977"
+   "138038": {
+    "total": 28350,
+    "per_person": 28350,
+    "plan": "【素泊まり・連泊不可】室数限定モニタープラン",
+    "room": "禁煙室シングルルーム〜11平米 エコ&コンパクト設計〜",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=138038&f_syu=smonit&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4962741"
+   },
+   "41389": {
+    "total": 29300,
+    "per_person": 29300,
+    "plan": "素泊まり アットホームなマイホテル ♪人気の定番",
+    "room": "☆★喫煙 シングルルーム★☆",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=41389&f_syu=s2a&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=2121520"
+   },
+   "659": {
+    "total": 29800,
+    "per_person": 29800,
+    "plan": "スマートtheプライス<素泊り>スタンダードな料金変動プランはこちら",
+    "room": "【禁煙】スタンダードシングル(広さ14.2/ベッド幅1.2)",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=659&f_syu=ps1n&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5220846"
    },
    "72086": {
     "total": 30600,
@@ -255,12 +220,26 @@
     "room": "401",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=199567&f_syu=r21509_6&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6419191"
    },
-   "659": {
+   "144994": {
+    "total": 31460,
+    "per_person": 31460,
+    "plan": "シンプルプラン<素泊まり>",
+    "room": "スーペリアダブル (禁煙)",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=144994&f_syu=d2&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=3132884"
+   },
+   "187081": {
     "total": 31500,
     "per_person": 31500,
-    "plan": "スマートtheプライス<素泊り>スタンダードな料金変動プランはこちら",
-    "room": "【禁煙】スタンダードダブル(広さ15.5/ベッド幅1.4)",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=659&f_syu=pd1n&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5220846"
+    "plan": "【ベストレート/素泊まり】新宿駅西口より徒歩7分!東京都庁へも徒歩圏内の好立地! 【添い寝無料】",
+    "room": "【禁煙】スタンダードセミダブル/13〜14平米",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=187081&f_syu=m1n&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5631340"
+   },
+   "99": {
+    "total": 32800,
+    "per_person": 32800,
+    "plan": "",
+    "room": "★★禁煙ツイン朝食付★★(本館またはアネックス館)",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=99&f_syu=tw12&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
    },
    "168371": {
     "total": 32980,
@@ -268,6 +247,13 @@
     "plan": "【お得プラン】新宿への好アクセスの東新宿★広い部屋でごゆっくり",
     "room": "スーペリアツインルーム+ソファベッド最大6名推奨3名",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=168371&f_syu=6peo&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4950397"
+   },
+   "197278": {
+    "total": 33740,
+    "per_person": 33740,
+    "plan": "★2025年8月新open!酒蔵をモチーフにした和モダンホテル!館内ラウンジ併設!素泊まりもお得!",
+    "room": "トリプルルーム(ファミリールーム)",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=197278&f_syu=5&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6299050"
    },
    "146108": {
     "total": 33930,
@@ -290,13 +276,6 @@
     "room": "スタンダードルーム(1名利用)禁煙室",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=172880&f_syu=s1k&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5188776"
    },
-   "187081": {
-    "total": 35300,
-    "per_person": 35300,
-    "plan": "【ベストレート/素泊まり】新宿駅西口より徒歩7分!東京都庁へも徒歩圏内の好立地! 【添い寝無料】",
-    "room": "【禁煙】スタンダードセミダブル/13〜14平米",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=187081&f_syu=m1n&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5631340"
-   },
    "80759": {
     "total": 35310,
     "per_person": 35310,
@@ -304,12 +283,12 @@
     "room": "ダブル/13平米<禁煙>",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=80759&f_syu=2022d13&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4264256"
    },
-   "197278": {
-    "total": 35800,
-    "per_person": 35800,
-    "plan": "",
-    "room": "トリプルルーム(ファミリールーム)",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=197278&f_syu=5&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
+   "168725": {
+    "total": 35400,
+    "per_person": 35400,
+    "plan": "スタンダードプラン",
+    "room": "ダブルルーム",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=168725&f_syu=dn&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4338554"
    },
    "37906": {
     "total": 37400,
@@ -329,8 +308,8 @@
     "total": 38250,
     "per_person": 38250,
     "plan": "【リブマックスセール】《最大15%OFF》ホテルリブマックス新宿歌舞伎町【素泊り】",
-    "room": "★喫煙★シングルルーム★セミダブルベッド(×1台)★",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=177580&f_syu=sb-sr&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5741785"
+    "room": "☆禁煙☆シングルルーム☆セミダブルベッド(×1台)☆",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=177580&f_syu=sb-ns&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5741785"
    },
    "195323": {
     "total": 38338,
@@ -346,6 +325,13 @@
     "room": "スワンレイクイン新宿501",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=190542&f_syu=r16588_6&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6033255"
    },
+   "146864": {
+    "total": 39400,
+    "per_person": 39400,
+    "plan": "【朝食付き】ママパパ視点で考えた「Happy Baby Room(0歳〜3歳対象)」",
+    "room": "【禁煙】最上階さくらカジュアルツインルーム/16平米",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=146864&f_syu=ccat&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5473851"
+   },
    "72001": {
     "total": 39590,
     "per_person": 39590,
@@ -359,20 +345,6 @@
     "plan": "【リブマックスセール】《最大15%OFF》ホテルリブマックス新宿歌舞伎町明治通【素泊り】",
     "room": "★喫煙★シングルルーム★セミダブルベッド(×1台)★",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=177603&f_syu=sb-sr&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5741795"
-   },
-   "76859": {
-    "total": 40807,
-    "per_person": 40807,
-    "plan": "返金不可料金",
-    "room": "スタジオダブル",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=76859&f_syu=sglroh&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5902114"
-   },
-   "146864": {
-    "total": 42800,
-    "per_person": 42800,
-    "plan": "【朝食付き】ママパパ視点で考えた「Happy Baby Room(0歳〜3歳対象)」",
-    "room": "【禁煙】最上階さくらカジュアルツインルーム/16平米",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=146864&f_syu=ccat&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5473851"
    },
    "182379": {
     "total": 43740,
@@ -395,6 +367,13 @@
     "room": "Standard Room",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=187965&f_syu=standard&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5767568"
    },
+   "76859": {
+    "total": 45865,
+    "per_person": 45865,
+    "plan": "返金不可料金",
+    "room": "スタジオダブル",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=76859&f_syu=sglroh&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5902114"
+   },
    "176798": {
     "total": 46900,
     "per_person": 46900,
@@ -402,12 +381,12 @@
     "room": "シングルルーム",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=176798&f_syu=003&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
    },
-   "189231": {
-    "total": 48352,
-    "per_person": 48352,
-    "plan": "【通常プラン】素泊まり",
-    "room": "3F -Doma-",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=189231&f_syu=mw3&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5912624"
+   "190863": {
+    "total": 50389,
+    "per_person": 50389,
+    "plan": "東新宿駅まで徒歩3分/新宿駅・新大久保徒歩圏内の好立地物件/1日1組限定/最大4名様",
+    "room": "コントワール新宿411",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=190863&f_syu=r17791_4&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6102132"
    },
    "172840": {
     "total": 50400,
@@ -416,12 +395,33 @@
     "room": "☆With Dogルーム☆小型犬2匹までOK",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=172840&f_syu=shin0601&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5477940"
    },
-   "168725": {
-    "total": 52000,
-    "per_person": 52000,
-    "plan": "スタンダードプラン",
-    "room": "ダブルルーム",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=168725&f_syu=dn&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4338554"
+   "184865": {
+    "total": 52683,
+    "per_person": 52683,
+    "plan": "【返金不可 事前決済専用】AMANEKセール - 素泊",
+    "room": "アクセシブルツイン - 禁煙",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=184865&f_syu=ar&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5737139"
+   },
+   "146877": {
+    "total": 53790,
+    "per_person": 53790,
+    "plan": "【ベストレート】<食事なし>JR新宿駅南口&バスタ新宿より徒歩3分!チェックイン14時より",
+    "room": "■禁煙■ダブル[ベッド140cm幅]",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=146877&f_syu=newndy&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6369771"
+   },
+   "195650": {
+    "total": 54877,
+    "per_person": 54877,
+    "plan": "デザイナーズルーム/代々木駅から徒歩5分!/最大6名/SY 31",
+    "room": "シャトレー代々木1301",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=195650&f_syu=r20015_6&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6395080"
+   },
+   "18297": {
+    "total": 55418,
+    "per_person": 55418,
+    "plan": "【当日26:00までご予約可能!】シンプルステイ<食事なし>",
+    "room": "スタンダードシングル【禁煙】☆全館浄水システム採用☆",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=18297&f_syu=plzsek&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=1529029"
    }
   },
   "2": {
@@ -433,8 +433,8 @@
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=56749&f_syu=m02_p&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5916645"
    },
    "167230": {
-    "total": 8500,
-    "per_person": 4250,
+    "total": 12000,
+    "per_person": 6000,
     "plan": "",
     "room": "DOUBLE",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=167230&f_syu=03&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
@@ -446,19 +446,19 @@
     "room": "301 ツインルーム",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=188858&f_syu=1026513101&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
    },
+   "134834": {
+    "total": 17000,
+    "per_person": 8500,
+    "plan": "",
+    "room": "◇ツインB-Type(Twin B-Type)",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=134834&f_syu=t02&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
+   },
    "89": {
     "total": 17400,
     "per_person": 8700,
     "plan": "☆【女性限定】禁煙 トイレ・バス・テレビ無し(大浴場利用) 素泊り 2名部屋BEN",
     "room": "☆禁煙☆女性限定 シングルBNタイプ+エキストラベッド",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=89&f_syu=ben2&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=2634664"
-   },
-   "184880": {
-    "total": 19800,
-    "per_person": 9900,
-    "plan": "【23時〜IN◆スタンダードルーム】カップル割 レコードとシャンパンを愉しむ◆大画面でシアター鑑賞",
-    "room": "スタンダードルーム",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=184880&f_syu=a3&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5617610"
    },
    "149021": {
     "total": 19800,
@@ -474,6 +474,13 @@
     "room": "スタンダードダブル★スマートチェックイン対応★",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=43928&f_syu=tl&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=2959692"
    },
+   "858": {
+    "total": 21500,
+    "per_person": 10750,
+    "plan": "【秋SALE】今だけこの価格!スペシャルプラン★カップルや夫婦の秋休みのご旅行に(食事なし)",
+    "room": "禁煙セミダブルルーム【ベッド幅:120cm】",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=858&f_syu=csdb&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4950729"
+   },
    "177819": {
     "total": 22000,
     "per_person": 11000,
@@ -481,40 +488,12 @@
     "room": "椿(トリプルルーム)",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=177819&f_syu=tubaki&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4716261"
    },
-   "190900": {
-    "total": 22830,
-    "per_person": 11415,
-    "plan": "ダブルベッド1台+ソファーベッド1台",
-    "room": "スタンダードルーム",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=190900&f_syu=1019307_3&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6106950"
-   },
    "195534": {
     "total": 23200,
     "per_person": 11600,
     "plan": "204代々木駅から徒歩5分/2名収容/都心までのアクセス抜群/Wi-Fi/好立地",
     "room": "さくら代々木204",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=195534&f_syu=r20695_2&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6362966"
-   },
-   "147193": {
-    "total": 25300,
-    "per_person": 12650,
-    "plan": "キャッシュレスde時短♪オンライン決済限定プラン☆人工炭酸泉&焼きたてパン朝食ビュッフェ付",
-    "room": "【禁煙】エクストラダブルルーム【ダブルベッド+広々デスク】",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=147193&f_syu=k2&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5136167"
-   },
-   "168436": {
-    "total": 25740,
-    "per_person": 12870,
-    "plan": "お得な♪シンプルステイプラン♪【素泊まり 全室禁煙】",
-    "room": "ハリウッドツイン",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=168436&f_syu=h-tw&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4311651"
-   },
-   "180333": {
-    "total": 26280,
-    "per_person": 13140,
-    "plan": "【素泊まり・連泊不可】室数限定モニタープラン【アパ社長カレープレゼント】",
-    "room": "スタンダードルーム(2名利用)禁煙室【棟・眺望指定なし】",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=180333&f_syu=d1km&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5643578"
    },
    "147662": {
     "total": 26360,
@@ -530,19 +509,19 @@
     "room": "ダブル 禁煙室",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=160689&f_syu=d1k&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5189612"
    },
-   "41389": {
-    "total": 28000,
-    "per_person": 14000,
-    "plan": "素泊まり アットホームなマイホテル ♪人気の定番",
-    "room": "☆★ 喫煙セミダブルルーム ★☆",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=41389&f_syu=swa&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=2121520"
+   "168436": {
+    "total": 27500,
+    "per_person": 13750,
+    "plan": "贅沢アメニティが充実!上質な休息プラン",
+    "room": "ユニバーサル【全室禁煙】",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=168436&f_syu=ud&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6196658"
    },
-   "138038": {
+   "180333": {
     "total": 28260,
     "per_person": 14130,
     "plan": "【素泊まり・事前決済限定】1秒チェックインにおすすめ!",
-    "room": "□禁煙室□セミダブルルーム〜11平米 エコ&コンパクト設計〜",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=138038&f_syu=sdk&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5125896"
+    "room": "スタンダードルーム(2名利用)禁煙室【棟・眺望指定なし】",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=180333&f_syu=d1k&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5643572"
    },
    "178354": {
     "total": 29000,
@@ -551,20 +530,6 @@
     "room": "スーペリアツインルーム",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=178354&f_syu=spt1&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4606167"
    },
-   "858": {
-    "total": 29000,
-    "per_person": 14500,
-    "plan": "【秋SALE】今だけこの価格!スペシャルプラン★カップルや夫婦の秋休みのご旅行に(食事なし)",
-    "room": "禁煙和モダンツインルーム(最大大人3名様まで可)",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=858&f_syu=njtw&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4950729"
-   },
-   "195530": {
-    "total": 29116,
-    "per_person": 14558,
-    "plan": "402新宿三丁目駅から徒歩7分/新宿エリア/最大2名/Wi-Fi",
-    "room": "402",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=195530&f_syu=r21030_2&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6439044"
-   },
    "172974": {
     "total": 29800,
     "per_person": 14900,
@@ -572,12 +537,12 @@
     "room": "モデレートクイーン(12.5平米)【禁煙】",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=172974&f_syu=mq2&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4518841"
    },
-   "195537": {
-    "total": 30508,
-    "per_person": 15254,
-    "plan": "A301〈新宿エリア〉12路線利用可能/新宿駅チカ*新宿三丁目駅から徒歩5分/2名収容",
-    "room": "エブリネット新宿I301",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=195537&f_syu=r20722_2&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6362977"
+   "138038": {
+    "total": 30600,
+    "per_person": 15300,
+    "plan": "【素泊まり・連泊不可】室数限定モニタープラン",
+    "room": "禁煙室ダブルルーム〜11平米 エコ&コンパクト設計〜",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=138038&f_syu=dmonit&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4962741"
    },
    "147545": {
     "total": 30600,
@@ -593,6 +558,13 @@
     "room": "ダブル 禁煙(シモンズ製ベッド140cm)",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=72086&f_syu=sdx&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=3962969"
    },
+   "41389": {
+    "total": 30800,
+    "per_person": 15400,
+    "plan": "素泊まり アットホームなマイホテル ♪人気の定番",
+    "room": "☆★ 喫煙セミダブルルーム ★☆",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=41389&f_syu=swa&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=2121520"
+   },
    "199567": {
     "total": 30914,
     "per_person": 15457,
@@ -607,12 +579,19 @@
     "room": "【禁煙】スタンダードダブル(広さ15.5/ベッド幅1.4)",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=659&f_syu=pd1n&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5220846"
    },
-   "144994": {
-    "total": 31624,
-    "per_person": 15812,
-    "plan": "シンプルプラン<素泊まり>",
-    "room": "エコノミーツイン(禁煙)",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=144994&f_syu=ecotwin&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=3132884"
+   "187081": {
+    "total": 31600,
+    "per_person": 15800,
+    "plan": "【ベストレート/素泊まり】新宿駅西口より徒歩7分!東京都庁へも徒歩圏内の好立地! 【添い寝無料】",
+    "room": "【禁煙】スタンダードセミダブル/13〜14平米",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=187081&f_syu=m1n&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5631340"
+   },
+   "99": {
+    "total": 32800,
+    "per_person": 16400,
+    "plan": "",
+    "room": "★★禁煙ツイン朝食付★★(本館またはアネックス館)",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=99&f_syu=tw12&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
    },
    "168371": {
     "total": 32980,
@@ -620,6 +599,13 @@
     "plan": "【お得プラン】新宿への好アクセスの東新宿★広い部屋でごゆっくり",
     "room": "スーペリアツインルーム+ソファベッド最大6名推奨3名",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=168371&f_syu=6peo&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4950397"
+   },
+   "197278": {
+    "total": 33740,
+    "per_person": 16870,
+    "plan": "★2025年8月新open!酒蔵をモチーフにした和モダンホテル!館内ラウンジ併設!素泊まりもお得!",
+    "room": "トリプルルーム(ファミリールーム)",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=197278&f_syu=5&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6299050"
    },
    "149094": {
     "total": 34020,
@@ -635,13 +621,6 @@
     "room": "スタンダードルーム(2名利用)禁煙室",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=172880&f_syu=ms2k&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6210137"
    },
-   "197278": {
-    "total": 35200,
-    "per_person": 17600,
-    "plan": "",
-    "room": "トリプルルーム(ファミリールーム)",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=197278&f_syu=5&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
-   },
    "80759": {
     "total": 35320,
     "per_person": 17660,
@@ -649,12 +628,19 @@
     "room": "ダブル/13平米<禁煙>",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=80759&f_syu=2022d13&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4264256"
    },
-   "187081": {
+   "168725": {
     "total": 35400,
     "per_person": 17700,
-    "plan": "【ベストレート/素泊まり】新宿駅西口より徒歩7分!東京都庁へも徒歩圏内の好立地! 【添い寝無料】",
-    "room": "【禁煙】スタンダードセミダブル/13〜14平米",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=187081&f_syu=m1n&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5631340"
+    "plan": "スタンダードプラン",
+    "room": "ダブルルーム",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=168725&f_syu=dn&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4338554"
+   },
+   "144994": {
+    "total": 35750,
+    "per_person": 17875,
+    "plan": "シンプルプラン<素泊まり>",
+    "room": "スーペリアダブル (禁煙)",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=144994&f_syu=d2&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=3132884"
    },
    "146108": {
     "total": 36180,
@@ -677,13 +663,6 @@
     "room": "J-ARC曙橋 103",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=195323&f_syu=r17363_6&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6338448"
    },
-   "658": {
-    "total": 39000,
-    "per_person": 19500,
-    "plan": "スマートtheプライス≪朝食付≫スタンダードな料金変動プラン",
-    "room": "【喫煙】スタンダードツイン(広さ16.5平米)",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=658&f_syu=27kta&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5185771"
-   },
    "190542": {
     "total": 39092,
     "per_person": 19546,
@@ -695,15 +674,22 @@
     "total": 39100,
     "per_person": 19550,
     "plan": "【リブマックスセール】《最大15%OFF》ホテルリブマックス新宿歌舞伎町【素泊り】",
-    "room": "★喫煙★シングルルーム★セミダブルベッド(×1台)★",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=177580&f_syu=sb-sr&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5741785"
+    "room": "☆禁煙☆シングルルーム☆セミダブルベッド(×1台)☆",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=177580&f_syu=sb-ns&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5741785"
    },
-   "76859": {
-    "total": 40808,
-    "per_person": 20404,
-    "plan": "返金不可料金",
-    "room": "スタジオダブル",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=76859&f_syu=sglroh&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5902114"
+   "146864": {
+    "total": 39600,
+    "per_person": 19800,
+    "plan": "【素泊まり】事前カード払い限定プラン",
+    "room": "【禁煙】最上階さくらツインルーム/16平米",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=146864&f_syu=ct&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4507770"
+   },
+   "147193": {
+    "total": 41800,
+    "per_person": 20900,
+    "plan": "キャッシュレスde時短♪オンライン決済限定プラン☆人工炭酸泉&焼きたてパン朝食ビュッフェ付",
+    "room": "【禁煙】コネクティングルーム【スタンダード2室 2〜4名用】",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=147193&f_syu=k6&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5136167"
    },
    "177603": {
     "total": 41820,
@@ -726,13 +712,6 @@
     "room": "【全室禁煙】ファミリールーム【5人まで】",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=179296&f_syu=family&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4713988"
    },
-   "146864": {
-    "total": 43200,
-    "per_person": 21600,
-    "plan": "【素泊まり】事前カード払い限定プラン",
-    "room": "【禁煙】最上階さくらツインルーム/16平米",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=146864&f_syu=ct&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4507770"
-   },
    "53328": {
     "total": 44750,
     "per_person": 22375,
@@ -754,6 +733,13 @@
     "room": "【禁煙】コンフォートダブル◇テーブル<18平米>",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=182379&f_syu=da&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5122598"
    },
+   "76859": {
+    "total": 45866,
+    "per_person": 22933,
+    "plan": "返金不可料金",
+    "room": "スタジオダブル",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=76859&f_syu=sglroh&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5902114"
+   },
    "37906": {
     "total": 47300,
     "per_person": 23650,
@@ -761,26 +747,12 @@
     "room": "ツイン喫煙",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=37906&f_syu=t&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6609121"
    },
-   "189231": {
-    "total": 48352,
-    "per_person": 24176,
-    "plan": "【通常プラン】素泊まり",
-    "room": "3F -Doma-",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=189231&f_syu=mw3&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5912624"
-   },
-   "11230": {
-    "total": 49580,
-    "per_person": 24790,
-    "plan": "【直前予約】7日前からの予約限定「直前割り」プラン",
-    "room": "フォース・スタンダード(ユニバーサルデザイン・タイプA)",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=11230&f_syu=four-uni-a&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=3806951"
-   },
-   "168725": {
-    "total": 52000,
-    "per_person": 26000,
-    "plan": "スタンダードプラン",
-    "room": "ダブルルーム",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=168725&f_syu=dn&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4338554"
+   "190863": {
+    "total": 50390,
+    "per_person": 25195,
+    "plan": "東新宿駅まで徒歩3分/新宿駅・新大久保徒歩圏内の好立地物件/1日1組限定/最大4名様",
+    "room": "コントワール新宿411",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=190863&f_syu=r17791_4&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6102132"
    },
    "184865": {
     "total": 52660,
@@ -803,12 +775,12 @@
     "room": "☆With Dogルーム☆小型犬2匹までOK",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=172840&f_syu=shin0601&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5477940"
    },
-   "190863": {
-    "total": 54070,
-    "per_person": 27035,
-    "plan": "東新宿駅まで徒歩3分/新宿駅・新大久保徒歩圏内の好立地物件/1日1組限定/最大4名様",
-    "room": "コントワール新宿411",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=190863&f_syu=r17791_4&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6102132"
+   "195650": {
+    "total": 54878,
+    "per_person": 27439,
+    "plan": "デザイナーズルーム/代々木駅から徒歩5分!/最大6名/SY 31",
+    "room": "シャトレー代々木1301",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=195650&f_syu=r20015_6&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6395080"
    },
    "18297": {
     "total": 55418,
@@ -824,13 +796,6 @@
     "room": "【全室禁煙】スタンダードダブル",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=1872&f_syu=prdsn&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6534839"
    },
-   "195650": {
-    "total": 56372,
-    "per_person": 28186,
-    "plan": "デザイナーズルーム/代々木駅から徒歩5分!/最大6名/SY 31",
-    "room": "シャトレー代々木1301",
-    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=195650&f_syu=r20015_6&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6395080"
-   },
    "195558": {
     "total": 56550,
     "per_person": 28275,
@@ -839,11 +804,46 @@
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=195558&f_syu=r21983_6&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6438797"
    },
    "193871": {
-    "total": 58580,
-    "per_person": 29290,
+    "total": 58112,
+    "per_person": 29056,
     "plan": "新宿駅から徒歩10分の1DK好立地物件!最大7名様宿泊可能!1日1組限定!長期滞在歓迎!",
     "room": "岡田ビル5F",
     "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=193871&f_syu=r18449_7&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6155049"
+   },
+   "186874": {
+    "total": 58190,
+    "per_person": 29095,
+    "plan": "新宿駅徒歩9分の好立地!最大5名様宿泊可能!",
+    "room": "プリネッツ新宿ビル4F",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=186874&f_syu=r15549_5&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5820183"
+   },
+   "173094": {
+    "total": 60940,
+    "per_person": 30470,
+    "plan": "【直前割】お部屋タイプおまかせ<素泊り>",
+    "room": "お部屋タイプおまかせ【禁煙】",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=173094&f_syu=omdu&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6249949"
+   },
+   "176798": {
+    "total": 63900,
+    "per_person": 31950,
+    "plan": "",
+    "room": "ダブルルーム",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=176798&f_syu=001&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
+   },
+   "190810": {
+    "total": 64104,
+    "per_person": 32052,
+    "plan": "新宿駅徒歩9分の好立地!最大8名様宿泊可能!",
+    "room": "プリネッツ新宿ビル3F",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=190810&f_syu=r17728_8&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6061705"
+   },
+   "193195": {
+    "total": 66660,
+    "per_person": 33330,
+    "plan": "【スタンダードプラン】新宿三丁目駅徒歩3分!繁華街の賑わいと緑が調和する癒しの社交場ホテル",
+    "room": "スーペリア テラス トリプル バンク",
+    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=193195&f_syu=2&f_hi1=2026-11-11&f_hi2=2026-11-12&f_heya_su=1&f_otona_su=2&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6118179"
    }
   }
  }
