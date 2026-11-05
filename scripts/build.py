@@ -1120,7 +1120,7 @@ GENRES = {
 }
 GENRE_RULES = [
     ("academic", re.compile(r"学会|学術|研究会|研究大会|入学試験|入試|試験|検定|審査|カンファレンス|Conference|シンポジウム", re.I)),
-    ("general", re.compile(r"就活|就職|インターン|キャリア|セミナー|説明会|合同企業|コンテスト|学校選び|相談会", re.I)),
+    ("general", re.compile(r"就活|就職|インターン|キャリア|セミナー|説明会|合同企業|コンテスト|学校選び|相談会|ビアフェス|ビールフェス|BEER ?FES|オクトーバーフェスト|婚活|街コン|出会いの祭典|農林水産FEST|就農", re.I)),
     ("pop", re.compile(r"コミックマーケット|コミケ|COMIC|コミコン|即売会|同人|ゲームショウ|ホビー|ワンダーフェスティバル|ワンフェス|カードゲーム|ポケモン|デザインフェスタ|ハンドメイド|謎解|ファンフェスティバル|ファンフェス|AnimeJapan|アニメ|超会議|フリマ|フリーマーケット|バザール|ふるさと納税", re.I)),
     ("sports", re.compile(r"サッカー|Jリーグ|J1|マラソン|EKIDEN|駅伝|ラグビー|陸上|大相撲|B\.LEAGUE|リーグ|選手権|試合|ホームゲーム|開幕戦|\bvs\b|BOXING|ボクシング|RIZIN|K-1|格闘|プロレス|バスケ|バレー|フィギュアスケート|Championship|カップ|Cup|天皇杯|皇后杯|体操|ダンス|バトン|ZUMBA|SLS", re.I)),
     ("live", re.compile(r"LIVE|ライブ|TOUR|ツアー|コンサート|CONCERT|公演|フェス|FES|FESTIVAL|歌合戦|ミュージカル|ファンミ|FAN-?CON|Fan Event|ファンイベント|感謝祭|ワンマン|Anniversary|定期演奏|リサイタル|舞台|Day ?\d", re.I)),
