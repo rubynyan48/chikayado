@@ -653,7 +653,49 @@ def osaka_johall(venue):
     return join_days(items)
 
 
+# ---- マイドームおおさか ----------------------------------------------------------
+def mydome(venue):
+    """公式サイトのトップに並ぶ「イベント」（3週間ほど先まで）と、イベンターノートに載るリリースイベントなどを合わせる。"""
+    from difflib import SequenceMatcher
+    soup = get_html("https://www.mydome.jp/")
+    items = []
+    for li in soup.select("li.splide__slide"):
+        a, txt = li.find("a"), li.select_one("p.-txt")
+        tm = txt.find("time") if txt else None
+        ctg = txt.select_one(".c-txt-ctg") if txt else None
+        if not tm or not ctg or clean(ctg.get_text()) != "イベント":
+            continue
+        m = re.match(r"(\d{4})\.(\d{1,2})\.(\d{1,2})(?:\s*〜\s*(\d{1,2})\.(\d{1,2}))?", clean(tm.get_text()))
+        if not m:
+            continue
+        y, mo, d = int(m.group(1)), int(m.group(2)), int(m.group(3))
+        start = date(y, mo, d)
+        end = start
+        if m.group(4):
+            em, ed = int(m.group(4)), int(m.group(5))
+            end = date(y + (1 if em < mo else 0), em, ed)
+        tm.extract()
+        ctg.extract()
+        name = clean(txt.get_text(" "))
+        if not name or re.search(r"開催中止|公演中止|延期", name):
+            continue
+        href = a.get("href", "") if a else ""
+        items.append(event(name, start.isoformat(), end.isoformat(), url=href if href.startswith("http") else ""))
+    try:
+        extra = eventernote(venue)
+    except Exception as exc:  # イベンターノートが取れなくても公式の分は使う
+        print(f"{venue['name']}: イベンターノートの取得に失敗 {exc}")
+        extra = []
+    for e in extra:
+        # 同じ日に名前のよく似たイベントが公式にあれば、公式の方を使う
+        if any(o["start"] == e["start"] and SequenceMatcher(None, o["name"], e["name"]).ratio() > 0.6 for o in items):
+            continue
+        items.append(e)
+    return unique(items)
+
+
 SOURCES = {
+    "mydome": mydome,
     "kyocera_dome": kyocera_dome,
     "osaka_johall": osaka_johall,
     "gcal": gcal,

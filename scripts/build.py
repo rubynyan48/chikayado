@@ -1084,7 +1084,7 @@ AREA_GROUPS = [
     ("横浜・みなとみらいエリア", ["pacifico-yokohama", "k-arena-yokohama", "pia-arena-mm", "yokohama-buntai"]),
     ("新横浜エリア", ["yokohama-arena"]),
     ("千葉・幕張エリア", ["makuhari-messe", "lala-arena-tokyo-bay"]),
-    ("大阪エリア", ["kyocera-dome-osaka", "osaka-jo-hall", "intex-osaka"]),
+    ("大阪エリア", ["kyocera-dome-osaka", "osaka-jo-hall", "mydome-osaka", "intex-osaka"]),
 ]
 VENUE_TAGS = {
     "tokyo-big-sight": ["展示会", "同人誌即売会", "アート"], "ariake-arena": ["ライブ", "スポーツ"],
@@ -1096,7 +1096,7 @@ VENUE_TAGS = {
     "pacifico-yokohama": ["学会", "展示会", "コンサート"], "k-arena-yokohama": ["ライブ"], "pia-arena-mm": ["ライブ"],
     "yokohama-arena": ["ライブ", "スポーツ"],
     "trc-tokyo": ["同人誌即売会", "ファンイベント"], "sunshine-city": ["展示会", "アニメ・ゲーム"],
-    "intex-osaka": ["展示会"], "kyocera-dome-osaka": ["ライブ", "大型イベント"], "osaka-jo-hall": ["ライブ", "コンサート"],
+    "intex-osaka": ["展示会"], "kyocera-dome-osaka": ["ライブ", "大型イベント"], "osaka-jo-hall": ["ライブ", "コンサート"], "mydome-osaka": ["展示会", "即売会"],
     "lala-arena-tokyo-bay": ["ライブ", "バスケットボール"], "yokohama-buntai": ["ライブ", "スポーツ"],
 }
 SPORTS = re.compile(r"サッカー|Jリーグ|J1|マラソン|ラグビー|陸上|大相撲|リーグ|選手権|大会|試合|ホームゲーム|開幕戦|vs|VS|BOXING|ボクシング|ONE |格闘|バスケ|バレー|フィギュア|Championship|GAME\.|太極拳")

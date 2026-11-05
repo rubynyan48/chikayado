@@ -1,0 +1,64 @@
+{
+  "slug": "mydome-osaka",
+  "name": "マイドームおおさか",
+  "formal_name": "マイドームおおさか",
+  "address": "大阪府大阪市中央区本町橋2-5",
+  "lat": 34.684921,
+  "lng": 135.508743,
+  "search_radius_km": 2.0,
+  "source": "mydome",
+  "eventernote_id": 2883,
+  "kind": "exhibition",
+  "area_label": "本町・谷町四丁目",
+  "stations": [
+    {
+      "name": "堺筋本町駅",
+      "line": "大阪メトロ堺筋線・中央線",
+      "walk_min": 6,
+      "lat": 34.681861,
+      "lng": 135.506911
+    },
+    {
+      "name": "谷町四丁目駅",
+      "line": "大阪メトロ谷町線・中央線",
+      "walk_min": 7,
+      "lat": 34.681914,
+      "lng": 135.517286
+    },
+    {
+      "name": "天満橋駅",
+      "line": "京阪本線・大阪メトロ谷町線",
+      "walk_min": 10,
+      "lat": 34.690197,
+      "lng": 135.516631
+    }
+  ],
+  "schedule_url": "https://www.mydome.jp/",
+  "order": 22,
+  "max_hotels": 40,
+  "far_areas": [
+    {
+      "name": "大阪駅・梅田",
+      "chu": "osaka",
+      "shou": "shi",
+      "sai": "B",
+      "why": "宿の数が多い。谷町線で東梅田から谷町四丁目まで乗り換えなし"
+    },
+    {
+      "name": "新大阪",
+      "chu": "osaka",
+      "shou": "shi",
+      "sai": "A",
+      "why": "新幹線で帰る人。御堂筋線で本町へ出て中央線で堺筋本町へ"
+    },
+    {
+      "name": "なんば・心斎橋",
+      "chu": "osaka",
+      "shou": "shi",
+      "sai": "D",
+      "why": "関空へ南海で直通。堺筋線で日本橋から堺筋本町まで乗り換えなし"
+    }
+  ],
+  "events_credit2": "イベンターノート",
+  "events_credit2_url": "https://www.eventernote.com/places/2883/events"
+}
