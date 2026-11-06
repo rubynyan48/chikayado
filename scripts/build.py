@@ -596,7 +596,7 @@ def rec_box(venue, hotels, by_people, default_date, adults="1", limit=6, nights=
 def food_map(venue, spots, stays=None):
     """飲食店の位置を地図に出す。spotsの番号は表の番号と同じ。staysは宿の位置。"""
     pins = [{"n": i, "name": s["name"], "lat": s["lat"], "lng": s["lng"], "sub": f'{s.get("genre", "")}　{s.get("budget", "")}',
-             "url": s["url"]} for i, s in enumerate(spots, 1) if s.get("lat") and s.get("lng")]
+             "url": hp_url(s)} for i, s in enumerate(spots, 1) if s.get("lat") and s.get("lng")]
     if not pins:
         return Markup("")
     data = json.dumps({"venue": {"name": venue["name"], "lat": venue["lat"], "lng": venue["lng"]}, "spots": pins,
@@ -848,14 +848,27 @@ def event_table(events, venue_slug, limit=None):
 def shop_img(s):
     if not s.get("photo"):
         return ""
-    return (f'<a class="shop-img" href="{escape(s["url"])}" rel="nofollow sponsored noopener" target="_blank" tabindex="-1">'
+    return (f'<a class="shop-img" href="{escape(hp_url(s))}" rel="nofollow sponsored noopener" target="_blank" tabindex="-1">'
             f'<img src="{escape(s["photo"])}" alt="{escape(s["name"])}の料理" width="64" height="64" loading="lazy"></a>')
+
+
+def hp_url(s):
+    """ホットペッパーの店のページへのリンク。バリューコマースの設定があれば、報酬の付くMyLinkの形にする（予約完了で報酬）。"""
+    url = s.get("url") or ""
+    vc = SITE.get("valuecommerce_hotpepper") or {}
+    if not (vc.get("sid") and url.startswith("https://www.hotpepper.jp/")):
+        return url
+    from urllib.parse import quote
+    base = url.split("?")[0]
+    return (f"https://ck.jp.ap.valuecommerce.com/servlet/referral?sid={vc['sid']}&pid={vc['pid']}"
+            f"&vc_url={quote(base + '?vos=' + vc['vos'], safe='')}")
 
 
 def restaurant_table(shops, limit=3, base="宿から", start=1, budget="予算"):
     rows = "".join(
-        f'<tr><td><div class="shop">{shop_img(s)}<div><span class="no">{start + i}</span><a href="{escape(s["url"])}" rel="nofollow sponsored noopener" target="_blank">{escape(s["name"])}</a>'
-        f'<span class="sub">{escape(s["genre"])}</span></div></div></td><td>{escape(s["budget"])}</td><td class="num">{dist_label(s["distance_m"])}</td></tr>'
+        f'<tr><td><div class="shop">{shop_img(s)}<div><span class="no">{start + i}</span><a href="{escape(hp_url(s))}" rel="nofollow sponsored noopener" target="_blank">{escape(s["name"])}</a>'
+        f'<span class="sub">{escape(s["genre"])}</span>'
+        f'<a class="btn btn-sign btn-small shop-btn" href="{escape(hp_url(s))}" rel="nofollow sponsored noopener" target="_blank">空席を見て予約する</a></div></div></td><td>{escape(s["budget"])}</td><td class="num">{dist_label(s["distance_m"])}</td></tr>'
         for i, s in enumerate(shops[:limit])
     )
     return Markup(f'<div class="table-wrap"><table><thead><tr><th>店</th><th>{budget}</th><th class="num">{base}</th></tr></thead>'
