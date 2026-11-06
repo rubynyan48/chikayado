@@ -694,7 +694,87 @@ def mydome(venue):
     return unique(items)
 
 
+# ---- バンテリンドーム ナゴヤ ---------------------------------------------------
+SKIP_NAGOYA = re.compile(r"中日\s*vs|vs\s*中日|オープン戦|ドラゴンズ|ファーム|公演中止|開催中止|公演延期|設営|撤去|非公開", re.I)
+
+
+def nagoya_dome(venue):
+    """公式のイベントカレンダー。3年分（前年・今年・来年）の月ごとのタブが1ページに入っている。野球は地元のファンが中心なので載せない。"""
+    soup = get_html("https://www.nagoya-dome.co.jp/enjoy/index.php")
+    html = str(soup)
+    m = re.search(r"(\d{4})年\s*<span class=\"\w*YearComment", html)
+    first_year = int(m.group(1)) if m else date.today().year - 1
+    today = date.today().isoformat()
+    items = []
+    for tab in soup.select('div.events[id^="tabs-"]'):
+        idx = int(tab["id"].split("-")[1])
+        y, mon = first_year + idx // 12, idx % 12 + 1
+        for tr in tab.select("tr"):
+            tds = tr.find_all("td", recursive=False)
+            name_p = tr.select_one("p.eventname")
+            if not name_p or len(tds) < 4:
+                continue
+            md = re.match(r"(\d{1,2})/(\d{1,2})", clean(tds[0].get_text()))
+            if not md:
+                continue
+            d = date(y, int(md.group(1)), int(md.group(2))).isoformat()
+            name = clean(name_p.get_text(" "))
+            if d < today or not name or SKIP_NAGOYA.search(name):
+                continue
+            nxt = tr.find_next_sibling("tr")
+            link = nxt.find("a") if nxt else None
+            if link and "dragons.jp" in link.get("href", ""):
+                continue
+            opens, starts = clean(tds[1].get_text()), clean(tds[2].get_text())
+            hours = " ".join(x for x in (f"開場 {opens}" if opens else "", f"開始 {starts}" if starts else "") if x)
+            url = link["href"] if link and link.get("href", "").startswith("http") else ""
+            items.append(event(name, d, hours=hours, url=url))
+    return join_days(items)
+
+
+# ---- みずほPayPayドーム福岡 ------------------------------------------------------
+def fukuoka_dome(venue):
+    """球場の「イベント日程」（ホークス戦以外）を今年と来年の2ページ分読む。"""
+    today = date.today()
+    items, got = [], 0
+    for y in (today.year, today.year + 1):
+        try:
+            soup = get_html(f"https://www.softbankhawks.co.jp/stadium/event_schedule/{y}/")
+        except Exception as exc:
+            print(f"{venue['name']}: {y}年の日程が取れない {exc}")
+            continue
+        if not soup.select("dl.temp_calendarList"):  # メンテナンス中は別のページに飛ばされる（11/6に起きた）
+            print(f"{venue['name']}: {y}年の日程のページが開けない（メンテナンス中かもしれない）")
+            continue
+        got += 1
+        for dt in soup.select("dl.temp_calendarList > dt"):
+            m = re.search(r"(\d{4})/(\d{1,2})/(\d{1,2})", clean(dt.get_text()))
+            dd = dt.find_next_sibling("dd")
+            if not m or not dd:
+                continue
+            d = date(int(m.group(1)), int(m.group(2)), int(m.group(3)))
+            if d < today:
+                continue
+            info, url = {}, ""
+            for tr in dd.select("tr"):
+                th, td = tr.find("th"), tr.find("td")
+                if th and td:
+                    info[clean(th.get_text())] = clean(td.get_text(" "))
+                    if clean(th.get_text()) == "イベント" and td.find("a"):
+                        url = td.find("a").get("href", "")
+            name = info.get("イベント", "")
+            if not name or re.search(r"公演中止|開催中止|公演延期|無料開放", name):
+                continue
+            hours = info.get("開演時間") or info.get("開催時間") or ""
+            items.append(event(name, d.isoformat(), hours=hours, url=url if url.startswith("http") else ""))
+    if not got:
+        raise RuntimeError("日程のページが1つも開けなかった")  # 前に取ったイベントはそのまま残る
+    return join_days(items)
+
+
 SOURCES = {
+    "nagoya_dome": nagoya_dome,
+    "fukuoka_dome": fukuoka_dome,
     "mydome": mydome,
     "kyocera_dome": kyocera_dome,
     "osaka_johall": osaka_johall,
