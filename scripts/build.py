@@ -1085,7 +1085,7 @@ AREA_GROUPS = [
     ("新横浜エリア", ["yokohama-arena"]),
     ("千葉・幕張エリア", ["makuhari-messe", "lala-arena-tokyo-bay"]),
     ("大阪エリア", ["kyocera-dome-osaka", "osaka-jo-hall", "mydome-osaka", "intex-osaka"]),
-    ("名古屋エリア", ["vantelin-dome-nagoya"]),
+    ("名古屋エリア", ["vantelin-dome-nagoya", "portmesse-nagoya"]),
     ("福岡エリア", ["mizuho-paypay-dome"]),
 ]
 VENUE_TAGS = {
@@ -1098,7 +1098,7 @@ VENUE_TAGS = {
     "pacifico-yokohama": ["学会", "展示会", "コンサート"], "k-arena-yokohama": ["ライブ"], "pia-arena-mm": ["ライブ"],
     "yokohama-arena": ["ライブ", "スポーツ"],
     "trc-tokyo": ["同人誌即売会", "ファンイベント"], "sunshine-city": ["展示会", "アニメ・ゲーム"],
-    "intex-osaka": ["展示会"], "kyocera-dome-osaka": ["ライブ", "大型イベント"], "osaka-jo-hall": ["ライブ", "コンサート"], "mydome-osaka": ["展示会", "即売会"], "vantelin-dome-nagoya": ["ライブ", "大型イベント"], "mizuho-paypay-dome": ["ライブ", "大型イベント"],
+    "intex-osaka": ["展示会"], "kyocera-dome-osaka": ["ライブ", "大型イベント"], "osaka-jo-hall": ["ライブ", "コンサート"], "mydome-osaka": ["展示会", "即売会"], "vantelin-dome-nagoya": ["ライブ", "大型イベント"], "mizuho-paypay-dome": ["ライブ", "大型イベント"], "portmesse-nagoya": ["展示会"],
     "lala-arena-tokyo-bay": ["ライブ", "バスケットボール"], "yokohama-buntai": ["ライブ", "スポーツ"],
 }
 SPORTS = re.compile(r"サッカー|Jリーグ|J1|マラソン|ラグビー|陸上|大相撲|リーグ|選手権|大会|試合|ホームゲーム|開幕戦|vs|VS|BOXING|ボクシング|ONE |格闘|バスケ|バレー|フィギュア|Championship|GAME\.|太極拳")
@@ -1621,13 +1621,18 @@ def main():
         }, ensure_ascii=False), encoding="utf-8")
 
     # サイトマップに載せるのは、会場・まとめ・案内のページと、開催45日以内のイベント。
-    # 遠い回のページも作って内部リンクでたどれるが、検索エンジンに先に見てほしいのは近い回なので絞る。
-    def in_sitemap(p):
+    # ドーム・アリーナ・ホールなどライブの会場（kind が arena）のイベントは150日以内。
+    # 人気のツアーは公演の4か月前ごろに宿が予約されるため（11/6、予約の入ったページのログから分かった）。
+    # 遠い回のページも作って内部リンクでたどれるが、検索エンジンに先に見てほしいのは予約が始まる回なので絞る。
+    def in_sitemap(p, ctx):
         if p.get("noindex"):
             return False
         ev = p.get("event")
-        return not ev or (date.fromisoformat(ev["start"]) - TODAY).days <= 45
-    urls = "".join(f"<url><loc>{SITE['base_url']}{quote(p['path'])}</loc><lastmod>{TODAY.isoformat()}</lastmod></url>" for p, _ in jobs if in_sitemap(p))
+        if not ev:
+            return True
+        arena = (ctx.get("venue") or {}).get("kind") == "arena"
+        return (date.fromisoformat(ev["start"]) - TODAY).days <= (150 if arena else 45)
+    urls = "".join(f"<url><loc>{SITE['base_url']}{quote(p['path'])}</loc><lastmod>{TODAY.isoformat()}</lastmod></url>" for p, ctx in jobs if in_sitemap(p, ctx))
     # 終わったイベントの転送先を .htaccess に足す
     ht = DIST / ".htaccess"
     rules = "".join(f'Redirect 301 "{src}" "{dst}"\n' for src, dst in sorted(set(REDIRECTS)))

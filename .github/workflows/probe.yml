@@ -1,24 +1,51 @@
 name: 会場サイトの下調べ
 
+# 見本用（portmesse-sitemap ブランチだけ）。ポートメッセなごやのデータを取ってブランチに保存する。転送はしない。mainに入れる前に元に戻す。
 on:
   workflow_dispatch:
 
 permissions:
   contents: write
 
+env:
+  RAKUTEN_APP_ID: ${{ secrets.RAKUTEN_APP_ID }}
+  RAKUTEN_ACCESS_KEY: ${{ secrets.RAKUTEN_ACCESS_KEY }}
+  HOTPEPPER_API_KEY: ${{ secrets.HOTPEPPER_API_KEY }}
+  GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+
 jobs:
   probe:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      TZ: Asia/Tokyo
+    defaults:
+      run:
+        shell: bash
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: pip install -q requests
-      - run: if grep -q "^render:" scripts/probe_urls.txt; then pip install -q playwright==1.48.0 && python -m playwright install --with-deps chromium > /dev/null 2>&1; fi
-      - run: mkdir -p data/probe && python scripts/probe.py | tee data/probe/result.txt
+      - run: |
+          pip install -q -r requirements.txt playwright==1.48.0 opencv-python-headless==4.10.0.84
+          python -m playwright install --with-deps chromium > /dev/null 2>&1
+          # 新しい2会場だけを残す（ほかの会場とクリニックのデータには触らない）
+          find config/venues -name '*.json' ! -name 'portmesse-nagoya.json' -delete
+          rm -rf config/clinics
+      - run: cd scripts && python fetch_events.py
+        continue-on-error: true
+      - run: cd scripts && python fetch_hotels.py 2>&1 | grep -v -i "key\|id="
+        continue-on-error: true
+      - run: cd scripts && python fetch_restaurants.py 2>&1 | grep -v -i "key"
+        continue-on-error: true
+      - run: cd scripts && python fetch_shots.py
+        continue-on-error: true
+      - run: cd scripts && python write_texts.py
+        continue-on-error: true
       - run: |
           git config user.name "chikayado-bot"
           git config user.email "chikayado-bot@users.noreply.github.com"
-          git add data/probe
-          git commit -qm "会場サイトの下調べ [skip ci]" && git pull --rebase -q && git push
+          git checkout -- config data/logs 2>/dev/null || true
+          git -c core.quotepath=off ls-files -mo --exclude-standard -z data | grep -zE "portmesse-nagoya|ポートメッセなごや" | xargs -0 git add --
+          git commit -qm "ポートメッセなごやのデータ [skip ci]" && git pull --rebase -q && git push
