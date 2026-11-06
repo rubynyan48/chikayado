@@ -164,7 +164,7 @@
         var h='<p class="hint">'+d.hotels.length+'軒が空いています。'+(document.body.dataset.place||'会場')+'に近い順です。</p><div class="qcs">';
         d.hotels.slice(0,10).forEach(function(x){
           h+='<a class="qc" href="'+esc(x.url)+'" rel="nofollow sponsored noopener" target="_blank"><span class="qc-row">'+(x.image?'<img src="'+esc(x.image)+'" alt="'+esc(x.name)+'の外観" loading="lazy">':'<span class="qc-noimg"></span>')+
-          '<span class="qc-body"><span class="qc-name">'+esc(x.name)+'</span><span class="qc-meta">'+(x.walk<=20?'<span class="walk">徒歩'+esc(x.walk)+'分</span>':'<span class="walk far">電車で1〜2駅</span>')+(x.bath?'<span class="chip chip-on">大浴場</span>':'')+'</span>'+
+          '<span class="qc-body"><span class="qc-name">'+esc(x.name)+'</span><span class="qc-meta">'+(x.walk<=20?'<span class="walk">徒歩'+esc(x.walk)+'分</span>':(x.walk>47&&x.distance?'<span class="walk far">会場から約'+esc(x.distance)+'</span>':'<span class="walk far">電車で1〜2駅</span>'))+(x.bath?'<span class="chip chip-on">大浴場</span>':'')+'</span>'+
           '<span class="qc-rate">'+stars(x.rate)+'</span><span class="qc-price">'+(+adults>1?adults+'人1室で1人あたり':'1人1室で')+'<strong>'+Number(x.per_person).toLocaleString()+'円</strong>から</span></span></span><span class="qc-btn">空室と料金を見る</span></a>';
         });
         out.innerHTML=h+'</div>';
@@ -176,7 +176,7 @@
     function esc(s){var d=document.createElement('div');d.textContent=s==null?'':String(s);return d.innerHTML;}
     function stars(v){if(!v)return '<span class="sub">評価なし</span>';v=+v;return '<span class="stars" style="--r:'+Math.round(v/5*100)+'%">★★★★★</span><span class="rate-num">'+v.toFixed(2)+'</span>';}
     function card(x){return '<a class="qc" href="'+esc(x.url)+'" rel="nofollow sponsored noopener" target="_blank"><span class="qc-row">'+(x.image?'<img src="'+esc(x.image)+'" alt="'+esc(x.name)+'の外観" loading="lazy">':'<span class="qc-noimg"></span>')+
-      '<span class="qc-body"><span class="qc-name">'+esc(x.name)+'</span><span class="qc-meta">'+(x.walk<=20?'<span class="walk">徒歩'+esc(x.walk)+'分</span>':'<span class="walk far">電車で1〜2駅</span>')+(x.bath?'<span class="chip chip-on">大浴場</span>':'')+'</span>'+
+      '<span class="qc-body"><span class="qc-name">'+esc(x.name)+'</span><span class="qc-meta">'+(x.walk<=20?'<span class="walk">徒歩'+esc(x.walk)+'分</span>':(x.walk>47&&x.distance?'<span class="walk far">会場から約'+esc(x.distance)+'</span>':'<span class="walk far">電車で1〜2駅</span>'))+(x.bath?'<span class="chip chip-on">大浴場</span>':'')+'</span>'+
       '<span class="qc-rate">'+stars(x.rate)+'</span>'+(x.per_person?'<span class="qc-price">'+(x.adults>1?x.adults+'人1室で1人あたり':'1人1室で')+'<strong>'+Number(x.per_person).toLocaleString()+'円</strong>から</span>':'')+'</span></span><span class="qc-btn">空室と料金を見る</span></a>';}
     var label={walk:(document.body.dataset.place||'会場')+'に近い順',price:'1人あたりの料金が安い順',rate:'レビューの評価が高い順'};
     function show(list,date,adults,sort,all){

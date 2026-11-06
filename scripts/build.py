@@ -131,6 +131,8 @@ def badge(m):
         return f'<span class="walk">徒歩約{walk_min(m)}分</span>'
     if m <= 1600:
         return f'<span class="walk far">徒歩約{walk_min(m)}分</span>'
+    if m > 3000:  # 周りに宿が少ない会場で、少し離れた場所から足した宿（extra_areas）
+        return f'<span class="walk far">会場から約{m / 1000:.1f}km</span>'
     return '<span class="walk far">電車で1〜2駅</span>'
 
 
@@ -383,7 +385,8 @@ def depart_table(items, hours, limit=10):
         return Markup("")
     start = t[0] * 60 + t[1]
     rows = []
-    for h in items[:limit]:
+    # 3kmより遠い宿（extra_areas で足した宿）は電車の時間が読めないので、出る時刻の表に入れない
+    for h in [x for x in items if x["distance_m"] <= 3000][:limit]:
         mv = move_min(h["distance_m"])
         dep = start - mv - 15
         how = f"徒歩約{mv}分" if h["distance_m"] <= 1600 else "電車で約35分"
@@ -423,6 +426,8 @@ def route_map(venue, station_page, hotels, goal_step, via=None, via_step=None):
 
 def walk_chip(m):
     w = walk_min(m)
+    if m > 3000:
+        return f'<span class="walk far">会場から約{m / 1000:.1f}km</span>'
     return f'<span class="walk">徒歩{w}分</span>' if w <= 20 else '<span class="walk far">電車で1〜2駅</span>'
 
 
@@ -519,7 +524,7 @@ def rank_tabs(items, limit=5, key="rk"):
 
 def api_item(h):
     """画面の中で並べ替えるための、宿1軒分の情報（空室検索の返事と同じ形）。"""
-    return {"name": h["name"], "walk": walk_min(h["distance_m"]), "image": h.get("image", ""),
+    return {"name": h["name"], "walk": walk_min(h["distance_m"]), "distance": dist_label(h["distance_m"]), "image": h.get("image", ""),
             "rate": h.get("review_avg"), "bath": bool(h.get("daiyoku") or h.get("onsen")),
             "per_person": price_of(h), "adults": adults_of(h["offer"]) if h.get("offer") else 0,
             "url": book_url(h, h.get("offer"))}
