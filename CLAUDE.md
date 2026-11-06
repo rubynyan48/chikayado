@@ -33,7 +33,7 @@ https://xn--u8j0b149r.jp/ （ちか宿.jp）。静的サイトを Python + Jinja
 
 - 毎朝5:17 サイト更新（update.yml、実際の開始は5:50ごろ）。イベント・空室・飲食店・公式サイトの画面・解説文を取り直してビルドと転送。手動実行は scope=clinics でクリニックの宿だけ取り直せる（5〜8分）。全部だと35〜60分で、上限は90分（11/2に60分で止まったため延長。空室の取り直しが3日おきに重なる日が長い。新しい会場1つで約5分増える）。
 - mainの templates/static/config/build.py などへのpushで、データを取り直さずにビルドと転送だけが動く（約5分）。[skip ci] を付けると動かない。
-- 8:43 Search ConsoleとGA4の取得（seo.yml）、申請リストは data/seo/申請リスト.csv。
+- 8:43 Search ConsoleとGA4の取得（seo.yml）、申請リストは data/seo/申請リスト.csv。並べ方は request_list.py（11/6に変更）で、トップ・まとめ・会場・会場×人数 → 開催1週間以内 → 予約が入る時期に入ったイベント（ライブの会場は150日前、ほかは60日前から）→ まだ先のイベント。ここ数日でその時期に入ったイベントの件数を seo.txt に出すので、朝の報告で持ち主に伝える。
 - 予約サイトへのクリックとChatGPTから来た訪問は ga4_clicks.yml で取れる（結果は実行の注記に出る）。
 - 公式サイトの画面のまとめ撮りは shots.yml、クリニックは clinic_shots.yml。
 - 下調べは probe.yml（scripts/probe_urls.txt に URL。render: でブラウザ表示、bingbot: でBingのふりをして確認）。終わったら data/probe を消す。
