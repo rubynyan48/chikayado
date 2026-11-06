@@ -242,6 +242,10 @@ def fetch_vacancy_day(venue, checkin, adults):
     found = {}
     for center, _ in centers(venue):
         fetch_vacancy_around(center, checkin, adults, found)
+    if venue.get("extra_areas"):
+        # 少し離れた場所も探す会場は、宿の一覧（8km以内）に入っている宿だけを数える
+        listed = {h["hotelNo"] for h in read_json(DATA / "hotels" / f"{venue['slug']}.json", {"hotels": []})["hotels"]}
+        found = {k: v for k, v in found.items() if k in listed}
     return found
 
 
