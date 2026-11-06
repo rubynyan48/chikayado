@@ -2,8 +2,6 @@ name: 天満の宿を一度だけ調べる
 on:
   push:
     branches: [tenma-1114]
-permissions:
-  contents: write
 env:
   TZ: Asia/Tokyo
   RAKUTEN_APP_ID: ${{ secrets.RAKUTEN_APP_ID }}
@@ -17,10 +15,4 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -q -r requirements.txt
-      # 見本用に、安い宿のデータを取ってこのブランチに残す
-      - run: cd scripts && python -u fetch_cheap.py
-      - run: |
-          git config user.name "chikayado-bot"
-          git config user.email "chikayado-bot@users.noreply.github.com"
-          git add data/cheap
-          git commit -qm "見本用の安い宿のデータ [skip ci]" && git push
+      - run: cd scripts && python -u tenma_once.py
