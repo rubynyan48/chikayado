@@ -4,7 +4,7 @@ import requests, json
 
 p = {k: v for k, v in base_params({"lat": 0, "lng": 0}).items() if k in ("applicationId", "accessKey", "format")}
 for ver in ("20131024",):
-    r = requests.get(f"https://openapi.rakuten.co.jp/engine/api/Travel/GetAreaClass/{ver}", params=p, headers=headers(), timeout=60)
+    r = requests.get(f"https://app.rakuten.co.jp/services/api/Travel/GetAreaClass/{ver}", params={k: v for k, v in p.items() if k != "accessKey"}, headers=headers(), timeout=60)
     print("AREA", ver, r.status_code, r.text[:300] if r.status_code != 200 else "ok")
     if r.status_code != 200:
         continue
