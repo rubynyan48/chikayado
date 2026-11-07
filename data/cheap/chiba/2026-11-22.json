@@ -1,5 +1,5 @@
 {
- "checked": "2026-11-06",
+ "checked": "2026-11-07",
  "checkin": "2026-11-22",
  "hotels": [
   {
@@ -94,11 +94,11 @@
    "station": "蘇我",
    "review_avg": 3.67,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/5659/5659.jpg",
-   "price": 21800,
-   "room": "シングルルーム★禁煙【全室Wi- Fi無料!!】",
+   "price": 22000,
+   "room": "有線LAN☆禁煙シングル★個別Wi-Fiルーター無料常設!",
    "plan": "JEFホーム☆フクアリ『蘇我スポーツ公園』まで 徒歩8分! ☆素泊まりプラン♪",
    "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=5659&f_syu=nss&f_hi1=2026-11-22&f_hi2=2026-11-23&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5405912"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=5659&f_syu=ksy&f_hi1=2026-11-22&f_hi2=2026-11-23&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5405912"
   },
   {
    "hotelNo": "164476",
@@ -178,11 +178,25 @@
    "station": "千葉中央",
    "review_avg": 4.01,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/182195/182195.jpg",
-   "price": 25290,
+   "price": 25830,
    "room": "シングル□禁煙□",
    "plan": "【無料朝食付き】【素泊まり・事前決済限定】1秒チェックインにおすすめ!",
    "dorm": false,
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=182195&f_syu=s1k&f_hi1=2026-11-22&f_hi2=2026-11-23&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5203219"
+  },
+  {
+   "hotelNo": "168546",
+   "name": "ベッセルイン千葉駅前|サウナ付大浴場(千葉・京成千葉・幕張)",
+   "lat": 35.61221429357288,
+   "lng": 140.11818519808787,
+   "station": "千葉",
+   "review_avg": 4.58,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/168546/168546.jpg",
+   "price": 27000,
+   "room": "スタンダードダブル【禁煙】",
+   "plan": "【スタンダード・素泊り】千葉駅から徒歩5分!",
+   "dorm": false,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=168546&f_syu=ss2&f_hi1=2026-11-22&f_hi2=2026-11-23&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4339112"
   },
   {
    "hotelNo": "141954",
@@ -199,34 +213,6 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=141954&f_syu=sek&f_hi1=2026-11-22&f_hi2=2026-11-23&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=3103609"
   },
   {
-   "hotelNo": "168546",
-   "name": "ベッセルイン千葉駅前|サウナ付大浴場(千葉・京成千葉・幕張)",
-   "lat": 35.61221429357288,
-   "lng": 140.11818519808787,
-   "station": "千葉",
-   "review_avg": 4.58,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/168546/168546.jpg",
-   "price": 27500,
-   "room": "コンフォートダブル【禁煙】",
-   "plan": "【スタンダード・素泊り】千葉駅から徒歩5分!",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=168546&f_syu=cs2&f_hi1=2026-11-22&f_hi2=2026-11-23&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4339112"
-  },
-  {
-   "hotelNo": "80616",
-   "name": "スーパーホテル千葉駅前",
-   "lat": 35.61438395,
-   "lng": 140.113556,
-   "station": "千葉",
-   "review_avg": 4.19,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/80616/80616.jpg",
-   "price": 27700,
-   "room": "【喫煙】お部屋タイプお任せ",
-   "plan": "【オンライン決済限定】返金不可プラン☆天然温泉&焼きたてパン朝食ビュッフェ付",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=80616&f_syu=oma&f_hi1=2026-11-22&f_hi2=2026-11-23&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5086531"
-  },
-  {
    "hotelNo": "713",
    "name": "天然温泉 そが浜の湯 ドーミーイン千葉City Soga(ドーミーイン・御宿野乃 ホテルズグループ)",
    "lat": 35.58117709,
@@ -239,6 +225,20 @@
    "plan": "【早得14】◇14日以上前のご予約が断然お得!プラン《素泊り》",
    "dorm": false,
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=713&f_syu=s1np&f_hi1=2026-11-22&f_hi2=2026-11-23&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5812362"
+  },
+  {
+   "hotelNo": "80616",
+   "name": "スーパーホテル千葉駅前",
+   "lat": 35.61438395,
+   "lng": 140.113556,
+   "station": "千葉",
+   "review_avg": 4.19,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/80616/80616.jpg",
+   "price": 29700,
+   "room": "【禁煙】お部屋タイプお任せ",
+   "plan": "【オンライン決済限定】返金不可プラン☆天然温泉&焼きたてパン朝食ビュッフェ付",
+   "dorm": false,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=80616&f_syu=omak&f_hi1=2026-11-22&f_hi2=2026-11-23&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5086531"
   },
   {
    "hotelNo": "148926",
@@ -318,7 +318,7 @@
    "station": "千葉",
    "review_avg": 4.14,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/168560/168560.jpg",
-   "price": 57375,
+   "price": 55080,
    "room": "★シングルルーム★喫煙★セミダブルベッド",
    "plan": "『リブ得』楽天最安値のスペシャルプラン【素泊まり】",
    "dorm": false,
