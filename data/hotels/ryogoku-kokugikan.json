@@ -1,6 +1,6 @@
 {
  "venue": "ryogoku-kokugikan",
- "updated": "2026-11-09",
+ "updated": "2026-11-10",
  "hotels": [
   {
    "hotelNo": "181173",
@@ -354,7 +354,7 @@
     "service": 3.9,
     "location": 4.01,
     "room": 3.66,
-    "equipment": 3.65,
+    "equipment": 3.64,
     "bath": 3.65
    },
    "facilities": [
@@ -485,7 +485,7 @@
    "address": "東京都台東区柳橋1-30-3",
    "access": "JR浅草橋駅東口より徒歩約3分、都営浅草線 浅草橋駅(A6出口)より徒歩約1分。都心へのアクセス抜群!",
    "station": "浅草橋",
-   "min_charge": 4550,
+   "min_charge": 4050,
    "review_avg": 3.71,
    "review_count": 520,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/73903/73903.jpg",
@@ -496,7 +496,7 @@
     "service": 3.65,
     "location": 3.53,
     "room": 3.71,
-    "equipment": 3.53
+    "equipment": 3.5
    },
    "facilities": [
     "全館無料Wi-Fi完備。1階ロビーにてノートPC・プリンタ・電子レンジをご利用になれます。",
@@ -724,7 +724,7 @@
    "address": "東京都台東区蔵前1-4-14 PRIME浅草",
    "access": "浅草橋駅より徒歩で2分",
    "station": "浅草橋",
-   "min_charge": 5545,
+   "min_charge": 6276,
    "review_avg": null,
    "review_count": null,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/195455/195455.jpg",
@@ -867,7 +867,7 @@
    "address": "東京都墨田区両国1-9-10",
    "access": "JR両国駅から徒歩5分",
    "station": "両国",
-   "min_charge": 7862,
+   "min_charge": 7437,
    "review_avg": 4.5,
    "review_count": 8,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/187225/187225.jpg",
@@ -973,7 +973,7 @@
     "service": 4.13,
     "location": 4.19,
     "room": 4.14,
-    "equipment": 4.07,
+    "equipment": 4.08,
     "bath": 4.02
    },
    "facilities": [
@@ -1070,7 +1070,7 @@
   },
   {
    "hotelNo": "202593",
-   "name": "AS7ビル",
+   "name": "URNA EDO HOTEL(旧:AS7ビル)",
    "distance_m": 494,
    "lat": 35.6927466,
    "lng": 139.7922421,
@@ -1086,7 +1086,18 @@
    "special": "両国駅徒歩9分|40m2広々・Wi-Fi完備|最大5名|スカイツリーエリア",
    "ratings": {},
    "facilities": [],
-   "room_facilities": [],
+   "room_facilities": [
+    "テレビ",
+    "湯沸かしポット",
+    "冷蔵庫",
+    "ドライヤー",
+    "ボディーソープ",
+    "シャンプー",
+    "リンス",
+    "タオル",
+    "バスタオル",
+    "スリッパ"
+   ],
    "bath_type": "",
    "checkin": "15:00",
    "checkout": "10:00",
@@ -1094,7 +1105,7 @@
    "smoking": "",
    "daiyoku": false,
    "onsen": false,
-   "kinen_room": false
+   "kinen_room": true
   },
   {
    "hotelNo": "193078",
@@ -1133,7 +1144,7 @@
    "address": "東京都墨田区両国4-30-5三井住友海上両国ビル",
    "access": "JR総武線 両国駅 西口 徒歩5分 都営大江戸線 両国駅 A4出口 徒歩3分",
    "station": "羽田空港",
-   "min_charge": 3150,
+   "min_charge": 3185,
    "review_avg": 3.72,
    "review_count": 22,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/187592/187592.jpg",
@@ -1297,7 +1308,7 @@
    "address": "東京都墨田区両国3-3-5 サクラクロスレジデンス両国",
    "access": "両国駅より徒歩7分",
    "station": "両国",
-   "min_charge": 4339,
+   "min_charge": 3972,
    "review_avg": null,
    "review_count": null,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/202216/202216.jpg",
@@ -1338,7 +1349,7 @@
    "address": "東京都台東区浅草橋2-29-12",
    "access": "都営浅草線「浅草橋駅」A4出口より徒歩約2分 JR総武線「浅草橋駅」東口より徒歩約4分",
    "station": "浅草橋",
-   "min_charge": 6400,
+   "min_charge": 6000,
    "review_avg": 4.35,
    "review_count": 140,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/177706/177706.jpg",
@@ -1409,7 +1420,7 @@
     "service": 4.16,
     "location": 4.12,
     "room": 4.22,
-    "equipment": 4.08,
+    "equipment": 4.07,
     "bath": 4.04
    },
    "facilities": [
@@ -1482,7 +1493,7 @@
     "service": 4.11,
     "location": 3.87,
     "room": 3.83,
-    "equipment": 3.63,
+    "equipment": 3.6,
     "bath": 3.57
    },
    "facilities": [
@@ -1569,7 +1580,7 @@
    "address": "東京都台東区浅草橋2-1-9",
    "access": "浅草橋駅より徒歩2分",
    "station": "浅草橋",
-   "min_charge": 5500,
+   "min_charge": 5850,
    "review_avg": 3.23,
    "review_count": 442,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/107894/107894.jpg",
@@ -1580,7 +1591,7 @@
     "service": 3.41,
     "location": 3.69,
     "room": 3.13,
-    "equipment": 3,
+    "equipment": 2.99,
     "bath": 2.98
    },
    "facilities": [
@@ -1777,7 +1788,7 @@
     "service": 3.29,
     "location": 3.51,
     "room": 3.2,
-    "equipment": 3.11,
+    "equipment": 3.12,
     "bath": 3.23
    },
    "facilities": [
@@ -1831,7 +1842,7 @@
    "address": "東京都中央区東日本橋2-26-2",
    "access": "東日本橋から徒歩5分・浅草橋駅から徒歩4分、馬喰横山から徒歩4分、馬喰町から徒歩3分",
    "station": "東日本橋",
-   "min_charge": 22000,
+   "min_charge": 20000,
    "review_avg": null,
    "review_count": 3,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/187257/187257.jpg",
@@ -1908,7 +1919,7 @@
    "address": "東京都台東区蔵前2-4-4",
    "access": "都営地下鉄浅草線「蔵前駅」(A3出口)徒歩1分",
    "station": "蔵前",
-   "min_charge": 6750,
+   "min_charge": 6210,
    "review_avg": 4.23,
    "review_count": 153,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/184277/184277.jpg",
@@ -1919,7 +1930,7 @@
     "service": 4.33,
     "location": 4.41,
     "room": 4.32,
-    "equipment": 4.22,
+    "equipment": 4.24,
     "bath": 4.23
    },
    "facilities": [
@@ -1996,7 +2007,7 @@
    "address": "東京都台東区浅草橋1-1-14",
    "access": "JR総武線「浅草橋駅」東口・都営地下鉄浅草線「浅草橋駅」A2出口 より1分/「馬喰町」駅 C3出口 徒歩 2分",
    "station": "浅草橋",
-   "min_charge": 8075,
+   "min_charge": 8000,
    "review_avg": 3.5,
    "review_count": 259,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/166310/166310.jpg",
