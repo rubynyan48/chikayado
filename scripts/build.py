@@ -1171,7 +1171,9 @@ def genre_key(e, venue=None):
 
 
 def genre(e, venue=None):
-    return dict(GENRES[genre_key(e, venue)], key=genre_key(e, venue))
+    """会場の周りに歩いて行ける宿がない会場（札幌ドーム）は、会場の設定の genre_text で文言を差し替える。"""
+    key = genre_key(e, venue)
+    return dict(GENRES[key], key=key, **((venue or {}).get("genre_text", {}).get(key, {})))
 
 
 def short_period(e):
@@ -1502,7 +1504,7 @@ def pages_for(venue, ctx):
             "title": f"{e['name']}の会場に近いホテル {venue['name']}周辺で{g['tail']}【{short_period(e)}】",
             "h1": f"{e['name']}の会場に近いホテル {venue['name']}周辺で{g['tail']}",
             "description": (f"{e['name']}（{period(e)} {venue['name']}）の会場に近いホテルを、"
-                            + ("設営や前泊のある前日の夜から会期中の夜まで、空室と1人1室の料金で選べます。出張で何泊かするときの宿の取り方もまとめています。" if g["key"] == "trade" else
+                            + (g["desc"] if g.get("desc") else "設営や前泊のある前日の夜から会期中の夜まで、空室と1人1室の料金で選べます。出張で何泊かするときの宿の取り方もまとめています。" if g["key"] == "trade" else
                                "前日の夜の空室と1人あたりの料金で選べます。前日入りして朝ゆっくり会場に着ける宿をまとめています。" if g["key"] == "academic" else
                                "試合の後に歩いて戻れる距離と、2人で1室にしたときの1人あたりの料金で選べます。" if g["key"] == "sports" else
                                "朝いちばんに会場へ着ける距離と、宿を出る時刻の目安で選べます。開催日の空室も見られます。" if g["key"] == "pop" else

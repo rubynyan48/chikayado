@@ -198,7 +198,7 @@
   ('/' ~ venue.slug ~ '/yurikamome/', 'ゆりかもめからの道順', '東京ビッグサイト駅から徒歩約3分'),
 ]) }}
 {% else %}
-<p>{% if e.hall %}会場は{{ venue.name }}の{{ e.hall }}です。{% endif %}終演後は駅が混み合うので、会場から歩いて帰れる宿だと楽です。</p>
+<p>{% if e.hall %}会場は{{ venue.name }}の{{ e.hall }}です。{% endif %}{{ page.genre.access_note or "終演後は駅が混み合うので、会場から歩いて帰れる宿だと楽です。" }}</p>
 {{ station_table(venue) }}
 <p class="note">徒歩の時間は、駅と会場の位置から計算した目安です。</p>
 {% endif %}
