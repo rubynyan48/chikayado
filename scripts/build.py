@@ -131,6 +131,8 @@ def badge(m):
         return f'<span class="walk">徒歩約{walk_min(m)}分</span>'
     if m <= 1600:
         return f'<span class="walk far">徒歩約{walk_min(m)}分</span>'
+    if m > 3000:  # 周りに宿が少ない会場で、少し離れた場所から足した宿（extra_areas）
+        return f'<span class="walk far">会場から約{m / 1000:.1f}km</span>'
     return '<span class="walk far">電車で1〜2駅</span>'
 
 
@@ -383,7 +385,8 @@ def depart_table(items, hours, limit=10):
         return Markup("")
     start = t[0] * 60 + t[1]
     rows = []
-    for h in items[:limit]:
+    # 3kmより遠い宿（extra_areas で足した宿）は電車の時間が読めないので、出る時刻の表に入れない
+    for h in [x for x in items if x["distance_m"] <= 3000][:limit]:
         mv = move_min(h["distance_m"])
         dep = start - mv - 15
         how = f"徒歩約{mv}分" if h["distance_m"] <= 1600 else "電車で約35分"
@@ -423,6 +426,8 @@ def route_map(venue, station_page, hotels, goal_step, via=None, via_step=None):
 
 def walk_chip(m):
     w = walk_min(m)
+    if m > 3000:
+        return f'<span class="walk far">会場から約{m / 1000:.1f}km</span>'
     return f'<span class="walk">徒歩{w}分</span>' if w <= 20 else '<span class="walk far">電車で1〜2駅</span>'
 
 
@@ -443,6 +448,55 @@ def quick_cards(items, limit=5, labels=None):
             f'{label}<span class="qc-row">{img}<span class="qc-body"><span class="qc-name">{escape(h["name"])}</span>'
             f'<span class="qc-meta">{walk_chip(h["distance_m"])}{bath}</span>'
             f'<span class="qc-rate">{stars(h.get("review_avg"))}</span>{price_html}</span></span>'
+            f'<span class="qc-btn">空室と料金を見る</span></a>'
+        )
+    return Markup(f'<div class="qcs">{"".join(out)}</div>')
+
+
+# 誰でも使えるわけではないプラン（fetch_cheap.py の RESTRICTED と同じ）
+CHEAP_RESTRICTED = re.compile(r"歳以上|才以上|歳以下|限定.*身分証|身分証.*限定|会員限定|会員様限定|学生|女性限定|男性限定|レディース|カップル|ご夫婦|連泊|[2-9２-９]泊以上|シニア|誕生日|記念日")
+CHEAP_MAX_KM = 12  # 安い宿を探す範囲（会場からの直線距離）。電車で30分前後で着く目安
+
+
+def cheap_picks(venue, d, hotels):
+    """会場の近く（3km以内の40軒）より外で、その夜に大人1人で安く泊まれる宿。fetch_cheap.py のデータから選ぶ。"""
+    near = {h["hotelNo"] for h in hotels}
+    rows, checked = {}, None
+    for folder in sorted((DATA / "cheap").glob("*")):
+        data = read_json(folder / f"{d}.json")
+        if not data:
+            continue
+        checked = max(checked or "", data["checked"])
+        for h in data["hotels"]:
+            if h["hotelNo"] in near or h["price"] <= 2500 or CHEAP_RESTRICTED.search(h.get("plan") or ""):
+                continue
+            m = distance_m(venue["lat"], venue["lng"], h["lat"], h["lng"])
+            if m > CHEAP_MAX_KM * 1000:
+                continue
+            if h["hotelNo"] not in rows or h["price"] < rows[h["hotelNo"]]["price"]:
+                rows[h["hotelNo"]] = dict(h, distance_m=m)
+    if not rows:
+        return None
+    items = sorted(rows.values(), key=lambda h: h["price"])
+    private = [h for h in items if not h["dorm"]]
+    dorm = [h for h in items if h["dorm"]]
+    return {"private": private[:5], "dorm": dorm[:2], "checked": checked, "count": len(items),
+            "min": private[0]["price"] if private else None}
+
+
+def cheap_cards(items):
+    """少し離れた安い宿のカード。会場からの直線距離と最寄り駅を出す（徒歩の分数は出さない）。"""
+    out = []
+    for h in items:
+        img = f'<img src="{escape(h["image"])}" alt="{escape(h["name"])}の外観" loading="lazy">' if h.get("image") else '<span class="qc-noimg"></span>'
+        st = f'<span class="chip">最寄り {escape(h["station"])}</span>' if h.get("station") else ""
+        kind = '<span class="chip">相部屋・カプセル</span>' if h.get("dorm") else ""
+        out.append(
+            f'<a class="qc" href="{escape(book_url(h, h))}" rel="nofollow sponsored noopener" target="_blank">'
+            f'<span class="qc-row">{img}<span class="qc-body"><span class="qc-name">{escape(h["name"])}</span>'
+            f'<span class="qc-meta"><span class="walk far">会場から約{h["distance_m"] / 1000:.1f}km</span>{st}{kind}</span>'
+            f'<span class="qc-rate">{stars(h.get("review_avg"))}</span>'
+            f'<span class="qc-price">{"ベッド1台" if h.get("dorm") else "1人1室"}で<strong>{yen(h["price"])}</strong>から</span></span></span>'
             f'<span class="qc-btn">空室と料金を見る</span></a>'
         )
     return Markup(f'<div class="qcs">{"".join(out)}</div>')
@@ -470,7 +524,7 @@ def rank_tabs(items, limit=5, key="rk"):
 
 def api_item(h):
     """画面の中で並べ替えるための、宿1軒分の情報（空室検索の返事と同じ形）。"""
-    return {"name": h["name"], "walk": walk_min(h["distance_m"]), "image": h.get("image", ""),
+    return {"name": h["name"], "walk": walk_min(h["distance_m"]), "distance": dist_label(h["distance_m"]), "image": h.get("image", ""),
             "rate": h.get("review_avg"), "bath": bool(h.get("daiyoku") or h.get("onsen")),
             "per_person": price_of(h), "adults": adults_of(h["offer"]) if h.get("offer") else 0,
             "url": book_url(h, h.get("offer"))}
@@ -547,7 +601,7 @@ def rec_box(venue, hotels, by_people, default_date, adults="1", limit=6, nights=
 def food_map(venue, spots, stays=None):
     """飲食店の位置を地図に出す。spotsの番号は表の番号と同じ。staysは宿の位置。"""
     pins = [{"n": i, "name": s["name"], "lat": s["lat"], "lng": s["lng"], "sub": f'{s.get("genre", "")}　{s.get("budget", "")}',
-             "url": s["url"]} for i, s in enumerate(spots, 1) if s.get("lat") and s.get("lng")]
+             "url": hp_url(s)} for i, s in enumerate(spots, 1) if s.get("lat") and s.get("lng")]
     if not pins:
         return Markup("")
     data = json.dumps({"venue": {"name": venue["name"], "lat": venue["lat"], "lng": venue["lng"]}, "spots": pins,
@@ -767,7 +821,7 @@ def lunch_split(lunch):
 def far_links(e, venue):
     """新幹線や飛行機で帰る人向けに、ターミナル駅の周りの宿を楽天で日付入りで探すリンク。"""
     out = []
-    d = date.fromisoformat(e["start"])
+    d = date.fromisoformat(stay_from(e))
     d2 = d + timedelta(days=1)
     for a in venue.get("far_areas", []):
         url = ("https://search.travel.rakuten.co.jp/ds/vacant/searchVacant/?f_teikei=&f_dai=japan"
@@ -799,14 +853,27 @@ def event_table(events, venue_slug, limit=None):
 def shop_img(s):
     if not s.get("photo"):
         return ""
-    return (f'<a class="shop-img" href="{escape(s["url"])}" rel="nofollow sponsored noopener" target="_blank" tabindex="-1">'
+    return (f'<a class="shop-img" href="{escape(hp_url(s))}" rel="nofollow sponsored noopener" target="_blank" tabindex="-1">'
             f'<img src="{escape(s["photo"])}" alt="{escape(s["name"])}の料理" width="64" height="64" loading="lazy"></a>')
+
+
+def hp_url(s):
+    """ホットペッパーの店のページへのリンク。バリューコマースの設定があれば、報酬の付くMyLinkの形にする（予約完了で報酬）。"""
+    url = s.get("url") or ""
+    vc = SITE.get("valuecommerce_hotpepper") or {}
+    if not (vc.get("sid") and url.startswith("https://www.hotpepper.jp/")):
+        return url
+    from urllib.parse import quote
+    base = url.split("?")[0]
+    return (f"https://ck.jp.ap.valuecommerce.com/servlet/referral?sid={vc['sid']}&pid={vc['pid']}"
+            f"&vc_url={quote(base + '?vos=' + vc['vos'], safe='')}")
 
 
 def restaurant_table(shops, limit=3, base="宿から", start=1, budget="予算"):
     rows = "".join(
-        f'<tr><td><div class="shop">{shop_img(s)}<div><span class="no">{start + i}</span><a href="{escape(s["url"])}" rel="nofollow sponsored noopener" target="_blank">{escape(s["name"])}</a>'
-        f'<span class="sub">{escape(s["genre"])}</span></div></div></td><td>{escape(s["budget"])}</td><td class="num">{dist_label(s["distance_m"])}</td></tr>'
+        f'<tr><td><div class="shop">{shop_img(s)}<div><span class="no">{start + i}</span><a href="{escape(hp_url(s))}" rel="nofollow sponsored noopener" target="_blank">{escape(s["name"])}</a>'
+        f'<span class="sub">{escape(s["genre"])}</span>'
+        f'<a class="btn btn-sign btn-small shop-btn" href="{escape(hp_url(s))}" rel="nofollow sponsored noopener" target="_blank">空席を見て予約する</a></div></div></td><td>{escape(s["budget"])}</td><td class="num">{dist_label(s["distance_m"])}</td></tr>'
         for i, s in enumerate(shops[:limit])
     )
     return Markup(f'<div class="table-wrap"><table><thead><tr><th>店</th><th>{budget}</th><th class="num">{base}</th></tr></thead>'
@@ -1035,7 +1102,9 @@ AREA_GROUPS = [
     ("横浜・みなとみらいエリア", ["pacifico-yokohama", "k-arena-yokohama", "pia-arena-mm", "yokohama-buntai"]),
     ("新横浜エリア", ["yokohama-arena"]),
     ("千葉・幕張エリア", ["makuhari-messe", "lala-arena-tokyo-bay"]),
-    ("大阪エリア", ["kyocera-dome-osaka", "osaka-jo-hall", "intex-osaka"]),
+    ("大阪エリア", ["kyocera-dome-osaka", "osaka-jo-hall", "mydome-osaka", "intex-osaka"]),
+    ("名古屋エリア", ["vantelin-dome-nagoya", "portmesse-nagoya"]),
+    ("福岡エリア", ["mizuho-paypay-dome"]),
 ]
 VENUE_TAGS = {
     "tokyo-big-sight": ["展示会", "同人誌即売会", "アート"], "ariake-arena": ["ライブ", "スポーツ"],
@@ -1047,7 +1116,7 @@ VENUE_TAGS = {
     "pacifico-yokohama": ["学会", "展示会", "コンサート"], "k-arena-yokohama": ["ライブ"], "pia-arena-mm": ["ライブ"],
     "yokohama-arena": ["ライブ", "スポーツ"],
     "trc-tokyo": ["同人誌即売会", "ファンイベント"], "sunshine-city": ["展示会", "アニメ・ゲーム"],
-    "intex-osaka": ["展示会"], "kyocera-dome-osaka": ["ライブ", "大型イベント"], "osaka-jo-hall": ["ライブ", "コンサート"],
+    "intex-osaka": ["展示会"], "kyocera-dome-osaka": ["ライブ", "大型イベント"], "osaka-jo-hall": ["ライブ", "コンサート"], "mydome-osaka": ["展示会", "即売会"], "vantelin-dome-nagoya": ["ライブ", "大型イベント"], "mizuho-paypay-dome": ["ライブ", "大型イベント"], "portmesse-nagoya": ["展示会"],
     "lala-arena-tokyo-bay": ["ライブ", "バスケットボール"], "yokohama-buntai": ["ライブ", "スポーツ"],
 }
 SPORTS = re.compile(r"サッカー|Jリーグ|J1|マラソン|ラグビー|陸上|大相撲|リーグ|選手権|大会|試合|ホームゲーム|開幕戦|vs|VS|BOXING|ボクシング|ONE |格闘|バスケ|バレー|フィギュア|Championship|GAME\.|太極拳")
@@ -1071,9 +1140,9 @@ GENRES = {
 }
 GENRE_RULES = [
     ("academic", re.compile(r"学会|学術|研究会|研究大会|入学試験|入試|試験|検定|審査|カンファレンス|Conference|シンポジウム", re.I)),
-    ("general", re.compile(r"就活|就職|インターン|キャリア|セミナー|説明会|合同企業|コンテスト|学校選び|相談会", re.I)),
+    ("general", re.compile(r"就活|就職|インターン|キャリア|セミナー|説明会|合同企業|コンテスト|学校選び|相談会|ビアフェス|ビールフェス|BEER ?FES|オクトーバーフェスト|婚活|街コン|出会いの祭典|農林水産FEST|就農|わんにゃん|ペット博|トミカ博|MLBx", re.I)),
     ("pop", re.compile(r"コミックマーケット|コミケ|COMIC|コミコン|即売会|同人|ゲームショウ|ホビー|ワンダーフェスティバル|ワンフェス|カードゲーム|ポケモン|デザインフェスタ|ハンドメイド|謎解|ファンフェスティバル|ファンフェス|AnimeJapan|アニメ|超会議|フリマ|フリーマーケット|バザール|ふるさと納税", re.I)),
-    ("sports", re.compile(r"サッカー|Jリーグ|J1|マラソン|EKIDEN|駅伝|ラグビー|陸上|大相撲|B\.LEAGUE|リーグ|選手権|試合|ホームゲーム|開幕戦|\bvs\b|BOXING|ボクシング|RIZIN|K-1|格闘|プロレス|バスケ|バレー|フィギュアスケート|Championship|カップ|Cup|天皇杯|皇后杯|体操|ダンス|バトン|ZUMBA|SLS", re.I)),
+    ("sports", re.compile(r"トライアウト|ソフトボール|SPECIAL MATCH|サッカー|Jリーグ|J1|マラソン|EKIDEN|駅伝|ラグビー|陸上|大相撲|B\.LEAGUE|リーグ|選手権|試合|ホームゲーム|開幕戦|\bvs\b|BOXING|ボクシング|RIZIN|K-1|格闘|プロレス|バスケ|バレー|フィギュアスケート|Championship|カップ|Cup|天皇杯|皇后杯|体操|ダンス|バトン|ZUMBA|SLS", re.I)),
     ("live", re.compile(r"LIVE|ライブ|TOUR|ツアー|コンサート|CONCERT|公演|フェス|FES|FESTIVAL|歌合戦|ミュージカル|ファンミ|FAN-?CON|Fan Event|ファンイベント|感謝祭|ワンマン|Anniversary|定期演奏|リサイタル|舞台|Day ?\d", re.I)),
     ("trade", re.compile(r"EXPO|展|フェア|WEEK|ウィーク|見本市|SEMICON|JIMTOF|メッセ|総合展|技術展|Japan ?20\d\d|ショー|Show", re.I)),
 ]
@@ -1470,7 +1539,7 @@ def css_version():
 
 def main():
     env = Environment(loader=FileSystemLoader(ROOT / "templates"), autoescape=select_autoescape(["html"]))
-    helpers = {"night_rows": night_rows, "run_rows": run_rows, "run_labels": run_labels, "fill_pace": fill_pace, "pair_saving": pair_saving, "entrance_for": entrance_for, "hotels_from_entrance": hotels_from_entrance, "lunch_split": lunch_split, "far_links": far_links, "group_title": group_title, "bus_rows": bus_rows, "price_cond": price_cond, "stay_nights": stay_nights, "stay_from": stay_from, "is_trade": is_trade, "genre": genre, "genre_photo": genre_photo, "photo": photo, "hotel_table": hotel_table, "hotel_cards": hotel_cards, "best_cards": best_cards,
+    helpers = {"night_rows": night_rows, "run_rows": run_rows, "run_labels": run_labels, "fill_pace": fill_pace, "pair_saving": pair_saving, "entrance_for": entrance_for, "hotels_from_entrance": hotels_from_entrance, "lunch_split": lunch_split, "far_links": far_links, "group_title": group_title, "bus_rows": bus_rows, "price_cond": price_cond, "stay_nights": stay_nights, "stay_from": stay_from, "cheap_picks": cheap_picks, "cheap_max_km": CHEAP_MAX_KM, "cheap_cards": cheap_cards, "is_trade": is_trade, "genre": genre, "genre_photo": genre_photo, "photo": photo, "hotel_table": hotel_table, "hotel_cards": hotel_cards, "best_cards": best_cards,
                "compare_table": compare_table, "hotel_map": hotel_map, "people_tabs": people_tabs,
                "with_offers": with_offers, "price_of": price_of, "event_stats": event_stats, "best_picks": best_picks, "depart_table": depart_table,
                "open_time": open_time, "audience_label": audience_label,
@@ -1570,13 +1639,18 @@ def main():
         }, ensure_ascii=False), encoding="utf-8")
 
     # サイトマップに載せるのは、会場・まとめ・案内のページと、開催45日以内のイベント。
-    # 遠い回のページも作って内部リンクでたどれるが、検索エンジンに先に見てほしいのは近い回なので絞る。
-    def in_sitemap(p):
+    # ドーム・アリーナ・ホールなどライブの会場（kind が arena）のイベントは150日以内。
+    # 人気のツアーは公演の4か月前ごろに宿が予約されるため（11/6、予約の入ったページのログから分かった）。
+    # 遠い回のページも作って内部リンクでたどれるが、検索エンジンに先に見てほしいのは予約が始まる回なので絞る。
+    def in_sitemap(p, ctx):
         if p.get("noindex"):
             return False
         ev = p.get("event")
-        return not ev or (date.fromisoformat(ev["start"]) - TODAY).days <= 45
-    urls = "".join(f"<url><loc>{SITE['base_url']}{quote(p['path'])}</loc><lastmod>{TODAY.isoformat()}</lastmod></url>" for p, _ in jobs if in_sitemap(p))
+        if not ev:
+            return True
+        arena = (ctx.get("venue") or {}).get("kind") == "arena"
+        return (date.fromisoformat(ev["start"]) - TODAY).days <= (150 if arena else 45)
+    urls = "".join(f"<url><loc>{SITE['base_url']}{quote(p['path'])}</loc><lastmod>{TODAY.isoformat()}</lastmod></url>" for p, ctx in jobs if in_sitemap(p, ctx))
     # 終わったイベントの転送先を .htaccess に足す
     ht = DIST / ".htaccess"
     rules = "".join(f'Redirect 301 "{src}" "{dst}"\n' for src, dst in sorted(set(REDIRECTS)))

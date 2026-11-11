@@ -49,6 +49,17 @@ def wrap(draw, text, f, width, max_lines):
             cur += tk
     if cur.strip():
         lines.append(cur.rstrip())
+    # 最後の行が1〜2文字だけ（「ナゴ／ヤ」「福／岡」）なら、前の行の空白か文字の種類が変わる所で切り直す
+    if 2 <= len(lines) <= max_lines and len(lines[-1]) <= 2:
+        prev = lines[-2]
+        kind = lambda ch: "kanji" if "\u4e00" <= ch <= "\u9fff" else "kana" if "\u3040" <= ch <= "\u30ff" else "latin" if ch.isascii() and ch.isalnum() else "other"
+        cut = prev.rfind(" ")
+        if cut <= 0:
+            # 数字の直後（第53｜回）と開きかっこの直後（【｜大阪）では切らない
+            cut = next((i for i in range(len(prev) - 1, 0, -1) if kind(prev[i]) != kind(prev[i - 1])
+                        and not prev[i - 1].isdigit() and prev[i - 1] not in "【「『（(［[〈《’‘'\""), -1)
+        if cut >= 2 and draw.textlength(prev[cut:].strip() + lines[-1], font=f) <= width:
+            lines[-2:] = [prev[:cut].rstrip(), prev[cut:].strip() + lines[-1]]
     if len(lines) > max_lines:
         lines = lines[:max_lines]
         while draw.textlength(lines[-1] + "…", font=f) > width:

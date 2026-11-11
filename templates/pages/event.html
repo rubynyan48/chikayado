@@ -68,6 +68,21 @@
 <h2>近いおすすめ宿</h2>
 <div id="hotels"></div>
 {{ rec_box(venue, hotels, by_people if not ended else {}, sd if not ended else saturday, nights=stay_nights(e, venue) if not ended else []) }}
+{% set cp = cheap_picks(venue, sd, hotels) if not ended else None %}
+{% if cp and cp.min and (not st or not st.one.min or cp.min < st.one.min) %}
+<p><a class="btn btn-sign btn-block" href="#cheap">少し離れてもいいなら{{ yen(cp.min) }}から泊まれる宿</a></p>
+{% endif %}
+{% if cp and (cp.private or cp.dorm) %}
+<h2 id="cheap">{{ jdate(sd, False) }}の夜に少し離れても安く泊まれる宿</h2>
+<p>{% if st and st.one.min %}会場から{{ km(venue) }}以内で{{ jdate(sd, False) }}の夜にいちばん安い宿は、1人1室で{{ yen(st.one.min) }}です。{% elif st %}会場から{{ km(venue) }}以内の宿は、{{ jdate(sd, False) }}の夜はもう空いていません。{% endif %}電車で移動してもよければ、会場から{{ cheap_max_km }}km以内でもっと安く泊まれる宿があります。{{ jdate(cp.checked, False) }}時点の楽天トラベルの空室を、安い順に並べました。</p>
+{% if cp.private %}{{ cheap_cards(cp.private) }}{% endif %}
+{% if cp.dorm %}
+<h3>相部屋やカプセルでよければ</h3>
+<p>ベッド1台分の料金なので、個室よりさらに安く泊まれます。男女別のフロアがあるかは宿のページで確かめてください。</p>
+{{ cheap_cards(cp.dorm) }}
+{% endif %}
+<p class="note">距離は会場からの直線です。会場までの電車の時間は、最寄り駅から乗り換え案内で確かめてください。</p>
+{% endif %}
 
 
 <h2>もっと詳しく知りたいとき</h2>
@@ -77,6 +92,7 @@
   {% if gk in ('live', 'sports') %}<a href="#access">終演後の帰り道と駅</a>{% endif %}
   {% if st %}<a href="#numbers">{{ '前日の夜の空き具合' if gk in ('trade', 'academic') else '数字で見る空き具合' }}</a>{% endif %}
   {% if ot and not ended and gk != 'pop' %}<a href="#depart">宿を出る時刻の目安</a>{% endif %}
+  {% if cp and (cp.private or cp.dorm) %}<a href="#cheap">少し離れても安い宿</a>{% endif %}
   <a href="#about">開催の内容と時間</a>
   {% if gk not in ('live', 'sports') %}<a href="#access">会場の建物と駅</a>{% endif %}
   {% if page.concurrent %}<a href="#same-day">同じ日のイベント</a>{% endif %}

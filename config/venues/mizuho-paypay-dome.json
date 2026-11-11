@@ -1,0 +1,44 @@
+{
+  "slug": "mizuho-paypay-dome",
+  "name": "みずほPayPayドーム福岡",
+  "formal_name": "みずほPayPayドーム福岡",
+  "address": "福岡県福岡市中央区地行浜2-2-2",
+  "lat": 33.594341,
+  "lng": 130.362411,
+  "search_radius_km": 3.0,
+  "source": "fukuoka_dome",
+  "kind": "arena",
+  "area_label": "地行浜・唐人町",
+  "stations": [
+    {
+      "name": "唐人町駅",
+      "line": "福岡市地下鉄空港線",
+      "walk_min": 15,
+      "lat": 33.590235,
+      "lng": 130.370451
+    }
+  ],
+  "schedule_url": "https://www.softbankhawks.co.jp/stadium/event_schedule/",
+  "order": 24,
+  "max_hotels": 40,
+  "far_areas": [
+    {
+      "name": "博多・キャナルシティ",
+      "chu": "hukuoka",
+      "shou": "fukuoka",
+      "sai": "",
+      "why": "新幹線や飛行機で帰る人。地下鉄空港線で博多から唐人町まで乗り換えなし"
+    },
+    {
+      "name": "天神・中洲・薬院",
+      "chu": "hukuoka",
+      "shou": "seibu",
+      "sai": "",
+      "why": "宿と飲食店が多い。地下鉄空港線で天神から唐人町まで乗り換えなし"
+    }
+  ],
+  "hero_photos": {
+    "event": "みずほPayPayドーム福岡外観.jpg",
+    "venue": "みずほPayPayドーム福岡外観.jpg"
+  }
+}

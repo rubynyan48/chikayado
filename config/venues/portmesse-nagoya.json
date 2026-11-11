@@ -1,0 +1,74 @@
+{
+  "slug": "portmesse-nagoya",
+  "name": "ポートメッセなごや",
+  "formal_name": "ポートメッセなごや（名古屋市国際展示場）",
+  "address": "愛知県名古屋市港区金城ふ頭2-2",
+  "lat": 35.047825,
+  "lng": 136.844147,
+  "search_radius_km": 3.0,
+  "source": "gcal",
+  "calendars": [
+    [
+      "rtitlphjs5jnvr2mb8efq9214k@group.calendar.google.com",
+      "展示会・見本市",
+      "商談"
+    ]
+  ],
+  "kind": "exhibition",
+  "area_label": "金城ふ頭",
+  "stations": [
+    {
+      "name": "金城ふ頭駅",
+      "line": "あおなみ線",
+      "walk_min": 8,
+      "lat": 35.0488273333333,
+      "lng": 136.849361944444
+    }
+  ],
+  "schedule_url": "https://www.tenjikai.biz/portmessenagoya_calendar",
+  "events_credit": "展示会Biz ポートメッセなごや展示会カレンダー",
+  "events_credit_url": "https://www.tenjikai.biz/portmessenagoya_calendar",
+  "order": 25,
+  "max_hotels": 40,
+  "far_areas": [
+    {
+      "name": "名古屋駅・伏見",
+      "chu": "aichi",
+      "shou": "nagoyashi",
+      "sai": "A",
+      "why": "宿の数が多い。あおなみ線で名古屋から金城ふ頭まで乗り換えなし"
+    },
+    {
+      "name": "金山・熱田",
+      "chu": "aichi",
+      "shou": "nagoyashi",
+      "sai": "C",
+      "why": "名古屋駅より安い宿が見つかりやすい。JRや名鉄で名古屋駅へ出てあおなみ線に乗り換え"
+    }
+  ],
+  "extra_areas": [
+    {
+      "name": "港区（名古屋港・築地口）",
+      "lat": 35.093,
+      "lng": 136.8845,
+      "radius_km": 3.0
+    },
+    {
+      "name": "港区（荒子川公園・港北）",
+      "lat": 35.11,
+      "lng": 136.865,
+      "radius_km": 3.0
+    },
+    {
+      "name": "東海市（聚楽園・太田川）",
+      "lat": 35.0412,
+      "lng": 136.9087,
+      "radius_km": 3.0
+    }
+  ],
+  "extra_max_km": 8.0,
+  "hero_photos": {
+    "event": "ポートメッセなごや外観.jpg",
+    "venue": "ポートメッセなごや外観.jpg"
+  }
+}

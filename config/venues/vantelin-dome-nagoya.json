@@ -1,0 +1,51 @@
+{
+  "slug": "vantelin-dome-nagoya",
+  "name": "バンテリンドーム ナゴヤ",
+  "formal_name": "バンテリンドーム ナゴヤ",
+  "address": "愛知県名古屋市東区大幸南1-1-1",
+  "lat": 35.185009,
+  "lng": 136.945374,
+  "search_radius_km": 3.0,
+  "source": "nagoya_dome",
+  "kind": "arena",
+  "area_label": "大曽根・矢田",
+  "stations": [
+    {
+      "name": "ナゴヤドーム前矢田駅",
+      "line": "地下鉄名城線・ゆとりーとライン",
+      "walk_min": 5,
+      "lat": 35.190691,
+      "lng": 136.945255
+    },
+    {
+      "name": "大曽根駅",
+      "line": "JR中央線・名鉄瀬戸線・地下鉄名城線",
+      "walk_min": 15,
+      "lat": 35.191508,
+      "lng": 136.937161
+    }
+  ],
+  "schedule_url": "https://www.nagoya-dome.co.jp/enjoy/index.php",
+  "order": 23,
+  "max_hotels": 40,
+  "far_areas": [
+    {
+      "name": "名古屋駅・伏見",
+      "chu": "aichi",
+      "shou": "nagoyashi",
+      "sai": "A",
+      "why": "新幹線で帰る人。JR中央線で名古屋から大曽根まで乗り換えなし（大曽根から歩いて約15分）"
+    },
+    {
+      "name": "栄・錦",
+      "chu": "aichi",
+      "shou": "nagoyashi",
+      "sai": "B",
+      "why": "宿と飲食店が多い。地下鉄名城線で栄からナゴヤドーム前矢田まで乗り換えなし"
+    }
+  ],
+  "hero_photos": {
+    "event": "バンテリンドームナゴヤ外観.jpg",
+    "venue": "バンテリンドームナゴヤ外観.jpg"
+  }
+}

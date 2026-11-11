@@ -475,6 +475,7 @@ td .no { display: inline-grid; place-items: center; width: 22px; height: 22px; m
 .shop { display: flex; gap: 10px; align-items: flex-start; }
 .shop-img { flex: none; }
 .shop-img img { width: 64px; height: 64px; object-fit: cover; border-radius: 8px; background: var(--wash); }
+.shop-btn { display: inline-block; margin-top: 6px; font-size: 13px; white-space: nowrap; }
 
 /* 地図の番号を円の真ん中に */
 .pin, .pin-venue { line-height: 1; padding: 0; box-sizing: border-box; text-align: center; }

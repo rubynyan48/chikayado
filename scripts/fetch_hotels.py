@@ -148,11 +148,31 @@ def squeeze_ids(venue, condition):
     return ids
 
 
+def centers(venue):
+    """宿を探す場所。会場の周りに加えて、会場の設定の extra_areas（周りに宿が少ない会場で、近くの宿の多い場所）も探す。"""
+    out = [(venue, venue.get("search_radius_km", 3.0) * 1000)]
+    for a in venue.get("extra_areas", []):
+        out.append(({"lat": a["lat"], "lng": a["lng"], "search_radius_km": a.get("radius_km", 3.0)},
+                    venue.get("extra_max_km", 8.0) * 1000))
+    return out
+
+
 def fetch_hotels(venue):
     hotels = {}
+    for center, max_m in centers(venue):
+        fetch_hotels_around(venue, center, max_m, hotels)
+    finish_hotels(venue, hotels)
+    result = sorted(hotels.values(), key=lambda h: h["distance_m"])[:venue.get("max_hotels", 200)]
+    write_json(DATA / "hotels" / f"{venue['slug']}.json",
+               {"venue": venue["slug"], "updated": date.today().isoformat(), "hotels": result})
+    print(f"{venue['name']}: 周辺の宿 {len(result)}件")
+    return result
+
+
+def fetch_hotels_around(venue, center, max_m, hotels):
     page = 1
     while True:
-        params = dict(base_params(venue), responseType="large", hits=30, page=page)
+        params = dict(base_params(center), responseType="large", hits=30, page=page)
         res = polite_get(HOTEL_URL, params, headers())
         if res is None:
             break
@@ -162,7 +182,7 @@ def fetch_hotels(venue):
             if not h.get("hotelNo") or h.get("latitude") in (None, ""):
                 continue
             d = distance_m(venue["lat"], venue["lng"], float(h["latitude"]), float(h["longitude"]))
-            if d > venue.get("search_radius_km", 3.0) * 1000:
+            if d > max_m or str(h["hotelNo"]) in hotels:
                 continue
             hotels[str(h["hotelNo"])] = {
                 "hotelNo": str(h["hotelNo"]),
@@ -194,10 +214,15 @@ def fetch_hotels(venue):
         if page >= int(paging.get("pageCount", 1) or 1) or page >= 10:
             break
         page += 1
+
+
+def finish_hotels(venue, hotels):
     # 大浴場・温泉・禁煙ルームの有無は絞り込み検索で確かめる
     for cond, key in (("daiyoku", "daiyoku"), ("onsen", "onsen"), ("kinen", "kinen_room")):
+        ids = set()
         try:
-            ids = squeeze_ids(venue, cond)
+            for center, _ in centers(venue):
+                ids |= squeeze_ids(center, cond)
         except Exception as exc:
             print(f"  {cond}の絞り込みに失敗 {exc}", file=sys.stderr)
             continue
@@ -207,11 +232,6 @@ def fetch_hotels(venue):
         # 絞り込みに出なくても、館内設備に大浴場とあれば大浴場ありとする
         if not h.get("daiyoku") and any("大浴場" in t for t in h["facilities"] + [h["bath_type"]]):
             h["daiyoku"] = True
-    result = sorted(hotels.values(), key=lambda h: h["distance_m"])[:venue.get("max_hotels", 200)]
-    write_json(DATA / "hotels" / f"{venue['slug']}.json",
-               {"venue": venue["slug"], "updated": date.today().isoformat(), "hotels": result})
-    print(f"{venue['name']}: 周辺の宿 {len(result)}件")
-    return result
 
 
 PEOPLE = (1, 2, 3, 4)  # 人数別に空室を調べる
@@ -219,10 +239,20 @@ PEOPLE = (1, 2, 3, 4)  # 人数別に空室を調べる
 
 def fetch_vacancy_day(venue, checkin, adults):
     """その日に大人adults人で1室に泊まれる宿の、いちばん安いプランを宿ごとに取る。"""
-    params = dict(base_params(venue), checkinDate=checkin.isoformat(),
+    found = {}
+    for center, _ in centers(venue):
+        fetch_vacancy_around(center, checkin, adults, found)
+    if venue.get("extra_areas"):
+        # 少し離れた場所も探す会場は、宿の一覧（8km以内）に入っている宿だけを数える
+        listed = {h["hotelNo"] for h in read_json(DATA / "hotels" / f"{venue['slug']}.json", {"hotels": []})["hotels"]}
+        found = {k: v for k, v in found.items() if k in listed}
+    return found
+
+
+def fetch_vacancy_around(center, checkin, adults, found):
+    params = dict(base_params(center), checkinDate=checkin.isoformat(),
                   checkoutDate=(checkin + timedelta(days=1)).isoformat(),
                   adultNum=adults, roomNum=1, hits=30, sort="+roomCharge", responseType="small")
-    found = {}
     for page in (1, 2):
         params["page"] = page
         res = polite_get(VACANT_URL, params, headers())
@@ -235,6 +265,8 @@ def fetch_vacancy_day(venue, checkin, adults):
             if not h.get("hotelNo") or not plans:
                 continue
             cheapest = min(plans, key=lambda p: p["total"])
+            if str(h["hotelNo"]) in found and found[str(h["hotelNo"])]["total"] <= cheapest["total"]:
+                continue
             found[str(h["hotelNo"])] = {
                 "total": cheapest["total"],
                 "per_person": round(cheapest["total"] / adults),
@@ -244,7 +276,6 @@ def fetch_vacancy_day(venue, checkin, adults):
             }
         if page >= int(body.get("pagingInfo", {}).get("pageCount", 1) or 1):
             break
-    return found
 
 
 def fresh_enough(venue, checkin, today):
