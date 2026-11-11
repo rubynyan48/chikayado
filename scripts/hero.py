@@ -50,7 +50,8 @@ def wrap(draw, text, f, width, max_lines):
     if cur.strip():
         lines.append(cur.rstrip())
     # 最後の行が1〜2文字だけ（「ナゴ／ヤ」「福／岡」）なら、前の行の空白か文字の種類が変わる所で切り直す
-    if 2 <= len(lines) <= max_lines and len(lines[-1]) <= 2:
+    # 前の行に空白があるときは3文字（「大和ハウス プレミスト／ドーム」）でも空白で切り直す
+    if 2 <= len(lines) <= max_lines and (len(lines[-1]) <= 2 or (len(lines[-1]) <= 3 and " " in lines[-2])):
         prev = lines[-2]
         kind = lambda ch: "kanji" if "\u4e00" <= ch <= "\u9fff" else "kana" if "\u3040" <= ch <= "\u30ff" else "latin" if ch.isascii() and ch.isalnum() else "other"
         cut = prev.rfind(" ")
