@@ -1,0 +1,47 @@
+{
+  "slug": "marine-messe-fukuoka",
+  "name": "マリンメッセ福岡",
+  "formal_name": "マリンメッセ福岡（A館・B館）",
+  "address": "福岡県福岡市博多区沖浜町7-1",
+  "lat": 33.603998,
+  "lng": 130.403857,
+  "search_radius_km": 3.0,
+  "source": "marine_messe",
+  "kind": "arena",
+  "area_label": "中洲・呉服町",
+  "stations": [
+    {
+      "name": "呉服町駅",
+      "line": "地下鉄箱崎線",
+      "walk_min": 15,
+      "lat": 33.598333,
+      "lng": 130.41
+    },
+    {
+      "name": "中洲川端駅",
+      "line": "地下鉄空港線・箱崎線",
+      "walk_min": 18,
+      "lat": 33.594722,
+      "lng": 130.406389
+    }
+  ],
+  "schedule_url": "https://www.marinemesse.or.jp/messe/event",
+  "order": 27,
+  "max_hotels": 40,
+  "far_areas": [
+    {
+      "name": "博多・キャナルシティ",
+      "chu": "hukuoka",
+      "shou": "fukuoka",
+      "sai": "",
+      "why": "新幹線や飛行機で帰る人。地下鉄空港線で博多から中洲川端まで乗り換えなし（中洲川端から歩いて約18分）"
+    },
+    {
+      "name": "天神・中洲・薬院",
+      "chu": "hukuoka",
+      "shou": "seibu",
+      "sai": "",
+      "why": "宿と飲食店が多い。地下鉄空港線で天神から中洲川端まで1駅（中洲川端から歩いて約18分）"
+    }
+  ]
+}

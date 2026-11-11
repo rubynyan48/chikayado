@@ -1,0 +1,33 @@
+{
+  "slug": "sapporo-dome",
+  "name": "大和ハウス プレミストドーム",
+  "formal_name": "大和ハウス プレミストドーム（札幌ドーム）",
+  "address": "北海道札幌市豊平区羊ケ丘1",
+  "lat": 43.0152,
+  "lng": 141.4098,
+  "search_radius_km": 3.0,
+  "source": "sapporo_dome",
+  "kind": "arena",
+  "area_label": "福住・月寒",
+  "stations": [
+    {
+      "name": "福住駅",
+      "line": "地下鉄東豊線",
+      "walk_min": 10,
+      "lat": 43.021733,
+      "lng": 141.402969
+    }
+  ],
+  "schedule_url": "https://www.sapporo-dome.co.jp/eventlist/",
+  "order": 26,
+  "max_hotels": 40,
+  "far_areas": [
+    {
+      "name": "札幌市内（さっぽろ駅・大通・すすきの）",
+      "chu": "hokkaido",
+      "shou": "sapporo",
+      "sai": "",
+      "why": "宿と飲食店が多い。地下鉄東豊線でさっぽろ駅から福住まで乗り換えなし（約13分）"
+    }
+  ]
+}

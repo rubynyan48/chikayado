@@ -77,7 +77,10 @@ jobs:
       # push のときはデータを取り直さず、ページの作り直しと転送だけ行う
       - name: イベント情報の取得
         if: github.event_name != 'push' && env.SCOPE != 'clinics'
-        run: cd scripts && python fetch_events.py 2>&1 | python redact.py; exit ${PIPESTATUS[0]}
+        # マリンメッセ福岡の日程はブラウザで表示しないと出ないので、先にブラウザを入れる（あとの画面撮影でも使う）
+        run: |
+          pip install -q playwright==1.48.0 opencv-python-headless==4.10.0.84 && python -m playwright install --with-deps chromium > /dev/null 2>&1
+          cd scripts && python fetch_events.py 2>&1 | python redact.py; exit ${PIPESTATUS[0]}
         continue-on-error: true
 
       - name: 楽天トラベルの宿と空室の取得

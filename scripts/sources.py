@@ -772,7 +772,87 @@ def fukuoka_dome(venue):
     return join_days(items)
 
 
+# ---- 大和ハウス プレミストドーム（札幌ドーム） --------------------------------------
+SKIP_SAPPORO = re.compile(r"対象者限定|お別れの会|偲ぶ会|防災訓練|一般利用|草野球|設営|撤去|中止|延期")
+
+
+def sapporo_dome(venue):
+    """公式の「イベントリスト」（半年ほど先まで）。サッカー（コンサドーレの試合）は野球と同じく地元のファンが中心なので載せない。"""
+    soup = get_html("https://www.sapporo-dome.co.jp/eventlist/")
+    today = date.today().isoformat()
+    items = []
+    for li in soup.select("li.js_eventItem"):
+        if li.get("data-event-cat") == "soccer":
+            continue
+        day = li.get("data-event-day", "")
+        title = li.select_one(".un_eventlist_ttl__main") or li.select_one(".un_eventlist_ttl")
+        if not re.fullmatch(r"\d{8}", day) or not title:
+            continue
+        d = f"{day[:4]}-{day[4:6]}-{day[6:]}"
+        name = clean(title.get_text(" "))
+        if d < today or not name or SKIP_SAPPORO.search(name):
+            continue
+        a = li.select_one("a.js_eventItemLink")
+        items.append(event(name, d, url=a["href"] if a and a.get("href", "").startswith("http") else ""))
+    return join_days(items)
+
+
+# ---- マリンメッセ福岡（A館・B館） ----------------------------------------------------
+def marine_messe_parse(html, today=None):
+    """イベント情報のページ（ブラウザで表示したあとのHTML）から、カードを読み取る。"""
+    today = today or date.today()
+    soup = BeautifulSoup(html, "html.parser")
+    items = []
+    for a in soup.find_all("a", href=True):
+        texts = [clean(p.get_text("\n")) for p in a.find_all("p")]
+        if "日程" not in texts:
+            continue
+        i = texts.index("日程")
+        if i < 1 or i + 1 >= len(texts):
+            continue
+        name, when = texts[i - 1], texts[i + 1]
+        audience = next((x for x in texts[:i] if x in ("一般", "関係者")), "一般")
+        days = []
+        for mo, dd in re.findall(r"(\d{1,2})\.(\d{1,2})\(", when):
+            mo, dd = int(mo), int(dd)
+            y = today.year + (1 if mo < today.month - 1 else 0)  # 載っているのは今月から1年先まで
+            days.append(date(y, mo, dd))
+        if not days or not name or re.search(r"中止|延期", name):
+            continue
+        start, end = min(days), max(days)
+        if end < today:
+            continue
+        t = re.search(r"(\d{1,2}:\d{2})", when)
+        href = a["href"]
+        items.append(event(name, start.isoformat(), end.isoformat(), hours=f"開始 {t.group(1)}" if t else "",
+                           url=href if href.startswith("http") else "", audience=audience))
+    return items
+
+
+def marine_messe(venue):
+    """A館とB館のイベント情報。STUDIOで作られたページで、ブラウザで表示しないと中身が出ない。
+    「さらに10件を読み込む」を押し切ってから読み取る。両館にまたがるイベントは1つにまとめる。"""
+    from playwright.sync_api import sync_playwright
+    items = []
+    with sync_playwright() as p:
+        browser = p.chromium.launch()
+        page = browser.new_page()
+        for url in ("https://www.marinemesse.or.jp/messe/event", "https://www.marinemesse.or.jp/messe-b/event"):
+            page.goto(url, wait_until="networkidle", timeout=60000)
+            for _ in range(30):
+                more = page.get_by_text("さらに10件を読み込む")
+                if not more.count():
+                    break
+                more.first.click()
+                page.wait_for_timeout(1500)
+            items += marine_messe_parse(page.content())
+        browser.close()
+    return unique(items)
+
+
 SOURCES = {
+    "sapporo_dome": sapporo_dome,
+    "marine_messe": marine_messe,
     "nagoya_dome": nagoya_dome,
     "fukuoka_dome": fukuoka_dome,
     "mydome": mydome,
