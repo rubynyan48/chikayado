@@ -1399,6 +1399,59 @@ PEOPLE_PAGES = [
 ]
 
 
+def md(d):
+    d = date.fromisoformat(d) if isinstance(d, str) else d
+    return f"{d.month}/{d.day}"
+
+
+# 検索結果でクリックされるよう、タイトルと説明文にそのページでしか分からない数字を入れる（11/12に持ち主OK）
+def people_title(venue, label, n, st):
+    row = st["rows"][int(n) - 1] if st else None
+    if not row or not row["min"]:
+        return f"{venue['name']}近くのホテルに{label}で泊まる 1人あたりの料金と空室"
+    price = f"{row['min']:,}円から" if n == "1" else f"1人{row['min']:,}円から"
+    return f"{venue['name']}近くの{label}で泊まれる安いホテル {price}{row['open']}軒空き"
+
+
+def people_lead(venue, label, n, st, saturday):
+    row = st["rows"][int(n) - 1] if st else None
+    if not row or not row["min"]:
+        return ""
+    return f"{md(saturday)}（土）の夜に{label}で泊まれる空室は{row['open']}軒、1人あたり{row['min']:,}円からです。"
+
+
+def events_title(venue, events):
+    months = []
+    for e in events:
+        d = date.fromisoformat(max(e["start"], TODAY.isoformat()))
+        if (d.year, d.month) not in months:
+            months.append((d.year, d.month))
+        if len(months) == 2:
+            break
+    if not months:
+        return f"{venue['name']}の開催予定イベント一覧"
+    if len(months) == 1 or months[0][0] == months[1][0]:
+        span = f"{months[0][0]}年" + "・".join(f"{m}月" for _, m in months)
+    else:
+        span = "・".join(f"{y}年{m}月" for y, m in months)
+    return f"{venue['name']}のイベント予定 {span}の全{len(events)}件と近いホテル"
+
+
+def events_desc(venue, events):
+    soon = [f"{md(max(e['start'], TODAY.isoformat()))}の{e['name']}" for e in events[:3]]
+    head = f"{venue['name']}でこれから開催されるイベントは全{len(events)}件です。" + (f"次は{'、'.join(soon)}。" if soon else "")
+    return head + "イベントごとに会場に近いホテルと開催日の空室を確かめられます。"
+
+
+def event_lead(e, st, sd):
+    if not st:
+        return ""
+    one = st["one"]
+    if not one["open"]:
+        return f"{md(sd)}の夜は会場の近くの{st['total']}軒が1人1室ではすべて満室です（{md(TODAY)}時点）。"
+    return f"{md(sd)}の夜に1人で泊まれる空室は{one['open']}軒、最安{one['min']:,}円です（{md(TODAY)}時点）。"
+
+
 def pages_for(venue, ctx):
     v = f"/{venue['slug']}/"
     home = {"name": "トップ", "path": "/"}
@@ -1406,6 +1459,7 @@ def pages_for(venue, ctx):
     cta = {"href": v + "#hotels", "label": "会場に近いホテルを見る"}
     n = len(ctx["hotels"])
     nearest = ctx["hotels"][0] if ctx["hotels"] else None
+    sat_st = event_stats(ctx["hotels"], ctx["sat_vacancy"], None, None)
     pages = [
         {"path": v, "template": "venue.html",
          "title": f"{venue['name']}に近いホテル 会場から近い順に{n}軒" if n else f"{venue['name']}に近いホテル",
@@ -1423,15 +1477,18 @@ def pages_for(venue, ctx):
          "breadcrumbs": [home, hub, {"name": "ホテルの比較", "path": v + "hotels/"}],
          "float_cta": {"href": v, "label": "おすすめのホテルを見る"}, "has_map": True},
         *[{"path": f"{v}{slug}/", "template": "people.html", "people": n, "people_label": label,
-           "title": f"{venue['name']}近くのホテルに{label}で泊まる 1人あたりの料金と空室",
-           "description": f"{venue['name']}の近くで{label}で1部屋に泊まれるホテルを、会場からの距離と1人あたりの料金で比べました。近い宿、安い宿、評価の高い宿のおすすめもまとめています。",
+           "title": people_title(venue, label, n, sat_st),
+           "h1": f"{venue['name']}近くのホテルに{label}で泊まる 1人あたりの料金と空室",
+           "description": people_lead(venue, label, n, sat_st, ctx["saturday"])
+                          + f"{venue['name']}の近くで{label}で1部屋に泊まれるホテルを、会場からの距離と1人あたりの料金で比べました。近い宿、安い宿、評価の高い宿のおすすめもまとめています。",
            "breadcrumbs": [home, hub, {"name": f"{label}で泊まる", "path": f"{v}{slug}/"}],
            "float_cta": {"href": "#best", "label": f"{label}で泊まれるおすすめを見る"}, "has_map": True}
           for slug, n, label in PEOPLE_PAGES],
         *[{"path": f"{v}{sr['slug']}/", "template": "series.html", "series": sr,
            "vacancy": read_json(DATA / "vacancy" / vslug(venue) / f"{stay_from(sr['next'])}.json") if sr["next"] else None,
            "title": f"{sr['name']}（{sr['short']}）の会場に近いホテル {venue['name']}周辺で空いている宿",
-           "description": (f"次の{sr['name']}（{sr['next']['name']}）は{period(sr['next'])}に{venue['name']}で開かれます。" if sr["next"]
+           "description": (event_lead(sr["next"], event_stats(ctx["hotels"], read_json(DATA / "vacancy" / vslug(venue) / f"{stay_from(sr['next'])}.json"), None, None), stay_from(sr["next"]))
+                           + f"次の{sr['name']}（{sr['next']['name']}）は{period(sr['next'])}に{venue['name']}で開かれます。" if sr["next"]
                            else f"{sr['name']}は{venue['name']}で開かれるイベントです。")
                           + "会場に近いホテルの空室と1人あたりの料金を、人数を選ぶだけで確かめられます。",
            "hero": {"file": hero_name(f"{sr['short']}の会場に近いホテル"), "title": sr["name"], "photo": sr.get("hero_photo") or venue.get("hero_photos", {}).get("venue"),
@@ -1443,8 +1500,9 @@ def pages_for(venue, ctx):
            "float_cta": {"href": "#hotels", "label": "空いている近い宿を見る"}}
           for sr in ctx["series"]],
         {"path": v + "events/", "template": "events.html",
-         "title": f"{venue['name']}の開催予定イベント一覧",
-         "description": f"{venue['name']}でこれから開催される展示会や一般向けイベントを日付順にまとめています。イベントごとに会場に近いホテルと開催日の空室も確認できます。",
+         "title": events_title(venue, ctx["events"]),
+         "h1": f"{venue['name']}の開催予定イベント一覧",
+         "description": events_desc(venue, ctx["events"]),
          "breadcrumbs": [home, hub, {"name": "開催予定イベント", "path": v + "events/"}], "float_cta": cta},
     ]
     if venue.get("guides"):
@@ -1501,9 +1559,9 @@ def pages_for(venue, ctx):
         pages.append(dict(common, **{
             "path": path, "template": "event.html", "noindex": bool(e.get("noindex")), "has_map": True,
             "genre": g,
-            "title": f"{e['name']}の会場に近いホテル {venue['name']}周辺で{g['tail']}【{short_period(e)}】",
+            "title": f"{e['name'].replace('、', ' ').replace('｜', ' ')}の会場に近いホテル {venue['name']}周辺で{g['tail']}【{short_period(e)}】",
             "h1": f"{e['name']}の会場に近いホテル {venue['name']}周辺で{g['tail']}",
-            "description": (f"{e['name']}（{period(e)} {venue['name']}）の会場に近いホテルを、"
+            "description": event_lead(e, st, sd) + (f"{e['name']}（{period(e)} {venue['name']}）の会場に近いホテルを、"
                             + (g["desc"] if g.get("desc") else "設営や前泊のある前日の夜から会期中の夜まで、空室と1人1室の料金で選べます。出張で何泊かするときの宿の取り方もまとめています。" if g["key"] == "trade" else
                                "前日の夜の空室と1人あたりの料金で選べます。前日入りして朝ゆっくり会場に着ける宿をまとめています。" if g["key"] == "academic" else
                                "試合の後に歩いて戻れる距離と、2人で1室にしたときの1人あたりの料金で選べます。" if g["key"] == "sports" else
