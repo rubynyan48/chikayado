@@ -1,6 +1,6 @@
 {
  "venue": "amasora-fukuoka",
- "updated": "2026-11-11",
+ "updated": "2026-11-12",
  "hotels": [
   {
    "hotelNo": "3089",
@@ -11,7 +11,7 @@
    "address": "福岡県福岡市中央区大名1-14-13",
    "access": "博多駅、福岡空港より地下鉄で1本。空港線天神駅3番出口より徒歩7分。七隈線天神南駅2番出口より徒歩8分。",
    "station": "天神",
-   "min_charge": 4680,
+   "min_charge": 4320,
    "review_avg": 3.7,
    "review_count": 2931,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/3089/3089.jpg",
@@ -23,7 +23,7 @@
     "location": 3.81,
     "room": 3.59,
     "equipment": 3.51,
-    "bath": 3.58
+    "bath": 3.56
    },
    "facilities": [
     "全室Wifi無料",
@@ -77,7 +77,7 @@
     "location": 4.24,
     "room": 4.1,
     "equipment": 4.02,
-    "bath": 3.85
+    "bath": 3.81
    },
    "facilities": [
     "※宿泊フロアのエレベーターは、ご宿泊者様専用につきご利用にはアクセスコードが必要となります",
@@ -188,7 +188,7 @@
     "location": 4.36,
     "room": 4.5,
     "equipment": 4.5,
-    "bath": 4.43
+    "bath": 4.45
    },
    "facilities": [
     "全室に加湿器付空気清浄機を完備しております。",
@@ -606,7 +606,7 @@
     "location": 4.2,
     "room": 4.15,
     "equipment": 4.22,
-    "bath": 4.16
+    "bath": 4.14
    },
    "facilities": [
     "レストラン",
@@ -1040,7 +1040,7 @@
    "address": "福岡県福岡市中央区大名1-10-19 C Studio Tenjin 1-4F",
    "access": "福岡市営地下鉄 赤坂駅より徒歩5分",
    "station": "赤坂",
-   "min_charge": null,
+   "min_charge": 2009,
    "review_avg": null,
    "review_count": 3,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/199479/199479.jpg",
@@ -1092,7 +1092,7 @@
     "location": 3.97,
     "room": 3.51,
     "equipment": 3.44,
-    "bath": 3.59
+    "bath": 3.6
    },
    "facilities": [
     "ロビーに有料のコインロッカーをご用意しています",
@@ -1259,7 +1259,7 @@
     "location": 3.71,
     "room": 3.61,
     "equipment": 3.58,
-    "bath": 3.55
+    "bath": 3.53
    },
    "facilities": [
     "【Wi-Fi完備】タブレット端末から24時間のオンラインレセプションをご利用いただけます。",
@@ -1390,7 +1390,7 @@
    "address": "福岡県福岡市中央区大名2-8-27",
    "access": "★福岡空港・JR博多駅から天神地下鉄4番出口より徒歩3分★博多名物の屋台も目の前に!!",
    "station": "天神",
-   "min_charge": 8571,
+   "min_charge": 9388,
    "review_avg": 4.35,
    "review_count": 3557,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/17532/17532.jpg",
@@ -1599,54 +1599,32 @@
    "kinen_room": true
   },
   {
-   "hotelNo": "198823",
-   "name": "Fam Hotel Imaizumi",
-   "distance_m": 392,
-   "lat": 33.58501669893792,
-   "lng": 130.39826436975343,
-   "address": "福岡県福岡市中央区今泉1-18-19",
-   "access": "西鉄天神駅から徒歩8分",
-   "station": "天神",
-   "min_charge": 3556,
-   "review_avg": 4.8,
-   "review_count": 10,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/198823/198823.jpg",
-   "info_url": "https://img.travel.rakuten.co.jp/image/tr/api/hs/dQ4dX/?f_no=198823",
-   "plan_url": "https://img.travel.rakuten.co.jp/image/tr/api/hs/cHNRi/?f_no=198823&f_flg=PLAN",
-   "special": "新築2階建てホテルが誕生!",
+   "hotelNo": "203061",
+   "name": "HOTEL GENOVA FUKUOKA",
+   "distance_m": 375,
+   "lat": 33.5847133,
+   "lng": 130.3970649,
+   "address": "福岡県福岡市中央区今泉1-54",
+   "access": "天神南駅より徒歩で約10分, バス:「天神ワンビル前」乗車後 「今泉一丁目」下車後徒歩約3分",
+   "station": "",
+   "min_charge": null,
+   "review_avg": null,
+   "review_count": null,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/203061/203061.jpg",
+   "info_url": "https://img.travel.rakuten.co.jp/image/tr/api/hs/dQ4dX/?f_no=203061",
+   "plan_url": "https://img.travel.rakuten.co.jp/image/tr/api/hs/cHNRi/?f_no=203061&f_flg=PLAN",
+   "special": "新築アパートメントホテルが誕生!",
    "ratings": {},
-   "facilities": [
-    "タオルセットは1泊分のみご準備しております。客室内の洗濯機・浴室乾燥機で再利用をお願いしております。",
-    "禁煙ルーム"
-   ],
-   "room_facilities": [
-    "テレビ",
-    "インターネット接続(無線LAN形式)",
-    "湯沸かしポット",
-    "冷蔵庫",
-    "ドライヤー",
-    "加湿器",
-    "個別空調",
-    "洗浄機付トイレ",
-    "石鹸(液体)",
-    "ボディーソープ",
-    "シャンプー",
-    "コンディショナー",
-    "ハミガキセット",
-    "タオル",
-    "バスタオル",
-    "スリッパ",
-    "電子レンジ(一部・要予約)",
-    "ミニキッチン(一部・要予約)"
-   ],
+   "facilities": [],
+   "room_facilities": [],
    "bath_type": "",
    "checkin": "15:00",
    "checkout": "10:00",
-   "rooms": 6,
-   "smoking": "全館禁煙",
+   "rooms": 26,
+   "smoking": "",
    "daiyoku": false,
    "onsen": false,
-   "kinen_room": true
+   "kinen_room": false
   }
  ]
 }
