@@ -1,0 +1,49 @@
+{
+  "slug": "kobe-world-hall",
+  "name": "神戸ワールド記念ホール",
+  "formal_name": "ワールド記念ホール（神戸ポートアイランドホール）",
+  "address": "兵庫県神戸市中央区港島中町6-12-2",
+  "lat": 34.66349,
+  "lng": 135.210526,
+  "search_radius_km": 3.0,
+  "source": "kobe_world",
+  "kind": "arena",
+  "area_label": "ポートアイランド・三宮",
+  "stations": [
+    {
+      "name": "市民広場駅",
+      "line": "ポートライナー",
+      "walk_min": 3,
+      "lat": 34.664897,
+      "lng": 135.212455
+    },
+    {
+      "name": "みなとじま駅",
+      "line": "ポートライナー",
+      "walk_min": 8,
+      "lat": 34.668863,
+      "lng": 135.210105
+    }
+  ],
+  "schedule_url": "https://www.kobe-spokyo.jp/world-kobe/cal_event",
+  "order": 29,
+  "max_hotels": 40,
+  "extra_areas": [
+    {
+      "name": "三宮・元町",
+      "lat": 34.693,
+      "lng": 135.194,
+      "radius_km": 1.2
+    }
+  ],
+  "extra_max_km": 5.0,
+  "far_areas": [
+    {
+      "name": "三宮・元町（神戸市内）",
+      "chu": "hyogo",
+      "shou": "kobe",
+      "sai": "",
+      "why": "宿と飲食店が多い。ポートライナーで三宮から市民広場まで乗り換えなし（約10分）"
+    }
+  ]
+}
