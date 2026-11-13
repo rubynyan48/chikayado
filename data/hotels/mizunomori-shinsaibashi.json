@@ -1,6 +1,6 @@
 {
  "venue": "mizunomori-shinsaibashi",
- "updated": "2026-11-12",
+ "updated": "2026-11-13",
  "hotels": [
   {
    "hotelNo": "168793",
@@ -21,7 +21,7 @@
    "ratings": {
     "service": 4.14,
     "location": 4.16,
-    "room": 4.1,
+    "room": 4.11,
     "equipment": 4.08,
     "bath": 4.08
    },
@@ -148,7 +148,7 @@
    "address": "大阪府大阪市中央区南船場3-3-17",
    "access": "地下鉄「心斎橋駅」長堀北7番出口から徒歩3分 *「新大阪」から6駅(約15分) / 「梅田」から3駅(約7分)",
    "station": "心斎橋",
-   "min_charge": 4613,
+   "min_charge": 4200,
    "review_avg": 4.37,
    "review_count": 432,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/184124/184124.jpg",
@@ -324,7 +324,7 @@
    "ratings": {
     "service": 4.34,
     "location": 4.26,
-    "room": 4.29,
+    "room": 4.28,
     "equipment": 4.22,
     "bath": 4.13
    },
@@ -377,6 +377,43 @@
    "checkin": "14:00",
    "checkout": "11:00",
    "rooms": 133,
+   "smoking": "",
+   "daiyoku": false,
+   "onsen": false,
+   "kinen_room": true
+  },
+  {
+   "hotelNo": "201467",
+   "name": "来風 ^",
+   "distance_m": 179,
+   "lat": 34.6738785,
+   "lng": 135.5027024,
+   "address": "大阪府大阪市中央区東心斎橋1-18-14 ミドウ心斎橋ビル4階",
+   "access": "心斎橋駅から徒歩で2分",
+   "station": "",
+   "min_charge": null,
+   "review_avg": null,
+   "review_count": null,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/201467/201467.jpg",
+   "info_url": "https://img.travel.rakuten.co.jp/image/tr/api/hs/dQ4dX/?f_no=201467",
+   "plan_url": "https://img.travel.rakuten.co.jp/image/tr/api/hs/cHNRi/?f_no=201467&f_flg=PLAN",
+   "special": "最大21名まで宿泊可◎和室の宿。全室鍵付きでプライバシーを確保し、大人数グループでの利用に最適です。",
+   "ratings": {},
+   "facilities": [
+    "洗濯機/乾燥機/電子レンジ/エアコン",
+    "※部屋によって設備が変わる場合がございます。あらかじめ宿泊施設へご確認ください。"
+   ],
+   "room_facilities": [
+    "インターネット接続(無線LAN形式)",
+    "冷蔵庫",
+    "ドライヤー",
+    "石鹸(固形)",
+    "シャンプー"
+   ],
+   "bath_type": "",
+   "checkin": "16:00",
+   "checkout": "10:00",
+   "rooms": 1,
    "smoking": "",
    "daiyoku": false,
    "onsen": false,
@@ -538,7 +575,7 @@
    "ratings": {
     "service": 4,
     "location": 3.87,
-    "room": 4.09,
+    "room": 4.13,
     "equipment": 4.04,
     "bath": 4
    },
@@ -823,7 +860,7 @@
    "ratings": {
     "service": 4.55,
     "location": 4.5,
-    "room": 4.6,
+    "room": 4.57,
     "equipment": 4.56,
     "bath": 4.54
    },
@@ -1070,7 +1107,7 @@
    "address": "大阪府大阪市中央区東心斎橋1-10-5 ヴェリーサ心斎橋 14階",
    "access": "長堀橋駅から徒歩で約2分",
    "station": "長堀橋",
-   "min_charge": 6380,
+   "min_charge": 6467,
    "review_avg": null,
    "review_count": null,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/194373/194373.jpg",
@@ -1151,7 +1188,7 @@
    "address": "大阪府大阪市中央区南船場2-6-25",
    "access": "大阪メトロ堺筋線長堀橋駅 北4出口より徒歩約3分・御堂筋線心斎橋駅より徒歩約7分|ホテル目の前にコンビニあり",
    "station": "長堀橋",
-   "min_charge": 4901,
+   "min_charge": 4629,
    "review_avg": 3.95,
    "review_count": 60,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/198860/198860.jpg",
@@ -1161,7 +1198,7 @@
    "ratings": {
     "service": 3.97,
     "location": 3.9,
-    "room": 3.92,
+    "room": 3.95,
     "equipment": 3.9,
     "bath": 3.87
    },
@@ -1338,7 +1375,7 @@
    "ratings": {
     "service": 4.52,
     "location": 4.38,
-    "room": 4.18,
+    "room": 4.16,
     "equipment": 4.16,
     "bath": 4.31
    },
@@ -1458,7 +1495,7 @@
    "ratings": {
     "service": 4.17,
     "location": 4.11,
-    "room": 4.2,
+    "room": 4.19,
     "equipment": 4.13,
     "bath": 4.07
    },
@@ -1526,7 +1563,7 @@
    "ratings": {
     "service": 4.28,
     "location": 4.16,
-    "room": 4.33,
+    "room": 4.32,
     "equipment": 4.23,
     "bath": 4.16
    },
@@ -1629,69 +1666,6 @@
    "checkout": "11:00",
    "rooms": 186,
    "smoking": "",
-   "daiyoku": false,
-   "onsen": false,
-   "kinen_room": true
-  },
-  {
-   "hotelNo": "179888",
-   "name": "TAKUTO HOTEL 心斎橋",
-   "distance_m": 320,
-   "lat": 34.6781418,
-   "lng": 135.5011021,
-   "address": "大阪府大阪市中央区博労町3丁目6-8",
-   "access": "大阪メトロ 御堂筋線『心斎橋駅』、中央線『本町駅』より徒歩にて約5分 ★楽天トラベルアワード3年連続受賞ホテル★",
-   "station": "心斎橋",
-   "min_charge": 5580,
-   "review_avg": 4.5,
-   "review_count": 348,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/179888/179888.jpg",
-   "info_url": "https://img.travel.rakuten.co.jp/image/tr/api/hs/dQ4dX/?f_no=179888",
-   "plan_url": "https://img.travel.rakuten.co.jp/image/tr/api/hs/cHNRi/?f_no=179888&f_flg=PLAN",
-   "special": "\\\\全室シモンズベッド完備 //お部屋の広さがエリア最大級!【心斎橋筋商店街】に直結のためアクセス◎",
-   "ratings": {
-    "service": 4.56,
-    "location": 4.39,
-    "room": 4.59,
-    "equipment": 4.51,
-    "bath": 4.48
-   },
-   "facilities": [
-    "全室システムキッチン完備しております♪",
-    "全室シモンズベッド完備",
-    "全室禁煙ルーム",
-    "禁煙ルーム",
-    "ミニキッチン",
-    "コネクティングルーム(一部・要予約)"
-   ],
-   "room_facilities": [
-    "テレビ",
-    "ビデオデッキ(貸出)",
-    "インターネット接続(無線LAN形式)",
-    "湯沸かしポット",
-    "冷蔵庫",
-    "ドライヤー",
-    "アイロン(貸出)",
-    "加湿器",
-    "個別空調",
-    "洗浄機付トイレ",
-    "ベビーベッド",
-    "ボディーソープ",
-    "シャンプー",
-    "リンス",
-    "ハミガキセット",
-    "カミソリ",
-    "くし",
-    "おふろセット",
-    "タオル",
-    "バスタオル",
-    "スリッパ"
-   ],
-   "bath_type": "",
-   "checkin": "15:00",
-   "checkout": "11:00",
-   "rooms": 38,
-   "smoking": "全館禁煙",
    "daiyoku": false,
    "onsen": false,
    "kinen_room": true

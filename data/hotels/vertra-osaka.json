@@ -1,6 +1,6 @@
 {
  "venue": "vertra-osaka",
- "updated": "2026-11-12",
+ "updated": "2026-11-13",
  "hotels": [
   {
    "hotelNo": "168661",
@@ -475,7 +475,7 @@
    "address": "大阪府大阪市中央区西心斎橋1-9-30",
    "access": "地下鉄御堂筋線「心斎橋駅」8番出口より徒歩2分、地下鉄四つ橋線「四ツ橋駅」5番出口より徒歩4分",
    "station": "心斎橋",
-   "min_charge": 3070,
+   "min_charge": 3020,
    "review_avg": 4.07,
    "review_count": 947,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/17986/17986.jpg",
@@ -548,6 +548,7 @@
    "special": "心斎橋の中心!周辺にコンビニ・飲食店が多数あり!生ビール・日本酒・カクテル20種類が飲み放題",
    "ratings": {
     "location": 4.13,
+    "room": 4.31,
     "equipment": 4.27
    },
    "facilities": [
@@ -695,7 +696,7 @@
    "ratings": {
     "service": 3.99,
     "location": 4.07,
-    "room": 4.03,
+    "room": 4.04,
     "equipment": 3.88,
     "bath": 3.78
    },
@@ -786,7 +787,7 @@
    "ratings": {
     "service": 4.12,
     "location": 4.28,
-    "room": 4.19,
+    "room": 4.21,
     "equipment": 4.12,
     "bath": 4.1
    },
@@ -841,7 +842,7 @@
    "ratings": {
     "service": 4.13,
     "location": 4.19,
-    "room": 4.12,
+    "room": 4.11,
     "equipment": 4.08,
     "bath": 4.04
    },
@@ -909,7 +910,7 @@
    "ratings": {
     "service": 4.14,
     "location": 4.16,
-    "room": 4.1,
+    "room": 4.11,
     "equipment": 4.08,
     "bath": 4.08
    },
@@ -993,6 +994,43 @@
    "checkin": "16:00",
    "checkout": "11:00",
    "rooms": 27,
+   "smoking": "",
+   "daiyoku": false,
+   "onsen": false,
+   "kinen_room": true
+  },
+  {
+   "hotelNo": "201467",
+   "name": "来風 ^",
+   "distance_m": 302,
+   "lat": 34.6738785,
+   "lng": 135.5027024,
+   "address": "大阪府大阪市中央区東心斎橋1-18-14 ミドウ心斎橋ビル4階",
+   "access": "心斎橋駅から徒歩で2分",
+   "station": "心斎橋",
+   "min_charge": null,
+   "review_avg": null,
+   "review_count": null,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/201467/201467.jpg",
+   "info_url": "https://img.travel.rakuten.co.jp/image/tr/api/hs/dQ4dX/?f_no=201467",
+   "plan_url": "https://img.travel.rakuten.co.jp/image/tr/api/hs/cHNRi/?f_no=201467&f_flg=PLAN",
+   "special": "最大21名まで宿泊可◎和室の宿。全室鍵付きでプライバシーを確保し、大人数グループでの利用に最適です。",
+   "ratings": {},
+   "facilities": [
+    "洗濯機/乾燥機/電子レンジ/エアコン",
+    "※部屋によって設備が変わる場合がございます。あらかじめ宿泊施設へご確認ください。"
+   ],
+   "room_facilities": [
+    "インターネット接続(無線LAN形式)",
+    "冷蔵庫",
+    "ドライヤー",
+    "石鹸(固形)",
+    "シャンプー"
+   ],
+   "bath_type": "",
+   "checkin": "16:00",
+   "checkout": "10:00",
+   "rooms": 1,
    "smoking": "",
    "daiyoku": false,
    "onsen": false,
@@ -1110,7 +1148,7 @@
    "address": "大阪府大阪市中央区南船場3-3-17",
    "access": "地下鉄「心斎橋駅」長堀北7番出口から徒歩3分 *「新大阪」から6駅(約15分) / 「梅田」から3駅(約7分)",
    "station": "心斎橋",
-   "min_charge": 4613,
+   "min_charge": 4200,
    "review_avg": 4.37,
    "review_count": 432,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/184124/184124.jpg",
@@ -1219,7 +1257,7 @@
    "ratings": {
     "service": 4.68,
     "location": 4.47,
-    "room": 4.63,
+    "room": 4.62,
     "equipment": 4.67,
     "bath": 4.59
    },
@@ -1382,7 +1420,7 @@
    "ratings": {
     "service": 4.55,
     "location": 4.5,
-    "room": 4.6,
+    "room": 4.57,
     "equipment": 4.56,
     "bath": 4.54
    },
@@ -1457,7 +1495,7 @@
    "ratings": {
     "service": 4.6,
     "location": 4.8,
-    "room": 4.68,
+    "room": 4.63,
     "equipment": 4.83,
     "bath": 4.54
    },
@@ -1648,62 +1686,6 @@
    "checkin": "15:00",
    "checkout": "10:00",
    "rooms": 29,
-   "smoking": "",
-   "daiyoku": false,
-   "onsen": false,
-   "kinen_room": true
-  },
-  {
-   "hotelNo": "166151",
-   "name": "ホテルオリエンタルエクスプレス大阪心斎橋",
-   "distance_m": 367,
-   "lat": 34.676809,
-   "lng": 135.502885,
-   "address": "大阪府大阪市中央区南船場3-2-13",
-   "access": "心斎橋駅より徒歩にて約4分",
-   "station": "心斎橋",
-   "min_charge": 4500,
-   "review_avg": 4.0,
-   "review_count": 27,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/166151/166151.jpg",
-   "info_url": "https://img.travel.rakuten.co.jp/image/tr/api/hs/dQ4dX/?f_no=166151",
-   "plan_url": "https://img.travel.rakuten.co.jp/image/tr/api/hs/cHNRi/?f_no=166151&f_flg=PLAN",
-   "special": "心斎橋駅徒歩4分。宿泊者専用スペース1Fにあり(コーヒー、紅茶、スープ無料)。全客室はVOD無料!",
-   "ratings": {},
-   "facilities": [
-    "コーヒーハウス",
-    "禁煙ルーム",
-    "自動販売機",
-    "コインランドリー(有料)",
-    "モーニングコール"
-   ],
-   "room_facilities": [
-    "テレビ",
-    "電話",
-    "インターネット接続(無線LAN形式)",
-    "湯沸かしポット",
-    "冷蔵庫",
-    "ドライヤー",
-    "ズボンプレッサー(貸出)",
-    "アイロン(貸出)",
-    "加湿器",
-    "個別空調",
-    "洗浄機付トイレ",
-    "ボディーソープ",
-    "シャンプー",
-    "コンディショナー",
-    "洗顔ソープ",
-    "ハミガキセット",
-    "タオル",
-    "バスタオル",
-    "ナイトウェア",
-    "スリッパ",
-    "金庫"
-   ],
-   "bath_type": "",
-   "checkin": "15:00",
-   "checkout": "11:00",
-   "rooms": 124,
    "smoking": "",
    "daiyoku": false,
    "onsen": false,
