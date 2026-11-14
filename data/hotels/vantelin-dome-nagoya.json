@@ -1,6 +1,6 @@
 {
  "venue": "vantelin-dome-nagoya",
- "updated": "2026-11-13",
+ "updated": "2026-11-14",
  "hotels": [
   {
    "hotelNo": "177654",
@@ -47,7 +47,7 @@
    "plan_url": "https://img.travel.rakuten.co.jp/image/tr/api/hs/cHNRi/?f_no=73982&f_flg=PLAN",
    "special": "ナゴヤドームに一番近いビジネスホテル♪全室Wi‐Fi完備!無料軽朝食サービス付☆近隣に温泉施設有!",
    "ratings": {
-    "service": 3.74,
+    "service": 3.71,
     "location": 3.53,
     "room": 3.5,
     "equipment": 3.37,
@@ -179,7 +179,7 @@
    "smoking": "",
    "daiyoku": false,
    "onsen": false,
-   "kinen_room": true
+   "kinen_room": false
   },
   {
    "hotelNo": "201031",
@@ -337,7 +337,7 @@
    "smoking": "",
    "daiyoku": false,
    "onsen": false,
-   "kinen_room": true
+   "kinen_room": false
   },
   {
    "hotelNo": "185935",
@@ -547,7 +547,7 @@
    "address": "愛知県名古屋市東区筒井町4-32-11 Tsutsuicho STAY",
    "access": "車道駅より徒歩で3分",
    "station": "車道",
-   "min_charge": 6373,
+   "min_charge": 6348,
    "review_avg": null,
    "review_count": null,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/195469/195469.jpg",
@@ -616,7 +616,7 @@
    "address": "愛知県名古屋市千種区内山3-11-21 ハイツ今池",
    "access": "今池駅から徒歩で3分",
    "station": "今池",
-   "min_charge": 10518,
+   "min_charge": 7386,
    "review_avg": null,
    "review_count": null,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/199812/199812.jpg",
@@ -694,7 +694,7 @@
    "address": "愛知県名古屋市千種区内山3-31-7",
    "access": "地下鉄今池駅徒歩1分、JR千種駅徒歩5分!名古屋駅より10分!栄より4分!男女別大浴場完備!ナゴヤドームへも車で10分!",
    "station": "今池",
-   "min_charge": 6225,
+   "min_charge": 5925,
    "review_avg": 4.12,
    "review_count": 2541,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/108224/108224.jpg",
@@ -855,7 +855,8 @@
    "special": "やわらかな自然光×ナチュラル家具が作る、フォトジェニックな居心地。",
    "ratings": {},
    "facilities": [
-    "※キッチン・電子レンジは予約なしで利用できます"
+    "※キッチン・電子レンジは予約なしで利用できます",
+    "禁煙ルーム"
    ],
    "room_facilities": [
     "テレビ",
@@ -904,7 +905,8 @@
    "special": "洗練された和モダンインテリアが、旅の疲れを優しく癒す。",
    "ratings": {},
    "facilities": [
-    "※キッチン・電子レンジは予約なしで利用できます"
+    "※キッチン・電子レンジは予約なしで利用できます",
+    "禁煙ルーム"
    ],
    "room_facilities": [
     "テレビ",
@@ -1036,7 +1038,8 @@
    "special": "名古屋にいながらハワイ気分を満喫できる、癒しの宿",
    "ratings": {},
    "facilities": [
-    "※キッチン・電子レンジは予約なしで利用できます"
+    "※キッチン・電子レンジは予約なしで利用できます",
+    "禁煙ルーム"
    ],
    "room_facilities": [
     "テレビ",
@@ -1200,7 +1203,7 @@
    "plan_url": "https://img.travel.rakuten.co.jp/image/tr/api/hs/cHNRi/?f_no=18904&f_flg=PLAN",
    "special": "バンテリンドームナゴヤやジブリパークもここなら好アクセス☆",
    "ratings": {
-    "service": 4.05,
+    "service": 4.03,
     "location": 3.94,
     "room": 3.97,
     "equipment": 3.76,
@@ -1551,7 +1554,8 @@
    "special": "10名までok! 広いテラス71m2・プロジェクターで自宅のような快適さ",
    "ratings": {},
    "facilities": [
-    "※キッチン・電子レンジは予約なしで利用できます"
+    "※キッチン・電子レンジは予約なしで利用できます",
+    "禁煙ルーム"
    ],
    "room_facilities": [
     "テレビ",
@@ -1593,7 +1597,7 @@
    "address": "愛知県名古屋市千種区今池南17-17AsobiStay今池南-山茶花-",
    "access": "吹上駅から徒歩で4分",
    "station": "吹上",
-   "min_charge": 11543,
+   "min_charge": 11600,
    "review_avg": null,
    "review_count": null,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/200375/200375.jpg",
@@ -1633,7 +1637,7 @@
    "address": "愛知県名古屋市千種区今池南19-20AsobiStay今池南-向日葵-",
    "access": "吹上駅から徒歩で3分",
    "station": "吹上",
-   "min_charge": 10631,
+   "min_charge": 10586,
    "review_avg": null,
    "review_count": null,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/200374/200374.jpg",
@@ -1714,7 +1718,7 @@
    "address": "愛知県名古屋市北区上飯田北町2-4-1 グラシア上飯田601",
    "access": "上飯田駅から徒歩で1分",
    "station": "上飯田",
-   "min_charge": 10386,
+   "min_charge": 10397,
    "review_avg": null,
    "review_count": null,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/200838/200838.jpg",

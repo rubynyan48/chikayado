@@ -1,5 +1,5 @@
 {
- "checked": "2026-11-13",
+ "checked": "2026-11-14",
  "checkin": "2026-12-03",
  "hotels": [
   {
@@ -40,9 +40,9 @@
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/188708/188708.jpg",
    "price": 2980,
    "room": "カプセル",
-   "plan": "",
+   "plan": "カプセルルーム",
    "dorm": true,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=188708&f_syu=hotelprele&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=188708&f_syu=hotelprele&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5830074"
   },
   {
    "hotelNo": "202954",
@@ -67,10 +67,10 @@
    "review_avg": null,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/202957/202957.jpg",
    "price": 3100,
-   "room": "男女共用ドミトリー",
+   "room": "女性専用ドミトリー",
    "plan": "",
    "dorm": true,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=202957&f_syu=2&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=202957&f_syu=1&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
   },
   {
    "hotelNo": "200003",
@@ -81,10 +81,24 @@
    "review_avg": null,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/200003/200003.jpg",
    "price": 3132,
-   "room": "駅から100mの好立地 女性専用ドミトリー「鶴の間」7",
-   "plan": "駅から100mの好立地 男性専用ドミトリー「鶴の間」7",
+   "room": "駅から100mの好立地 女性専用ドミトリー「鶴の間」5",
+   "plan": "駅から100mの好立地 男性専用ドミトリー「鶴の間」5",
    "dorm": true,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=200003&f_syu=r22234_1&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6470478"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=200003&f_syu=r22231_1&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6470476"
+  },
+  {
+   "hotelNo": "191633",
+   "name": "unito light SHIMBASHI",
+   "lat": 35.663521,
+   "lng": 139.7539178,
+   "station": "新橋",
+   "review_avg": 1.57,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/191633/191633.jpg",
+   "price": 3185,
+   "room": "男女共用ドミトリー(シングルベッド)",
+   "plan": "【スタンダードプラン】新橋駅から徒歩9分!カプセルベッド!【男女混合ドミトリー】",
+   "dorm": true,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=191633&f_syu=unito-shim&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5921971"
   },
   {
    "hotelNo": "164975",
@@ -113,20 +127,6 @@
    "plan": "【早割り】宿泊日より1週間以上前にお決まりのお客様限定★お得価格★",
    "dorm": true,
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=104580&f_syu=cap&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4708839"
-  },
-  {
-   "hotelNo": "191633",
-   "name": "unito light SHIMBASHI",
-   "lat": 35.663521,
-   "lng": 139.7539178,
-   "station": "新橋",
-   "review_avg": 1.57,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/191633/191633.jpg",
-   "price": 3211,
-   "room": "男女共用ドミトリー(シングルベッド)",
-   "plan": "【スタンダードプラン】新橋駅から徒歩9分!カプセルベッド!【男女混合ドミトリー】",
-   "dorm": true,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=191633&f_syu=unito-shim&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5921971"
   },
   {
    "hotelNo": "199049",
@@ -180,9 +180,9 @@
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/172180/172180.jpg",
    "price": 3500,
    "room": "【男女共用】カプセル下段",
-   "plan": "【男女共用・事前決済限定手ぶらでOK・タオルもガウンもTVも全部コミコミ】!JR山手線新橋駅徒歩2分",
+   "plan": "【男女共用エリア】手ぶらでOK・タオルもガウンもTVも全部コミコミ【ポイント2倍】",
    "dorm": true,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=172180&f_syu=01&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4370274"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=172180&f_syu=01&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4371471"
   },
   {
    "hotelNo": "52125",
@@ -222,9 +222,9 @@
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/188919/188919.jpg",
    "price": 3500,
    "room": "ミックス ドミトリー 【共用シャワールーム・トイレ】",
-   "plan": "",
+   "plan": "ミックスドミトリー 素泊まりプラン",
    "dorm": true,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=188919&f_syu=mixdomi&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=188919&f_syu=mixdomi&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5852717"
   },
   {
    "hotelNo": "187942",
@@ -267,6 +267,20 @@
    "plan": "【15%OFF】新宿・歌舞伎町でお得にカプセルステイ〜♪♪",
    "dorm": true,
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=187660&f_syu=02&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5739535"
+  },
+  {
+   "hotelNo": "202478",
+   "name": "わさび三田ホテル",
+   "lat": 35.6444402,
+   "lng": 139.7438872,
+   "station": "三田",
+   "review_avg": null,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/202478/202478.jpg",
+   "price": 3600,
+   "room": "男女共用ドミトリー",
+   "plan": "",
+   "dorm": true,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=202478&f_syu=2&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
   },
   {
    "hotelNo": "153488",
@@ -319,10 +333,10 @@
    "review_avg": 4.13,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/158520/158520.jpg",
    "price": 3800,
-   "room": "ドミトリールーム男女共用2段ベッド",
+   "room": "ドミトリールーム女性専用2段ベッド",
    "plan": "",
    "dorm": true,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=158520&f_syu=w01&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=158520&f_syu=m01&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
   },
   {
    "hotelNo": "199343",
@@ -479,6 +493,20 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=166407&f_syu=f02_pax&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5916666"
   },
   {
+   "hotelNo": "188306",
+   "name": "ホテルプラスホステル東京浅草1",
+   "lat": 35.7100512,
+   "lng": 139.7956652,
+   "station": "浅草",
+   "review_avg": 3.79,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/188306/188306.jpg",
+   "price": 3929,
+   "room": "ドミトリールーム 男女共用 ベッド1名分",
+   "plan": "返金不可・オンライン決済プラン",
+   "dorm": true,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=188306&f_syu=d01_p&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5916591"
+  },
+  {
    "hotelNo": "43759",
    "name": "ホテル ヒカリ",
    "lat": 35.72875431,
@@ -543,10 +571,10 @@
    "review_avg": 4.4,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/137441/137441.jpg",
    "price": 4000,
-   "room": "カプセル 上段 【男性専用】",
-   "plan": "カプセル上段宿泊 【男性専用】",
+   "room": "〈新〉カプセル 上段 【男性専用】",
+   "plan": "(新)カプセル上段宿泊 【男性専用】",
    "dorm": true,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=137441&f_syu=c1&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5770941"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=137441&f_syu=d1&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6376988"
   },
   {
    "hotelNo": "179670",
@@ -633,18 +661,18 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=183108&f_syu=ak03&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6341459"
   },
   {
-   "hotelNo": "74688",
-   "name": "カンガルーホテル",
-   "lat": 35.72646568,
-   "lng": 139.799828,
-   "station": "南千住",
-   "review_avg": 3.44,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/74688/74688.jpg",
-   "price": 4000,
-   "room": "【全館禁煙】上野から3駅★シンプルステイ洋室シングルルーム",
-   "plan": "",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=74688&f_syu=awsingle&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
+   "hotelNo": "179995",
+   "name": "unito CHIYODA",
+   "lat": 35.6948119,
+   "lng": 139.7792996,
+   "station": "岩本町",
+   "review_avg": 3.54,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/179995/179995.jpg",
+   "price": 4039,
+   "room": "男性用デラックスカプセル",
+   "plan": "【スタンダードプラン】秋葉原駅から徒歩8分!広々カプセルベッド!",
+   "dorm": true,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=179995&f_syu=1234bg&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4746470"
   },
   {
    "hotelNo": "202482",
@@ -661,48 +689,6 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=202482&f_syu=1&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
   },
   {
-   "hotelNo": "202956",
-   "name": "新橋コンホテル",
-   "lat": 35.6656983,
-   "lng": 139.7547471,
-   "station": "新橋",
-   "review_avg": null,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/202956/202956.jpg",
-   "price": 4100,
-   "room": "男女共用ドミトリー",
-   "plan": "",
-   "dorm": true,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=202956&f_syu=1&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
-  },
-  {
-   "hotelNo": "202478",
-   "name": "わさび三田ホテル",
-   "lat": 35.6444402,
-   "lng": 139.7438872,
-   "station": "三田",
-   "review_avg": null,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/202478/202478.jpg",
-   "price": 4100,
-   "room": "男女共用ドミトリー",
-   "plan": "",
-   "dorm": true,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=202478&f_syu=2&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
-  },
-  {
-   "hotelNo": "179995",
-   "name": "unito CHIYODA",
-   "lat": 35.6948119,
-   "lng": 139.7792996,
-   "station": "岩本町",
-   "review_avg": 3.54,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/179995/179995.jpg",
-   "price": 4171,
-   "room": "男性用デラックスカプセル",
-   "plan": "【スタンダードプラン】秋葉原駅から徒歩8分!広々カプセルベッド!",
-   "dorm": true,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=179995&f_syu=1234bg&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4746470"
-  },
-  {
    "hotelNo": "84733",
    "name": "カプセル&サウナロスコ(旧:カプセルイン駒込)",
    "lat": 35.73833521,
@@ -711,10 +697,10 @@
    "review_avg": 4.27,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/84733/84733.jpg",
    "price": 4180,
-   "room": "【男性専用フロアー/カプセルルーム】",
-   "plan": "【さき楽15|素泊まり|男性】予定が決まっているならお得!15日前までの早期予約!",
+   "room": "【女性専用フロアー/カプセルルーム】",
+   "plan": "【さき楽15|素泊まり|女性】予定が決まっているならお得!15日前までの早期予約!",
    "dorm": true,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=84733&f_syu=cap_m&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6489169"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=84733&f_syu=cap_w&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6489170"
   },
   {
    "hotelNo": "202419",
@@ -754,9 +740,9 @@
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/141399/141399.jpg",
    "price": 4400,
    "room": "カプセル一般ルーム",
-   "plan": "◆11:30よりチェックインOK!!【男性専用カプセル】ネット予約でお得に泊まろう!素泊りプラン♪",
+   "plan": "",
    "dorm": true,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=141399&f_syu=a&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4210498"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=141399&f_syu=a&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
   },
   {
    "hotelNo": "170192",
@@ -782,9 +768,9 @@
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/11315/11315.jpg",
    "price": 4500,
    "room": "【個室・素泊まり】☆シングルルーム☆一人旅・出張・遠征等に♪",
-   "plan": "☆都心へのアクセス抜群☆3路線の駅から徒歩3分!出張や旅行に最適な都心の個室素泊まり☆",
+   "plan": "",
    "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=11315&f_syu=single1&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4073887"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=11315&f_syu=single1&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
   },
   {
    "hotelNo": "188321",
@@ -840,7 +826,7 @@
    "room": "高級マットレス使用ツインルーム♪禁煙ルーム★",
    "plan": "",
    "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=182169&f_syu=room1&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=182169&f_syu=room3&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
   },
   {
    "hotelNo": "128553",
@@ -851,10 +837,10 @@
    "review_avg": 4.53,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/128553/128553.jpg",
    "price": 4500,
-   "room": "和室シングル",
+   "room": "和室ツイン",
    "plan": "",
    "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=128553&f_syu=s1&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=128553&f_syu=t1&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
   },
   {
    "hotelNo": "179592",
@@ -865,10 +851,24 @@
    "review_avg": 3.97,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/179592/179592.jpg",
    "price": 4530,
-   "room": "男女共同ドミトリー/快適なマットレスと羽毛布団!",
+   "room": "女性専用ドミトリー◎女性専用シャワーあり",
    "plan": "【返金不可プラン】お一人様からご予約可能! 羽田空港からのアクセス抜群!",
    "dorm": true,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=179592&f_syu=djdorm&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4698855"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=179592&f_syu=jodorm&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4698855"
+  },
+  {
+   "hotelNo": "202956",
+   "name": "新橋コンホテル",
+   "lat": 35.6656983,
+   "lng": 139.7547471,
+   "station": "新橋",
+   "review_avg": null,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/202956/202956.jpg",
+   "price": 4600,
+   "room": "男女共用ドミトリー",
+   "plan": "",
+   "dorm": true,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=202956&f_syu=1&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
   },
   {
    "hotelNo": "202476",
@@ -941,18 +941,18 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=20610&f_syu=c&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4071653"
   },
   {
-   "hotelNo": "191877",
-   "name": "ナインアワーズ品川駅 for men",
-   "lat": 35.63030594675458,
-   "lng": 139.74131421374855,
-   "station": "品川",
-   "review_avg": 4.08,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/191877/191877.jpg",
+   "hotelNo": "135362",
+   "name": "ドシー恵比寿",
+   "lat": 35.64790266,
+   "lng": 139.7100943,
+   "station": "恵比寿",
+   "review_avg": 3.65,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/135362/135362.jpg",
    "price": 4714,
-   "room": "男性向けカプセル+睡眠レポート(質・いびき・無呼吸など)",
-   "plan": "睡眠解析付・返金不可・オンライン決済プラン",
-   "dorm": true,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=191877&f_syu=sleep1_p&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5945759"
+   "room": "女性用スリーピングポッド 禁煙(割引)",
+   "plan": "返金不可・オンライン決済プラン",
+   "dorm": false,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=135362&f_syu=f02_pax&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5916657"
   },
   {
    "hotelNo": "56749",
@@ -963,10 +963,10 @@
    "review_avg": 3.71,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/56749/56749.jpg",
    "price": 4714,
-   "room": "女性用カプセルルーム 禁煙",
+   "room": "男性用カプセルルーム 禁煙",
    "plan": "返金不可・オンライン決済プラン",
    "dorm": true,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=56749&f_syu=f01_p&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5916640"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=56749&f_syu=m01_p&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5916640"
   },
   {
    "hotelNo": "177966",
@@ -981,20 +981,6 @@
    "plan": "睡眠解析付・返金不可・オンライン決済プラン",
    "dorm": true,
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=177966&f_syu=f02s_pax&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5916474"
-  },
-  {
-   "hotelNo": "182079",
-   "name": "Smart Stay SHIZUKU 品川大井町",
-   "lat": 35.607668,
-   "lng": 139.7359622,
-   "station": "大井町",
-   "review_avg": 4.24,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/182079/182079.jpg",
-   "price": 4780,
-   "room": "○【女性専用】スタイリッシュカプセルルーム",
-   "plan": "【ねっと割】インターネット予約限定!割安ご宿泊プラン♪",
-   "dorm": true,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=182079&f_syu=n2_sdf&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5002039"
   },
   {
    "hotelNo": "151216",
@@ -1095,18 +1081,18 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=167870&f_syu=main&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6476065"
   },
   {
-   "hotelNo": "135362",
-   "name": "ドシー恵比寿",
-   "lat": 35.64790266,
-   "lng": 139.7100943,
-   "station": "恵比寿",
-   "review_avg": 3.65,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/135362/135362.jpg",
+   "hotelNo": "191877",
+   "name": "ナインアワーズ品川駅 for men",
+   "lat": 35.63030594675458,
+   "lng": 139.74131421374855,
+   "station": "品川",
+   "review_avg": 4.08,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/191877/191877.jpg",
    "price": 5107,
-   "room": "女性用スリーピングポッド 禁煙(割引)",
-   "plan": "返金不可・オンライン決済プラン",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=135362&f_syu=f02_pax&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5916657"
+   "room": "男性向けカプセル+睡眠レポート(質・いびき・無呼吸など)",
+   "plan": "睡眠解析付・返金不可・オンライン決済プラン",
+   "dorm": true,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=191877&f_syu=sleep1_p&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5945759"
   },
   {
    "hotelNo": "202955",
@@ -1165,6 +1151,20 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=202571&f_syu=1&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
   },
   {
+   "hotelNo": "182079",
+   "name": "Smart Stay SHIZUKU 品川大井町",
+   "lat": 35.607668,
+   "lng": 139.7359622,
+   "station": "大井町",
+   "review_avg": 4.24,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/182079/182079.jpg",
+   "price": 5280,
+   "room": "◎【男性専用】スタイリッシュカプセルルーム",
+   "plan": "大井町駅近徒歩1分☆ゆったりお風呂deスマートステイ♪",
+   "dorm": true,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=182079&f_syu=r_sdm&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5002045"
+  },
+  {
    "hotelNo": "164924",
    "name": "CITAN Hostel",
    "lat": 35.69149,
@@ -1187,10 +1187,10 @@
    "review_avg": 3.78,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/164463/164463.jpg",
    "price": 5480,
-   "room": "プライベートドミトリー",
+   "room": "女性専用フロアプライベートドミトリー",
    "plan": "【宿泊のみ】渋谷・新宿などアクセス良好!原宿徒歩圏内!【事前決済可】",
    "dorm": true,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=164463&f_syu=mix1&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4082609"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=164463&f_syu=female1&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4082609"
   },
   {
    "hotelNo": "166450",
@@ -1347,20 +1347,6 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=184630&f_syu=m1_pax&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5916531"
   },
   {
-   "hotelNo": "183845",
-   "name": "ナインアワーズウーマン新宿",
-   "lat": 35.69032904192686,
-   "lng": 139.70822112457392,
-   "station": "新宿三丁目",
-   "review_avg": 3.75,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/183845/183845.jpg",
-   "price": 6286,
-   "room": "女性向けカプセル+睡眠レポート(いびき・無呼吸など)",
-   "plan": "睡眠解析付・返金不可・オンライン決済プラン",
-   "dorm": true,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=183845&f_syu=sf1_pax&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5916525"
-  },
-  {
    "hotelNo": "84902",
    "name": "品川宿ゲストハウス&ツアーズ",
    "lat": 35.62180918,
@@ -1417,6 +1403,20 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=162998&f_syu=f1_pax&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5916632"
   },
   {
+   "hotelNo": "183845",
+   "name": "ナインアワーズウーマン新宿",
+   "lat": 35.69032904192686,
+   "lng": 139.70822112457392,
+   "station": "新宿三丁目",
+   "review_avg": 3.75,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/183845/183845.jpg",
+   "price": 6678,
+   "room": "女性向けカプセル+睡眠レポート(いびき・無呼吸など)",
+   "plan": "睡眠解析付・返金不可・オンライン決済プラン",
+   "dorm": true,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=183845&f_syu=sf1_pax&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5916525"
+  },
+  {
    "hotelNo": "201361",
    "name": "池袋駅徒歩圏内|新宿・渋谷・銀座・上野・秋葉原直行 冷蔵庫・ドライヤー・高速Wi-Fi完備 ^",
    "lat": 35.737421,
@@ -1426,9 +1426,9 @@
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/201361/201361.jpg",
    "price": 6728,
    "room": "スタンダードルーム",
-   "plan": "池袋おすすめ立地|新宿・渋谷・銀座・上野・秋葉原直行|新築高品質個室|冷蔵庫・ドライヤー・高速Wi-",
+   "plan": "池袋駅すぐ近く|新宿・渋谷・銀座・上野・秋葉原直通|新品きれいな部屋|冷蔵庫・ドライヤー・高速Wi-",
    "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=201361&f_syu=1766024_2&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6649405"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=201361&f_syu=1765931_3&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6649394"
   },
   {
    "hotelNo": "149402",
@@ -1473,20 +1473,6 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=165588&f_syu=menst&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5891917"
   },
   {
-   "hotelNo": "153603",
-   "name": "安心お宿 Tokyo Woman 新宿荻窪店",
-   "lat": 35.7047011,
-   "lng": 139.61679779999997,
-   "station": "荻窪",
-   "review_avg": 4.44,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/153603/153603.jpg",
-   "price": 7180,
-   "room": "【上段】カプセル【女性専用】",
-   "plan": "<女性専用>飛行機/新幹線/有料特急列車/高速バスのご利用で500円OFF♪",
-   "dorm": true,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=153603&f_syu=202504121&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6417249"
-  },
-  {
    "hotelNo": "201745",
    "name": "ファーストキャビン秋葉原",
    "lat": 35.6977006,
@@ -1523,10 +1509,10 @@
    "review_avg": 4.25,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/180080/180080.jpg",
    "price": 7600,
-   "room": "【女性専用】横型スタンダードキャビン(上段)",
+   "room": "【女性専用】縦型スタンダードキャビン(上段)",
    "plan": "【女性専用】カレーorカップ麺1食無料!ドリンク飲み放題♪",
    "dorm": true,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=180080&f_syu=4004&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5779557"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=180080&f_syu=4002&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5779557"
   },
   {
    "hotelNo": "146136",
@@ -1541,6 +1527,20 @@
    "plan": "",
    "dorm": false,
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=146136&f_syu=free1&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
+  },
+  {
+   "hotelNo": "10695",
+   "name": "ホテル ブーゲンビリア新宿(旧ホテル ラ・ガール・ドゥ・ラ ヴィー新宿)",
+   "lat": 35.67301526,
+   "lng": 139.6635361,
+   "station": "笹塚",
+   "review_avg": 4.0,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/10695/10695.jpg",
+   "price": 7800,
+   "room": "22時チェックイン!ショートステイ禁煙シングル",
+   "plan": "22時チェックイン!ショートステイ禁煙シングル",
+   "dorm": false,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=10695&f_syu=2fs&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=3122659"
   },
   {
    "hotelNo": "142653",
@@ -1565,10 +1565,10 @@
    "review_avg": 3.9,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/177964/177964.jpg",
    "price": 7857,
-   "room": "【男性専用】カプセル+睡眠レポート(質・いびき・無呼吸)",
+   "room": "【女性専用】カプセル+睡眠レポート(質・いびき・無呼吸)",
    "plan": "睡眠解析付・返金不可・オンライン決済プラン",
    "dorm": true,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=177964&f_syu=m01s_pax&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5916501"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=177964&f_syu=f01s_pax&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5916501"
   },
   {
    "hotelNo": "158576",
@@ -1599,18 +1599,32 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=197650&f_syu=1fshare&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6328866"
   },
   {
-   "hotelNo": "182509",
-   "name": "Tabist ホテル フロリダ 池袋",
-   "lat": 35.7331581,
-   "lng": 139.7073523,
-   "station": "池袋",
-   "review_avg": 3.54,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/182509/182509.jpg",
-   "price": 8645,
-   "room": "【喫煙】ダブルルーム",
-   "plan": "【素泊まり】★事前決済限定★通常価格よりお得!【求め安さ】と【使い易さ】 を両立しております(通年)",
+   "hotelNo": "54885",
+   "name": "ホテルサンターガス大塚店",
+   "lat": 35.73317689,
+   "lng": 139.728206,
+   "station": "大塚",
+   "review_avg": 3.89,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/54885/54885.jpg",
+   "price": 8000,
+   "room": "◆ 喫 煙 ◆ セミダブル",
+   "plan": "【首都圏おすすめ】素泊まりプラン (3泊ごとのECO清掃)",
    "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=182509&f_syu=sm_double&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5077957"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=54885&f_syu=sw&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=3154685"
+  },
+  {
+   "hotelNo": "153603",
+   "name": "安心お宿 Tokyo Woman 新宿荻窪店",
+   "lat": 35.7047011,
+   "lng": 139.61679779999997,
+   "station": "荻窪",
+   "review_avg": 4.44,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/153603/153603.jpg",
+   "price": 8180,
+   "room": "【上段】カプセル【女性専用】",
+   "plan": "<女性専用>飛行機/新幹線/有料特急列車/高速バスのご利用で500円OFF♪",
+   "dorm": true,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=153603&f_syu=202504121&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6417249"
   },
   {
    "hotelNo": "936",
@@ -1663,10 +1677,24 @@
    "review_avg": 3.67,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/172173/172173.jpg",
    "price": 8800,
-   "room": "【喫煙】ダブルルーム",
+   "room": "【禁煙】ダブルルーム",
    "plan": "チェックイン18時シンプル素泊まりプラン",
    "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=172173&f_syu=ds&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5718548"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=172173&f_syu=dn&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5718548"
+  },
+  {
+   "hotelNo": "182509",
+   "name": "Tabist ホテル フロリダ 池袋",
+   "lat": 35.7331581,
+   "lng": 139.7073523,
+   "station": "池袋",
+   "review_avg": 3.54,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/182509/182509.jpg",
+   "price": 8835,
+   "room": "【禁煙】ダブルルーム",
+   "plan": "【素泊まり】★事前決済限定★通常価格よりお得!【求め安さ】と【使い易さ】 を両立しております(通年)",
+   "dorm": false,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=182509&f_syu=ns_double&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5077957"
   },
   {
    "hotelNo": "192379",
@@ -1683,20 +1711,6 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=192379&f_syu=rs001&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6043480"
   },
   {
-   "hotelNo": "41025",
-   "name": "新宿ホテル パークイン",
-   "lat": 35.69051454,
-   "lng": 139.7102398,
-   "station": "新宿御苑前",
-   "review_avg": 3.65,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/41025/41025.jpg",
-   "price": 9000,
-   "room": "シングル 禁煙",
-   "plan": "",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=41025&f_syu=s&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
-  },
-  {
    "hotelNo": "70749",
    "name": "池袋セントラルホテル",
    "lat": 35.73254045,
@@ -1709,34 +1723,6 @@
    "plan": "チェックイン18時、池袋を満喫!シンプル素泊まりプラン!",
    "dorm": false,
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=70749&f_syu=s&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5690288"
-  },
-  {
-   "hotelNo": "181520",
-   "name": "Tabist ホテルオーロラ池袋",
-   "lat": 35.7322849,
-   "lng": 139.7059232,
-   "station": "池袋",
-   "review_avg": 3.61,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/181520/181520.jpg",
-   "price": 9120,
-   "room": "【喫煙】ダブルルーム",
-   "plan": "【素泊まり】★事前決済限定★通常価格よりお得!◎Wifi完備☆求め安さと使い易さを両立(通年)",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=181520&f_syu=sm_double&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5043538"
-  },
-  {
-   "hotelNo": "128267",
-   "name": "安心お宿 Tokyo Man 新橋駅前店",
-   "lat": 35.66501869,
-   "lng": 139.7580451,
-   "station": "新橋",
-   "review_avg": 4.07,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/128267/128267.jpg",
-   "price": 9180,
-   "room": "【上段】カプセル【男性専用】",
-   "plan": "<男性専用>飛行機/新幹線/有料特急列車/高速バスのご利用で500円OFF♪",
-   "dorm": true,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=128267&f_syu=mcbshdjdv&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6627833"
   },
   {
    "hotelNo": "158890",
@@ -1767,34 +1753,6 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=181509&f_syu=1&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
   },
   {
-   "hotelNo": "29230",
-   "name": "赤羽プラザホテル",
-   "lat": 35.77771339,
-   "lng": 139.7224824,
-   "station": "赤羽",
-   "review_avg": 3.78,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/29230/29230.jpg",
-   "price": 9400,
-   "room": "★喫煙★ コンパクトツイン(13平米)",
-   "plan": "◎ネット割◎ 現金特価プラン 【クレジットカード決済不可】",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=29230&f_syu=ta&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=3168638"
-  },
-  {
-   "hotelNo": "29229",
-   "name": "池袋ロイヤルホテル 東口店",
-   "lat": 35.72702436,
-   "lng": 139.7114743,
-   "station": "池袋",
-   "review_avg": 3.68,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/29229/29229.jpg",
-   "price": 9500,
-   "room": "シングルルームA(喫煙10.11F)",
-   "plan": "≪素泊り/事前決済限定5%OFF≫ちょっとお得な旅♪池袋駅東口より徒歩5分、館内コーヒーサービス",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=29229&f_syu=sgls&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6421555"
-  },
-  {
    "hotelNo": "44059",
    "name": "大塚シティホテル",
    "lat": 35.73033559,
@@ -1809,18 +1767,18 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=44059&f_syu=s2&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5837080"
   },
   {
-   "hotelNo": "5692",
-   "name": "板橋センターホテル",
-   "lat": 35.7515354,
-   "lng": 139.7082903,
-   "station": "板橋区役所前",
-   "review_avg": 4.25,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/5692/5692.jpg",
+   "hotelNo": "10646",
+   "name": "Tabist ホテルテトラ池袋",
+   "lat": 35.7277214,
+   "lng": 139.7078885,
+   "station": "池袋[西武]",
+   "review_avg": 3.47,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/10646/10646.jpg",
    "price": 9900,
-   "room": "喫煙 シングルルーム セミWベッド",
-   "plan": "楽天トラベル スタンダードプラン(板橋区役所前駅徒歩1分 都営地下鉄三田線⇒巣鴨5分・水道橋15分)",
+   "room": "【禁煙】シングルルーム",
+   "plan": "【スタンダードプラン】〜素泊まり〜☆池袋駅最寄り改札口より徒歩約4分☆",
    "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=5692&f_syu=sb&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=1512856"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=10646&f_syu=nsmksingle&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=3774249"
   },
   {
    "hotelNo": "153463",
@@ -1837,6 +1795,20 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=153463&f_syu=regroom&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
   },
   {
+   "hotelNo": "149021",
+   "name": "ソフィアスホステル",
+   "lat": 35.70013724211301,
+   "lng": 139.7053814346405,
+   "station": "新大久保",
+   "review_avg": 1.0,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/149021/149021.jpg",
+   "price": 10000,
+   "room": "ダブルベットルーム",
+   "plan": "",
+   "dorm": false,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=149021&f_syu=sophi38&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
+  },
+  {
    "hotelNo": "202477",
    "name": "ロードス大塚ホテル",
    "lat": 35.73034510000001,
@@ -1851,18 +1823,32 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=202477&f_syu=1&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
   },
   {
-   "hotelNo": "20579",
-   "name": "フレックステイイン江古田",
-   "lat": 35.73705268,
-   "lng": 139.6702107,
-   "station": "江古田",
-   "review_avg": 3.89,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/20579/20579.jpg",
-   "price": 10190,
-   "room": "喫煙スタンダードセミダブル",
-   "plan": "【ベストレート/素泊まり】直前予約におすすめ",
+   "hotelNo": "128267",
+   "name": "安心お宿 Tokyo Man 新橋駅前店",
+   "lat": 35.66501869,
+   "lng": 139.7580451,
+   "station": "新橋",
+   "review_avg": 4.07,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/128267/128267.jpg",
+   "price": 10146,
+   "room": "【早割】カプセル【男性専用】",
+   "plan": "<男性専用>5%OFF 早割おまかせプラン【返金不可】",
+   "dorm": true,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=128267&f_syu=roh&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6627661"
+  },
+  {
+   "hotelNo": "28648",
+   "name": "BumB(ぶんぶ)東京スポーツ文化館",
+   "lat": 35.64968346,
+   "lng": 139.8301452,
+   "station": "新木場",
+   "review_avg": 4.33,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/28648/28648.jpg",
+   "price": 10200,
+   "room": "【禁煙】ツインルーム",
+   "plan": "シンプルステイプラン(食事なし)1-2",
    "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=20579&f_syu=stds&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=3389185"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=28648&f_syu=ta202401&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5870927"
   },
   {
    "hotelNo": "168747",
@@ -1879,6 +1865,20 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=168747&f_syu=fdr&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
   },
   {
+   "hotelNo": "29230",
+   "name": "赤羽プラザホテル",
+   "lat": 35.77771339,
+   "lng": 139.7224824,
+   "station": "赤羽",
+   "review_avg": 3.78,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/29230/29230.jpg",
+   "price": 10400,
+   "room": "☆禁煙☆ 広々ツイン(電子加熱たばこ不可、22平米B/T別)",
+   "plan": "◎ネット割◎ 現金特価プラン 【クレジットカード決済不可】",
+   "dorm": false,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=29230&f_syu=ntc&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=3168638"
+  },
+  {
    "hotelNo": "185694",
    "name": "都バス停徒歩1分以内、1棟4室アパート D-pdal Inn 2F ^",
    "lat": 35.67660371,
@@ -1891,6 +1891,20 @@
    "plan": "(201号) 2部屋(6+3畳) 布団",
    "dorm": false,
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=185694&f_syu=438493_4&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5644356"
+  },
+  {
+   "hotelNo": "2447",
+   "name": "ダイヤモンドホテル",
+   "lat": 35.68550208,
+   "lng": 139.7423456,
+   "station": "半蔵門",
+   "review_avg": 4.0,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/2447/2447.jpg",
+   "price": 10500,
+   "room": "★リニューアル禁煙★シングルルーム",
+   "plan": "【改装シングル】15時IN〜翌10時OUTプラン♪A",
+   "dorm": false,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=2447&f_syu=nsnpack&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4757363"
   },
   {
    "hotelNo": "147662",
@@ -1949,20 +1963,6 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=52228&f_syu=dnosmoke&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4831538"
   },
   {
-   "hotelNo": "149021",
-   "name": "ソフィアスホステル",
-   "lat": 35.70013724211301,
-   "lng": 139.7053814346405,
-   "station": "新大久保",
-   "review_avg": 1.0,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/149021/149021.jpg",
-   "price": 11000,
-   "room": "ダブルベットルーム",
-   "plan": "",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=149021&f_syu=sophi38&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
-  },
-  {
    "hotelNo": "14632",
    "name": "ホテル メンテルス巣鴨",
    "lat": 35.73271059,
@@ -1991,6 +1991,20 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=176786&f_syu=moderate02&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4891929"
   },
   {
+   "hotelNo": "995",
+   "name": "ホテルニュースター池袋",
+   "lat": 35.73494564,
+   "lng": 139.7096769,
+   "station": "池袋",
+   "review_avg": 3.3,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/995/995.jpg",
+   "price": 11200,
+   "room": "シングル<喫煙> ベッド幅120cm",
+   "plan": "【 リーズナブルな素泊りプラン 】12時チェックアウト♪【タイムセール】",
+   "dorm": false,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=995&f_syu=single&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=1928567"
+  },
+  {
    "hotelNo": "18449",
    "name": "Rakuten STAY URBAN 荻窪(旧:ホテルメルディア荻窪)",
    "lat": 35.70676023,
@@ -2003,20 +2017,6 @@
    "plan": "【訳あり特価/素泊まり】電波デトックス!?アナログ没入プラン",
    "dorm": false,
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=18449&f_syu=waked&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5425360"
-  },
-  {
-   "hotelNo": "201399",
-   "name": "HARUICHI KAMATA ^",
-   "lat": 35.5590569,
-   "lng": 139.7277872,
-   "station": "京急蒲田",
-   "review_avg": null,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/201399/201399.jpg",
-   "price": 11577,
-   "room": "スタンダードルーム",
-   "plan": "ROOM2|京急蒲田駅徒歩約5分|ひとり旅におすすめ・2名可",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=201399&f_syu=1776604_2&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6659301"
   },
   {
    "hotelNo": "166090",
@@ -2033,74 +2033,32 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=166090&f_syu=md&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5169423"
   },
   {
-   "hotelNo": "177819",
-   "name": "和ノ楓",
-   "lat": 35.6947164,
-   "lng": 139.70829989999993,
-   "station": "新宿三丁目",
-   "review_avg": 2.56,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/177819/177819.jpg",
-   "price": 12000,
-   "room": "菘(ダブルルーム)",
-   "plan": "",
+   "hotelNo": "201399",
+   "name": "HARUICHI KAMATA ^",
+   "lat": 35.5590569,
+   "lng": 139.7277872,
+   "station": "京急蒲田",
+   "review_avg": null,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/201399/201399.jpg",
+   "price": 12992,
+   "room": "スタンダードルーム",
+   "plan": "ROOM1|京急蒲田駅徒歩約5分|ベッド2台・最大2名|羽田の前後泊に",
    "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=177819&f_syu=suzuna&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=201399&f_syu=1776610_2&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6659302"
   },
   {
-   "hotelNo": "165087",
-   "name": "ホテルイルフィオーレ葛西",
-   "lat": 35.6627346,
-   "lng": 139.87451369999997,
-   "station": "葛西",
-   "review_avg": 4.17,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/165087/165087.jpg",
-   "price": 13300,
-   "room": "【禁煙】シングル|140cm幅ベッド1台|1名様",
-   "plan": "素泊まり 都内のディズニーリゾート(R)に近いホテル",
-   "dorm": true,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=165087&f_syu=s1&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6234991"
-  },
-  {
-   "hotelNo": "562",
-   "name": "住庄ほてる",
-   "lat": 35.68550584,
-   "lng": 139.7792397,
-   "station": "人形町",
-   "review_avg": 4.18,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/562/562.jpg",
-   "price": 13500,
-   "room": "シングル ■禁煙■",
-   "plan": "お得な東京散策プラン【ご朝食付】■禁煙室限定■☆湯殿利用OK☆",
+   "hotelNo": "74604",
+   "name": "お茶の水ホテル昇龍館",
+   "lat": 35.69560982,
+   "lng": 139.762849,
+   "station": "御茶ノ水",
+   "review_avg": 4.56,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/74604/74604.jpg",
+   "price": 14300,
+   "room": "【喫煙可】シングル11.5平米<サータ社マットレス導入>",
+   "plan": "<事前決済限定>【シンプルステイプラン】和朝食無料&大浴場付きで快適滞在!都心の和モダンステイ!",
    "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=562&f_syu=singlens&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=3408659"
-  },
-  {
-   "hotelNo": "187581",
-   "name": "ホテルレジデンス大橋会館 by Re-rent Residence",
-   "lat": 35.6497006,
-   "lng": 139.6877522,
-   "station": "池尻大橋",
-   "review_avg": 3.77,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/187581/187581.jpg",
-   "price": 14356,
-   "room": "セミダブルルーム",
-   "plan": "【素泊まり・事前決済限定】渋谷から1駅 | 共有ラウンジでPC作業ができる",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=187581&f_syu=rooma&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5763681"
-  },
-  {
-   "hotelNo": "462",
-   "name": "KOKO HOTEL 後楽園",
-   "lat": 35.70563073,
-   "lng": 139.7557797,
-   "station": "水道橋",
-   "review_avg": 4.1,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/462/462.jpg",
-   "price": 14400,
-   "room": "【禁煙】セミダブルルーム/11平米/1〜2名",
-   "plan": "首都圏おすすめ☆【事前決済限定】「返金不可」で予定がお決まりならお得に宿泊!軽朝食サービス付",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=462&f_syu=single2kin&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4582228"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=74604&f_syu=s&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4147219"
   },
   {
    "hotelNo": "167278",
@@ -2111,10 +2069,24 @@
    "review_avg": 4.41,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/167278/167278.jpg",
    "price": 14500,
-   "room": "【女】性専用 上段キャビン(カプセル)",
+   "room": "【男】性専用 下段キャビン(カプセル)",
    "plan": "★キャビン(カプセル)★ドーミーインスタンダードプラン!!<素泊まり>",
    "dorm": true,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=167278&f_syu=cabinfu&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5647559"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=167278&f_syu=cabindomr&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5647559"
+  },
+  {
+   "hotelNo": "165001",
+   "name": "アパホテル〈TKP東京西葛西〉",
+   "lat": 35.66432486707386,
+   "lng": 139.86018888652325,
+   "station": "西葛西",
+   "review_avg": 4.14,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/165001/165001.jpg",
+   "price": 14900,
+   "room": "シングル 禁煙室",
+   "plan": "【素泊まり・事前決済限定】非接触1秒チェックイン体験プラン",
+   "dorm": false,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=165001&f_syu=002&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5191672"
   },
   {
    "hotelNo": "192244",
@@ -2125,24 +2097,24 @@
    "review_avg": 3.4,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/192244/192244.jpg",
    "price": 15000,
-   "room": "1R・ルームタイプA/駅徒歩5分/家具家電付き",
+   "room": "1R・ルームタイプB/駅徒歩5分/家具家電付き",
    "plan": "",
    "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=192244&f_syu=timetokyo&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=192244&f_syu=timetokyob&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
   },
   {
-   "hotelNo": "191615",
-   "name": "ELE Hotel 東日本橋",
-   "lat": 35.6893659,
-   "lng": 139.7847487,
-   "station": "浜町",
-   "review_avg": 4.04,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/191615/191615.jpg",
-   "price": 15300,
-   "room": "【エコノミーダブル】ベッド幅140cm×1台【素泊まり】",
-   "plan": "★【スタンダードプラン】★【素泊まり】◆銀座・上野・浅草の観光拠点にも便利♪",
+   "hotelNo": "462",
+   "name": "KOKO HOTEL 後楽園",
+   "lat": 35.70563073,
+   "lng": 139.7557797,
+   "station": "水道橋",
+   "review_avg": 4.1,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/462/462.jpg",
+   "price": 15030,
+   "room": "【禁煙】セミダブルルーム/11平米/1〜2名",
+   "plan": "首都圏おすすめ☆【事前決済限定】「返金不可」で予定がお決まりならお得に宿泊!軽朝食サービス付",
    "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=191615&f_syu=01&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5944224"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=462&f_syu=single2kin&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4582228"
   },
   {
    "hotelNo": "201086",
@@ -2187,20 +2159,6 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=202220&f_syu=a2&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
   },
   {
-   "hotelNo": "193351",
-   "name": "ホテルマリナーズコート東京",
-   "lat": 35.6529293,
-   "lng": 139.7791115,
-   "station": "勝どき",
-   "review_avg": 4.37,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/193351/193351.jpg",
-   "price": 15500,
-   "room": "【DXシングル】◆ベンチでひと息、広さも少し贅沢に◆17平米",
-   "plan": "【室数限定セール-素泊まり】\\最大40%OFF!/リニューアルで快適♪都心とつながるベイサイドの拠点",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=193351&f_syu=sd&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6259824"
-  },
-  {
    "hotelNo": "17506",
    "name": "KKRホテル中目黒(国家公務員共済組合連合会目黒宿泊所)",
    "lat": 35.64505527,
@@ -2213,20 +2171,6 @@
    "plan": "スタンダードプラン 禁煙室 ★【 光 明 石 温 泉 】★(人工温泉) ※予約時確認事項あり※",
    "dorm": false,
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=17506&f_syu=kkrnewme2&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5906759"
-  },
-  {
-   "hotelNo": "192884",
-   "name": "アパホテル〈東京西葛西駅前〉",
-   "lat": 35.66516765279772,
-   "lng": 139.8600971878668,
-   "station": "西葛西",
-   "review_avg": 4.38,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/192884/192884.jpg",
-   "price": 15840,
-   "room": "スタンダードルーム 1名利用 全室禁煙",
-   "plan": "【素泊まり・事前決済限定】1秒チェックインにおすすめ!",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=192884&f_syu=s1k&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6063580"
   },
   {
    "hotelNo": "182771",
@@ -2283,6 +2227,20 @@
    "plan": "【事前決済でさらにお得】【お部屋タイプおまかせ】話題の【ミラブル】シャワーヘッド全室完備★素泊まり",
    "dorm": false,
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=164775&f_syu=roh1&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6213260"
+  },
+  {
+   "hotelNo": "191615",
+   "name": "ELE Hotel 東日本橋",
+   "lat": 35.6893659,
+   "lng": 139.7847487,
+   "station": "浜町",
+   "review_avg": 4.04,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/191615/191615.jpg",
+   "price": 16200,
+   "room": "【ダブル】ベッド幅140cm×1台【素泊まり】",
+   "plan": "★【スタンダードプラン】★【素泊まり】◆銀座・上野・浅草の観光拠点にも便利♪",
+   "dorm": false,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=191615&f_syu=02&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5944224"
   },
   {
    "hotelNo": "7341",
@@ -2369,34 +2327,6 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=74696&f_syu=sians&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5505426"
   },
   {
-   "hotelNo": "1993",
-   "name": "お茶の水イン",
-   "lat": 35.70164813,
-   "lng": 139.7662124,
-   "station": "御茶ノ水",
-   "review_avg": 4.23,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/1993/1993.jpg",
-   "price": 16400,
-   "room": "【禁煙】ビジネスシングルルーム(サータ社製シングルベッド)",
-   "plan": "【※予約後返金不可※事前カード決済限定】プラン(素泊まり)<全室禁煙>",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=1993&f_syu=sa2010ns&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4174717"
-  },
-  {
-   "hotelNo": "202223",
-   "name": "Zenith Garden TOGOSHI",
-   "lat": 35.6112233,
-   "lng": 139.7184862,
-   "station": "戸越公園",
-   "review_avg": null,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/202223/202223.jpg",
-   "price": 16500,
-   "room": "E |戸越公園駅徒歩4分 | 品川エリア | Wi-Fi完備",
-   "plan": "",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=202223&f_syu=e&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
-  },
-  {
    "hotelNo": "182084",
    "name": "クインテッサホテル東京羽田 Comic&Books",
    "lat": 35.5572716,
@@ -2409,6 +2339,20 @@
    "plan": "【楽天月末セール】MANGAの世界にひたり日頃の疲れをリフレッシュ! (24時間軽食無料)",
    "dorm": false,
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=182084&f_syu=twin&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5944603"
+  },
+  {
+   "hotelNo": "191518",
+   "name": "アーヴェストホテル蒲田",
+   "lat": 35.5635786,
+   "lng": 139.7168168,
+   "station": "蒲田",
+   "review_avg": 3.99,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/191518/191518.jpg",
+   "price": 16700,
+   "room": "【禁煙】ダブル:シモンズ社製ベッド<16平米>",
+   "plan": "羽田空港・品川・横浜へのアクセスも抜群!JR蒲田駅東口から1番近いホテル♪【素泊り】シンプルプラン",
+   "dorm": false,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=191518&f_syu=w&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5957307"
   },
   {
    "hotelNo": "186055",
@@ -2453,32 +2397,60 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=165755&f_syu=2017111603&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4120831"
   },
   {
-   "hotelNo": "163029",
-   "name": "京急EXイン羽田",
-   "lat": 35.55029582286435,
-   "lng": 139.75244808836052,
-   "station": "天空橋",
-   "review_avg": 4.37,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/163029/163029.jpg",
-   "price": 16781,
-   "room": "【禁煙】スタンダードセミダブル Type-B 14平米",
-   "plan": "【事前カード決済でお得に宿泊!】20時イン〜早朝8時アウト★最大12時間ショートステイ★無料軽朝食付",
+   "hotelNo": "167615",
+   "name": "Numero Uno Tokyo",
+   "lat": 35.55359172868111,
+   "lng": 139.73550708650816,
+   "station": "大鳥居",
+   "review_avg": 3.25,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/167615/167615.jpg",
+   "price": 16803,
+   "room": "エコノミーダブルルーム(203)",
+   "plan": "【早割15日】羽田空港(HND)直通|大鳥居駅徒歩6分|キッチン・WiFi完備|長期滞在歓迎",
    "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=163029&f_syu=snb&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5585788"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=167615&f_syu=dbl203&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6421908"
   },
   {
-   "hotelNo": "202423",
-   "name": "Hotel BB(旧:Crecer蒲田)",
-   "lat": 35.5653419,
-   "lng": 139.7134483,
-   "station": "蒲田",
-   "review_avg": null,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/202423/202423.jpg",
-   "price": 16900,
-   "room": "4人部屋",
-   "plan": "2026年9月グランドオープン・蒲田駅西口より徒歩5分・全室キッチン・食器・洗濯機付",
+   "hotelNo": "172135",
+   "name": "IKIDANE Cozy Hotel 羽田空港",
+   "lat": 35.54891229569266,
+   "lng": 139.7509074889897,
+   "station": "天空橋",
+   "review_avg": 3.75,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/172135/172135.jpg",
+   "price": 16895,
+   "room": "4人部屋(Room A)",
+   "plan": "【早割15日】羽田空港からたった1駅・天空橋駅徒歩3分|深夜到着・早朝出発に便利なセルフチェックイン",
    "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=202423&f_syu=fourbed&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6637126"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=172135&f_syu=forth001&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6293635"
+  },
+  {
+   "hotelNo": "192884",
+   "name": "アパホテル〈東京西葛西駅前〉",
+   "lat": 35.66516765279772,
+   "lng": 139.8600971878668,
+   "station": "西葛西",
+   "review_avg": 4.38,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/192884/192884.jpg",
+   "price": 16920,
+   "room": "スタンダードルーム 1名利用 全室禁煙",
+   "plan": "【素泊まり・事前決済限定】1秒チェックインにおすすめ!",
+   "dorm": false,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=192884&f_syu=s1k&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6063580"
+  },
+  {
+   "hotelNo": "29186",
+   "name": "全国町村会館 運営 帝国ホテルグループ",
+   "lat": 35.67874449,
+   "lng": 139.7420709,
+   "station": "永田町",
+   "review_avg": 4.56,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/29186/29186.jpg",
+   "price": 17000,
+   "room": "【喫煙】シングルA(18平米)☆",
+   "plan": "【お部屋代のみ】朝食が不要なビジネス利用や1人旅にお勧め",
+   "dorm": false,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=29186&f_syu=sa&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5486781"
   },
   {
    "hotelNo": "188439",
@@ -2495,20 +2467,6 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=188439&f_syu=222&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5908141"
   },
   {
-   "hotelNo": "198636",
-   "name": "後楽ガーデンホテル(RESOLグループ)(2026/4/25リブランド)",
-   "lat": 35.7040665,
-   "lng": 139.7481857,
-   "station": "水道橋",
-   "review_avg": 4.14,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/198636/198636.jpg",
-   "price": 17570,
-   "room": "スタンダードダブル/旧型ユニットバス〈1名利用〉",
-   "plan": "【ショートステイ】18時IN〜11時OUT〈素泊まり〉",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=198636&f_syu=dab&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6430494"
-  },
-  {
    "hotelNo": "146928",
    "name": "リッチモンドホテル東京水道橋",
    "lat": 35.70607140349431,
@@ -2517,24 +2475,10 @@
    "review_avg": 4.42,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/146928/146928.jpg",
    "price": 17600,
-   "room": "□喫煙□モデレートシングルルーム☆150cm幅ベッド1台",
+   "room": "■禁煙■モデレートシングルルーム☆150cm幅ベッド1台",
    "plan": "ショートステイプラン【素泊】18:00〜翌朝9:00",
    "dorm": true,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=146928&f_syu=mss01&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6153902"
-  },
-  {
-   "hotelNo": "10766",
-   "name": "アルカディア市ヶ谷",
-   "lat": 35.69180679,
-   "lng": 139.7374263,
-   "station": "市ヶ谷",
-   "review_avg": 4.21,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/10766/10766.jpg",
-   "price": 17600,
-   "room": "【禁煙】ツインルーム",
-   "plan": "【素泊りプラン】",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=10766&f_syu=tk&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4474596"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=146928&f_syu=msn01&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6153902"
   },
   {
    "hotelNo": "191669",
@@ -2549,20 +2493,6 @@
    "plan": "【事前決済・返金不可】予定が決まったらすぐ予約!先払いでさらにお得<素泊まり>",
    "dorm": false,
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=191669&f_syu=smdb&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6265074"
-  },
-  {
-   "hotelNo": "29186",
-   "name": "全国町村会館(帝国ホテルグループ)",
-   "lat": 35.67874449,
-   "lng": 139.7420709,
-   "station": "永田町",
-   "review_avg": 4.56,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/29186/29186.jpg",
-   "price": 18000,
-   "room": "【禁煙】シングルB (20平米)",
-   "plan": "【お部屋代のみ】朝食が不要なビジネス利用や1人旅にお勧め",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=29186&f_syu=sbns&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5486781"
   },
   {
    "hotelNo": "27747",
@@ -2649,6 +2579,34 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=67160&f_syu=san&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5272504"
   },
   {
+   "hotelNo": "1993",
+   "name": "お茶の水イン",
+   "lat": 35.70164813,
+   "lng": 139.7662124,
+   "station": "御茶ノ水",
+   "review_avg": 4.23,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/1993/1993.jpg",
+   "price": 18400,
+   "room": "禁煙スタンダードダブルルーム(サータ社製ワイドダブルベッド)",
+   "plan": "【※予約後返金不可※事前カード決済限定】プラン(素泊まり)<全室禁煙>",
+   "dorm": false,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=1993&f_syu=sc2010ns&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4174717"
+  },
+  {
+   "hotelNo": "148955",
+   "name": "the b 水道橋(ザビー すいどうばし)",
+   "lat": 35.7051515,
+   "lng": 139.75643909999997,
+   "station": "水道橋",
+   "review_avg": 3.97,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/148955/148955.jpg",
+   "price": 18450,
+   "room": "スーペリアシングル【禁煙】",
+   "plan": "【返金不可割引】【素泊まり】予定が決まっている方におすすめ!急な出張やおでかけにも",
+   "dorm": false,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=148955&f_syu=02&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6205200"
+  },
+  {
    "hotelNo": "28095",
    "name": "ホテルマイステイズ飯田橋",
    "lat": 35.70543595,
@@ -2663,6 +2621,20 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=28095&f_syu=d1b&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5986575"
   },
   {
+   "hotelNo": "198636",
+   "name": "後楽ガーデンホテル(RESOLグループ)(2026/4/25リブランド)",
+   "lat": 35.7040665,
+   "lng": 139.7481857,
+   "station": "水道橋",
+   "review_avg": 4.14,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/198636/198636.jpg",
+   "price": 18520,
+   "room": "スタンダードダブル/旧型ユニットバス〈1名利用〉",
+   "plan": "【ショートステイ】18時IN〜11時OUT〈素泊まり〉",
+   "dorm": false,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=198636&f_syu=dab&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6430494"
+  },
+  {
    "hotelNo": "200963",
    "name": "ルイーゴ世田谷2 by Tranova/民泊",
    "lat": 35.6447193,
@@ -2671,10 +2643,10 @@
    "review_avg": null,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/200963/200963.jpg",
    "price": 18908,
-   "room": "205",
-   "plan": "205*世田谷駅から徒歩3分/世田谷線路面電車/2名収容/Wi-Fi完備",
+   "room": "103",
+   "plan": "103*世田谷駅から徒歩3分/世田谷線路面電車/2名収容/Wi-Fi完備",
    "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=200963&f_syu=r23386_2&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6622176"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=200963&f_syu=r23378_2&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6622172"
   },
   {
    "hotelNo": "8290",
@@ -2717,6 +2689,20 @@
    "plan": "",
    "dorm": false,
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=1186&f_syu=stj&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
+  },
+  {
+   "hotelNo": "166431",
+   "name": "ヴィアイン飯田橋後楽園(JR西日本グループ)",
+   "lat": 35.7056312375587,
+   "lng": 139.74332236958924,
+   "station": "飯田橋",
+   "review_avg": 4.32,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/166431/166431.jpg",
+   "price": 19200,
+   "room": "【禁煙】シングル(1〜2名)",
+   "plan": "【食事なし】スタンダードプラン【定番のシンプルステイ】",
+   "dorm": false,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=166431&f_syu=nss&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5095295"
   },
   {
    "hotelNo": "191534",
@@ -2789,34 +2775,6 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=183333&f_syu=sd-s&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5278140"
   },
   {
-   "hotelNo": "398",
-   "name": "チサンホテル浜松町",
-   "lat": 35.64992032,
-   "lng": 139.7555959,
-   "station": "浜松町",
-   "review_avg": 3.53,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/398/398.jpg",
-   "price": 19800,
-   "room": "スタンダードシングル(禁煙)",
-   "plan": "【ポイント5倍】モニタープラン 素泊り【口コミ歓迎!】",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=398&f_syu=bsanr&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5903888"
-  },
-  {
-   "hotelNo": "148955",
-   "name": "the b 水道橋(ザビー すいどうばし)",
-   "lat": 35.7051515,
-   "lng": 139.75643909999997,
-   "station": "水道橋",
-   "review_avg": 3.97,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/148955/148955.jpg",
-   "price": 19800,
-   "room": "スタンダードダブル【禁煙】",
-   "plan": "【返金不可割引】【素泊まり】予定が決まっている方におすすめ!急な出張やおでかけにも",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=148955&f_syu=09&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6205200"
-  },
-  {
    "hotelNo": "178375",
    "name": "目黒ホリックホテル",
    "lat": 35.6348817,
@@ -2857,34 +2815,6 @@
    "plan": "【素泊まり・事前決済限定】1秒チェックインにおすすめ!■東京駅から2駅3分 ■Wi-Fi無料接続",
    "dorm": false,
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=147585&f_syu=s1k&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5188699"
-  },
-  {
-   "hotelNo": "177460",
-   "name": "赤坂アーバンホテル アネックス",
-   "lat": 35.6709906,
-   "lng": 139.7415161,
-   "station": "溜池山王",
-   "review_avg": 4.35,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/177460/177460.jpg",
-   "price": 20800,
-   "room": "禁煙シングル",
-   "plan": "【素泊まり】禁煙ルーム",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=177460&f_syu=ns&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4535682"
-  },
-  {
-   "hotelNo": "165752",
-   "name": "変なホテル東京 赤坂",
-   "lat": 35.6721577,
-   "lng": 139.73908600000004,
-   "station": "溜池山王",
-   "review_avg": 4.1,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/165752/165752.jpg",
-   "price": 20900,
-   "room": "【LGスタイラールーム】セミダブル",
-   "plan": "【変なホテル東京 赤坂】地下鉄3駅利用可能♪ビジネス、観光の拠点に!<食事なし>",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=165752&f_syu=2018041101&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5836877"
   },
   {
    "hotelNo": "166349",
@@ -2929,20 +2859,6 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=171998&f_syu=s1&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5443775"
   },
   {
-   "hotelNo": "11039",
-   "name": "ホテルグランドアーク半蔵門",
-   "lat": 35.68304961,
-   "lng": 139.7437122,
-   "station": "東京",
-   "review_avg": 4.5,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/11039/11039.jpg",
-   "price": 22000,
-   "room": "【禁煙】セミダブル/ベッド幅140CM(皇居お堀側)",
-   "plan": "スタンダードプラン【素泊まり】",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=11039&f_syu=sdn&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6284362"
-  },
-  {
    "hotelNo": "195013",
    "name": "フラットK プラム 梅ヶ丘 ^",
    "lat": 35.654623,
@@ -2955,34 +2871,6 @@
    "plan": "A*梅ヶ丘駅から徒歩4分/新宿駅・下北沢まで直通/3名収容/Wi-Fi完備",
    "dorm": false,
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=195013&f_syu=1315699_3&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6302887"
-  },
-  {
-   "hotelNo": "166431",
-   "name": "ヴィアイン飯田橋後楽園(JR西日本グループ)",
-   "lat": 35.7056312375587,
-   "lng": 139.74332236958924,
-   "station": "飯田橋",
-   "review_avg": 4.32,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/166431/166431.jpg",
-   "price": 22100,
-   "room": "【禁煙】ダブル(1〜2名)",
-   "plan": "【食事なし】スタンダードプラン【定番のシンプルステイ】",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=166431&f_syu=nwx&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5095295"
-  },
-  {
-   "hotelNo": "18748",
-   "name": "the b お茶の水(ザビー おちゃのみず)",
-   "lat": 35.6956988,
-   "lng": 139.7666292,
-   "station": "淡路町",
-   "review_avg": 3.92,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/18748/18748.jpg",
-   "price": 22500,
-   "room": "ダブル【禁煙】",
-   "plan": "【スタンダードプラン】【素泊まり】淡路町・小川町・新御茶ノ水など6駅利用可能◇全室バスタブ付き",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=18748&f_syu=san_pp_new&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=1427075"
   },
   {
    "hotelNo": "179594",
@@ -3063,24 +2951,10 @@
    "review_avg": 4.03,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/80760/80760.jpg",
    "price": 22690,
-   "room": "<禁煙>ツインルーム15平米",
+   "room": "<禁煙>ダブルルーム15平米",
    "plan": "楽天ポイント10倍!◆神保町駅徒歩3分/出張・観光に使えるベーシックプラン=素泊り=",
    "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=80760&f_syu=twn&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5826397"
-  },
-  {
-   "hotelNo": "2533",
-   "name": "都市センターホテル(リーガロイヤルホテルグループ)",
-   "lat": 35.6811858,
-   "lng": 139.7386877,
-   "station": "永田町",
-   "review_avg": 4.31,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/2533/2533.jpg",
-   "price": 22704,
-   "room": "セミダブル禁煙◆カップルお勧め◆20階以上高層階◆",
-   "plan": "【限定】18時からのチェックインでちょっとお得♪(朝食付き)",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=2533&f_syu=sbn&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5291679"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=80760&f_syu=vdn&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5826397"
   },
   {
    "hotelNo": "137045",
@@ -3091,10 +2965,24 @@
    "review_avg": 3.93,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/137045/137045.jpg",
    "price": 22720,
-   "room": "◇禁煙シングル(ベッド幅120cm)",
+   "room": "◆喫煙シングル(ベッド幅120cm)",
    "plan": "【23時以降チェックイン】23時以降の到着ならさらにおトク!深夜レイトチェックイン限定☆素泊まり",
    "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=137045&f_syu=single&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6306556"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=137045&f_syu=single-s&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6306556"
+  },
+  {
+   "hotelNo": "178212",
+   "name": "Tabist ホテルニューワシントン 渋谷",
+   "lat": 35.664898,
+   "lng": 139.69407569999998,
+   "station": "渋谷",
+   "review_avg": 3.26,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/178212/178212.jpg",
+   "price": 23600,
+   "room": "【禁煙】ツインルーム",
+   "plan": "【素泊まり】代々木公園駅から徒歩7分!コンビニ徒歩1分◎ 渋谷の喧騒を離れた奥渋でお寛ぎ下さい♪",
+   "dorm": false,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=178212&f_syu=twin_nsm&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4609268"
   },
   {
    "hotelNo": "31951",
@@ -3167,32 +3055,18 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=176773&f_syu=ta2&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6310019"
   },
   {
-   "hotelNo": "178230",
-   "name": "住友不動産ホテル ヴィラフォンテーヌグランド東京有明",
-   "lat": 35.6380185,
-   "lng": 139.7939672,
-   "station": "有明",
-   "review_avg": 4.38,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/178230/178230.jpg",
-   "price": 23940,
-   "room": "【1名様用】お部屋タイプおまかせ!",
-   "plan": "【シンプルステイ◆素泊り】18時IN-11時OUT",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=178230&f_syu=1omks&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5854059"
-  },
-  {
-   "hotelNo": "172231",
-   "name": "HOTEL TAVINOS Hamamatsucho(ホテルタビノス浜松町)",
-   "lat": 35.65456674831356,
-   "lng": 139.76213679391788,
+   "hotelNo": "398",
+   "name": "チサンホテル浜松町",
+   "lat": 35.64992032,
+   "lng": 139.7555959,
    "station": "浜松町",
-   "review_avg": 3.94,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/172231/172231.jpg",
-   "price": 24000,
-   "room": "【禁煙】ダブルルーム",
-   "plan": "スタンダードステイ 素泊まり ☆竹芝駅すぐ!/浜松町駅より8分☆",
+   "review_avg": 3.53,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/398/398.jpg",
+   "price": 24300,
+   "room": "スタンダード ダブル(禁煙)",
+   "plan": "【ポイント5倍】モニタープラン 素泊り【口コミ歓迎!】",
    "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=172231&f_syu=d101&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4432839"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=398&f_syu=nssd1&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5903888"
   },
   {
    "hotelNo": "5531",
@@ -3237,18 +3111,32 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=129907&f_syu=s1k&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5200203"
   },
   {
-   "hotelNo": "178212",
-   "name": "Tabist ホテルニューワシントン 渋谷",
-   "lat": 35.664898,
-   "lng": 139.69407569999998,
-   "station": "渋谷",
-   "review_avg": 3.26,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/178212/178212.jpg",
-   "price": 25100,
-   "room": "【禁煙】ツインルーム",
-   "plan": "【素泊まり】代々木公園駅から徒歩7分!コンビニ徒歩1分◎ 渋谷の喧騒を離れた奥渋でお寛ぎ下さい♪",
+   "hotelNo": "178230",
+   "name": "住友不動産ホテル ヴィラフォンテーヌグランド東京有明",
+   "lat": 35.6380185,
+   "lng": 139.7939672,
+   "station": "有明",
+   "review_avg": 4.38,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/178230/178230.jpg",
+   "price": 24940,
+   "room": "【1名様用】お部屋タイプおまかせ!",
+   "plan": "【シンプルステイ◆素泊り】18時IN-11時OUT",
    "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=178212&f_syu=twin_nsm&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4609268"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=178230&f_syu=1omks&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5854059"
+  },
+  {
+   "hotelNo": "172231",
+   "name": "HOTEL TAVINOS Hamamatsucho(ホテルタビノス浜松町)",
+   "lat": 35.65456674831356,
+   "lng": 139.76213679391788,
+   "station": "浜松町",
+   "review_avg": 3.94,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/172231/172231.jpg",
+   "price": 25000,
+   "room": "【禁煙】ダブルルーム",
+   "plan": "スタンダードステイ 素泊まり ☆竹芝駅すぐ!/浜松町駅より8分☆",
+   "dorm": false,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=172231&f_syu=d101&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4432839"
   },
   {
    "hotelNo": "70987",
@@ -3277,20 +3165,6 @@
    "plan": "【素泊まり】おすすめ!コスパ重視のシンプルステイ",
    "dorm": false,
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=191916&f_syu=sd&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5970657"
-  },
-  {
-   "hotelNo": "135999",
-   "name": "相鉄フレッサイン東京赤坂",
-   "lat": 35.67116739,
-   "lng": 139.7355245,
-   "station": "赤坂",
-   "review_avg": 4.19,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/135999/135999.jpg",
-   "price": 25650,
-   "room": "別館スーペリアダブル(禁煙)☆全館浄水システム採用☆",
-   "plan": "【シーズンプラン】お気軽ステイ♪<食事なし>",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=135999&f_syu=sdan&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5794524"
   },
   {
    "hotelNo": "163072",
@@ -3335,6 +3209,20 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=172984&f_syu=ns&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4432247"
   },
   {
+   "hotelNo": "165753",
+   "name": "変なホテル東京 浜松町",
+   "lat": 35.6572433,
+   "lng": 139.7564572,
+   "station": "大門",
+   "review_avg": 4.05,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/165753/165753.jpg",
+   "price": 26000,
+   "room": "【LGスタイラールーム】スタンダードシングル【全室禁煙】",
+   "plan": "【イベント応援 興奮そのまま♪】事前荷物預かり無料♪ 朝はのんびりプラン<朝食なし>",
+   "dorm": false,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=165753&f_syu=ss&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5805033"
+  },
+  {
    "hotelNo": "74635",
    "name": "くれたけインプレミアム浜松町",
    "lat": 35.65089243,
@@ -3347,6 +3235,20 @@
    "plan": "【クチコミ投稿で】ミネラルウォーター1本プレゼント☆ 無料Wi-Fi完備☆コンビニ徒歩10秒♪",
    "dorm": false,
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=74635&f_syu=st&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5465804"
+  },
+  {
+   "hotelNo": "11039",
+   "name": "ホテルグランドアーク半蔵門",
+   "lat": 35.68304961,
+   "lng": 139.7437122,
+   "station": "東京",
+   "review_avg": 4.5,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/11039/11039.jpg",
+   "price": 26000,
+   "room": "和室【禁煙】(6畳/皇居お堀側)",
+   "plan": "シンプルプラン【素泊まり】",
+   "dorm": false,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=11039&f_syu=wan6&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6284382"
   },
   {
    "hotelNo": "195488",
@@ -3363,18 +3265,46 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=195488&f_syu=1379160_2&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6358217"
   },
   {
-   "hotelNo": "164774",
-   "name": "ホテルヒラリーズ赤坂",
-   "lat": 35.67369548462819,
-   "lng": 139.7380023593166,
+   "hotelNo": "135999",
+   "name": "相鉄フレッサイン東京赤坂",
+   "lat": 35.67116739,
+   "lng": 139.7355245,
    "station": "赤坂",
-   "review_avg": 4.2,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/164774/164774.jpg",
-   "price": 27070,
-   "room": "【10平米・禁煙】シングルルーム/140cm幅ベッド×1台",
-   "plan": "【さき楽・早割14・素泊まり】14日前までのご予約でお得に!赤坂駅から徒歩2分の好立地!",
+   "review_avg": 4.19,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/135999/135999.jpg",
+   "price": 27000,
+   "room": "本館スタンダードツイン(禁煙)☆全館浄水システム採用☆",
+   "plan": "【シーズンプラン】お気軽ステイ♪<食事なし>",
    "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=164774&f_syu=1&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4124627"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=135999&f_syu=mbtn&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5794524"
+  },
+  {
+   "hotelNo": "165752",
+   "name": "変なホテル東京 赤坂",
+   "lat": 35.6721577,
+   "lng": 139.73908600000004,
+   "station": "溜池山王",
+   "review_avg": 4.1,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/165752/165752.jpg",
+   "price": 27075,
+   "room": "【ReFaルーム】LGスタイラーツイン",
+   "plan": "【変なホテル東京 赤坂】地下鉄3駅利用可能♪ビジネス、観光の拠点に!<食事なし>",
+   "dorm": false,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=165752&f_syu=20220214&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5836877"
+  },
+  {
+   "hotelNo": "182685",
+   "name": "MUSTARD HOTEL SHIMOKITAZAWA",
+   "lat": 35.66434076610589,
+   "lng": 139.67133865774156,
+   "station": "東北沢",
+   "review_avg": 4.12,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/182685/182685.jpg",
+   "price": 27170,
+   "room": "スタンダードバンクツイン",
+   "plan": "《EARLY BIRD / 早割14》素泊まり",
+   "dorm": false,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=182685&f_syu=0011&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5516572"
   },
   {
    "hotelNo": "153693",
@@ -3391,32 +3321,46 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=153693&f_syu=nsg2&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=3837401"
   },
   {
-   "hotelNo": "73984",
-   "name": "ホテルマイステイズ浜松町",
-   "lat": 35.65818605,
-   "lng": 139.7551873,
-   "station": "大門",
-   "review_avg": 3.99,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/73984/73984.jpg",
-   "price": 27620,
-   "room": "■喫煙■ スーペリアクイーン16平米/ベッド幅160cm",
-   "plan": "【ベストレート/素泊まり】浜松町駅から徒歩6分、大門駅から2分の好立地",
+   "hotelNo": "168313",
+   "name": "ホテルSUI赤坂byABEST",
+   "lat": 35.67040734905535,
+   "lng": 139.7379582363302,
+   "station": "赤坂",
+   "review_avg": 4.02,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/168313/168313.jpg",
+   "price": 28300,
+   "room": "コンフォートダブル【禁煙】/シモンズ製ベッド",
+   "plan": "【ベストレート】赤坂の街並み溶け込む静寂と調和のステイ♪/素泊まり 人生を変えるベットシモンズベット",
    "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=73984&f_syu=sp-qen-s&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=3271032"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=168313&f_syu=d&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5498849"
   },
   {
-   "hotelNo": "183390",
-   "name": "ラビスタ東京ベイ(共立リゾート)",
-   "lat": 35.64686774190667,
-   "lng": 139.7836451089844,
-   "station": "豊洲",
-   "review_avg": 4.59,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/183390/183390.jpg",
-   "price": 28410,
-   "room": "【禁煙】180cm幅ダブル/スタンダードフロア",
-   "plan": "【スタンダード】<素泊り>最上階天然温泉眺望大浴場でパワーチャージ 〜東京の絶景に癒される滞在〜",
+   "hotelNo": "164774",
+   "name": "ホテルヒラリーズ赤坂",
+   "lat": 35.67369548462819,
+   "lng": 139.7380023593166,
+   "station": "赤坂",
+   "review_avg": 4.2,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/164774/164774.jpg",
+   "price": 28500,
+   "room": "【10平米・禁煙】シングルルーム/140cm幅ベッド×1台",
+   "plan": "【さき楽・早割14・素泊まり】14日前までのご予約でお得に!赤坂駅から徒歩2分の好立地!",
    "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=183390&f_syu=dbl&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5421455"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=164774&f_syu=1&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4124627"
+  },
+  {
+   "hotelNo": "1177",
+   "name": "東京ベイ有明ワシントンホテル",
+   "lat": 35.63263993,
+   "lng": 139.7929879,
+   "station": "東京ビッグサイト",
+   "review_avg": 4.28,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/1177/1177.jpg",
+   "price": 29000,
+   "room": "★リニューアル★デラックスシングル",
+   "plan": "【リニューアルルーム確約!】明るく快適なお部屋でのんびりステイ♪〜素泊り〜",
+   "dorm": false,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=1177&f_syu=rnewrs3&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6341656"
   },
   {
    "hotelNo": "146557",
@@ -3426,25 +3370,11 @@
    "station": "新橋",
    "review_avg": 3.87,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/146557/146557.jpg",
-   "price": 28500,
+   "price": 29500,
    "room": "コンフォートルーム(喫煙可能)【ルームシアター見放題】",
    "plan": "■【15時〜10時】≪素泊まりプラン≫◇コンフォートルーム◇スキンケアセット付き◇",
    "dorm": false,
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=146557&f_syu=b1&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6180509"
-  },
-  {
-   "hotelNo": "145305",
-   "name": "アパホテル〈新橋 虎ノ門〉2026年5月リニューアル",
-   "lat": 35.66689268305724,
-   "lng": 139.75330384921267,
-   "station": "新橋",
-   "review_avg": 4.21,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/145305/145305.jpg",
-   "price": 29430,
-   "room": "シングル 全室禁煙",
-   "plan": "【素泊まり・事前決済限定】1秒チェックインにおすすめ!",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=145305&f_syu=s1k&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5196872"
   },
   {
    "hotelNo": "165002",
@@ -3461,20 +3391,6 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=165002&f_syu=toyo02&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5739363"
   },
   {
-   "hotelNo": "165753",
-   "name": "変なホテル東京 浜松町",
-   "lat": 35.6572433,
-   "lng": 139.7564572,
-   "station": "大門",
-   "review_avg": 4.05,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/165753/165753.jpg",
-   "price": 30000,
-   "room": "東京タワービュー【ReFa】シングル(高層階)【全室禁煙】",
-   "plan": "【イベント応援 興奮そのまま♪】事前荷物預かり無料♪ 朝はのんびりプラン<朝食なし>",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=165753&f_syu=twss&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5805033"
-  },
-  {
    "hotelNo": "172074",
    "name": "KOKO HOTEL 新橋御成門",
    "lat": 35.66089444905808,
@@ -3487,6 +3403,34 @@
    "plan": "即決/事前カード払い限定プラン/キャンセル不可",
    "dorm": false,
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=172074&f_syu=sn&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4541884"
+  },
+  {
+   "hotelNo": "187216",
+   "name": "Villa Roppongi",
+   "lat": 35.6633447,
+   "lng": 139.7283983,
+   "station": "六本木",
+   "review_avg": null,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/187216/187216.jpg",
+   "price": 30000,
+   "room": "非対面・非接触|六本木駅徒歩4分|キッチン付|最大4名|2F",
+   "plan": "【1泊限定】1フロア貸切|六本木駅徒歩4分|キッチン付|フルリノベ済|最大4名|2F",
+   "dorm": false,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=187216&f_syu=vroppongi2&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5670601"
+  },
+  {
+   "hotelNo": "73984",
+   "name": "ホテルマイステイズ浜松町",
+   "lat": 35.65818605,
+   "lng": 139.7551873,
+   "station": "大門",
+   "review_avg": 3.99,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/73984/73984.jpg",
+   "price": 30240,
+   "room": "■喫煙■スタンダードツイン16平米/ベッド幅100cm",
+   "plan": "【ベストレート/素泊まり】浜松町駅から徒歩6分、大門駅から2分の好立地",
+   "dorm": false,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=73984&f_syu=sp-twn-s&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=3271032"
   },
   {
    "hotelNo": "198392",
@@ -3511,24 +3455,38 @@
    "review_avg": 4.25,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/147101/147101.jpg",
    "price": 30300,
-   "room": "【喫煙】Grandeシングルルーム◆1名利用",
+   "room": "【禁煙】Grandeシングルルーム◇1名利用",
    "plan": "【ベーシック】直前予約にもおススメ♪<素泊まり>",
    "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=147101&f_syu=c&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5140474"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=147101&f_syu=nc&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5140474"
   },
   {
-   "hotelNo": "149347",
-   "name": "名鉄イン浜松町",
-   "lat": 35.65795757412794,
-   "lng": 139.75565837221367,
-   "station": "浜松町",
-   "review_avg": 4.29,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/149347/149347.jpg",
-   "price": 31400,
-   "room": "【喫煙】モデレートツイン24平米/バストイレ洗面台セパレート",
-   "plan": "【スタンダードプラン】広々24m2&バス・トイレセパレート!1名〜3名利用可能!ツインルーム!",
+   "hotelNo": "183390",
+   "name": "ラビスタ東京ベイ(共立リゾート)",
+   "lat": 35.64686774190667,
+   "lng": 139.7836451089844,
+   "station": "豊洲",
+   "review_avg": 4.59,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/183390/183390.jpg",
+   "price": 30710,
+   "room": "【禁煙】ハリウッドツインA/スタンダードフロア",
+   "plan": "【スタンダード】<素泊り>最上階天然温泉眺望大浴場でパワーチャージ 〜東京の絶景に癒される滞在〜",
    "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=149347&f_syu=trs&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=3615762"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=183390&f_syu=htwa&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5421455"
+  },
+  {
+   "hotelNo": "145305",
+   "name": "アパホテル〈新橋 虎ノ門〉2026年5月リニューアル",
+   "lat": 35.66689268305724,
+   "lng": 139.75330384921267,
+   "station": "新橋",
+   "review_avg": 4.21,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/145305/145305.jpg",
+   "price": 31680,
+   "room": "シングル 全室禁煙",
+   "plan": "【素泊まり・事前決済限定】1秒チェックインにおすすめ!",
+   "dorm": false,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=145305&f_syu=s1k&f_hi1=2026-12-03&f_hi2=2026-12-04&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5196872"
   }
  ]
 }

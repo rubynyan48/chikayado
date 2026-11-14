@@ -1,5 +1,5 @@
 {
- "checked": "2026-11-13",
+ "checked": "2026-11-14",
  "checkin": "2026-12-02",
  "hotels": [
   {
@@ -68,9 +68,9 @@
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/153313/153313.jpg",
    "price": 3990,
    "room": "男性専用カプセル",
-   "plan": "男性専用カプセル★カレー等のバイキングが無料♪大浴場完備",
+   "plan": "",
    "dorm": true,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=153313&f_syu=gr6000c&f_hi1=2026-12-02&f_hi2=2026-12-03&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=3795248"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=153313&f_syu=gr6000c&f_hi1=2026-12-02&f_hi2=2026-12-03&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
   },
   {
    "hotelNo": "172107",
@@ -94,7 +94,7 @@
    "station": "関内",
    "review_avg": 3.79,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/188098/188098.jpg",
-   "price": 4100,
+   "price": 4200,
    "room": "【禁煙】ベーシック男性専用",
    "plan": "【男性専用】素泊まり(通年)",
    "dorm": false,
@@ -137,10 +137,10 @@
    "review_avg": 4.29,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/188295/188295.jpg",
    "price": 4400,
-   "room": "男女共有エリア",
+   "room": "女性専用エリア",
    "plan": "お得なスタンダード宿泊プラン|サウナ当日追加OK",
    "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=188295&f_syu=haretabi3&f_hi1=2026-12-02&f_hi2=2026-12-03&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6487151"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=188295&f_syu=haretabi4&f_hi1=2026-12-02&f_hi2=2026-12-03&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6487151"
   },
   {
    "hotelNo": "162892",
@@ -180,9 +180,9 @@
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/183595/183595.jpg",
    "price": 4600,
    "room": "朝はゆっくり11時チェックアウト 共用ドミトリー ベッド",
-   "plan": "★☆素泊まりプラン★☆『元町・中華街駅』から徒歩2分!事前決済限定でお得料金",
+   "plan": "",
    "dorm": true,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=183595&f_syu=123&f_hi1=2026-12-02&f_hi2=2026-12-03&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5498497"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=183595&f_syu=123&f_hi1=2026-12-02&f_hi2=2026-12-03&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
   },
   {
    "hotelNo": "168572",
@@ -325,6 +325,20 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=187222&f_syu=wsk&f_hi1=2026-12-02&f_hi2=2026-12-03&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5674167"
   },
   {
+   "hotelNo": "7587",
+   "name": "横浜テクノタワーホテル",
+   "lat": 35.35401444,
+   "lng": 139.6446921,
+   "station": "産業振興センター",
+   "review_avg": 3.76,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/7587/7587.jpg",
+   "price": 9000,
+   "room": "【禁煙】 シングルユース 【お部屋タイプおまかせ】",
+   "plan": "【ベーシックプラン】全室19階以上 八景島に近いホテル/素泊り",
+   "dorm": false,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=7587&f_syu=n-sgl&f_hi1=2026-12-02&f_hi2=2026-12-03&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=3657707"
+  },
+  {
    "hotelNo": "161013",
    "name": "ホテルリブマックス横浜元町駅前",
    "lat": 35.4428842161913,
@@ -379,20 +393,6 @@
    "plan": "FEELスタンダードプラン ≪特典満載!!≫ (素泊まり)",
    "dorm": false,
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=149397&f_syu=t506&f_hi1=2026-12-02&f_hi2=2026-12-03&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4032103"
-  },
-  {
-   "hotelNo": "108979",
-   "name": "ホテルリブマックスBUDGET横浜鶴見",
-   "lat": 35.50980345,
-   "lng": 139.679308,
-   "station": "鶴見",
-   "review_avg": 3.45,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/108979/108979.jpg",
-   "price": 11050,
-   "room": "セミダブルルーム【喫煙】",
-   "plan": "『リブ得』楽天最安値のスペシャルプラン【素泊まり】",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=108979&f_syu=s-b&f_hi1=2026-12-02&f_hi2=2026-12-03&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5741448"
   }
  ]
 }
