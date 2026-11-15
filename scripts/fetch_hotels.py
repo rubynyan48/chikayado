@@ -15,7 +15,7 @@ from common import DATA, REFERER, SITE, clinics, distance_m, env, polite_get, re
 HOTEL_URL = "https://openapi.rakuten.co.jp/engine/api/Travel/SimpleHotelSearch/20260731"
 VACANT_URL = "https://openapi.rakuten.co.jp/engine/api/Travel/VacantHotelSearch/20170426"
 VACANCY_DAYS_AHEAD = 120  # これより先の開催日は空室を調べない
-VACANCY_TIME_LIMIT = 45 * 60  # 宿の一覧と空室を合わせてこの時間を過ぎたら、残りの空室は翌日に回す
+VACANCY_TIME_LIMIT = 40 * 60  # 宿の一覧と空室を合わせてこの時間を過ぎたら、残りの空室は翌日に回す
 
 
 def flatten_hotel(entry):
