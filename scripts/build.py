@@ -1257,6 +1257,21 @@ def home_data(ctxs):
             "total_events": len(all_up), "total_venues": len(cards), "saturday": ctxs[0]["saturday"]}
 
 
+def by_month(events, months=3):
+    """トップのジャンル別の欄で、今月から3か月分（11月なら1月末まで）を月ごとに分ける（11/15に持ち主の要望）。"""
+    keys = []
+    y, m = TODAY.year, TODAY.month
+    for _ in range(months):
+        keys.append((y, m))
+        y, m = (y + 1, 1) if m == 12 else (y, m + 1)
+    out = []
+    for y, m in keys:
+        evs = [e for e in events if date.fromisoformat(max(e["start"], TODAY.isoformat())).timetuple()[:2] == (y, m)]
+        if evs:
+            out.append((f"{y}年{m}月" if y != TODAY.year else f"{m}月", evs))
+    return out
+
+
 def multi_event_table(events, limit=None):
     """いくつかの会場のイベントをまとめた表。会場の列を付ける。"""
     rows = events[:limit] if limit else events
@@ -1611,7 +1626,7 @@ def main():
                "open_time": open_time, "audience_label": audience_label,
                "event_table": event_table, "restaurant_table": restaurant_table, "dist_label": dist_label,
                "walk_min": walk_min, "yen": yen, "quick_cards": quick_cards, "people_switch": people_switch,
-               "search_box": search_box, "chika": chika, "multi_event_table": multi_event_table, "top_search": top_search, "PEOPLE_PAGES": PEOPLE_PAGES, "banner": banner, "rec_box": rec_box, "stay_table": stay_table, "stay_points": stay_points, "food_map": food_map, "rank_tabs": rank_tabs, "station_table": station_table, "km": km, "more_buttons": more_buttons, "route_map": route_map, "book_url": book_url, "stars": stars, "chips": chips, "jdate": jdate, "period": period, "buildings": buildings,
+               "search_box": search_box, "chika": chika, "multi_event_table": multi_event_table, "by_month": by_month, "top_search": top_search, "PEOPLE_PAGES": PEOPLE_PAGES, "banner": banner, "rec_box": rec_box, "stay_table": stay_table, "stay_points": stay_points, "food_map": food_map, "rank_tabs": rank_tabs, "station_table": station_table, "km": km, "more_buttons": more_buttons, "route_map": route_map, "book_url": book_url, "stars": stars, "chips": chips, "jdate": jdate, "period": period, "buildings": buildings,
                "site": SITE, "today": TODAY.isoformat(), "css_v": css_version()}
     all_venues = [v for v in venues() if v.get("publish", True)]
     main_venue = all_venues[0]

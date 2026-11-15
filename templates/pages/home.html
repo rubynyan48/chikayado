@@ -43,8 +43,14 @@
   </div>
   {% for name, evs in hd.genres %}
   <div role="tabpanel" id="genre{{ loop.index }}"{% if not loop.first %} hidden{% endif %}>
-    <p class="hint">{{ name }}のイベントが{{ evs|length }}件あります。開催日の近い順です。</p>
-    {{ multi_event_table(evs, 10) }}
+    {% set months = by_month(evs) %}
+    <p class="hint">{{ name }}のイベントが{{ evs|length }}件あります。{{ months[-1][0] if months else '' }}までを月ごとに、開催日の近い順に並べています。</p>
+    {% for label, mevs in months %}
+    <details class="month-list"{% if loop.first %} open{% endif %}>
+      <summary>{{ label }}の{{ name }}<span class="count">{{ mevs|length }}件</span></summary>
+      {{ multi_event_table(mevs) }}
+    </details>
+    {% endfor %}
   </div>
   {% endfor %}
   {% if clinic_list %}
