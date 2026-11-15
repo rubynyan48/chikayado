@@ -6,6 +6,7 @@
 import os
 import re
 import sys
+import time
 import unicodedata
 from datetime import date, timedelta
 
@@ -14,6 +15,7 @@ from common import DATA, REFERER, SITE, clinics, distance_m, env, polite_get, re
 HOTEL_URL = "https://openapi.rakuten.co.jp/engine/api/Travel/SimpleHotelSearch/20260731"
 VACANT_URL = "https://openapi.rakuten.co.jp/engine/api/Travel/VacantHotelSearch/20170426"
 VACANCY_DAYS_AHEAD = 120  # これより先の開催日は空室を調べない
+VACANCY_TIME_LIMIT = 45 * 60  # 宿の一覧と空室を合わせてこの時間を過ぎたら、残りの空室は翌日に回す
 
 
 def flatten_hotel(entry):
@@ -314,6 +316,7 @@ def main():
         print("楽天のアプリIDかアクセスキーが未設定のため、宿の取得を飛ばします")
         return 0
     failed = False
+    started, tasks = time.time(), []
     today = date.today()
     # SCOPE=clinics のときはイベント会場を飛ばし、クリニックの宿だけ取り直す
     all_venues = [] if os.environ.get("SCOPE") == "clinics" else venues()
@@ -365,14 +368,7 @@ def main():
             for f in folder.glob("*.json"):
                 if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", f.stem) or f.stem < today.isoformat():
                     f.unlink()
-        for d in sorted(dates):
-            if fresh_enough(venue, d, today):
-                continue
-            try:
-                fetch_date(venue, d)
-            except Exception as exc:
-                failed = True
-                print(f"  {d}: 空室の取得に失敗 {exc}", file=sys.stderr)
+        tasks += [(venue, d) for d in dates if not fresh_enough(venue, d, today)]
     # クリニックの近くの宿は、次の土曜と次の水曜の夜だけ空室を調べる（日程が人それぞれなので）
     sat = next_saturday(today)
     wed = today + timedelta(days=(2 - today.weekday()) % 7 or 7)
@@ -389,14 +385,25 @@ def main():
             for f in folder.glob("*.json"):
                 if f.stem < today.isoformat():
                     f.unlink()
-        for d in sorted({sat, wed}):
-            if fresh_enough(clinic, d, today):
-                continue
-            try:
-                fetch_date(clinic, d)
-            except Exception as exc:
-                failed = True
-                print(f"  {clinic['name']} {d}: 空室の取得に失敗 {exc}", file=sys.stderr)
+        tasks += [(clinic, d) for d in sorted({sat, wed}) if not fresh_enough(clinic, d, today)]
+    # 空室は決まった時間で打ち切る（会場が増えて毎朝の更新が90分を超え、2日続けて転送まで行かなかったため。11/15）。
+    # 3週間以内の日付を先に、その先は前に調べた日が古い順に取り、残りは翌日に回す
+    def last_checked(v, d):
+        old = read_json(DATA / "vacancy" / v["slug"] / f"{d.isoformat()}.json") or {}
+        return old.get("checked", "")
+    tasks.sort(key=lambda t: ((t[1] - today).days > 21, (t[1] - today).days if (t[1] - today).days <= 21 else 0, last_checked(*t), t[1]))
+    done = skipped = 0
+    for v, d in tasks:
+        if time.time() - started > VACANCY_TIME_LIMIT:
+            skipped += 1
+            continue
+        try:
+            fetch_date(v, d)
+            done += 1
+        except Exception as exc:
+            failed = True
+            print(f"  {v['name']} {d}: 空室の取得に失敗 {exc}", file=sys.stderr)
+    print(f"空室の取り直し {done}件" + (f"、時間切れで明日に回した分 {skipped}件" if skipped else ""))
     return 1 if failed else 0
 
 
