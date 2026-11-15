@@ -1362,7 +1362,14 @@ def merge_runs(venue, events):
         main = dict(up[0] if up else es[-1])
         main["slug"] = base["slug"]
         main["name"] = base["name"]
-        main["runs"] = sorted({(x["start"], x["end"]) for x in (up or es)})
+        # 公式で「2日間の公演」と「その中の1日」が別々に載っていると日付が重なって出るので、重なる日程・続いた日程は1つにする（11/15）
+        runs = []
+        for a, b in sorted({(x["start"], x["end"]) for x in (up or es)}):
+            if runs and a <= (date.fromisoformat(runs[-1][1]) + timedelta(days=1)).isoformat():
+                runs[-1] = (runs[-1][0], max(runs[-1][1], b))
+            else:
+                runs.append((a, b))
+        main["runs"] = runs
         out.append(main)
         for x in es:
             if x["slug"] != base["slug"]:
@@ -1626,7 +1633,7 @@ def main():
                "open_time": open_time, "audience_label": audience_label,
                "event_table": event_table, "restaurant_table": restaurant_table, "dist_label": dist_label,
                "walk_min": walk_min, "yen": yen, "quick_cards": quick_cards, "people_switch": people_switch,
-               "search_box": search_box, "chika": chika, "multi_event_table": multi_event_table, "by_month": by_month, "top_search": top_search, "PEOPLE_PAGES": PEOPLE_PAGES, "banner": banner, "rec_box": rec_box, "stay_table": stay_table, "stay_points": stay_points, "food_map": food_map, "rank_tabs": rank_tabs, "station_table": station_table, "km": km, "more_buttons": more_buttons, "route_map": route_map, "book_url": book_url, "stars": stars, "chips": chips, "jdate": jdate, "period": period, "buildings": buildings,
+               "search_box": search_box, "chika": chika, "multi_event_table": multi_event_table, "by_month": by_month, "today_iso": TODAY.isoformat(), "top_search": top_search, "PEOPLE_PAGES": PEOPLE_PAGES, "banner": banner, "rec_box": rec_box, "stay_table": stay_table, "stay_points": stay_points, "food_map": food_map, "rank_tabs": rank_tabs, "station_table": station_table, "km": km, "more_buttons": more_buttons, "route_map": route_map, "book_url": book_url, "stars": stars, "chips": chips, "jdate": jdate, "period": period, "buildings": buildings,
                "site": SITE, "today": TODAY.isoformat(), "css_v": css_version()}
     all_venues = [v for v in venues() if v.get("publish", True)]
     main_venue = all_venues[0]

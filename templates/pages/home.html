@@ -24,7 +24,7 @@
       <span>近くの宿{{ c.hotels }}軒{% if c.near %}（歩いて行ける宿{{ c.near }}軒）{% endif %}</span>
       {% if c.min_price %}<span>{{ jdate(hd.saturday, False) }}は1人1室で<b>{{ yen(c.min_price) }}</b>から</span>{% endif %}
     </span>
-    {% if c.next %}<span class="vcard-next">次のイベント　{{ jdate(c.next.start, False) }}　{{ c.next.name }}</span>{% endif %}
+    {% if c.next %}<span class="vcard-next">{% if c.next.start < today_iso %}開催中　{{ jdate(c.next.end, False) }}まで{% else %}次のイベント　{{ jdate(c.next.start, False) }}{% endif %}　{{ c.next.name }}</span>{% endif %}
   </span>
 </a>
 {% endfor %}
