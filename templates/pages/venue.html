@@ -52,11 +52,12 @@
   ('/' ~ venue.slug ~ '/exhibitor/', '出展者の宿の選び方', '前日入りと荷物の預け方'),
 ]) }}
 {% else %}
-{{ more_buttons([
+{% set btns = [
   ('/' ~ venue.slug ~ '/hotels/', '地図とホテルの比較表', '全' ~ hotels|length ~ '軒を距離、料金、口コミ、大浴場で比べる'),
   ('/' ~ venue.slug ~ '/hitori/', '1人で泊まる宿', '1人あたりの料金が安い順'),
   ('/' ~ venue.slug ~ '/futari/', '2人で泊まる宿', '1部屋に2人で泊まれる宿'),
-]) }}
+] %}{% for rp in venue.route_pages or [] %}{% set _ = btns.append(('/' ~ venue.slug ~ '/' ~ rp.slug ~ '/', rp.name, rp.sub)) %}{% endfor %}
+{{ more_buttons(btns) }}
 
 <h2>{{ venue.name }}の最寄り駅</h2>
 {{ station_table(venue) }}
