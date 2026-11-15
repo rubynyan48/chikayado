@@ -540,3 +540,13 @@ td .no { display: inline-grid; place-items: center; width: 22px; height: 22px; m
 .ar-sort .pp span { padding-left: 4px; padding-right: 4px; }
 .ar-date { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; }
 .ar-count { font-size: 12px; font-weight: 700; color: var(--muted); }
+/* トップのジャンル別の欄を月ごとに開け閉めする（11/15〜） */
+.month-list { border: 1px solid var(--line); border-radius: var(--radius-m); margin: 0 0 10px; background: var(--paper); }
+.month-list > summary { cursor: pointer; list-style: none; display: flex; align-items: center; gap: 8px; padding: 12px 14px; font-weight: 700; color: var(--sign); background: var(--sign-soft); border-radius: var(--radius-m); }
+.month-list > summary::-webkit-details-marker { display: none; }
+.month-list > summary::after { content: "＋"; margin-left: auto; font-weight: 700; }
+.month-list[open] > summary { border-radius: var(--radius-m) var(--radius-m) 0 0; }
+.month-list[open] > summary::after { content: "－"; }
+.month-list > summary .count { font-size: 13px; font-weight: 400; color: var(--muted); }
+.month-list .table-wrap { margin: 0; padding: 0 8px 8px; }
+.month-list td.date, .month-list th.date { white-space: normal; width: 8.5em; min-width: 8.5em; }
