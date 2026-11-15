@@ -1,0 +1,24 @@
+{
+  "slug": "aibahama-park",
+  "name": "藍場浜公園",
+  "formal_name": "藍場浜公園（徳島市・マチ★アソビのメイン会場）",
+  "address": "徳島県徳島市藍場町1丁目",
+  "lat": 34.073406,
+  "lng": 134.54808,
+  "search_radius_km": 3.0,
+  "source": "manual",
+  "kind": "exhibition",
+  "area_label": "徳島駅・新町川",
+  "stations": [
+    {
+      "name": "徳島駅",
+      "line": "JR高徳線・牟岐線・徳島線",
+      "walk_min": 5,
+      "lat": 34.074572,
+      "lng": 134.551391
+    }
+  ],
+  "schedule_url": "https://www.machiasobi.com/",
+  "order": 30,
+  "max_hotels": 40
+}

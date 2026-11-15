@@ -957,7 +957,8 @@ def kobe_world(venue):
     return join_days(unique(items))
 
 
-SOURCES = {"ig_arena": ig_arena, "kobe_world": kobe_world,
+SOURCES = {"manual": lambda venue: [],  # 日程は config/manual_events.json に手で足す（コスプレイベントの街の会場、11/16〜）
+           "ig_arena": ig_arena, "kobe_world": kobe_world,
     "sapporo_dome": sapporo_dome,
     "marine_messe": marine_messe,
     "nagoya_dome": nagoya_dome,

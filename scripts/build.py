@@ -1104,7 +1104,8 @@ AREA_GROUPS = [
     ("千葉・幕張エリア", ["makuhari-messe", "lala-arena-tokyo-bay"]),
     ("大阪エリア", ["kyocera-dome-osaka", "osaka-jo-hall", "mydome-osaka", "intex-osaka"]),
     ("神戸エリア", ["kobe-world-hall"]),
-    ("名古屋エリア", ["vantelin-dome-nagoya", "ig-arena", "portmesse-nagoya"]),
+    ("名古屋エリア", ["vantelin-dome-nagoya", "ig-arena", "oasis21", "portmesse-nagoya"]),
+    ("四国エリア", ["aibahama-park"]),
     ("福岡エリア", ["mizuho-paypay-dome", "marine-messe-fukuoka"]),
     ("北海道エリア", ["sapporo-dome"]),
 ]
@@ -1118,7 +1119,7 @@ VENUE_TAGS = {
     "pacifico-yokohama": ["学会", "展示会", "コンサート"], "k-arena-yokohama": ["ライブ"], "pia-arena-mm": ["ライブ"],
     "yokohama-arena": ["ライブ", "スポーツ"],
     "trc-tokyo": ["同人誌即売会", "ファンイベント"], "sunshine-city": ["展示会", "アニメ・ゲーム"],
-    "intex-osaka": ["展示会"], "kyocera-dome-osaka": ["ライブ", "大型イベント"], "osaka-jo-hall": ["ライブ", "コンサート"], "mydome-osaka": ["展示会", "即売会"], "vantelin-dome-nagoya": ["ライブ", "大型イベント"], "mizuho-paypay-dome": ["ライブ", "大型イベント"], "portmesse-nagoya": ["展示会"], "sapporo-dome": ["ライブ", "大型イベント"], "marine-messe-fukuoka": ["ライブ", "展示会"], "ig-arena": ["ライブ", "スポーツ"], "kobe-world-hall": ["ライブ", "コンサート"],
+    "intex-osaka": ["展示会"], "kyocera-dome-osaka": ["ライブ", "大型イベント"], "osaka-jo-hall": ["ライブ", "コンサート"], "mydome-osaka": ["展示会", "即売会"], "vantelin-dome-nagoya": ["ライブ", "大型イベント"], "mizuho-paypay-dome": ["ライブ", "大型イベント"], "portmesse-nagoya": ["展示会"], "sapporo-dome": ["ライブ", "大型イベント"], "marine-messe-fukuoka": ["ライブ", "展示会"], "ig-arena": ["ライブ", "スポーツ"], "kobe-world-hall": ["ライブ", "コンサート"], "aibahama-park": ["コスプレ", "アニメ"], "oasis21": ["コスプレ", "イベント広場"],
     "lala-arena-tokyo-bay": ["ライブ", "バスケットボール"], "yokohama-buntai": ["ライブ", "スポーツ"],
 }
 SPORTS = re.compile(r"サッカー|Jリーグ|J1|マラソン|ラグビー|陸上|大相撲|リーグ|選手権|大会|試合|ホームゲーム|開幕戦|vs|VS|BOXING|ボクシング|ONE |格闘|バスケ|バレー|フィギュア|Championship|GAME\.|太極拳")
@@ -1137,10 +1138,13 @@ GENRES = {
             "lead": "始発より早く並びたい人向けに、会場まで歩ける宿と、宿を出る時刻の目安を先に出しています。"},
     "live": {"label": "ライブ・公演", "tail": "終演後に歩いて帰れる宿", "color": "#2B2F4A", "soft": "#ECEDF3",
              "lead": "終演後に電車に乗らずに戻れる距離の宿を先に並べ、1人でも2人でも泊まれる料金を出しています。"},
+    "cosplay": {"label": "コスプレイベント", "tail": "着替えや荷物置きに戻れる近い宿", "color": "#7A3E8C", "soft": "#F3ECF6",
+                "lead": "衣装やキャリーで荷物が多い人向けに、会場まで歩いて戻れる宿を近い順に並べ、開催日の空室と1人あたりの料金を出しています。"},
     "general": {"label": "一般向けイベント", "tail": "開催日に空いている宿", "color": "#13697A", "soft": "#E6F2F4",
                 "lead": "開催日の夜に空いている宿を会場から近い順に並べ、人数を選ぶだけで1人あたりの料金がわかります。"},
 }
 GENRE_RULES = [
+    ("cosplay", re.compile(r"コスプレ|池ハロ|マチ★アソビ|マチアソビ|ストリートフェスタ|ホココス|acosta|アコスタ", re.I)),
     ("academic", re.compile(r"学会|学術|研究会|研究大会|入学試験|入試|試験|検定|審査|カンファレンス|Conference|シンポジウム", re.I)),
     ("general", re.compile(r"就活|就職|インターン|キャリア|セミナー|説明会|合同企業|コンテスト|学校選び|相談会|ビアフェス|ビールフェス|BEER ?FES|オクトーバーフェスト|婚活|街コン|出会いの祭典|農林水産FEST|就農|わんにゃん|ペット博|トミカ博|MLBx|講座|講習|食べる・たいせつ|ふわふわアドベンチャー|モノ ?ヴィレッジ|スポーツパーク|縁結び|ナイトヨガ|はたちのつどい|成人の日|EDIX|ウェルディング", re.I)),
     ("pop", re.compile(r"デュエル・マスターズ|コミックマーケット|コミケ|COMIC|コミコン|即売会|同人|ゲームショウ|ホビー|ワンダーフェスティバル|ワンフェス|カードゲーム|ポケモン|デザインフェスタ|ハンドメイド|謎解|ファンフェスティバル|ファンフェス|AnimeJapan|アニメ|超会議|フリマ|フリーマーケット|バザール|ふるさと納税", re.I)),

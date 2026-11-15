@@ -1,0 +1,40 @@
+{
+  "slug": "oasis21",
+  "name": "オアシス21",
+  "formal_name": "オアシス21（名古屋・栄）",
+  "address": "愛知県名古屋市東区東桜1-11-1",
+  "lat": 35.171772,
+  "lng": 136.909058,
+  "search_radius_km": 3.0,
+  "source": "manual",
+  "kind": "exhibition",
+  "area_label": "栄・大須",
+  "stations": [
+    {
+      "name": "栄駅",
+      "line": "地下鉄東山線・名城線",
+      "walk_min": 1,
+      "lat": 35.16999,
+      "lng": 136.908031
+    },
+    {
+      "name": "栄町駅",
+      "line": "名鉄瀬戸線",
+      "walk_min": 1,
+      "lat": 35.170567,
+      "lng": 136.908962
+    }
+  ],
+  "schedule_url": "https://www.worldcosplaysummit.jp/",
+  "order": 31,
+  "max_hotels": 40,
+  "far_areas": [
+    {
+      "name": "名古屋駅・伏見",
+      "chu": "aichi",
+      "shou": "nagoyashi",
+      "sai": "A",
+      "why": "新幹線で帰る人。地下鉄東山線で名古屋から栄まで乗り換えなし（約5分）"
+    }
+  ]
+}
