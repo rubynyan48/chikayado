@@ -1,0 +1,54 @@
+{
+  "slug": "ig-arena",
+  "name": "IGアリーナ",
+  "formal_name": "IGアリーナ（愛知国際アリーナ）",
+  "address": "愛知県名古屋市北区名城1-2-22",
+  "lat": 35.189888,
+  "lng": 136.903534,
+  "search_radius_km": 3.0,
+  "source": "ig_arena",
+  "kind": "arena",
+  "area_label": "名城公園・市役所",
+  "stations": [
+    {
+      "name": "名城公園駅",
+      "line": "地下鉄名城線",
+      "walk_min": 3,
+      "lat": 35.190528,
+      "lng": 136.904748
+    },
+    {
+      "name": "清水駅",
+      "line": "名鉄瀬戸線",
+      "walk_min": 18,
+      "lat": 35.187152,
+      "lng": 136.913814
+    },
+    {
+      "name": "浄心駅",
+      "line": "地下鉄鶴舞線",
+      "walk_min": 20,
+      "lat": 35.192205,
+      "lng": 136.890819
+    }
+  ],
+  "schedule_url": "https://www.ig-arena.jp/events/",
+  "order": 28,
+  "max_hotels": 40,
+  "far_areas": [
+    {
+      "name": "名古屋駅・伏見",
+      "chu": "aichi",
+      "shou": "nagoyashi",
+      "sai": "A",
+      "why": "新幹線で帰る人。地下鉄東山線で栄まで行き、名城線に乗り換えて名城公園まで約15分"
+    },
+    {
+      "name": "栄・錦",
+      "chu": "aichi",
+      "shou": "nagoyashi",
+      "sai": "B",
+      "why": "宿と飲食店が多い。地下鉄名城線で栄から名城公園まで乗り換えなし（約6分）"
+    }
+  ]
+}

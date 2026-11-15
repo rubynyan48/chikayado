@@ -1103,7 +1103,8 @@ AREA_GROUPS = [
     ("新横浜エリア", ["yokohama-arena"]),
     ("千葉・幕張エリア", ["makuhari-messe", "lala-arena-tokyo-bay"]),
     ("大阪エリア", ["kyocera-dome-osaka", "osaka-jo-hall", "mydome-osaka", "intex-osaka"]),
-    ("名古屋エリア", ["vantelin-dome-nagoya", "portmesse-nagoya"]),
+    ("神戸エリア", ["kobe-world-hall"]),
+    ("名古屋エリア", ["vantelin-dome-nagoya", "ig-arena", "portmesse-nagoya"]),
     ("福岡エリア", ["mizuho-paypay-dome", "marine-messe-fukuoka"]),
     ("北海道エリア", ["sapporo-dome"]),
 ]
@@ -1117,7 +1118,7 @@ VENUE_TAGS = {
     "pacifico-yokohama": ["学会", "展示会", "コンサート"], "k-arena-yokohama": ["ライブ"], "pia-arena-mm": ["ライブ"],
     "yokohama-arena": ["ライブ", "スポーツ"],
     "trc-tokyo": ["同人誌即売会", "ファンイベント"], "sunshine-city": ["展示会", "アニメ・ゲーム"],
-    "intex-osaka": ["展示会"], "kyocera-dome-osaka": ["ライブ", "大型イベント"], "osaka-jo-hall": ["ライブ", "コンサート"], "mydome-osaka": ["展示会", "即売会"], "vantelin-dome-nagoya": ["ライブ", "大型イベント"], "mizuho-paypay-dome": ["ライブ", "大型イベント"], "portmesse-nagoya": ["展示会"], "sapporo-dome": ["ライブ", "大型イベント"], "marine-messe-fukuoka": ["ライブ", "展示会"],
+    "intex-osaka": ["展示会"], "kyocera-dome-osaka": ["ライブ", "大型イベント"], "osaka-jo-hall": ["ライブ", "コンサート"], "mydome-osaka": ["展示会", "即売会"], "vantelin-dome-nagoya": ["ライブ", "大型イベント"], "mizuho-paypay-dome": ["ライブ", "大型イベント"], "portmesse-nagoya": ["展示会"], "sapporo-dome": ["ライブ", "大型イベント"], "marine-messe-fukuoka": ["ライブ", "展示会"], "ig-arena": ["ライブ", "スポーツ"], "kobe-world-hall": ["ライブ", "コンサート"],
     "lala-arena-tokyo-bay": ["ライブ", "バスケットボール"], "yokohama-buntai": ["ライブ", "スポーツ"],
 }
 SPORTS = re.compile(r"サッカー|Jリーグ|J1|マラソン|ラグビー|陸上|大相撲|リーグ|選手権|大会|試合|ホームゲーム|開幕戦|vs|VS|BOXING|ボクシング|ONE |格闘|バスケ|バレー|フィギュア|Championship|GAME\.|太極拳")

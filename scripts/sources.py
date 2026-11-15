@@ -850,7 +850,114 @@ def marine_messe(venue):
     return unique(items)
 
 
-SOURCES = {
+# ---- IGアリーナ ------------------------------------------------------------------
+def ig_arena_parse(soup, today=None):
+    """月ごとのイベント一覧（/events/?month=YYYY-MM）。カードの日付は「2026 11.21（土）・11.22（日）」の形。"""
+    today = today or date.today()
+    items, seen = [], set()
+    for a in soup.select('a[href*="returnTo"]'):
+        m = re.match(r"/?(?:events/)?(\d+)\?", a.get("href", ""))
+        h3 = a.select_one("h3")
+        if not m or not h3 or m.group(1) in seen:
+            continue
+        seen.add(m.group(1))
+        name = clean(h3.get_text(" "))
+        if not name or SKIP_TOYOTA.search(name):
+            continue
+        spans = [clean(x.get_text()) for x in a.select("div.efont span")]
+        year = next((int(x) for x in spans if re.fullmatch(r"20\d\d", x)), today.year)
+        days, last = [], None
+        for x in spans:
+            d = re.fullmatch(r"(\d{1,2})\.(\d{1,2})", x)
+            if not d:
+                continue
+            mo, dy = int(d.group(1)), int(d.group(2))
+            if last and mo < last[0]:
+                year += 1
+            last = (mo, dy)
+            days.append(date(year, mo, dy))
+        url = f"https://www.ig-arena.jp/events/{m.group(1)}"
+        if "〜" in "".join(spans) or "~" in "".join(spans):
+            if days:
+                items.append(event(name, days[0].isoformat(), days[-1].isoformat(), url=url))
+            continue
+        items += [event(name, d.isoformat(), url=url) for d in days]
+    return [e for e in items if e["end"] >= today.isoformat()]
+
+
+def ig_arena_detail(soup):
+    """イベントの詳しいページの「アーティスト」「日時」「公式サイト」の欄。"""
+    rows = {}
+    for val in soup.select("div.event-line-html"):
+        label = val.find_previous_sibling("div")
+        if label:
+            rows[clean(label.get_text())] = val
+    artist = clean(rows["アーティスト"].get_text(" ")) if "アーティスト" in rows else ""
+    times = re.findall(r"\d{1,2}:\d{2}", clean(rows["日時"].get_text("")).replace("：", ":")) if "日時" in rows else []
+    hours = f"開場 {times[0]} 開演 {times[1]}" if len(times) >= 2 else ""
+    link = next((a["href"] for k, v in rows.items() if "公式" in k for a in v.select("a[href^=http]")), "")
+    return artist, hours, link
+
+
+def ig_arena(venue):
+    """公式のイベント一覧を今月から月ごとに読み、イベントごとの詳しいページでアーティスト名と時間を足す。
+    B.LEAGUEのリーグ戦は地元のファンが中心なので載せない。"""
+    items = []
+    for y, mo in months_ahead(9):
+        soup = get_html(f"https://www.ig-arena.jp/events/?month={y}-{mo:02d}")
+        got = ig_arena_parse(soup)
+        if not got and "Coming soon" in soup.get_text():
+            break
+        items += got
+    details = {}
+    for e in items:
+        if e["url"] not in details:
+            try:
+                details[e["url"]] = ig_arena_detail(get_html(e["url"]))
+            except Exception as exc:
+                print(f"{venue['name']}: 詳しいページが開けない {e['url']} {exc}")
+                details[e["url"]] = ("", "", "")
+        artist, hours, link = details[e["url"]]
+        e["name"] = title_with_artist(artist, e["name"])
+        e["hours"] = hours
+        e["url"] = link or e["url"]
+    return join_days(unique(items))
+
+
+# ---- 神戸ワールド記念ホール ------------------------------------------------------
+def kobe_world_parse(soup, y, mo, today=None):
+    """月ごとのイベントカレンダー（cal_event?ym=YYYYMM）。1行に1公演で、開催日と開演時間が日ごとに並ぶ。"""
+    today = today or date.today()
+    items = []
+    for li in soup.select("#cal_event ul > li"):
+        cols = li.find_all("span", recursive=False)
+        if len(cols) < 2:
+            continue
+        name = clean(cols[0].get_text(" "))
+        if not name or re.search(r"中止|延期|設営|撤去|関係者", name):
+            continue
+        links = [a["href"] for a in li.select("a[href^=http]")]
+        url = next((h for h in links if "オフィシャル" in (li.find("a", href=h).get_text() or "")), links[0] if links else "")
+        for day in cols[1].find_all("span", recursive=False):
+            d = re.search(r"(\d{1,2})月(\d{1,2})日", day.get_text())
+            if not d:
+                continue
+            m, dy = int(d.group(1)), int(d.group(2))
+            yy = y - 1 if m - mo > 6 else (y + 1 if mo - m > 6 else y)
+            t = re.search(r"\d{1,2}:\d{2}", day.get_text())
+            items.append(event(name, date(yy, m, dy).isoformat(), hours=f"開演 {t.group(0)}" if t else "", url=url))
+    return [e for e in items if e["end"] >= today.isoformat()]
+
+
+def kobe_world(venue):
+    """公式のイベントカレンダーを今月から月ごとに読む（4か月ほど先まで載る）。"""
+    items = []
+    for y, mo in months_ahead(6):
+        items += kobe_world_parse(get_html(f"https://www.kobe-spokyo.jp/world-kobe/cal_event?ym={y}{mo:02d}"), y, mo)
+    return join_days(unique(items))
+
+
+SOURCES = {"ig_arena": ig_arena, "kobe_world": kobe_world,
     "sapporo_dome": sapporo_dome,
     "marine_messe": marine_messe,
     "nagoya_dome": nagoya_dome,
