@@ -411,8 +411,8 @@ def audience_label(text):
 
 def route_map(venue, station_page, hotels, goal_step, via=None, via_step=None):
     """駅から会場の正面までの道のりを地図に描く。viaに宿名の一部を入れると、その宿の前を通る。"""
-    st = next(x for x in venue["stations"] if x["page"] == station_page)
-    pts = [{"n": 1, "name": f"{st['name']}の改札", "lat": st["lat"], "lng": st["lng"]}]
+    st = next(x for x in venue["stations"] if x.get("page") == station_page)
+    pts = [{"n": 1, "name": f"{st['name']}の{st.get('exit', '改札')}", "lat": st["lat"], "lng": st["lng"]}]
     if via:
         h = next((x for x in hotels if via in x["name"]), None)
         if h:
@@ -1506,6 +1506,10 @@ def pages_for(venue, ctx):
          "description": events_desc(venue, ctx["events"]),
          "breadcrumbs": [home, hub, {"name": "開催予定イベント", "path": v + "events/"}], "float_cta": cta},
     ]
+    for rp in venue.get("route_pages", []):  # 持ち主が歩いて撮った写真で作る駅からの道順（11/15〜、マイドームおおさか）
+        pages.append({"path": f"{v}{rp['slug']}/", "template": rp["template"], "title": rp["title"],
+                      "description": rp["description"], "has_map": True,
+                      "breadcrumbs": [home, hub, {"name": rp["name"], "path": f"{v}{rp['slug']}/"}], "float_cta": cta})
     if venue.get("guides"):
         pages += [
         {"path": v + "yurikamome/", "template": "yurikamome.html",
