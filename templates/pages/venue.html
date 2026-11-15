@@ -62,4 +62,10 @@
 <h2>{{ venue.name }}の最寄り駅</h2>
 {{ station_table(venue) }}
 <p class="note">徒歩の時間は、駅と会場の位置から計算した目安です。</p>
+{% for rp in venue.route_pages or [] %}
+<h3>{{ rp.name }}（{{ rp.sub }}）</h3>
+<p>{{ rp.lead }}</p>
+<div class="route-thumbs">{% for ph in rp.photos %}<div>{{ photo(ph.file, ph.alt) }}<p class="cap">{{ ph.cap }}</p></div>{% endfor %}</div>
+<p><a class="btn btn-primary btn-block" href="/{{ venue.slug }}/{{ rp.slug }}/">{{ rp.name }}を地図と写真で見る</a></p>
+{% endfor %}
 {% endif %}
