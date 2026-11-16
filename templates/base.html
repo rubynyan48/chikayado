@@ -193,12 +193,12 @@
       out.innerHTML=h;
       var mb=out.querySelector('.rec-more');if(mb)mb.addEventListener('click',function(){show(list,date,adults,sort,true);});
     }
-    function update(){
+    function update(force){
       var venue=f.venue?f.venue.value:f.dataset.venue, date=f.date.value, adults=f.querySelector('input[name=adults]:checked').value, sort=f.querySelector('input[name=sort]:checked').value, key=venue+'|'+date+'|'+adults, my=++seq;
       if(!venue){out.innerHTML='<p class="empty">会場を選んでください。</p>';return;}
       if(!date)return;
-      if(date===preset.date&&preset.people[adults]){show(preset.people[adults],date,adults,sort);return;}
-      if(cache[key]){show(cache[key],date,adults,sort);return;}
+      if(!force&&date===preset.date&&preset.people[adults]){show(preset.people[adults],date,adults,sort);return;}
+      if(!force&&cache[key]){show(cache[key],date,adults,sort);return;}
       out.innerHTML='<p class="empty">空室を調べています…</p>';
       fetch('/api/search.php?venue='+venue+'&date='+date+'&adults='+adults).then(function(r){return r.json();}).then(function(d){
         if(my!==seq)return;
@@ -211,6 +211,8 @@
       if(ev.target.name==='date')f.querySelectorAll('input[name=night]').forEach(function(r){r.checked=r.value===f.date.value;});
       if(!f.venue||f.venue.value)update();});
     f.addEventListener('submit',function(ev){ev.preventDefault();update();});
+    var live=out.nextElementSibling;
+    if(live&&live.classList.contains('rec-live'))live.addEventListener('click',function(){update(true);out.scrollIntoView({behavior:'smooth',block:'start'});});
   });
   document.querySelectorAll('.tabs').forEach(function(t){
     t.querySelectorAll('[role=tab]').forEach(function(tab){tab.addEventListener('click',function(){

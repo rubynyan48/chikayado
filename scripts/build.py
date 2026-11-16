@@ -608,6 +608,8 @@ def rec_box(venue, hotels, by_people, default_date, adults="1", limit=6, nights=
         f'<p class="rec-label">並べ方</p><div class="search-people rec-sort" role="group" aria-label="並べ方">{sorts}</div>'
         f'<script type="application/json" class="rec-data">{data}</script></form>'
         f'<div class="rec-result" aria-live="polite"><p class="hint">{hint}</p>{quick_cards(first, limit)}</div>'
+        + ('<button type="button" class="btn btn-sign btn-block rec-live">いまの空室で調べ直す</button>'
+           '<p class="search-note">空室は毎朝調べています。大きなイベントの日は数時間で埋まる宿もあるので、予約の前にこのボタンで楽天トラベルの今の空室に切り替えてください。</p>' if by_people else '') +
         '<p class="search-note">会場から' + km(venue) + '以内の宿を楽天トラベルの空室から出しています。料金は1部屋に泊まるときの1人あたりの最安値です。</p>'
     )
 
