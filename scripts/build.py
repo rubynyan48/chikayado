@@ -7,6 +7,7 @@ import json
 from urllib.parse import quote
 import math
 import re
+from urllib.parse import parse_qs, urlparse
 import unicodedata
 import shutil
 from datetime import date, timedelta
@@ -136,12 +137,25 @@ def badge(m):
     return '<span class="walk far">電車で1〜2駅</span>'
 
 
+def plan_url(no, d1, d2, adults):
+    """楽天トラベルの宿のプラン一覧を、泊まる日と人数を入れた状態で開くURL（11/16〜）。
+    宿のトップに飛ばすと楽天側で日付と人数を入れ直す必要があり、そこで離れる人が多いため。"""
+    a, b = date.fromisoformat(d1), date.fromisoformat(d2)
+    return (f"https://hotel.travel.rakuten.co.jp/hotelinfo/plan/{no}?f_nen1={a.year}&f_tuki1={a.month}&f_hi1={a.day}"
+            f"&f_nen2={b.year}&f_tuki2={b.month}&f_hi2={b.day}&f_heya_su=1&f_otona_su={adults}"
+            "&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0")
+
+
 def book_url(h, vac=None):
-    """予約ボタンのリンク先。もしもアフィリエイトの設定があれば、楽天トラベルの宿のページへの「どこでもリンク」にする。"""
+    """予約ボタンのリンク先。もしもアフィリエイトの設定があれば、楽天トラベルの宿のページへの「どこでもリンク」にする。
+    空室のデータ（泊まる日と人数がわかる）から押したときは、その日と人数を入れたプラン一覧に飛ばす。"""
     m = SITE.get("moshimo") or {}
     if m.get("a_id") and h.get("hotelNo"):
         no = h["hotelNo"]
         url = f"https://travel.rakuten.co.jp/HOTEL/{no}/{no}.html"
+        q = parse_qs(urlparse((vac or {}).get("reserve_url") or "").query)
+        if q.get("f_hi1") and q.get("f_hi2"):
+            url = plan_url(no, q["f_hi1"][0], q["f_hi2"][0], (q.get("f_otona_su") or ["1"])[0])
         from urllib.parse import quote
         return (f"https://af.moshimo.com/af/c/click?a_id={m['a_id']}&p_id={m['p_id']}&pc_id={m['pc_id']}"
                 f"&pl_id={m['pl_id']}&url={quote(url, safe='')}")

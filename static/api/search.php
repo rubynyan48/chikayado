@@ -105,7 +105,11 @@ $out = [];
 foreach ($meta['hotels'] as $h) {
     $o = $offers[$h['hotelNo']] ?? null;
     if (!$o) continue;
-    $url = "https://travel.rakuten.co.jp/HOTEL/{$h['hotelNo']}/{$h['hotelNo']}.html";
+    // 選んだ日と人数を入れた状態で楽天トラベルのプラン一覧を開く（11/16〜）
+    $out_d = (clone $d)->modify('+1 day');
+    $url = "https://hotel.travel.rakuten.co.jp/hotelinfo/plan/{$h['hotelNo']}?f_nen1=" . $d->format('Y') . "&f_tuki1=" . $d->format('n') . "&f_hi1=" . $d->format('j')
+         . "&f_nen2=" . $out_d->format('Y') . "&f_tuki2=" . $out_d->format('n') . "&f_hi2=" . $out_d->format('j')
+         . "&f_heya_su=1&f_otona_su={$adults}&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0";
     if ($m) {
         $url = "https://af.moshimo.com/af/c/click?a_id={$m['a_id']}&p_id={$m['p_id']}&pc_id={$m['pc_id']}&pl_id={$m['pl_id']}&url=" . rawurlencode($url);
     }
