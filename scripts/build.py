@@ -1495,6 +1495,45 @@ def event_lead(e, st, sd):
     return f"{md(sd)}の夜に1人で泊まれる空室は{one['open']}軒、最安{one['min']:,}円です（{md(TODAY)}時点）。"
 
 
+# ChatGPTなどが答えにそのまま引けるよう、その日の泊まり方を言い切りの文で書く（11/17〜）
+def stay_advice(hotels, vacancy, stay_date, label=None, event=None, venue=None, st=None, people_page=None):
+    bp = (vacancy or {}).get("by_people") or {}
+    n = people_page or "1"
+    items = with_offers(hotels, bp.get(n)) if bp.get(n) else []
+    if not items:
+        return Markup("")
+    near = min(items, key=lambda h: h["distance_m"])
+    cheap = min(items, key=lambda h: h["offer"]["per_person"])
+    def fact(h):
+        where = f"会場から約{dist_label(h['distance_m'])}" if h["distance_m"] > 3000 else f"会場まで徒歩約{walk_min(h['distance_m'])}分"
+        return f"{where}、{price_cond(h['offer'])}{h['offer']['per_person']:,}円から"
+    night = f"{md(stay_date)}の夜"
+    out = []
+    if event:
+        out.append(f"{event['name']}で{night}に{venue['name']}の近くに泊まるなら、空いている中で会場にいちばん近いのは{near['name']}（{fact(near)}）です。")
+    else:
+        out.append(f"{venue['name']}の近くに{label}で泊まるなら、{night}に空いている中で会場にいちばん近いのは{near['name']}（{fact(near)}）です。")
+    if cheap["hotelNo"] != near["hotelNo"]:
+        out.append(f"安さを優先するなら{cheap['name']}（{fact(cheap)}）です。")
+    if event and bp.get("2"):
+        two = with_offers(hotels, bp["2"])
+        if two:
+            t = min(two, key=lambda h: h["distance_m"])
+            out.append(f"2人で1室に泊まるなら、{t['name']}が1人あたり{t['offer']['per_person']:,}円からです。")
+    if st and st.get("near_total"):
+        line = f"会場まで歩ける{st['near_total']}軒のうち、1人1室で空いているのは{st['one']['near']}軒です。"
+        if st.get("hist_open_from") and st.get("hist_open_now") is not None and st["hist_open_now"] < st["hist_open_from"]:
+            line += f"{md(st['hist_from'])}に調べたときの{st['hist_open_from']}軒から{st['hist_open_now']}軒に減っているので、早めに押さえておくのがおすすめです。"
+        elif st["one"]["near"] * 3 <= st["near_total"]:
+            line += "歩いて行ける宿は残りが少ないので、早めに押さえておくのがおすすめです。"
+        out.append(line)
+    if event:
+        out.append(f"空室と料金は{md(TODAY)}の朝に楽天トラベルで調べたものです。いまの空きは、このページの「いまの空室で調べ直す」で楽天トラベルに問い合わせ直して確かめられます。")
+    else:
+        out.append(f"空室と料金は{md(TODAY)}の朝に楽天トラベルで調べたものです。ほかの日の空きは、このページの「日付を変えて探す」でその場で調べられます。イベントの日は料金が上がるので、行くイベントが決まっていればイベントのページで開催日の空室を確かめてください。")
+    return Markup('<div class="advice"><p class="advice-h">' + ("この日の泊まり方" if event else f"{label}で泊まるときの選び方") + "</p><p>" + "".join(str(Markup.escape(x)) for x in out) + "</p></div>")
+
+
 def pages_for(venue, ctx):
     v = f"/{venue['slug']}/"
     home = {"name": "トップ", "path": "/"}
@@ -1649,7 +1688,7 @@ def main():
     env = Environment(loader=FileSystemLoader(ROOT / "templates"), autoescape=select_autoescape(["html"]))
     helpers = {"night_rows": night_rows, "run_rows": run_rows, "run_labels": run_labels, "fill_pace": fill_pace, "pair_saving": pair_saving, "entrance_for": entrance_for, "hotels_from_entrance": hotels_from_entrance, "lunch_split": lunch_split, "far_links": far_links, "group_title": group_title, "bus_rows": bus_rows, "price_cond": price_cond, "stay_nights": stay_nights, "stay_from": stay_from, "cheap_picks": cheap_picks, "cheap_max_km": CHEAP_MAX_KM, "cheap_cards": cheap_cards, "is_trade": is_trade, "genre": genre, "genre_photo": genre_photo, "photo": photo, "hotel_table": hotel_table, "hotel_cards": hotel_cards, "best_cards": best_cards,
                "compare_table": compare_table, "hotel_map": hotel_map, "people_tabs": people_tabs,
-               "with_offers": with_offers, "price_of": price_of, "event_stats": event_stats, "best_picks": best_picks, "depart_table": depart_table,
+               "with_offers": with_offers, "stay_advice": stay_advice, "price_of": price_of, "event_stats": event_stats, "best_picks": best_picks, "depart_table": depart_table,
                "open_time": open_time, "audience_label": audience_label,
                "event_table": event_table, "restaurant_table": restaurant_table, "dist_label": dist_label,
                "walk_min": walk_min, "yen": yen, "quick_cards": quick_cards, "people_switch": people_switch,

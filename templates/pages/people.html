@@ -17,6 +17,7 @@
   <p class="answer-note">空室と料金は毎日取り直しています。</p>
 </div>
 {% endif %}
+{{ stay_advice(hotels, sat_vacancy, saturday, label=page.people_label, venue=venue, people_page=n) }}
 <p>料金は{{ jdate(saturday) }}にチェックインして1泊する場合の、1部屋に{{ n }}人で泊まるいちばん安いプランを1人あたりに直したものです。イベントの日は料金が上がることが多いので、行くイベントが決まっている場合はイベントのページで開催日の料金を確認してください。</p>
 <!--body-->
 <h2>{{ page.people_label }}で泊まれる近い宿</h2>
