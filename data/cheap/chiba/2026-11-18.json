@@ -1,5 +1,5 @@
 {
- "checked": "2026-11-15",
+ "checked": "2026-11-16",
  "checkin": "2026-11-18",
  "hotels": [
   {
@@ -31,20 +31,6 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=183172&f_syu=mencapsule&f_hi1=2026-11-18&f_hi2=2026-11-19&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
   },
   {
-   "hotelNo": "68137",
-   "name": "ホテルプラザ菜の花",
-   "lat": 35.60334653,
-   "lng": 140.1220668,
-   "station": "本千葉",
-   "review_avg": 4.06,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/68137/68137.jpg",
-   "price": 6500,
-   "room": "シングルルーム〔喫煙〕",
-   "plan": "【首都圏☆おすすめ】特別シングルプラン《食事なし》",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=68137&f_syu=s2&f_hi1=2026-11-18&f_hi2=2026-11-19&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=2911089"
-  },
-  {
    "hotelNo": "198531",
    "name": "かのほてる&CABIN千葉蘇我",
    "lat": 35.5928602,
@@ -57,6 +43,20 @@
    "plan": "【キャビンルーム】〜心ほどける自分時間〜秋のリトリートステイ〈素泊まり〉",
    "dorm": true,
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=198531&f_syu=cabin02&f_hi1=2026-11-18&f_hi2=2026-11-19&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6610440"
+  },
+  {
+   "hotelNo": "180584",
+   "name": "ザ・コージーホテル千葉",
+   "lat": 35.6119803,
+   "lng": 140.1185482,
+   "station": "千葉",
+   "review_avg": 3.97,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/180584/180584.jpg",
+   "price": 9800,
+   "room": "【リニューアル】【喫煙】シングルルーム",
+   "plan": "【20時以降受付】レイトチェックインプラン【事前カード決済】",
+   "dorm": false,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=180584&f_syu=single01s&f_hi1=2026-11-18&f_hi2=2026-11-19&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6628971"
   },
   {
    "hotelNo": "70747",
@@ -115,34 +115,6 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=1578&f_syu=003&f_hi1=2026-11-18&f_hi2=2026-11-19&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5903036"
   },
   {
-   "hotelNo": "16169",
-   "name": "京成ホテルミラマーレ",
-   "lat": 35.6076154,
-   "lng": 140.1183003,
-   "station": "千葉中央",
-   "review_avg": 4.32,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/16169/16169.jpg",
-   "price": 14200,
-   "room": "★本 館★ スタンダードルーム 1名",
-   "plan": "シンプルステイ♪【素泊まり】◆京成線千葉中央駅直結",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=16169&f_syu=sr&f_hi1=2026-11-18&f_hi2=2026-11-19&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5630025"
-  },
-  {
-   "hotelNo": "182195",
-   "name": "アパホテル〈千葉中央駅前〉",
-   "lat": 35.6059799462158,
-   "lng": 140.11952898755072,
-   "station": "千葉中央",
-   "review_avg": 4.04,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/182195/182195.jpg",
-   "price": 15660,
-   "room": "セミダブル□禁煙□",
-   "plan": "【無料朝食付き】【事前決済限定】1秒チェックインにおすすめ!",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=182195&f_syu=w1k&f_hi1=2026-11-18&f_hi2=2026-11-19&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5203219"
-  },
-  {
    "hotelNo": "192697",
    "name": "ロイヤルパインズホテル千葉",
    "lat": 35.6103722,
@@ -155,20 +127,6 @@
    "plan": "【事前決済限定プラン】スタンダードプラン《素泊り》※予約確定後キャンセル規定適用",
    "dorm": false,
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=192697&f_syu=dsun&f_hi1=2026-11-18&f_hi2=2026-11-19&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6456855"
-  },
-  {
-   "hotelNo": "11042",
-   "name": "ホテルポートプラザちば",
-   "lat": 35.60818436,
-   "lng": 140.1027599,
-   "station": "千葉みなと",
-   "review_avg": 4.3,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/11042/11042.jpg",
-   "price": 16200,
-   "room": "シングル・禁煙【べッド幅140cm】",
-   "plan": "11月限定10%OFF! 秋旅応援ご宿泊プラン【素泊まりシンプルステイ】",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=11042&f_syu=noss&f_hi1=2026-11-18&f_hi2=2026-11-19&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6644277"
   },
   {
    "hotelNo": "182486",
@@ -199,32 +157,18 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=185763&f_syu=r14130_10&f_hi1=2026-11-18&f_hi2=2026-11-19&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5662804"
   },
   {
-   "hotelNo": "181400",
-   "name": "ザキューブホテル千葉",
-   "lat": 35.6021812,
-   "lng": 140.1108313,
-   "station": "千葉みなと",
-   "review_avg": 4.1,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/181400/181400.jpg",
-   "price": 16720,
-   "room": "禁煙/スタンダードダブル22平米",
-   "plan": "【ビジネスプラン】14時イン12時アウト|駐車場無料|素泊",
+   "hotelNo": "166219",
+   "name": "ダイワロイネットホテル千葉中央",
+   "lat": 35.60757620000005,
+   "lng": 140.1190582539673,
+   "station": "千葉中央",
+   "review_avg": 4.53,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/166219/166219.jpg",
+   "price": 18000,
+   "room": "スタンダードダブルルーム□禁煙□1名様利用◎広々21平米",
+   "plan": "ベーシックプラン_素泊まり",
    "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=181400&f_syu=001&f_hi1=2026-11-18&f_hi2=2026-11-19&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6234537"
-  },
-  {
-   "hotelNo": "194768",
-   "name": "R Hotel/民泊",
-   "lat": 35.61530967,
-   "lng": 140.1104036,
-   "station": "新千葉",
-   "review_avg": null,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/194768/194768.jpg",
-   "price": 17522,
-   "room": "209",
-   "plan": "【千葉駅より徒歩1分・人気テーマパークまで電車で約40分】最大4名/209",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=194768&f_syu=r19199_4&f_hi1=2026-11-18&f_hi2=2026-11-19&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6282512"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=166219&f_syu=sdn1p&f_hi1=2026-11-18&f_hi2=2026-11-19&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5718309"
   },
   {
    "hotelNo": "141954",
@@ -241,18 +185,18 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=141954&f_syu=d2k&f_hi1=2026-11-18&f_hi2=2026-11-19&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4532364"
   },
   {
-   "hotelNo": "166219",
-   "name": "ダイワロイネットホテル千葉中央",
-   "lat": 35.60757620000005,
-   "lng": 140.1190582539673,
+   "hotelNo": "16169",
+   "name": "京成ホテルミラマーレ",
+   "lat": 35.6076154,
+   "lng": 140.1183003,
    "station": "千葉中央",
-   "review_avg": 4.53,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/166219/166219.jpg",
-   "price": 21000,
-   "room": "スタンダードダブルルーム□禁煙□1名様利用◎広々21平米",
-   "plan": "ベーシックプラン_素泊まり",
+   "review_avg": 4.32,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/16169/16169.jpg",
+   "price": 19700,
+   "room": "◆別 館◆ アネックスクイーン",
+   "plan": "シンプルステイ♪【素泊まり】◆京成線千葉中央駅直結",
    "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=166219&f_syu=sdn1p&f_hi1=2026-11-18&f_hi2=2026-11-19&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5718309"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=16169&f_syu=anq&f_hi1=2026-11-18&f_hi2=2026-11-19&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5630025"
   },
   {
    "hotelNo": "168546",
@@ -290,11 +234,11 @@
    "station": "千葉",
    "review_avg": 4.44,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/148926/148926.jpg",
-   "price": 23000,
-   "room": "【喫煙】スタンダードルーム◆1名利用◆18平米",
+   "price": 25000,
+   "room": "【禁煙】スタンダードルーム◇1名利用◇18平米",
    "plan": "【素泊まり】シンプルSTAY",
    "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=148926&f_syu=sds1&f_hi1=2026-11-18&f_hi2=2026-11-19&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=3513078"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=148926&f_syu=sdnn1&f_hi1=2026-11-18&f_hi2=2026-11-19&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=3513078"
   },
   {
    "hotelNo": "177583",
@@ -311,20 +255,6 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=177583&f_syu=sb-ns&f_hi1=2026-11-18&f_hi2=2026-11-19&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5741345"
   },
   {
-   "hotelNo": "713",
-   "name": "天然温泉 そが浜の湯 ドーミーイン千葉City Soga(ドーミーイン・御宿野乃 ホテルズグループ)",
-   "lat": 35.58117709,
-   "lng": 140.1328251,
-   "station": "蘇我",
-   "review_avg": 4.08,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/713/713.jpg",
-   "price": 28000,
-   "room": "【禁煙】◇和風クイーン◇(最大4名利用)全室Wi-Fi完備",
-   "plan": "【スタンダードプラン】海浜幕張・南船橋・舞浜駅まで京葉線で1本!!レジャー・ビジネスに便利<素泊り>",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=713&f_syu=4wqn&f_hi1=2026-11-18&f_hi2=2026-11-19&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=3551540"
-  },
-  {
    "hotelNo": "198773",
    "name": "THE TSUBAKIMORI Hotel & Residence(椿森ホテル&レジデンス)",
    "lat": 35.61826342981828,
@@ -336,7 +266,21 @@
    "room": "TSUBAKIMORI Room Twin 禁煙",
    "plan": "【食事なし】オープン記念特別セール 全室バルコニー付のブティックホテル",
    "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=198773&f_syu=suptwn&f_hi1=2026-11-18&f_hi2=2026-11-19&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6549648"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=198773&f_syu=suptwn&f_hi1=2026-11-18&f_hi2=2026-11-19&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6676063"
+  },
+  {
+   "hotelNo": "713",
+   "name": "天然温泉 そが浜の湯 ドーミーイン千葉City Soga(ドーミーイン・御宿野乃 ホテルズグループ)",
+   "lat": 35.58117709,
+   "lng": 140.1328251,
+   "station": "蘇我",
+   "review_avg": 4.08,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/713/713.jpg",
+   "price": 34500,
+   "room": "【禁煙】◇和風クイーン◇(最大4名利用)全室Wi-Fi完備",
+   "plan": "【スタンダードプラン】海浜幕張・南船橋・舞浜駅まで京葉線で1本!!レジャー・ビジネスに便利<素泊り>",
+   "dorm": false,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=713&f_syu=4wqn&f_hi1=2026-11-18&f_hi2=2026-11-19&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=3551540"
   }
  ]
 }

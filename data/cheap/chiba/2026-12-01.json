@@ -1,5 +1,5 @@
 {
- "checked": "2026-11-15",
+ "checked": "2026-11-16",
  "checkin": "2026-12-01",
  "hotels": [
   {
@@ -136,11 +136,11 @@
    "station": "千葉",
    "review_avg": 3.97,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/180584/180584.jpg",
-   "price": 8600,
-   "room": "【リニューアル】【禁煙】コーナーシングルルーム",
+   "price": 8800,
+   "room": "【リニューアル】【禁煙】ダブルルーム",
    "plan": "スタンダードプラン<JR千葉駅より駅前大通りを徒歩5分>",
    "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=180584&f_syu=single02&f_hi1=2026-12-01&f_hi2=2026-12-02&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6440449"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=180584&f_syu=double01&f_hi1=2026-12-01&f_hi2=2026-12-02&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6440449"
   },
   {
    "hotelNo": "189014",
@@ -305,24 +305,10 @@
    "review_avg": 3.68,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/5659/5659.jpg",
    "price": 12000,
-   "room": "有線LAN☆禁煙シングル★個別Wi-Fiルーター無料常設!",
+   "room": "有線LAN☆喫煙シングル★個別Wi-Fiルーター無料常設!",
    "plan": "JEFホーム☆フクアリ『蘇我スポーツ公園』まで 徒歩8分! ☆素泊まりプラン♪",
    "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=5659&f_syu=ksy&f_hi1=2026-12-01&f_hi2=2026-12-02&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5405912"
-  },
-  {
-   "hotelNo": "198773",
-   "name": "THE TSUBAKIMORI Hotel & Residence(椿森ホテル&レジデンス)",
-   "lat": 35.61826342981828,
-   "lng": 140.1185930023773,
-   "station": "千葉公園",
-   "review_avg": 4.56,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/198773/198773.jpg",
-   "price": 12000,
-   "room": "Standard Room Twin 禁煙",
-   "plan": "【食事なし】オープン記念特別セール 全室バルコニー付のブティックホテル",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=198773&f_syu=stdtwn&f_hi1=2026-12-01&f_hi2=2026-12-02&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6549648"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=5659&f_syu=ksys&f_hi1=2026-12-01&f_hi2=2026-12-02&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5405912"
   },
   {
    "hotelNo": "19211",
@@ -407,6 +393,20 @@
    "plan": "【ビジネスプラン】14時イン12時アウト|駐車場無料|素泊",
    "dorm": false,
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=181400&f_syu=004&f_hi1=2026-12-01&f_hi2=2026-12-02&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6234537"
+  },
+  {
+   "hotelNo": "195810",
+   "name": "【稲毛202】 ^",
+   "lat": 35.6418578,
+   "lng": 140.0843876,
+   "station": "京成稲毛",
+   "review_avg": null,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/195810/195810.jpg",
+   "price": 13688,
+   "room": "スタンダードルーム",
+   "plan": "【稲毛202】最寄駅5分/海浜幕張駅/幕張メッセへアクセスいい 成田空港に交通便利",
+   "dorm": false,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=195810&f_syu=678099_5&f_hi1=2026-12-01&f_hi2=2026-12-02&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6417553"
   }
  ]
 }
