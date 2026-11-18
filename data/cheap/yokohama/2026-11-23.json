@@ -1,5 +1,5 @@
 {
- "checked": "2026-11-17",
+ "checked": "2026-11-18",
  "checkin": "2026-11-23",
  "hotels": [
   {
@@ -26,9 +26,9 @@
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/135947/135947.jpg",
    "price": 2900,
    "room": "シングルルーム",
-   "plan": "「事前カード決済限定」自分で用意 素泊まりプラン",
+   "plan": "自分で用意 素泊まりプラン",
    "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=135947&f_syu=s&f_hi1=2026-11-23&f_hi2=2026-11-24&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=2733641"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=135947&f_syu=s&f_hi1=2026-11-23&f_hi2=2026-11-24&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=2538193"
   },
   {
    "hotelNo": "111221",
@@ -80,7 +80,7 @@
    "station": "関内",
    "review_avg": 3.77,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/188098/188098.jpg",
-   "price": 3500,
+   "price": 3700,
    "room": "【禁煙】ベーシック女性専用",
    "plan": "【女性専用】素泊まり(通年)",
    "dorm": false,
@@ -171,6 +171,20 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=188295&f_syu=haretabi4&f_hi1=2026-11-23&f_hi2=2026-11-24&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6487151"
   },
   {
+   "hotelNo": "167844",
+   "name": "global cabin横浜中華街(ドーミーインチェーン)",
+   "lat": 35.44212910409274,
+   "lng": 139.64532134569004,
+   "station": "",
+   "review_avg": 4.4,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/167844/167844.jpg",
+   "price": 4500,
+   "room": "【男性専用】カプセル《上段》",
+   "plan": "global cabin スマートステイプラン",
+   "dorm": true,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=167844&f_syu=upcapsule&f_hi1=2026-11-23&f_hi2=2026-11-24&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6657453"
+  },
+  {
    "hotelNo": "28778",
    "name": "ビジネスホテルときわ<神奈川県>",
    "lat": 35.50687879,
@@ -197,20 +211,6 @@
    "plan": "【和室】完全個室を確保、横浜素泊まりプラン",
    "dorm": false,
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=49253&f_syu=washitu3&f_hi1=2026-11-23&f_hi2=2026-11-24&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=1147708"
-  },
-  {
-   "hotelNo": "167844",
-   "name": "global cabin横浜中華街(ドーミーインチェーン)",
-   "lat": 35.44212910409274,
-   "lng": 139.64532134569004,
-   "station": "",
-   "review_avg": 4.4,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/167844/167844.jpg",
-   "price": 5175,
-   "room": "【男性専用】カプセル《上段》",
-   "plan": "global cabin スマートステイプラン",
-   "dorm": true,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=167844&f_syu=upcapsule&f_hi1=2026-11-23&f_hi2=2026-11-24&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6657453"
   },
   {
    "hotelNo": "53080",
@@ -333,10 +333,10 @@
    "review_avg": 3.48,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/16513/16513.jpg",
    "price": 6600,
-   "room": "シングル(禁煙ルーム)",
+   "room": "シングル喫煙(JR桜木町駅より徒歩5分、関内駅より徒歩7分)",
    "plan": "",
    "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=16513&f_syu=s3&f_hi1=2026-11-23&f_hi2=2026-11-24&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=16513&f_syu=s&f_hi1=2026-11-23&f_hi2=2026-11-24&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
   },
   {
    "hotelNo": "180432",
@@ -403,10 +403,10 @@
    "review_avg": 4.01,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/50196/50196.jpg",
    "price": 7000,
-   "room": "《喫煙》 スタンダード・セミダブル/12平米",
+   "room": "《禁煙》 スタンダード・セミダブル/12平米",
    "plan": "【ベストレート/素泊まり】スタンダード宿泊プラン",
    "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=50196&f_syu=msdblsnew&f_hi1=2026-11-23&f_hi2=2026-11-24&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=3570414"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=50196&f_syu=msdblnnsne&f_hi1=2026-11-23&f_hi2=2026-11-24&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=3570414"
   }
  ]
 }
