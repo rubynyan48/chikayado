@@ -1520,13 +1520,15 @@ def stay_advice(hotels, vacancy, stay_date, label=None, event=None, venue=None, 
         if two:
             t = min(two, key=lambda h: h["distance_m"])
             out.append(f"2人で1室に泊まるなら、{t['name']}が1人あたり{t['offer']['per_person']:,}円からです。")
-    if st and st.get("near_total"):
-        line = f"会場まで歩ける{st['near_total']}軒のうち、1人1室で空いているのは{st['one']['near']}軒です。"
-        if st.get("hist_open_from") and st.get("hist_open_now") is not None and st["hist_open_now"] < st["hist_open_from"]:
-            line += f"{md(st['hist_from'])}に調べたときの{st['hist_open_from']}軒から{st['hist_open_now']}軒に減っているので、早めに押さえておくのがおすすめです。"
-        elif st["one"]["near"] * 3 <= st["near_total"]:
-            line += "歩いて行ける宿は残りが少ないので、早めに押さえておくのがおすすめです。"
-        out.append(line)
+    # 歩いて行ける宿の残りの数と日ごとの空きは文に書かず、ページで見てもらう（11/20〜。ChatGPTが答えだけ持ち帰らないように）
+    if event:
+        shrink = st and st.get("hist_open_from") and st.get("hist_open_now") is not None and st["hist_open_now"] < st["hist_open_from"]
+        few = st and st.get("near_total") and st["one"]["near"] * 3 <= st["near_total"]
+        what = "開催日ごとの空きと、歩いて行ける宿があと何軒空いているか" if len(event.get("runs") or []) > 1 else "歩いて行ける宿があと何軒空いているか"
+        if shrink or few:
+            out.append(f"歩いて行ける宿は{md(st['hist_from']) + 'に調べたときより' if shrink else ''}空きが減っています。{what}は、このページの「近いおすすめ宿」で人数を選ぶと宿の名前と料金つきで見られます。")
+        else:
+            out.append(f"{what}は、このページの「近いおすすめ宿」で人数を選ぶと宿の名前と料金つきで見られます。")
     if event:
         out.append(f"空室と料金は{md(TODAY)}の朝に楽天トラベルで調べたものです。いまの空きは、このページの「いまの空室で調べ直す」で楽天トラベルに問い合わせ直して確かめられます。")
     else:
