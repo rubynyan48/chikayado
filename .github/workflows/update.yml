@@ -2,7 +2,7 @@ name: サイト更新
 
 on:
   schedule:
-    - cron: "17 20 * * *"   # 毎日 日本時間5:17
+    - cron: "17 15 * * *"   # 毎日 日本時間0:17（GitHubの予定実行は5時間ほど遅れて始まるため、朝のうちに終わるよう早めた。11/21〜）
   workflow_dispatch:         # 手動実行
     inputs:
       scope:

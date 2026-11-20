@@ -851,6 +851,22 @@ def far_links(e, venue):
 REDIRECTS = []
 
 
+def price_label(r):
+    """料金の上がり方を言葉にする。1.5倍以上は高い日、1.1倍以下はまだふだんの料金の日。"""
+    if r is None:
+        return None
+    if r >= 1.5:
+        return ("hot", f"料金はふだんの約{r}倍")
+    if r <= 1.1:
+        return ("calm", "料金はふだんとほぼ同じ")
+    return ("mid", f"料金はふだんの約{r}倍")
+
+
+def price_badge(e):
+    lb = price_label(e.get("price_ratio")) if e["end"] >= TODAY.isoformat() else None
+    return f'<span class="price-badge {lb[0]}">{escape(lb[1])}</span>' if lb else ""
+
+
 def event_table(events, venue_slug, limit=None):
     rows = events[:limit] if limit else events
     if not rows:
@@ -860,7 +876,7 @@ def event_table(events, venue_slug, limit=None):
         hall = f'<span class="sub">{escape(e["hall"])}</span>' if e.get("hall") else ""
         name = (escape(e["name"]) if e["end"] < TODAY.isoformat()
                 else f'<a href="/{venue_slug}/{escape(e["slug"])}/">{escape(e["name"])}</a>')
-        cells.append(f'<tr><td class="date">{period(e, br=True)}</td><td>{name}{hall}</td></tr>')
+        cells.append(f'<tr><td class="date">{period(e, br=True)}</td><td>{name}{hall}{price_badge(e)}</td></tr>')
     body = "".join(cells)
     return Markup('<div class="table-wrap"><table class="t-events"><thead><tr><th class="date">開催日</th><th>イベント</th></tr>'
                   f"</thead><tbody>{body}</tbody></table></div>")
@@ -1420,6 +1436,18 @@ def venue_context(venue):
         # 一般の人が来られるイベント（泊まりで来る人が多い）
         trade_series = any(sr.get("trade") for sr in series if sr["slug"] == e["series"])
         e["public"] = (bool(e["series"]) and not trade_series) or "一般" in (e.get("audience") or "")
+    # イベントの夜の料金が、イベントのない同じ曜日の種類の日の何倍か（一覧で高い日と穴場の日を見分けるため。11/21〜）
+    for e in upcoming:
+        sd = stay_from(e)
+        vac = read_json(DATA / "vacancy" / vslug(venue) / f"{sd}.json")
+        if not vac:
+            continue
+        kind = "weekend" if date.fromisoformat(sd).weekday() in (4, 5) else "weekday"
+        bd = (read_json(DATA / "baseline" / f"{vslug(venue)}.json", {}) or {}).get(kind)
+        bv = read_json(DATA / "vacancy" / vslug(venue) / f"{bd}.json") if bd else None
+        st = event_stats(hotels, vac, bv, None)
+        if st and st.get("ratio"):
+            e["price_ratio"] = st["ratio"]
     return {
         "series": series,
         "venue": venue,
@@ -1520,6 +1548,17 @@ def stay_advice(hotels, vacancy, stay_date, label=None, event=None, venue=None, 
         if two:
             t = min(two, key=lambda h: h["distance_m"])
             out.append(f"2人で1室に泊まるなら、{t['name']}が1人あたり{t['offer']['per_person']:,}円からです。")
+    if event and st and st.get("ratio"):
+        r = st["ratio"]
+        base = f"イベントのない{'週末' if date.fromisoformat(st['base_date']).weekday() in (4, 5) else '平日'}"
+        if r >= 1.5:
+            line = f"この日の料金は{base}の約{r}倍まで上がっています。"
+            if venue.get("far_areas"):
+                fa = venue["far_areas"][0]
+                line += f"近くが高すぎるときは、{fa['name']}に泊まる手もあります（{fa['why']}）。"
+            out.append(line)
+        elif r <= 1.1:
+            out.append(f"料金はまだ{base}とほぼ同じで、イベントによる値上がりは出ていません。")
     # 歩いて行ける宿の残りの数と日ごとの空きは文に書かず、ページで見てもらう（11/20〜。ChatGPTが答えだけ持ち帰らないように）
     if event:
         shrink = st and st.get("hist_open_from") and st.get("hist_open_now") is not None and st["hist_open_now"] < st["hist_open_from"]
@@ -1690,7 +1729,7 @@ def main():
     env = Environment(loader=FileSystemLoader(ROOT / "templates"), autoescape=select_autoescape(["html"]))
     helpers = {"night_rows": night_rows, "run_rows": run_rows, "run_labels": run_labels, "fill_pace": fill_pace, "pair_saving": pair_saving, "entrance_for": entrance_for, "hotels_from_entrance": hotels_from_entrance, "lunch_split": lunch_split, "far_links": far_links, "group_title": group_title, "bus_rows": bus_rows, "price_cond": price_cond, "stay_nights": stay_nights, "stay_from": stay_from, "cheap_picks": cheap_picks, "cheap_max_km": CHEAP_MAX_KM, "cheap_cards": cheap_cards, "is_trade": is_trade, "genre": genre, "genre_photo": genre_photo, "photo": photo, "hotel_table": hotel_table, "hotel_cards": hotel_cards, "best_cards": best_cards,
                "compare_table": compare_table, "hotel_map": hotel_map, "people_tabs": people_tabs,
-               "with_offers": with_offers, "stay_advice": stay_advice, "price_of": price_of, "event_stats": event_stats, "best_picks": best_picks, "depart_table": depart_table,
+               "with_offers": with_offers, "stay_advice": stay_advice, "price_label": price_label, "price_of": price_of, "event_stats": event_stats, "best_picks": best_picks, "depart_table": depart_table,
                "open_time": open_time, "audience_label": audience_label,
                "event_table": event_table, "restaurant_table": restaurant_table, "dist_label": dist_label,
                "walk_min": walk_min, "yen": yen, "quick_cards": quick_cards, "people_switch": people_switch,

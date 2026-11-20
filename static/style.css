@@ -560,3 +560,9 @@ td .no { display: inline-grid; place-items: center; width: 22px; height: 22px; m
 .advice { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 12px 2px; margin: 14px 0 16px; }
 .advice-h { font-size: 14px; font-weight: 800; color: var(--sign); margin: 0 0 4px; }
 .advice p:last-child { margin: 0; line-height: 1.85; }
+
+/* イベント一覧の料金の上がり方 */
+.price-badge { display: block; width: fit-content; margin-top: 4px; padding: 1px 8px; border-radius: 4px; font-size: 12px; font-weight: 700; }
+.price-badge.hot { background: #FDE8E6; color: #B42318; }
+.price-badge.mid { background: #FFF4D6; color: #8A5A00; }
+.price-badge.calm { background: #E6F4EA; color: #1E6B3A; }
