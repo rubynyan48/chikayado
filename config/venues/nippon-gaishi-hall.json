@@ -1,0 +1,69 @@
+{
+  "slug": "nippon-gaishi-hall",
+  "name": "クロコくんホール（日本ガイシホール）",
+  "formal_name": "クロコくんホール（旧 日本ガイシホール、名古屋市総合体育館 レインボーホール）",
+  "address": "愛知県名古屋市南区東又兵ヱ町5-1-16",
+  "lat": 35.095299,
+  "lng": 136.921722,
+  "search_radius_km": 3.0,
+  "source": "kuroko_hall",
+  "kind": "arena",
+  "area_label": "笠寺・金山",
+  "stations": [
+    {
+      "name": "笠寺駅",
+      "line": "JR東海道本線",
+      "walk_min": 3,
+      "lat": 35.095113,
+      "lng": 136.926321
+    },
+    {
+      "name": "本笠寺駅",
+      "line": "名鉄名古屋本線",
+      "walk_min": 15,
+      "lat": 35.099199,
+      "lng": 136.933409
+    },
+    {
+      "name": "大江駅",
+      "line": "名鉄常滑線",
+      "walk_min": 15,
+      "lat": 35.093258,
+      "lng": 136.912758
+    }
+  ],
+  "schedule_url": "https://www.nespa.or.jp/sports-plaza/hall/event-schedule/concert.html",
+  "order": 32,
+  "max_hotels": 40,
+  "extra_areas": [
+    {
+      "name": "金山",
+      "lat": 35.1430,
+      "lng": 136.9010,
+      "radius_km": 1.0
+    },
+    {
+      "name": "熱田・神宮前",
+      "lat": 35.1258,
+      "lng": 136.9100,
+      "radius_km": 0.8
+    }
+  ],
+  "extra_max_km": 7.0,
+  "far_areas": [
+    {
+      "name": "金山・熱田",
+      "chu": "aichi",
+      "shou": "nagoyashi",
+      "sai": "C",
+      "why": "宿と飲食店が多い。JR東海道本線で金山から笠寺まで約6分（各駅停車）"
+    },
+    {
+      "name": "名古屋駅・伏見",
+      "chu": "aichi",
+      "shou": "nagoyashi",
+      "sai": "A",
+      "why": "新幹線で帰る人。JR東海道本線で名古屋駅から笠寺まで約11分（各駅停車）"
+    }
+  ]
+}
