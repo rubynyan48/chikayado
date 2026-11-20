@@ -957,8 +957,45 @@ def kobe_world(venue):
     return join_days(unique(items))
 
 
+def kuroko_hall_parse(soup, today=None):
+    """クロコくんホール（旧 日本ガイシホール）のコンサート等イベント情報。月の見出しの下に1日1行の表が並ぶ（12か月ほど先まで）。"""
+    today = today or date.today()
+    items = []
+    for sec in soup.select("section.concert"):
+        h = re.search(r"(\d{4})年(\d{1,2})月", sec.find("h2").get_text() if sec.find("h2") else "")
+        if not h:
+            continue
+        y, mo = int(h.group(1)), int(h.group(2))
+        for tr in sec.select("tbody tr"):
+            tds = tr.find_all("td")
+            if len(tds) < 2:
+                continue
+            d = re.search(r"(\d{1,2})日", tds[0].get_text())
+            a = tds[1].find("a")
+            if not d or not a:
+                continue
+            title = clean(a.get_text(" "))
+            if not title or re.search(r"中止|延期|設営|撤去|関係者", title):
+                continue
+            if re.search(r"B\.LEAGUE.*第\d+節", title):  # Bリーグのリーグ戦は載せない（IGアリーナと同じ）
+                continue
+            m = re.search(r"\(([^)]+)\)\s*$", clean(tds[1].get_text(" ")))
+            artist = re.sub(r"ほか$", "", m.group(1)) if m else ""
+            # 大会のかっこ書き（〇〇の部・選手・参加者）は出演者ではないので付けない
+            name = title_with_artist("" if re.search(r"部|選手|参加者|出場", artist) else artist, title)
+            t = re.search(r"開演[:：]\s*(\d{1,2})時(\d{2})分", tds[0].get_text())
+            url = "https://www.nespa.or.jp/sports-plaza/hall/event-schedule/" + a["href"].lstrip("./") if a.get("href", "").startswith("./") else a.get("href", "")
+            items.append(event(name, date(y, mo, int(d.group(1))).isoformat(), hours=f"開演 {int(t.group(1))}:{t.group(2)}" if t else "", url=url))
+    return [e for e in items if e["end"] >= today.isoformat()]
+
+
+def kuroko_hall(venue):
+    """公式の1ページに12か月分が載る。"""
+    return join_days(unique(kuroko_hall_parse(get_html("https://www.nespa.or.jp/sports-plaza/hall/event-schedule/concert.html"))))
+
+
 SOURCES = {"manual": lambda venue: [],  # 日程は config/manual_events.json に手で足す（コスプレイベントの街の会場、11/16〜）
-           "ig_arena": ig_arena, "kobe_world": kobe_world,
+           "ig_arena": ig_arena, "kobe_world": kobe_world, "kuroko_hall": kuroko_hall,
     "sapporo_dome": sapporo_dome,
     "marine_messe": marine_messe,
     "nagoya_dome": nagoya_dome,
