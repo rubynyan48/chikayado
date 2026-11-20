@@ -1,0 +1,881 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=euc-jp">
+	<meta http-equiv="X-UA-Compatible" content="chrome=1">
+	<title>グランディ・２１　宮城県総合運動公園</title>
+	<link rel="shortcut icon" href="/grande21/img/favicon.ico">
+
+<link rel="stylesheet" type="text/css" href="/grande21/css/style.css">
+<!-- drawerMenu -->
+<link rel="stylesheet" type="text/css" href="/grande21/jquery.drawer/drawer.css">
+<!-- jquery.slick -->
+<link rel="stylesheet" type="text/css" href="/grande21/jquery.slick/slick.css">
+<link rel="stylesheet" type="text/css" href="/grande21/jquery.slick/slick-theme.css">
+<!-- jquery.responsiveTabs -->
+<link rel="stylesheet" type="text/css" href="/grande21/jquery.responsiveTabs/css/responsive-tabs.css">
+<link rel="stylesheet" type="text/css" href="/grande21/jquery.responsiveTabs/css/style.css">
+<!-- swipebox -->
+<link rel="stylesheet" type="text/css" href="/grande21/jquery.swipebox/css/swipebox.css">
+
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/iScroll/5.1.3/iscroll.min.js"></script>
+<script type="text/javascript" src="/grande21/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="/grande21/js/jquery.textresizer.min.js"></script>
+<script type="text/javascript" src="/grande21/jquery.drawer/drawer.min.js"></script>
+<script type="text/javascript" src="/grande21/js/common2.js"></script>
+
+<script type="text/javascript" src="/grande21/jquery.slick/slick.min.js"></script>
+<script type="text/javascript" src="/grande21/jquery.responsiveTabs/js/jquery.responsiveTabs.min.js"></script>
+
+<script type="text/javascript" src="/grande21/js/common.js"></script>
+<script src="https://cdn.jsdelivr.net/mediaelement/latest/mediaelement-and-player.min.js"></script>
+<link href="https://cdn.jsdelivr.net/mediaelement/latest/mediaelementplayer.css" rel="stylesheet">
+
+ 
+
+ 
+
+
+	<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-20716314-1']);
+  _gaq.push(['_trackPageview']);
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+	</script>
+    <script>
+    $(function(){
+        $('.qa_title').click(function(){
+           if($(this).hasClass('close')){
+                $('.accordion div').addClass('displayNone');
+                $(this).next().removeClass('displayNone');
+                $('.qa_title').removeClass('open');
+                $('.qa_title').addClass('close');
+                $('.qa_title').children('span').removeClass('open');
+                $(this).addClass('open');
+                $(this).removeClass('close');
+                $(this).children('span').addClass('open');
+                var move = $(this).offset();
+                $('html,body').animate({scrollTop: move.top - $('header').height() -5 , scrollLeft: move.left}, "fast");
+            }
+            else if($(this).hasClass('open')){
+                $(this).next().addClass('displayNone');
+                $(this).removeClass('open');
+                $(this).addClass('close');
+                $(this).children('span').removeClass('open');
+            }
+            if($('h3').hasClass('open')){
+                $('.qa_text1').removeClass('active');
+                $('.qa_text2').addClass('active');
+            }
+            else{
+                $('.qa_text1').addClass('active');
+                $('.qa_text2').removeClass('active');
+            }
+        $('.qa_li li:nth-child(odd)').removeClass('open');
+        $('.qa_li li:nth-child(even)').removeClass('open');
+        $('.qa_li li:nth-child(even)').slideUp(100);
+        }); 
+    });
+    
+  $(function(){
+        $('.qa_li li:nth-child(odd)').click(function(){
+            if($(this).hasClass('open')){
+                $(this).removeClass('open');
+                $(this).next('.qa_li li:nth-child(even)').removeClass('open');
+                $(this).next('.qa_li li:nth-child(even)').slideUp(100);
+            }
+            else{
+                $('.qa_li li:nth-child(odd)').removeClass('open');
+                $('.qa_li li:nth-child(even)').removeClass('open');
+                $('.qa_li li:nth-child(even)').slideUp(100);
+                $(this).addClass('open');
+                $(this).next('.qa_li li:nth-child(even)').addClass('open');
+                $(this).next('.qa_li li:nth-child(even)').slideDown(100);
+            }
+        });
+    }); 
+
+    </script>
+
+</head>
+
+
+<body class="drawer drawer--left" onload=applicants_number()>
+
+
+
+
+<header>
+	<div id="header-container">
+		<h1 id="header-logo"><a href="http://www.mspf.jp/grande21/"><img src="/grande21/images/logo_header.png" alt="グランディ・21　宮城県総合運動公園"></a></h1>
+	
+		<div class="global sp">
+			<button type="button" class="drawer-toggle drawer-hamburger"> <span class="sr-only">toggle navigation</span> <span class="drawer-hamburger-icon"></span> </button>
+			<nav class="drawer-nav">
+				<ul class="drawer-menu global-main">
+					<li><a href="http://www.mspf.jp/grande21/">TOP</a></li>
+					<li><a href="http://www.mspf.jp/grande21/index.php?action=sisetu_riyou">利用案内</a></li>
+					<li><a href="http://www.mspf.jp/grande21/index.php?action=schedule_show_list">月間予定表</a></li>
+					<li><a href="http://www.mspf.jp/grande21/index.php?action=sisetu_traffic_index">交通・アクセス</a></li>
+				</ul>
+				<ul class="drawer-menu global-sub">
+					<li><a href="http://www.mspf.jp/grande21/../nisou">宮城県第二総合運動場</a></li>
+					<li><a href="http://www.mspf.jp/grande21/../">宮城県スポーツ協会</a></li>
+					<li><a href="http://www.mspf.jp/grande21/index.php?action=main_link">リンク</a></li>
+					<li><a href="http://www.mspf.jp/grande21/fitness/index.php/">フィットネス＆レッスン</a></li>
+                    <li><a href="http://www.mspf.jp/grande21/index.php?action=other_qa">よくある質問</a></li>
+					<li><a href="mailto:grande21&#64;mspf.jp">お問い合わせ</a></li>
+				</ul>
+			</nav>
+		</div><!-- /.global.sp -->
+	
+		<div class="global pc">
+			<nav class="global-sub">
+				<ul>
+					<li><a href="http://www.mspf.jp/grande21/../nisou">宮城県第二総合運動場</a></li>
+					<li><a href="http://www.mspf.jp/grande21/../">宮城県スポーツ協会</a></li>
+				</ul>
+			</nav>
+			<nav class="global-main">
+				<ul>
+					<li><a href="http://www.mspf.jp/grande21/">TOP</a></li>
+					<li><a href="http://www.mspf.jp/grande21/index.php?action=sisetu_riyou">利用案内</a></li>
+					<li><a href="http://www.mspf.jp/grande21/index.php?action=schedule_show_list">月間予定表</a></li>
+					<li><a href="http://www.mspf.jp/grande21/index.php?action=sisetu_traffic_index">交通・アクセス</a></li>
+					<li><a href="http://www.mspf.jp/grande21/fitness/index.php/">フィットネス＆<br>レッスン</a></li>
+                    <li><a href="http://www.mspf.jp/grande21/index.php?action=other_qa">
+                            <img src="/grande21/images/home/qa.png" alt="よくある質問"> 
+                        </a> 
+                    </li>
+                    <li>
+                        <a href="/grande21/pdf_inline/miyagi_free_wi-fi_installation_facility_20220301.pdf">
+                            <img src="/grande21/images/home/logo_miyagi_wi-fi.png" alt="みやぎFreeWi-Fi_ロゴマーク">
+                        </a>
+                    </li>
+                </ul>
+			</nav>
+			<div id="font-switch">
+				<p>文字サイズ</p>
+				<ul class="textresizer">
+					<li><a href="#">標準</a></li>
+					<li><a href="#">大</a></li>
+				</ul>
+			</div><!-- /#font-switch -->
+		</div><!-- /.global.pc --> 
+	</div><!-- /#header-container -->
+</header><!-- /header -->
+<!---->
+
+<div id="cover" class="home">
+    <div class="slider">
+	            <div><img src="images/home/cover_01.png" alt="キッズスポーツ教室開催中"></div>
+        <div><img src="images/home/cover_03.png" alt="大人快適フィットネス開催中"></div>
+        <div><img src="images/home/cover_04.png" alt="シニアのための健康運動教室開催中"></div>
+        <div><img src="images/home/cover_05.png" alt="駐車場を利用したイベント"></div>
+    </div>
+</div><!-- /#cover -->
+
+<div id="content">
+<div id="news-index">
+    <div class="content-container clearfix">
+        <h2>お知らせ</h2>
+          <button class="NewsMore" id="NewsMore">さらに表示</button>
+          <button class="NewsNone" id="NewsNone">表示を減らす</button>
+        <div class="news-container">
+                          <div >
+	            <h3 class="news-date">2026.11/01</h3>
+	            <h4 class="news-switch">リフレッシュプラザ（合宿所）での食事提供再開のお知らせ</h4>
+	            <p class="news-content">
+	            	利用者各位<br><br>平素よりリフレッシュプラザ（合宿所）をご利用いただき、誠にありがとうございます。<br><br>このたび、休止しておりました合宿所での食事提供を、下記の日程より再開いたします。<br><br>【再開日】<br>2026年12月1日（火）より<br><br>【食事時間帯】<br>・朝食  6：30〜8：15<br>・昼食 12：00〜13：30<br>・夕食 18：00〜20：00<br><br>【食事料金】<br>・朝食：1,000円（税込）<br>・昼食：1,200円（税込）<br>・夕食：1,200円（税込）<br><br>皆様のご利用を心よりお待ちしております。<br><br>※食事提供再開により、食堂へ持ち込んでの飲食はできませんのでご注意ください。
+	            	<br>
+											<a href="/grande21/common/upload_attached_file.php?uaf_id=10724" >
+							合宿所利用案内
+							（
+							PDF形式
+							:
+							536.3KB
+							）
+						</a>
+	            		<br>
+											<a href="/grande21/common/upload_attached_file.php?uaf_id=10725" >
+							食事申込表
+							（
+							application/vnd.openxmlformats-officedocument.spreadsheetml.sheet形式
+							:
+							20.3KB
+							）
+						</a>
+	            		<br>
+											<a href="/grande21/common/upload_attached_file.php?uaf_id=10726" >
+							食事献立（例）
+							（
+							PDF形式
+							:
+							738.0KB
+							）
+						</a>
+	            		<br>
+						            </p>
+	          </div>
+                           <div >
+	            <h3 class="news-date">2026.07/22</h3>
+	            <h4 class="news-switch">【注意喚起】近隣施設への迷惑駐車について</h4>
+	            <p class="news-content">
+	            	日ごろより、グランディ・21をご利用いただき誠にありがとうございます。<br><br>現在、セキスイハイムスーパーアリーナでのコンサート開催時に、周辺の商業施設や店舗、医療機関等から、コンサート来場者による迷惑駐車について継続的にご指摘をいただいている状況にあります。<br><br>コンサート来場を目的とした迷惑駐車により、本来施設を利用されるお客さまが駐車場を利用できない、出庫できない等の状況が発生しており、地域のみなさまへ大変なご迷惑をおかけしております。<br><br>コンサートでご来場の際は、できるだけ公共交通機関やシャトルバスをご利用いただくとともに、お車でご来場の場合は、グランディ・21敷地内駐車場をご利用いただき、近隣施設への迷惑駐車・無断駐車は絶対にお止めくださいますようお願いいたします。<br><br>迷惑駐車はせっかく来てくれるアーティストや、マナーを守っている多くのファンの方にも迷惑をかける行為です。<br>今後のコンサート・イベント開催に支障を生じさせる可能性もありますので、<br>皆様のご理解とご協力をどうぞよろしくお願いいたします。<br><br><br>※コンサート開催時の駐車場については有料となりますので、予めコンサート主催者に<br>お問い合わせいただき、事前にご確認の上、ご来場ください。
+	            	<br>
+						            </p>
+	          </div>
+                           <div >
+	            <h3 class="news-date">2026.07/10</h3>
+	            <h4 class="news-switch">セキスイハイムスーパーアリーナ大規模改修工事に伴う施設の休館について（休館期間変更のお知らせ）</h4>
+	            <p class="news-content">
+	            	関係団体 各位<br><br>日頃より、宮城県総合運動公園をご利用いただき誠にありがとうございます。<br><br>標記の件について、昨今の世界情勢により、令和９年度に県が予定していた大規模改修工事が資機材不足の懸念から延期となりました。これに伴い、下記のとおり休館期間を変更することといたしましたので、お知らせいたします。<br><br>利用者の皆様には多大なご不便、ご迷惑をお掛けいたしますが、何卒ご理解とご協力を賜りますようお願い申し上げます。 <br><br>　　　　　　　記<br> <br>１ 休館期間<br>　【変更前】令和９年度中（予定）<br>　【変更後】令和１１年度中（予定）<br><br>２ 利用休止施設<br>　セキスイハイムスーパーアリーナ、その他諸室等（予定）<br>　※サブアリーナは除く <br> <br>３ その他<br>　詳細な休館期間・休館施設等が確定次第、改めてお知らせいたします。
+	            	<br>
+						            </p>
+	          </div>
+                           <div >
+	            <h3 class="news-date">2026.10/01</h3>
+	            <h4 class="news-switch">『カスタマーハラスメントに対する基本方針』の策定について</h4>
+	            <p class="news-content">
+	            	日頃より、当施設をご利用いただき、誠にありがとうございます。<br><br>私どもは、本県の県民一人ひとりが、スポーツの価値を享受し、生涯にわたる豊かなスポーツライフを実現できることは、活力に満ちた幸福で豊かな“みやぎ”を創ることにもつながると考え活動しております。<br><br>この度、2026年10月1日より「労働施策総合推進法」が改正されたのに伴い、第三者によるハラスメント行為から職員の人権を守り、安心して働ける職場環境を整えるために「カスタマーハラスメントに対する基本方針」を新たに策定いたしました。<br><br>健全な職場環境の確保を通じて、より一層のサービス向上に努め、利用者及び関係団体の皆さまと信頼関係を深めていくことを目指してまいります。
+	            	<br>
+											<a href="/grande21/common/upload_attached_file.php?uaf_id=10694" >
+							カスタマーハラスメントに対する基本方針
+							（
+							PDF形式
+							:
+							730.2KB
+							）
+						</a>
+	            		<br>
+						            </p>
+	          </div>
+                           <div >
+	            <h3 class="news-date">2026.04/01</h3>
+	            <h4 class="news-switch">アリーナコンサートにご来場のお客様へ【車での来場・送迎・路上待機禁止等】</h4>
+	            <p class="news-content">
+	            	【お車でのご来場について】<br>〇アリーナコンサート開催時は施設周辺が大変混雑しますので、余裕を持ってのご来場をお願いします。開場時間前にご来場いただくことをお勧めします。<br>〇「ｲｵﾝﾓｰﾙ利府」前の「県道260号線」が大変混雑し渋滞します。渋滞緩和のため、ご来場のお客様はﾀﾞﾌﾞﾙｽﾄｰﾝ前「県道270号線」・泉口（西口）利用に便利な「県道3号線」をご利用ください。来場時は「泉口」が便利です。<br><br>【送迎・送迎待機について】<br>〇送迎及び送迎待機は、第1駐車場で行ってください。<br>〇送迎待機場所：第1駐車場南側（ヤマザキデイリーストア向い）<br>〇送迎待機可能時間：終演約３０分前〜終演後約1時間後まで<br>〇詳細は送迎待機場所案内（PDFファイル）をご確認ください。<br><br>【路上待機禁止等】<br>〇施設周辺道路での路上駐車および終演後送迎時の路上待機など、近隣の住民に迷惑となる行為は絶対にお止めください。路上待機は近隣住民の方々へのご迷惑になります。<br>〇敷地内・施設周辺住宅への迷惑行為（大声・ゴミの不法投棄）が無いようにお願いします。<br>〇警備員・職員の巡回警備を強化しておりますので、ご協力をお願いします。<br><br>多くのコンサート来場者の方がマナーを守っていただいております。<br>今後のコンサート・イベント開催に支障が出る可能性もありますので、皆様のご協力をお願いします。<br><br>また、公演により、上記ご案内から変更になる場合がございます。詳細については主催者にお問い合わせください。
+	            	<br>
+											<a href="/grande21/common/upload_attached_file.php?uaf_id=9852" >
+							送迎待機場所案内
+							（
+							PDF形式
+							:
+							87.2KB
+							）
+						</a>
+	            		<br>
+						            </p>
+	          </div>
+                           <div class="dispnone">
+	            <h3 class="news-date">2026.03/28</h3>
+	            <h4 class="news-switch">LoGoフォーム（電子申請システム）による施設利用申請の受付について</h4>
+	            <p class="news-content">
+	            	日ごろ、宮城県総合運動公園をご利用いただき誠にありがとうございます。<br>令和8年4月1日より、LoGoフォームによる利用申込みをご利用いただけます。<br>お申込みは、事前にお電話（022-356-1122）で空き状況を確認（仮押さえ）の上、受付が可能となります。<br><br>お申込みについては、下記記載のURLまたは添付ファイル内掲載のバーコードよりお手続きください。<br><br>URL　https://logoform.jp/f/iQhXv
+	            	<br>
+											<a href="/grande21/common/upload_attached_file.php?uaf_id=10397" >
+							LoGoフォーム　案内
+							（
+							PDF形式
+							:
+							199.0KB
+							）
+						</a>
+	            		<br>
+						            </p>
+	          </div>
+                           <div class="dispnone">
+	            <h3 class="news-date">2026.03/20</h3>
+	            <h4 class="news-switch">利用料金改定のお知らせ</h4>
+	            <p class="news-content">
+	            	　日頃から、宮城県総合運動公園（グランディ・２１）をご利用・ご愛顧をいただき誠にありがとうございます。<br>　この度、条例改正に伴い、令和8年4月1日以降の施設利用料金について、添付料金表のとおり改定することとなりました。<br>　今後とも、皆様に満足してご利用いただけるよう取り組んで参りますので、何卒ご理解を賜りますようお願い申し上げます。<br><br>　　　　　　　　　　　　　　　記<br>１　施行月日：令和８年４月１日<br>２　新料金：添付料金表のとおり <br>３　旧料金回数券の取扱いについて<br>　　　R8.4.1以降に旧料金回数券をご使用いただく場合は差額分を現金にてお支払いいただきます。<br>　　　
+	            	<br>
+											<a href="/grande21/common/upload_attached_file.php?uaf_id=10338" >
+							R8.4.1施行_各施設料金表
+							（
+							PDF形式
+							:
+							444.7KB
+							）
+						</a>
+	            		<br>
+											<a href="/grande21/common/upload_attached_file.php?uaf_id=10339" >
+							R8.4.1施行_行為・占用料金表
+							（
+							PDF形式
+							:
+							63.6KB
+							）
+						</a>
+	            		<br>
+						            </p>
+	          </div>
+                     </div>
+    </div>
+</div><!-- /#news-index -->
+
+<div class="user-index" id="horizontal-tab">
+    <ul>
+        <li><h2><a href="#for-peronal" class="not-fade"><img src="images/home/icon_personal.png" alt="個人利用の方">個人利用の方</a></h2></li>
+        <li><h2><a href="#for-reserve" class="not-fade"><img src="images/home/icon_reserved.png" alt="貸切利用の方">貸切利用の方</a></h2></li>
+        <li><h2><a href="#for-event" class="not-fade"><img src="images/home/icon_event.png" alt="イベント・コンサートでお越しの方">イベント・コンサートでお越しの方</a></h2></li>
+    </ul>
+
+    <div id="user-index-container">
+        <div id="for-peronal" class="user-box-wrap clearfix">
+                <a class="user-box" href="/grande21/index.php?action=other_publicfacility">
+                    <p class="user-balloon">スタジアムは<br>個人の利用もOK</p>
+                    <p class="user-pict"><img src="images/home/icon_menu01.png" alt="一般開放している施設"></p>
+                    <h3>一般開放<br>している施設<br>（個人利用）</h3>
+                </a>
+                <a class="user-box" href="http://www.mspf.jp/grande21/fitness/">
+                    <p class="user-balloon text_spacing">会員制<span class="pc">フィットネス・<br>スクールはこちらから</span><span class="sp">ﾌｨｯﾄﾈｽ・<br>ｽｸｰﾙはこちらから</span></p>
+                    <p class="user-pict"><img src="images/home/icon_menu02.png" alt="フィットネスにおすすめの施設"></p>
+                    <h3>フィットネスに<br>おすすめの施設<br>（会員様向け）</h3>
+                </a>
+                <a class="user-box" href="/grande21/index.php?action=sisetu_riyou">
+                    <p class="user-balloon">キッズから<br>年配の方も</p>
+                    <p class="user-pict"><img src="images/home/icon_menu03.png" alt="個人利用案内"></p>
+                    <h3>個人利用案内</h3>
+                </a>
+                <a class="user-box" href="/grande21/index.php?action=schedule_show_list">
+                    <p class="user-balloon">ご利用できる日は<br>こちらから確認</p>
+                    <p class="user-pict"><img src="images/home/icon_menu04.png" alt="月間予定表"></p>
+                    <h3>月間予定表</h3>
+                </a>
+        </div><!-- /#for-peronal -->
+        <div id="for-reserve" class="user-box-wrap clearfix">
+                <a class="user-box" href="/grande21/index.php?action=other_flow">
+                    <p class="user-pict"><img src="images/home/icon_menu05.png" alt="利用の流れ"></p>
+                    <h3>利用の流れ</h3>
+                </a>
+                <a class="user-box" href="/grande21/index.php?action=sisetu_riyou">
+                    <p class="user-pict"><img src="images/home/icon_menu06.png" alt="利用案内 "></p>
+                    <h3>利用案内</h3>
+                </a>
+                <a class="user-box" href="/grande21/index.php?action=schedule_show_list">
+                    <p class="user-pict"><img src="images/home/icon_menu07.png" alt="月間予定表"></p>
+                    <h3>月間予定表</h3>
+                </a>
+                <a class="user-box" href="/grande21/pdf/miyagi_denshishinsei_service_20260401.pdf">
+                    <p class="user-pict"><img src="images/home/icon_menu11.png" alt="みやぎ電子申請サービス"></p>
+                    <h4>対応施設<br>アリーナ<br>プール</h4>
+                    <div class="space"></div>
+                    <h3>みやぎ電子申請サービス</h3>
+                </a>
+        </div><!-- /#for-reserve -->
+        <div id="for-event" class="user-box-wrap clearfix">
+                <a class="user-box" href="/grande21/index.php?action=event_show_list&amp;target=event">
+                    <p class="user-pict"><img src="images/home/icon_menu08.png" alt="イベント情報"></p>
+                    <h3>イベント情報</h3>
+                </a>
+                <a class="user-box" href="/grande21/index.php?action=sisetu_traffic_index">
+                    <p class="user-pict"><img src="images/home/icon_menu09.png" alt="交通アクセス "></p>
+                    <h3>交通アクセス </h3>
+                </a>
+                <a class="user-box" href="/grande21/index.php?action=other_attention">
+                    <p class="user-pict"><img src="images/home/icon_menu10.png" alt="留意事項"></p>
+                    <h3>留意事項</h3>
+                </a>
+        </div><!-- /#for-event -->
+    </div><!-- /#user-index-container -->
+</div><!-- /.user-index -->
+
+<div id="facility-banners">
+    <ul class="clearfix">
+        <li><a href="/grande21/index.php?action=sisetu_shoukai_stadium" class="not-fade"><img src="images/home/facility_stadium_20200331.jpg" alt="キューアンドエースタジアムみやぎ"></a></li>
+        <li><a href="/grande21/index.php?action=sisetu_shoukai_arena" class="not-fade"><img src="images/home/facility_superarena.jpg" alt="セキスイハイムスーパーアリーナ"></a></li>
+        <li><a href="/grande21/index.php?action=sisetu_shoukai_pool" class="not-fade"><img src="images/home/facility_pool.jpg" alt="セントラルスポーツ宮城G21プール"></a></li>
+        <li><a href="/grande21/index.php?action=sisetu_shoukai_soccer" class="not-fade"><img src="images/home/facility_football_20250401.jpg" alt="みやぎ生協めぐみ野フットボール場"></a></li>
+        <li><a href="/grande21/index.php?action=sisetu_shoukai_tennis" class="not-fade"><img src="images/home/facility_tennis.jpg" alt="テニスコート"></a></li>
+        <li><a href="/grande21/index.php?action=sisetu_shoukai_refresh" class="not-fade"><img src="images/home/facility_refresh.jpg" alt="リフレッシュプラザ"></a></li>
+        <li><a href="/grande21/index.php?action=sisetu_riyou" class="not-fade"><img src="images/home/facility_usage.png" alt="利用案内"></a></li>
+                <li><a href="https://piif-msa.jp/" class="not-fade"><img src="images/home/facility_reservation.png" alt="Web施設予約（テニスコート）"></a></li>
+            </ul>
+</div><!-- /#facility-banners -->
+
+<div id="movie">
+    <div class="content-container clearfix">
+        <h2><img src="images/home/icon_movie.png" alt="グランディ・21 動画紹介">グランディ・21 動画紹介</h2>
+        <div class="movie-container">
+            <h3>ジュニアスクール動画</h3>
+            <div class="spH">
+                <video class="mejs__player" width="350" height="193" poster="images/home/movie_junior.jpg">
+                    <source src="mov/movie/vts_02_1.mp4" type="video/mp4">
+                    <source src="mov/movie/vts_02_1.webm" type="video/webm">
+                    <p class="vjs-no-js">動画を再生するには、videoタグをサポートしたブラウザをご用意いただくか、<a href="mov/movie/vts_02_1.mp4">こちら</a>からご覧ください。</p>
+                </video>
+            </div>
+                        <div class="pcH">
+                <a href="mov/movie/vts_02_1.mp4" target="_blank"><img src="images/home/movie_junior.jpg"></a>
+            </div>
+
+        </div>
+        <div class="movie-container">
+            <h3>フィットネス動画</h3>
+            <div class="spH">
+                <video class="mejs__player" width="350" height="193" poster="images/home/movie_fitness.jpg">
+                    <source src="mov/movie/vts_02_2.mp4" type="video/mp4">
+                    <source src="mov/movie/vts_02_2.webm" type="video/webm">
+                    <p class="vjs-no-js">動画を再生するには、videoタグをサポートしたブラウザをご用意いただくか、<a href="mov/movie/vts_02_2.mp4">こちら</a>からご覧ください。</p>
+                </video>
+            </div>
+                        <div class="pcH">
+                <a href="mov/movie/vts_02_2.mp4" target="_blank"><img src="images/home/movie_fitness.jpg"></a>
+            </div>
+        </div>
+        
+        <div class="movie-container">
+            <h3>宮城県スポーツ協会紹介動画</h3>
+            <div class="spH">
+                <video class="mejs__player" width="350" height="193" poster="images/home/movie_sports.jpg">
+                    <source src="mov/movie/vts_02_3.mp4" type="video/mp4">
+                    <p class="vjs-no-js">動画を再生するには、videoタグをサポートしたブラウザをご用意いただくか、<a href="mov/movie/vts_02_3.mp4">こちら</a>からご覧ください。</p>
+                </video>
+            </div>
+                        <div class="pcH">
+                <a href="mov/movie/vts_02_3.mp4" target="_blank"><img src="images/home/movie_sports.jpg"></a>
+            </div>
+        </div>
+
+
+<style>
+.mejs__overlay-button {
+    background: none;
+}
+</style>
+
+
+
+    </div>
+</div><!-- /#movie -->
+<!-- <video src="/grande21/mov/movie/vts_01_2.mp4" width="640" height="360" autoplay loop></video> -->
+
+
+<div class="content-container clearfix">
+    <div id="topics-a">
+        <div class="topics">
+            <h2><span>Topics</span>新着情報</h2>
+                        <dl>
+                <dt>2026.11/20</dt>
+		                <dd>
+			<span class="topics-schedule">
+													月間予定表
+									</span>
+		    							<a href="index.php?action=schedule_show_detail&amp;schedule_id=3494">
+		    								みやぎ生協めぐみ野フットボール場（R8.1
+								…							</a>
+		</dd>
+            </dl>
+                        <dl>
+                <dt>2026.11/20</dt>
+		                <dd>
+			<span class="topics-schedule">
+													月間予定表
+									</span>
+		    							<a href="index.php?action=schedule_show_detail&amp;schedule_id=3493">
+		    								レッスンスケジュール（R8.12月）
+															</a>
+		</dd>
+            </dl>
+                        <dl>
+                <dt>2026.11/20</dt>
+		                <dd>
+			<span class="topics-schedule">
+													月間予定表
+									</span>
+		    							<a href="index.php?action=schedule_show_detail&amp;schedule_id=3492">
+		    								駐車場予定(R8.12月)
+															</a>
+		</dd>
+            </dl>
+                        <dl>
+                <dt>2026.11/20</dt>
+		                <dd>
+			<span class="topics-schedule">
+													月間予定表
+									</span>
+		    							<a href="index.php?action=schedule_show_detail&amp;schedule_id=3491">
+		    								キューアンドエースタジアムみやぎ（R8.1
+								…							</a>
+		</dd>
+            </dl>
+                        <dl>
+                <dt>2026.11/20</dt>
+		                <dd>
+			<span class="topics-schedule">
+													月間予定表
+									</span>
+		    							<a href="index.php?action=schedule_show_detail&amp;schedule_id=3490">
+		    								セントラルスポーツ宮城G21プール（R8.
+								…							</a>
+		</dd>
+            </dl>
+                        <dl>
+                <dt>2026.11/20</dt>
+		                <dd>
+			<span class="topics-schedule">
+													月間予定表
+									</span>
+		    							<a href="index.php?action=schedule_show_detail&amp;schedule_id=3489">
+		    								テニスコート（R8.12月)
+															</a>
+		</dd>
+            </dl>
+                        <dl>
+                <dt>2026.11/20</dt>
+		                <dd>
+			<span class="topics-schedule">
+													月間予定表
+									</span>
+		    							<a href="index.php?action=schedule_show_detail&amp;schedule_id=3488">
+		    								トレーニングルーム・プレイルーム（R8.1
+								…							</a>
+		</dd>
+            </dl>
+                        <dl>
+                <dt>2026.11/20</dt>
+		                <dd>
+			<span class="topics-schedule">
+													月間予定表
+									</span>
+		    							<a href="index.php?action=schedule_show_detail&amp;schedule_id=3487">
+		    								セキスイハイムスーパーアリーナ（R8.12
+								…							</a>
+		</dd>
+            </dl>
+                        <dl>
+                <dt>2026.11/10</dt>
+		                <dd>
+			<span class="topics-event">
+													イベント
+									</span>
+		    							<a href="index.php?action=event_show_detail&amp;event_id=1054&amp;target=event">
+		    								KAWAII LAB.　コンサート
+															</a>
+		</dd>
+            </dl>
+                        <dl>
+                <dt>2026.11/10</dt>
+		                <dd>
+			<span class="topics-event">
+													イベント
+									</span>
+		    							<a href="index.php?action=event_show_detail&amp;event_id=1053&amp;target=event">
+		    								Travis Japan　コンサート
+															</a>
+		</dd>
+            </dl>
+                        <dl>
+                <dt>2026.10/25</dt>
+		                <dd>
+			<span class="topics-seminar">
+													講習会情報
+									</span>
+		    							<a href="index.php?action=seminar_show_detail&amp;seminar_id=884">
+		    								【 ヴォスクオーレ仙台 ホーム戦 】親子ペ
+								…							</a>
+		</dd>
+            </dl>
+                        <dl>
+                <dt>2026.10/20</dt>
+		                <dd>
+			<span class="topics-schedule">
+													月間予定表
+									</span>
+		    							<a href="index.php?action=schedule_show_detail&amp;schedule_id=3481">
+		    								レッスンスケジュール（R8.11月）
+															</a>
+		</dd>
+            </dl>
+                        <dl>
+                <dt>2026.10/20</dt>
+		                <dd>
+			<span class="topics-schedule">
+													月間予定表
+									</span>
+		    							<a href="index.php?action=schedule_show_detail&amp;schedule_id=3480">
+		    								駐車場予定(R8.11月)※11.13更新
+															</a>
+		</dd>
+            </dl>
+                        <dl>
+                <dt>2026.10/20</dt>
+		                <dd>
+			<span class="topics-schedule">
+													月間予定表
+									</span>
+		    							<a href="index.php?action=schedule_show_detail&amp;schedule_id=3478">
+		    								キューアンドエースタジアムみやぎ（R8.1
+								…							</a>
+		</dd>
+            </dl>
+                        <dl>
+                <dt>2026.10/20</dt>
+		                <dd>
+			<span class="topics-schedule">
+													月間予定表
+									</span>
+		    							<a href="index.php?action=schedule_show_detail&amp;schedule_id=3477">
+		    								セントラルスポーツ宮城G21プール（R8.
+								…							</a>
+		</dd>
+            </dl>
+                        <p class="btn-topics"><a href="/grande21/index.php?action=changehistory_show_list" class="not-fade">一覧を見る</a></p>
+        </div><!-- /.topics -->
+    </div><!-- /#topics-a -->
+    <div id="topics-b">
+        <div class="topics">
+            <h2><span>Sport Competition</span>スポーツ大会情報</h2>
+                        <p class="btn-topics"><a href="/grande21/index.php?action=event_show_list&amp;target=sports" class="not-fade">一覧を見る</a></p>
+        </div><!-- /.topics スポーツ大会情報 -->
+
+        <div class="topics">
+            <h2><span>Training Session</span>講習会情報</h2>
+                        <dl>
+                <dt>2026.12/19
+									</dt>
+                <dd><a href="index.php?action=seminar_show_detail&amp;seminar_id=884">【 ヴォスクオーレ仙台 ホーム戦 】親子ペ
+                            …</a></dd>
+            	</dl>
+                        <p class="btn-topics"><a href="/grande21/index.php?action=seminar_show_list" class="not-fade">一覧を見る</a></p>
+        </div><!-- /.topics 講習会情報 -->
+
+        <div class="topics">
+            <h2><span>Event Info</span>イベント情報</h2>
+            <dl>
+            	                <dt>2027.01/30
+													-
+							2027.01/31
+											</dt>
+                    <dd><a href="index.php?action=event_show_detail&amp;event_id=1054&amp;target=event">KAWAII LAB.　コンサート
+                                                </a></dd>
+            	                <dt>2027.01/16
+													-
+							2027.01/17
+											</dt>
+                    <dd><a href="index.php?action=event_show_detail&amp;event_id=1053&amp;target=event">Travis Japan　コンサート
+                                                </a></dd>
+            	                <dt>2027.03/20
+													-
+							2027.03/21
+											</dt>
+                    <dd><a href="index.php?action=event_show_detail&amp;event_id=1040&amp;target=event">あいみょん　コンサート
+                                                </a></dd>
+            	                <dt>2027.01/23
+											</dt>
+                    <dd><a href="index.php?action=event_show_detail&amp;event_id=1039&amp;target=event">稲葉浩志　コンサート
+                                                </a></dd>
+                        </dl>
+            <p class="btn-topics"><a href="/grande21/index.php?action=event_show_list&amp;target=event" class="not-fade">一覧を見る</a></p>
+        </div><!-- /.topics イベント情報 -->
+    </div><!-- /#topics-b -->
+</div><!-- /.content-container -->
+</div><!-- /#content -->
+
+
+
+<script>
+
+// -------------------------------------------------------------------------
+// 「個人利用の方」タブ選択
+// -------------------------------------------------------------------------
+$('#personal').click(function(e) {
+    history.replaceState(null, null, 'index.php#for-personal');
+});
+$('#for-peronal').click(function(e) {
+    history.replaceState(null, null, 'index.php#for-personal');
+});
+
+// -------------------------------------------------------------------------
+// 「貸切利用の方」タブ選択
+// -------------------------------------------------------------------------
+$('#reserve').click(function(e) {
+    history.replaceState(null, null, 'index.php#for-reserve');
+});
+$('#for-reserve').click(function(e) {
+    history.replaceState(null, null, 'index.php#for-reserve');
+});
+
+// -------------------------------------------------------------------------
+// 「イベント・コンサートでお越しの方」タブ選択
+// -------------------------------------------------------------------------
+$('#event').click(function(e) {
+    history.replaceState(null, null, 'index.php#for-event');
+});
+$('#for-event').click(function(e) {
+    history.replaceState(null, null, 'index.php#for-event');
+});
+
+</script>
+
+
+
+<div id="content-footer">
+<div id="main-banners">
+	<div>&nbsp;</div>
+	<ul class="clearfix">
+        <li><a href="/grande21/pdf_inline/facilitytour.pdf"><img src="/grande21/images/home/bannar_facilitytour.png" alt="施設見学のご案内"></a></li>
+        <li><a href="http://www.mspf.jp/grande21//index.php?action=other_walkingmap"><img src="/grande21/images/home/banner_member_20210430.png" alt="グランディ21ウォーキングマップ"></a></li>
+		<li><a href="http://www.miyagi-sports.net/grande21/vol-boshu.html"><img src="/grande21/images/home/banner_volunteer.png" alt="ボランティア募集"></a></li>
+		<li><a href="http://msports.mspf.jp/sposyou/"><img src="/grande21/images/home/banner_suposyou.png" alt="宮城県スポーツ協会　スポーツ少年団"></a></li>
+		<li><a href="http://www.mspf.jp/grande21/ikagaku/"><img src="/grande21/images/home/banner_medical.png" alt="スポーツ医科学"></a></li>
+        <li><a href="http://www.central.co.jp/"><img src="/grande21/images/home/banner_central.png" alt="宮城県総合プールネーミングライツスポーツセンター　セントラルスポーツ"></a></li>
+		<li><a href="http://www.heim-tohoku.co.jp/"><img src="/grande21/images/home/banner_sekisui.png" alt="宮城県総合プールネーミングライツスポーツセンター　セキスイハイム東北株式会社"></a></li>
+		<li><a href="http://www.miyagi.coop/"><img src="/grande21/images/home/banner_coop.png" alt="宮城県総合プールネーミングライツスポーツセンター　みやぎ生活協同組合"></a></li>
+	    <li><a href="http://www.qac.jp/"><img src="/grande21/images/home/banner_QandA_20200910.png" alt="キューアンドエースタジアムみやぎ"></a></li>
+		<li><a href="http://www.toto-dream.com/support/"><img src="/grande21/images/home/banner_toto.png" alt="toto"></a></li>
+    </ul>
+</div><!-- /#main-banners -->
+</div><!-- /#content -->
+
+<footer>
+	<div id="footer-container" class="clearfix">
+		<div id="address-container">
+			<h2><a href="http://www.mspf.jp/grande21/"><img src="/grande21/images/logo_footer_pc.png" alt="グランディ・21　宮城県総合運動公園"></a></h2>
+			<address class="pc">〒981-0122<br>
+			宮城県宮城郡利府町菅谷字舘40-1<br>
+			TEL：022-356-1122<br>
+			FAX：022-356-1123<br>
+			<a href="mailto:grande21&#64;mspf.jp">お問い合わせはこちら</a>
+            <p class="address_note">
+                予期せぬ障害などでお電話が切れてしまった際、折り返し電話を差し上げられるよう、発信者番号の通知をお願いしております。<br>
+                「非通知」設定をされているお客様は、お手数おかけいたしますが、はじめに「<b>１８６</b>」をダイヤルしていただきますよう、ご理解・ご協力をお願いします。
+            </p>
+			</address>
+		</div><!-- /#address-container --> 
+		<div id="utility" class="pc">
+			<nav>
+				<ul>
+					<li><a href="http://www.mspf.jp/grande21/">ホーム</a></li>
+					<li><a href="http://www.mspf.jp/grande21/index.php?action=seminar_show_list">講習会情報</a></li>
+					<li><a href="http://www.mspf.jp/grande21/index.php?action=event_show_list">イベント情報</a></li>
+					<li><a href="http://www.mspf.jp/grande21/index.php?action=schedule_show_list">月間予定表</a></li>
+					<li><a href="http://www.mspf.jp/grande21/index.php?action=sisetu_traffic_index">交通アクセス</a></li>
+				</ul>
+				<ul>
+					<li><a href="http://www.mspf.jp/grande21/index.php?action=sisetu_shoukai_stadium">キューアンドエースタジアムみやぎ</a></li>
+					<li><a href="http://www.mspf.jp/grande21/index.php?action=sisetu_shoukai_arena">セキスイハイムスーパーアリーナ</a></li>
+					<li><a href="http://www.mspf.jp/grande21/index.php?action=sisetu_shoukai_pool">セントラルスポーツ宮城G21プール</a></li>
+					<li><a href="http://www.mspf.jp/grande21/index.php?action=sisetu_shoukai_tennis">テニスコート</a></li>
+					<li><a href="http://www.mspf.jp/grande21/index.php?action=sisetu_shoukai_refresh">リフレッシュプラザ</a></li>
+					<li><a href="http://www.mspf.jp/grande21/index.php?action=sisetu_shoukai_soccer">みやぎ生協めぐみ野フットボール場</a></li>
+					<li><a href="http://www.mspf.jp/grande21/index.php?action=sisetu_riyou">利用案内</a></li>
+				</ul>
+				<ul>
+					<li><a href="http://www.mspf.jp/grande21/index.php?action=changehistory_show_list">新着情報一覧</a></li>
+					<li><a href="http://www.mspf.jp/grande21/index.php?action=event_show_list">イベント情報一覧</a></li>
+										<li><a href="https://piif-msa.jp/">施設予約</a></li>
+									</ul>
+				<ul>
+					<li><a href="http://www.mspf.jp/grande21/../">協会トップへ</a></li>
+					<li><a href="http://www.mspf.jp/grande21/../nisou">宮城県第二総合運動場</a></li>
+					<li><a href="http://www.mspf.jp/grande21/index.php?action=main_link">リンク</a></li>
+					<li><a href="https://msports.mspf.jp/wp/wp-content/themes/msports/pdf/kojin_joho.pdf" target="_blank">個人情報の取り扱い</a></li>
+				</ul>
+			</nav>
+			<p id="credit">Copyright &copy; Miyagi Sport Association All Rights Reserved.</p>
+		</div><!-- /#utility --> 
+	</div><!-- /#footer-container --> 
+</footer><!-- /footer --> 
+
+
+
+<script type="text/javascript">
+$(document).ready(function () {
+	$('#horizontal-tab').responsiveTabs({
+		animation: 'slide',
+		animationQueue: 'tabs',
+	});
+});
+$(document).ready(function () {
+    $('.slider').slick({
+		centerMode: true,
+		centerPadding: '10%',
+		dots:true,
+  		arrows: false,
+        autoplay:true, 
+		autoplaySpeed:4000,
+		speed:600,
+		cssEase:'ease-out',
+        responsive: [{
+			breakpoint: 768,
+			settings: {
+				centerMode: false,
+               }
+          }]
+     });
+});
+(function($) {
+    $(function() {
+        $(".accordion").each(function() {
+            var accordion = $(this);
+            $(this).find(".switch").click(function() {
+                var targetContentWrap = $(this).next(".contentWrap");
+                if ( targetContentWrap.css("display") === "none" ) {
+                    accordion.find(".contentWrap").slideUp();
+                    accordion.find(".switch.open").removeClass("open");
+                }
+                targetContentWrap.slideToggle();
+                $(this).toggleClass("open");
+            });
+        });
+    });
+})(jQuery);
+(function($) {
+    $(function() {
+        $(".news-container").each(function() {
+            var accordion = $(this);
+            $(this).find(".news-switch").click(function() {
+                var targetContentWrap = $(this).next(".news-content");
+                if ( targetContentWrap.css("display") === "none" ) {
+                    accordion.find(".news-content").slideUp();
+                    accordion.find(".news-switch.open").removeClass("open");
+                }
+                targetContentWrap.slideToggle();
+                $(this).toggleClass("open");
+            });
+        });
+    });
+})(jQuery);
+$(document).ready(function () {
+//初期表示
+   var disp = document.getElementsByClassName('dispnone');
+     for(let i = 0; i < 5; i++){
+	if(typeof disp[i] !== 'undefined')
+        disp[i].style.display = 'none';
+          }
+    document.getElementById("NewsNone").style.display = 'none';
+    if(disp.length < 1)
+    document.getElementById("NewsMore").style.display = 'none';
+//さらに表示
+   document.getElementById("NewsMore").onclick = function() {
+     for(let i = 0; i < 5; i++){
+	if(typeof disp[i] !== 'undefined')
+        disp[i].style.display = "";
+          }
+   document.getElementById("NewsMore").style.display = 'none';
+   document.getElementById("NewsNone").style.display = '';
+  }
+//閉じる
+   document.getElementById("NewsNone").onclick = function() {
+     for(let i = 0; i < 5; i++){
+	if(typeof disp[i] !== 'undefined')
+            disp[i].style.display = "none";
+          }
+   document.getElementById("NewsMore").style.display = '';
+   document.getElementById("NewsNone").style.display = 'none';
+  }
+});
+</script>
+
+
+</body>
+</html>
