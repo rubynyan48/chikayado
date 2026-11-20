@@ -1120,7 +1120,7 @@ AREA_GROUPS = [
     ("千葉・幕張エリア", ["makuhari-messe", "lala-arena-tokyo-bay"]),
     ("大阪エリア", ["kyocera-dome-osaka", "osaka-jo-hall", "mydome-osaka", "intex-osaka"]),
     ("神戸エリア", ["kobe-world-hall"]),
-    ("名古屋エリア", ["vantelin-dome-nagoya", "ig-arena", "oasis21", "portmesse-nagoya"]),
+    ("名古屋エリア", ["vantelin-dome-nagoya", "ig-arena", "nippon-gaishi-hall", "oasis21", "portmesse-nagoya"]),
     ("四国エリア", ["aibahama-park"]),
     ("福岡エリア", ["mizuho-paypay-dome", "marine-messe-fukuoka"]),
     ("北海道エリア", ["sapporo-dome"]),
