@@ -566,3 +566,19 @@ td .no { display: inline-grid; place-items: center; width: 22px; height: 22px; m
 .price-badge.hot { background: #FDE8E6; color: #B42318; }
 .price-badge.mid { background: #FFF4D6; color: #8A5A00; }
 .price-badge.calm { background: #E6F4EA; color: #1E6B3A; }
+
+/* 料金カレンダー */
+.cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; margin: 8px 0 18px; }
+.cal-h { text-align: center; font-size: 12px; font-weight: 700; color: var(--muted); padding: 2px 0; }
+.cal-d { display: flex; flex-direction: column; min-height: 64px; padding: 3px 2px; border-radius: 6px; font-size: 10px; line-height: 1.35; overflow: hidden; word-break: break-all; }
+.cal-d b { font-size: 13px; }
+.cal-d.hot { background: #FDE8E6; color: #B42318; }
+.cal-d.mid { background: #FFF4D6; color: #8A5A00; }
+.cal-d.calm { background: #E6F4EA; color: #1E6B3A; }
+.cal-d.cal-none { background: #F3F4F6; color: #9CA3AF; }
+.cal-d.cal-x { background: none; }
+.cal-r { font-weight: 800; }
+.cal-n, .cal-more { color: #4B5563; }
+.cal-d a { color: inherit; font-weight: 700; text-decoration: underline; }
+.cal-legend { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0; }
+.cal-legend .cal-d { min-height: 0; padding: 2px 8px; font-size: 12px; }

@@ -44,6 +44,7 @@
 {% if venue.guides %}
 {{ more_buttons([
   ('/' ~ venue.slug ~ '/hotels/', '地図とホテルの比較表', '全' ~ hotels|length ~ '軒を距離、料金、口コミ、大浴場で比べる'),
+  ('/' ~ venue.slug ~ '/calendar/', '宿の料金カレンダー', 'イベントの夜ごとに、ふだんの何倍かと空きを見る'),
   ('/' ~ venue.slug ~ '/rinkai/', 'りんかい線からの道順', '国際展示場駅から徒歩約7分'),
   ('/' ~ venue.slug ~ '/yurikamome/', 'ゆりかもめからの道順', '東京ビッグサイト駅から徒歩約3分'),
   ('/' ~ venue.slug ~ '/halls/', '展示棟の違い', '東・西・南の展示棟と会議棟'),
@@ -54,6 +55,7 @@
 {% else %}
 {% set btns = [
   ('/' ~ venue.slug ~ '/hotels/', '地図とホテルの比較表', '全' ~ hotels|length ~ '軒を距離、料金、口コミ、大浴場で比べる'),
+  ('/' ~ venue.slug ~ '/calendar/', '宿の料金カレンダー', 'イベントの夜ごとに、ふだんの何倍かと空きを見る'),
   ('/' ~ venue.slug ~ '/hitori/', '1人で泊まる宿', '1人あたりの料金が安い順'),
   ('/' ~ venue.slug ~ '/futari/', '2人で泊まる宿', '1部屋に2人で泊まれる宿'),
 ] %}{% for rp in venue.route_pages or [] %}{% set _ = btns.append(('/' ~ venue.slug ~ '/' ~ rp.slug ~ '/', rp.name, rp.sub)) %}{% endfor %}

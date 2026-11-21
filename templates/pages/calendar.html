@@ -1,0 +1,11 @@
+{% set summary = calendar_summary(venue, nights) %}
+{% if summary %}<div class="advice"><p class="advice-h">この3か月の料金の動き</p><p>{{ summary }}</p></div>{% endif %}
+<p>{{ venue.name }}の近くの宿{{ hotels|length }}軒の、1人1室の料金と空室を毎朝調べています。イベントのある夜の料金を、同じ宿のイベントのない日（金曜・土曜の夜は週末、ほかは平日）と比べて色分けしました。赤はふだんの1.5倍以上、黄色は1.1〜1.5倍、緑はふだんとほぼ同じです。「空き」は会場から1km以内の歩いて行ける宿のうち、その夜に1人で泊まれる宿の数です。灰色の日はまだ調べていない夜です。</p>
+<p class="note">{{ jdate(today_iso) }}の朝の時点の料金です。日付の下のイベント名から、その日の近い宿のおすすめを見られます。</p>
+<div class="cal-legend"><span class="cal-d hot">ふだんの1.5倍以上</span><span class="cal-d mid">1.1〜1.5倍</span><span class="cal-d calm">ふだんと同じくらい</span></div>
+{{ price_calendar(venue, nights) }}
+<a class="btn btn-primary btn-block btn-big" href="/{{ venue.slug }}/#search">日付と人数で空室を探す</a>
+<!--body-->
+<h2>高い日に泊まるときは</h2>
+<p>赤い夜は、会場の近くの宿から先に埋まり、残った部屋の料金が上がっています。行く日が決まっていれば、イベントのページで近い順に空いている宿を確かめ、早めに押さえるのがいちばん安く済みます。{% if venue.far_areas %}近くが高すぎる夜は、{{ venue.far_areas[0].name }}に泊まる手もあります（{{ venue.far_areas[0].why }}）。{% endif %}</p>
+<p><a class="btn btn-sign" href="/{{ venue.slug }}/events/">開催予定をすべて見る</a></p>
