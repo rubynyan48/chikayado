@@ -35,6 +35,14 @@
 <p>これから3週間のうちに開かれる、一般のお客さん向けのライブや即売会などです。業界関係者向けの展示会は除いています。チケットや入場券が必要なものもあるので、詳しくは各イベントのページで確かめてください。開催日が近いほど宿は埋まっていきます。</p>
 {{ multi_event_table(hd.soon) }}
 
+{% if hot_nights %}
+<h2 id="hot">料金が上がっている夜</h2>
+<p>これから3週間のうち、会場の近くの宿の1人1室の料金が、イベントのない日の1.5倍以上に上がっている夜です。毎朝調べ直した数字で、倍率の高い順に並べています。行く日が決まっていれば早めに押さえるほど安く済み、決まっていなければ会場の料金カレンダーで安い夜を探せます。</p>
+<table class="t-events t-hot"><thead><tr><th>夜</th><th>会場とイベント</th></tr></thead><tbody>
+{% for n in hot_nights %}<tr><td class="date">{{ jdate(n.date) }}</td><td><a href="/{{ n.venue.slug }}/{{ n.events[0].slug }}/">{{ n.events[0].name }}</a><span class="sub">{{ n.venue.name }}　歩いて行ける宿の空き{{ n.near }}/{{ n.near_total }}軒</span><span class="price-badge hot">料金はふだんの約{{ n.ratio }}倍</span><a class="cal-link" href="/{{ n.venue.slug }}/calendar/">{{ n.venue.name }}の料金カレンダー</a></td></tr>{% endfor %}
+</tbody></table>
+{% endif %}
+
 <h2 id="genre">ジャンルで探す</h2>
 <div class="tabs">
   <div class="tablist tablist-big tablist-wrap" role="tablist" aria-label="ジャンル">

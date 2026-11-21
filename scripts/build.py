@@ -1849,9 +1849,13 @@ def main():
 
     jobs = [(p, main_ctx) for p in common_pages()]
     my_events = {}
+    hot_nights = []  # トップの「料金が上がっている夜」（11/22〜）
     for venue in all_venues:
         ctx = venue_context(venue)
         jobs += [(p, ctx) for p in pages_for(venue, ctx)]
+        for n in ctx["nights"].values():
+            if n.get("ratio") and n["ratio"] >= 1.5 and n.get("events") and not n.get("is_base"):
+                hot_nights.append({**n, "venue": venue})
         for e in ctx["events"]:
             my_events[f"{venue['slug']}/{e['slug']}"] = {"name": e["name"], "venue": venue["name"], "period": period(e),
                                                        "start": e["start"], "end": e["end"], "path": f"/{venue['slug']}/{e['slug']}/", **(e.get("my") or {})}
@@ -1878,6 +1882,15 @@ def main():
     updated = f"{TODAY.year}年{TODAY.month}月{TODAY.day}日"
     uses_hotpepper = False
 
+    # 3週間以内で、ふだんの1.5倍以上に上がっている夜を、倍率の高い順に（同じイベントは1つだけ）
+    soon = (TODAY + timedelta(days=21)).isoformat()
+    seen, picks = set(), []
+    for n in sorted((n for n in hot_nights if n["date"] <= soon), key=lambda n: -n["ratio"]):
+        k = (n["venue"]["slug"], n["events"][0]["slug"])
+        if k not in seen:
+            seen.add(k)
+            picks.append(n)
+    helpers["hot_nights"] = picks[:8]
     for page, ctx in jobs:
         page = dict(page)
         raw = env.get_template("pages/" + page["template"]).render(page=page, **ctx, **helpers)

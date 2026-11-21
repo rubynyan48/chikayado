@@ -595,3 +595,4 @@ td .no { display: inline-grid; place-items: center; width: 22px; height: 22px; m
 .my-install th { white-space: nowrap; }
 .cal-d.cal-free { background: #FAFAFA; color: #9CA3AF; border: 1px dashed #E5E7EB; }
 .cal-d.cal-pend { background: #EEF2FF; color: #3730A3; }
+.cal-link { display: block; margin-top: 4px; font-size: 12px; }
