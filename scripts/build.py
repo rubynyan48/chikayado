@@ -1371,6 +1371,10 @@ def event_key(e):
 def same_titled(a, b):
     if not (a["start"] <= b["end"] and b["start"] <= a["end"]) or not a.get("url") or a.get("url") != b.get("url"):
         return False
+    # 「超特急」と「超特急『BULLET TRAIN 1st DOME LIVE Signal』」のように、片方の名前がもう片方の頭と同じなら同じ公演（11/22〜）
+    ka, kb = sorted((event_key(a), event_key(b)), key=len)
+    if len(ka) >= 2 and kb.startswith(ka):
+        return True
     q = [re.search(r"[「『]([^」』]+)[」』]", unicodedata.normalize("NFKC", x["name"])) for x in (a, b)]
     return bool(q[0] and q[1]) and event_key({"name": q[0].group(1)}) == event_key({"name": q[1].group(1)})
 
@@ -1397,7 +1401,12 @@ def merge_runs(venue, events):
         up = [x for x in es if x["end"] >= TODAY.isoformat()]
         main = dict(up[0] if up else es[-1])
         main["slug"] = base["slug"]
+        # 名前は前のまま。ただし「超特急」と「超特急『…』」のように、かっこや空白でツアー名が続く長いほうがあればそちらを使う（URLは前のまま）
         main["name"] = base["name"]
+        for x in es:
+            rest = x["name"][len(main["name"]):]
+            if x["name"].startswith(main["name"]) and rest[:1] in "「『(（ 　":
+                main["name"] = x["name"]
         # 公式で「2日間の公演」と「その中の1日」が別々に載っていると日付が重なって出るので、重なる日程・続いた日程は1つにする（11/15）
         runs = []
         for a, b in sorted({(x["start"], x["end"]) for x in (up or es)}):
@@ -1599,6 +1608,14 @@ def calendar_nights(venue, hotels, events):
         evs = [e for e in events if e["start"] <= d <= e["end"]]
         nights[d] = {"date": d, "ratio": st.get("ratio"), "min": st["one"]["min"], "near": st["one"]["near"],
                      "near_total": st["near_total"], "events": evs, "is_base": d in base.values()}
+    # イベントがあるのにまだ空室を取れていない夜（翌朝に回った分）は「調べ中」として出す
+    end = (TODAY + timedelta(days=100)).isoformat()
+    for e in events:
+        d = max(e["start"], TODAY.isoformat())
+        while d <= min(e["end"], end):
+            if d not in nights:
+                nights[d] = {"date": d, "pending": True, "events": [x for x in events if x["start"] <= d <= x["end"]]}
+            d = (date.fromisoformat(d) + timedelta(days=1)).isoformat()
     return nights
 
 
@@ -1615,18 +1632,23 @@ def price_calendar(venue, nights):
         while d.month == m:
             n = nights.get(d.isoformat())
             past = d < TODAY
-            if n and not past:
+            ev = n["events"][0] if n and n["events"] else None
+            evl = (f'<a href="/{venue["slug"]}/{ev["slug"]}/">{escape(ev["name"] if len(ev["name"]) <= 7 else ev["name"][:6] + "…")}</a>' if ev else "")
+            if n and not past and n.get("pending"):
+                cells.append(f'<span class="cal-d cal-pend"><b>{d.day}</b><span class="cal-r">調べ中</span><span class="cal-n">順に調べます</span>{evl}</span>')
+            elif n and not past:
                 lb = price_label(n["ratio"]) if n["ratio"] is not None and not n["is_base"] else ("calm", "")
                 cls = lb[0] if lb else "calm"
                 r = ("ふだん" if n["is_base"] or (n["ratio"] or 0) <= 1.1 else f"{n['ratio']}倍")
                 price = (f"{n['min'] / 10000:.1f}万円〜" if n["min"] >= 10000 else f"{n['min']:,}円〜") if n["min"] else "満室"
-                ev = n["events"][0] if n["events"] else None
-                evl = (f'<a href="/{venue["slug"]}/{ev["slug"]}/">{escape(ev["name"] if len(ev["name"]) <= 7 else ev["name"][:6] + "…")}</a>' if ev else "")
                 more = f'<span class="cal-more">他{len(n["events"]) - 1}件</span>' if len(n["events"]) > 1 else ""
                 cells.append(f'<span class="cal-d {cls}"><b>{d.day}</b><span class="cal-r">{r}</span>'
                              f'<span class="cal-p">{price}</span><span class="cal-n">空き{n["near"]}軒</span>{evl}{more}</span>')
+            elif past:
+                cells.append(f'<span class="cal-d cal-none cal-past"><b>{d.day}</b></span>')
             else:
-                cells.append(f'<span class="cal-d cal-none{" cal-past" if past else ""}"><b>{d.day}</b></span>')
+                # イベントのない夜は宿の料金もふだんどおりなので、「調べていない」ではなく「イベントなし」と出す（11/22〜）
+                cells.append(f'<span class="cal-d cal-free"><b>{d.day}</b><span class="cal-n">イベントなし</span></span>')
             d += timedelta(days=1)
         out.append(f'<h3>{y}年{m}月</h3><div class="cal">{"".join(cells)}</div>')
     return Markup("".join(out))
@@ -1634,7 +1656,7 @@ def price_calendar(venue, nights):
 
 def calendar_summary(venue, nights):
     """そのカレンダーからわかることを言い切りの文で書く。"""
-    ev = [n for n in nights.values() if n["events"] and n["ratio"] is not None and not n["is_base"]]
+    ev = [n for n in nights.values() if n["events"] and n.get("ratio") is not None and not n.get("is_base")]
     if not ev:
         return ""
     top = max(ev, key=lambda n: n["ratio"])

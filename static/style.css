@@ -593,3 +593,5 @@ td .no { display: inline-grid; place-items: center; width: 22px; height: 22px; m
 .my-facts { margin: 0 0 4px; font-size: 14px; }
 .my-btns { display: flex; gap: 8px; align-items: center; margin: 10px 0 0; flex-wrap: wrap; }
 .my-install th { white-space: nowrap; }
+.cal-d.cal-free { background: #FAFAFA; color: #9CA3AF; border: 1px dashed #E5E7EB; }
+.cal-d.cal-pend { background: #EEF2FF; color: #3730A3; }
