@@ -37,7 +37,9 @@ def main():
     state = read_json(state_path, {}) or {}
     today = date.today()
     limit = (today - timedelta(days=RESEND_DAYS)).isoformat()
-    send = [u for u in urls if state.get(u, "") < limit]
+    # トップと人数別のページは空室と料金が毎日変わるので毎日送る（11/22〜）。ほかは7日おき
+    daily = re.compile(r"^https://[^/]+/(?:[^/]+/(?:hitori|futari|3nin|4nin)/)?$")
+    send = [u for u in urls if state.get(u, "") < limit or (daily.match(u) and state.get(u, "") < today.isoformat())]
     if not send:
         print("IndexNowに送るURLはありません")
         return 0
