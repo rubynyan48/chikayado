@@ -1,0 +1,47 @@
+<div class="answer my-intro">
+  <p class="answer-q">行くイベントの宿を、毎朝の最新で見る</p>
+  <p class="answer-note">イベントのページの「行くイベントに登録」を押すと、ここに並びます。その夜に1人で泊まれる宿の数、会場まで歩いて行ける宿の空き、最安値、ふだんと比べた料金を、毎朝調べ直した数字で出します。登録はこの端末の中だけに残り、ちか宿には送られません。</p>
+</div>
+<div id="my-list"><p class="note">読み込んでいます。</p></div>
+<p id="my-checked" class="note"></p>
+<!--body-->
+<h2>ホーム画面に追加してアプリのように使う</h2>
+<p>ホーム画面に追加すると、アイコンからすぐにこのページを開けます。App Storeは使わず、ブラウザだけで入れられます。</p>
+<table class="my-install">
+<tr><th>iPhone</th><td>Safariで開き、下の共有ボタン（四角から矢印が出ているボタン）を押して「ホーム画面に追加」を選びます。</td></tr>
+<tr><th>Android</th><td>Chromeで開き、右上の「︙」から「ホーム画面に追加」または「アプリをインストール」を選びます。</td></tr>
+</table>
+<h2>イベントを登録するには</h2>
+<p>会場のページの「開催予定」から行くイベントを開き、いちばん上の「行くイベントに登録」を押します。いくつでも登録でき、終わったイベントは自動で消えます。</p>
+<p><a class="btn btn-sign" href="/#venues">会場から行くイベントを探す</a></p>
+<script>
+(function(){
+var KEY='chikayado_my', box=document.getElementById('my-list');
+function load(){try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return []}}
+function save(a){try{localStorage.setItem(KEY,JSON.stringify(a))}catch(e){}}
+function yen(n){return n.toLocaleString('ja-JP')+'円'}
+function md(d){var p=d.split('-');return (+p[1])+'/'+(+p[2])}
+fetch('/api/my-events.json',{cache:'no-cache'}).then(function(r){return r.json()}).then(function(data){
+  var keys=load(), today=new Date().toISOString().slice(0,10), live=[], html='';
+  keys.forEach(function(k){var e=data.events[k]; if(e&&e.end>=today){live.push(k)}});
+  if(live.length!==keys.length)save(live);
+  live.sort(function(a,b){return data.events[a].start<data.events[b].start?-1:1});
+  if(!live.length){box.innerHTML='<p class="note">まだ登録されたイベントはありません。</p>';return}
+  live.forEach(function(k){var e=data.events[k], facts='';
+    if(e.night){
+      var cls=e.ratio>=1.5?'hot':(e.ratio!=null&&e.ratio<=1.1?'calm':'mid');
+      var r=e.ratio==null?'':(e.ratio<=1.1?'料金はふだんとほぼ同じ':'料金はふだんの約'+e.ratio+'倍');
+      facts='<p class="my-facts">'+md(e.night)+'の夜に1人で泊まれる宿 <b>'+e.open+'軒</b>（歩いて行ける宿は'+e.near+'/'+e.near_total+'軒）'
+        +(e.min?'、最安 <b>'+yen(e.min)+'</b>':'')+'</p>'+(r?'<span class="price-badge '+cls+'">'+r+'</span>':'');
+    } else { facts='<p class="my-facts">空室はまだ調べていません。開催が近づくと毎朝調べます。</p>'; }
+    html+='<div class="my-card"><p class="my-name"><a href="'+e.path+'">'+e.name.replace(/</g,'&lt;')+'</a></p>'
+      +'<p class="my-sub">'+e.period+'　'+e.venue+'</p>'+facts
+      +'<p class="my-btns"><a class="btn btn-primary" href="'+e.path+'#best">近い宿を見る</a>'
+      +'<button class="btn btn-small my-del" data-k="'+k+'">登録をやめる</button></p></div>'});
+  box.innerHTML=html;
+  document.getElementById('my-checked').textContent=md(data.checked)+'の朝に調べた空室と料金です。';
+  box.addEventListener('click',function(ev){var b=ev.target.closest('.my-del');if(!b)return;
+    save(load().filter(function(x){return x!==b.dataset.k}));b.closest('.my-card').remove();});
+}).catch(function(){box.innerHTML='<p class="note">読み込めませんでした。通信のよい所で開き直してください。</p>'});
+})();
+</script>

@@ -6,6 +6,9 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" href="/icon-192.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#145077">
+<meta name="apple-mobile-web-app-title" content="ちか宿">
 <meta name="referrer" content="no-referrer-when-downgrade">
 {% if site.google_site_verification %}<meta name="google-site-verification" content="{{ site.google_site_verification }}">{% endif %}
 <title>{{ page.title }}{% if not page.is_home %} - {{ site.name }}{% endif %}</title>
@@ -42,6 +45,7 @@
     <nav class="site-nav" aria-label="サイト内">
       <a href="/#venues">会場一覧</a>
       <a href="/{{ side.venue.slug }}/events/">開催予定</a>
+      <a href="/my/">行くイベント</a>
     </nav>
   </div>
 </header>
@@ -282,6 +286,13 @@ document.querySelectorAll('.map').forEach(function(el){
   <p class="wrap copyright">© 2026 {{ site.name }}（{{ site.display_domain }}）</p>
 </footer>
 <script>
+/* 行くイベントの登録（この端末の中だけに残す）とホーム画面用の準備 */
+(function(){var KEY='chikayado_my';function load(){try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return []}}
+document.querySelectorAll('.my-reg').forEach(function(box){var k=box.dataset.k,b=box.querySelector('.my-add');
+function show(){var on=load().indexOf(k)>=0;b.textContent=on?'✓ 登録済み　行くイベントを見る':'＋ 行くイベントに登録する';b.classList.toggle('on',on);}
+b.addEventListener('click',function(){var a=load();if(a.indexOf(k)>=0){location.href='/my/';return}a.push(k);try{localStorage.setItem(KEY,JSON.stringify(a))}catch(e){}show();
+if(window.gtag)gtag('event','my_event_add',{event_label:k});});show();});
+if('serviceWorker' in navigator)navigator.serviceWorker.register('/sw.js').catch(function(){});})();
 /* 開催日別の宿を、距離・値段・レビューで切り替える */
 (function(){var box=document.querySelector('.ar-sort');if(!box)return;var t=document.querySelector('.ar-title');
 box.addEventListener('change',function(ev){var k=ev.target.value;

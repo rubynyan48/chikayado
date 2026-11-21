@@ -47,7 +47,8 @@
 {% if first %}
 <a class="btn btn-primary btn-block btn-big" href="{{ book_url(first, first.offer) }}" rel="nofollow sponsored noopener" target="_blank">{{ first.name }}の空室を見る</a>
 {% endif %}
-{% if not ended %}{{ stay_advice(hotels, page.vacancy, sd, event=e, venue=venue, st=st) }}{% endif %}
+{% if not ended %}{{ stay_advice(hotels, page.vacancy, sd, event=e, venue=venue, st=st) }}
+<div class="my-reg" data-k="{{ venue.slug }}/{{ e.slug }}"><button type="button" class="btn btn-sign btn-block my-add">＋ 行くイベントに登録する</button><p class="note">登録すると、その夜の空きと料金を「<a href="/my/">行くイベント</a>」で毎朝の最新で見られます。</p></div>{% endif %}
 <div class="event-strip{% if e.runs and e.runs|length > 1 %} has-runs{% endif %}">
   {% if e.runs and e.runs|length > 1 %}
   <div class="es-runs"><span>開催日（全{{ e.runs|length }}日程）</span><strong>{% for t in run_labels(e) %}<em>{{ t }}</em>{% endfor %}</strong></div>

@@ -1448,6 +1448,9 @@ def venue_context(venue):
         st = event_stats(hotels, vac, bv, None)
         if st and st.get("ratio"):
             e["price_ratio"] = st["ratio"]
+        if st:
+            e["my"] = {"night": sd, "min": st["one"]["min"], "open": st["one"]["open"], "near": st["one"]["near"],
+                       "near_total": st["near_total"], "ratio": st.get("ratio")}
     return {
         "series": series,
         "venue": venue,
@@ -1785,6 +1788,9 @@ def common_pages():
          "title": "ちか宿 イベント会場に近いホテルが見つかる", "h1": "イベント会場に近いホテルが見つかる",
          "description": "東京ビッグサイト、東京ドーム、日本武道館、幕張メッセ、インテックス大阪など首都圏と大阪・名古屋の大型イベント会場に近いホテルを、会場からの距離と開催日の空室で探せます。展示会、ライブ、同人誌即売会、スポーツのイベントごとに宿をまとめています。",
          "breadcrumbs": []},
+        {"path": "/my/", "template": "my.html", "no_toc": True, "no_sitemap": True, "title": "行くイベント",
+         "description": "行くイベントを登録しておくと、その夜に会場の近くで空いている宿の数と料金を毎朝の最新で見られます。ホーム画面に追加すればアプリのように開けます。",
+         "breadcrumbs": [home, {"name": "行くイベント", "path": "/my/"}]},
         {"path": "/about/", "template": "about.html", "no_toc": True, "title": "運営者情報",
          "description": "ちか宿の運営者情報と、サイトに載せている情報の集め方についてです。",
          "breadcrumbs": [home, {"name": "運営者情報", "path": "/about/"}]},
@@ -1820,9 +1826,13 @@ def main():
     helpers["clinic_list"] = clinics()
 
     jobs = [(p, main_ctx) for p in common_pages()]
+    my_events = {}
     for venue in all_venues:
         ctx = venue_context(venue)
         jobs += [(p, ctx) for p in pages_for(venue, ctx)]
+        for e in ctx["events"]:
+            my_events[f"{venue['slug']}/{e['slug']}"] = {"name": e["name"], "venue": venue["name"], "period": period(e),
+                                                       "start": e["start"], "end": e["end"], "path": f"/{venue['slug']}/{e['slug']}/", **(e.get("my") or {})}
 
     # クリニックの近くの宿（イベントとは別のまとまり）
     all_clinics = clinics()
@@ -1894,6 +1904,8 @@ def main():
         shutil.copytree(d, DIST / "images" / "shots", dirs_exist_ok=True)
     # 空室検索（PHP）が使う宿の一覧
     shutil.copytree(ROOT / "static" / "api", DIST / "api")
+    # 「行くイベント」（/my/）が読む、イベントごとのその夜の空きと料金（毎朝の更新で作り直す）
+    (DIST / "api" / "my-events.json").write_text(json.dumps({"checked": TODAY.isoformat(), "events": my_events}, ensure_ascii=False), encoding="utf-8")
     for venue in all_venues + all_clinics:
         ctx = clinic_ctxs.get(venue["slug"]) or venue_context(venue)
         (DIST / "api" / f"hotels-{venue['slug']}.json").write_text(json.dumps({
@@ -1908,7 +1920,7 @@ def main():
     # 人気のツアーは公演の4か月前ごろに宿が予約されるため（11/6、予約の入ったページのログから分かった）。
     # 遠い回のページも作って内部リンクでたどれるが、検索エンジンに先に見てほしいのは予約が始まる回なので絞る。
     def in_sitemap(p, ctx):
-        if p.get("noindex"):
+        if p.get("noindex") or p.get("no_sitemap"):
             return False
         ev = p.get("event")
         if not ev:

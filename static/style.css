@@ -582,3 +582,14 @@ td .no { display: inline-grid; place-items: center; width: 22px; height: 22px; m
 .cal-d a { color: inherit; font-weight: 700; text-decoration: underline; }
 .cal-legend { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0; }
 .cal-legend .cal-d { min-height: 0; padding: 2px 8px; font-size: 12px; }
+
+/* 行くイベント */
+.my-reg { margin: 0 0 16px; }
+.my-reg .note { margin: 6px 0 0; }
+.my-add.on { background: #1E6B3A; box-shadow: 0 5px 0 #144A28; }
+.my-card { border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; margin: 0 0 12px; background: #fff; }
+.my-name { font-weight: 800; font-size: 16px; margin: 0 0 2px; }
+.my-sub { font-size: 13px; color: var(--muted); margin: 0 0 6px; }
+.my-facts { margin: 0 0 4px; font-size: 14px; }
+.my-btns { display: flex; gap: 8px; align-items: center; margin: 10px 0 0; flex-wrap: wrap; }
+.my-install th { white-space: nowrap; }
