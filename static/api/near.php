@@ -117,7 +117,7 @@ foreach ($json['hotels'] ?? [] as $entry) {
     if ($m) $url = "https://af.moshimo.com/af/c/click?a_id={$m['a_id']}&p_id={$m['p_id']}&pc_id={$m['pc_id']}&pl_id={$m['pl_id']}&url=" . rawurlencode($url);
     $dm = dist($lat, $lng, $info['latitude'] ?? $lat, $info['longitude'] ?? $lng);
     $out[] = [
-        'name' => $info['hotelName'], 'walk' => (int)ceil($dm * 1.25 / 80), 'distance' => $dm >= 1000 ? sprintf('%.1fkm', $dm / 1000) : "{$dm}m",
+        'name' => $info['hotelName'], 'jk' => rawurlencode(mb_convert_encoding($info['hotelName'], 'SJIS-win', 'UTF-8')), 'walk' => (int)ceil($dm * 1.25 / 80), 'distance' => $dm >= 1000 ? sprintf('%.1fkm', $dm / 1000) : "{$dm}m",
         'distance_m' => $dm, 'image' => $info['hotelThumbnailUrl'] ?? '', 'rate' => $info['reviewAverage'] ?? null, 'bath' => false,
         'per_person' => (int)round($plans[0]['total'] / $adults), 'url' => $url,
     ];

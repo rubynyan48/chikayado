@@ -114,7 +114,7 @@ foreach ($meta['hotels'] as $h) {
         $url = "https://af.moshimo.com/af/c/click?a_id={$m['a_id']}&p_id={$m['p_id']}&pc_id={$m['pc_id']}&pl_id={$m['pl_id']}&url=" . rawurlencode($url);
     }
     $out[] = [
-        'name' => $h['name'], 'walk' => $h['walk'], 'distance' => $h['distance'], 'image' => $h['image'],
+        'name' => $h['name'], 'jk' => $h['jk'] ?? rawurlencode(mb_convert_encoding($h['name'], 'SJIS-win', 'UTF-8')), 'walk' => $h['walk'], 'distance' => $h['distance'], 'image' => $h['image'],
         'rate' => $h['rate'], 'bath' => $h['bath'],
         'per_person' => (int)round($o['total'] / $adults), 'room' => $o['roomName'] ?? '', 'url' => $url,
     ];

@@ -167,10 +167,15 @@ def book_url(h, vac=None):
 JALAN_MYLINK = "https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3785673&pid=892755184&vc_url="
 
 
+def jalan_kw(name):
+    """じゃらんの宿名検索はShift_JISで受け取るので、宿名をShift_JIS（cp932）でURLにする（UTF-8だと文字化けする）。"""
+    return quote(name.encode("cp932", "ignore"))
+
+
 def jalan_url(name, d1=None, adults=1, nights=1):
     """じゃらんの同じ宿を、宿名で検索した結果に日付と人数を入れて開く（11/23〜、バリューコマースのMyLink）。
     楽天の宿番号とじゃらんの宿番号はつながっていないので、宿名で探す。"""
-    url = "https://www.jalan.net/uw/uwp2011/uww2011init.do?keyword=" + quote(name)
+    url = "https://www.jalan.net/uw/uwp2011/uww2011init.do?keyword=" + jalan_kw(name)
     if d1:
         d = date.fromisoformat(d1) if isinstance(d1, str) else d1
         url += f"&stayYear={d.year}&stayMonth={d.month}&stayDay={d.day}&stayCount={nights}&roomCount=1&adultNum={adults}"
@@ -566,7 +571,7 @@ def rank_tabs(items, limit=5, key="rk"):
 
 def api_item(h):
     """画面の中で並べ替えるための、宿1軒分の情報（空室検索の返事と同じ形）。"""
-    return {"name": h["name"], "walk": walk_min(h["distance_m"]), "distance": dist_label(h["distance_m"]), "image": h.get("image", ""),
+    return {"name": h["name"], "jk": jalan_kw(h["name"]), "walk": walk_min(h["distance_m"]), "distance": dist_label(h["distance_m"]), "image": h.get("image", ""),
             "rate": h.get("review_avg"), "bath": bool(h.get("daiyoku") or h.get("onsen")),
             "per_person": price_of(h), "adults": adults_of(h["offer"]) if h.get("offer") else 0,
             "url": book_url(h, h.get("offer"))}
@@ -2019,7 +2024,7 @@ def main():
         ctx = clinic_ctxs.get(venue["slug"]) or venue_context(venue)
         (DIST / "api" / f"hotels-{venue['slug']}.json").write_text(json.dumps({
             "lat": venue["lat"], "lng": venue["lng"], "radius": venue.get("search_radius_km", 3.0), "moshimo": SITE.get("moshimo"),
-            "hotels": [{"hotelNo": h["hotelNo"], "name": h["name"], "walk": walk_min(h["distance_m"]),
+            "hotels": [{"hotelNo": h["hotelNo"], "name": h["name"], "jk": jalan_kw(h["name"]), "walk": walk_min(h["distance_m"]),
                         "distance": dist_label(h["distance_m"]), "image": h.get("image", ""),
                         "rate": h.get("review_avg"), "bath": bool(h.get("daiyoku") or h.get("onsen"))} for h in ctx["hotels"]],
         }, ensure_ascii=False), encoding="utf-8")
