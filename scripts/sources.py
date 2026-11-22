@@ -1049,8 +1049,14 @@ def sekisui(venue):
         tour, hours, url = sekisui_parse_detail(get_html_eucjp(it["detail"]))
         artist = re.sub(r"[\s　]*コンサート$", "", it["title"])
         name = title_with_artist(artist, tour) if tour and artist != it["title"] else (tour or it["title"])
+        # EUC-JPにない記号（ハートなど）が化けて残るので消す。化けたほうは名前の頭が同じ別の行としてまとまる
+        name = clean(re.sub(r"[\ue000-\uf8ff\U000e0000-\U0010ffff\ufffd]", "", name))
         e = event(name, it["start"], it["end"], hours=hours, url=url or it["detail"])
         items.append(e)
+    # 同じ公演が「Travis Japan♥」（詳細なし）と「Travis Japan Concert Tour 2027 …」の2行で載ることがあるので、
+    # 日程が重なり、名前がもう一方の頭と同じだけの行は外す
+    items = [e for e in items if not any(o is not e and o["start"] <= e["end"] and e["start"] <= o["end"]
+                                         and len(o["name"]) > len(e["name"]) and o["name"].startswith(e["name"]) for o in items)]
     return unique(items)
 
 
