@@ -164,6 +164,32 @@ def book_url(h, vac=None):
     return h.get("plan_url") or h.get("info_url") or "#"
 
 
+JALAN_MYLINK = "https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3785673&pid=892755184&vc_url="
+
+
+def jalan_url(name, d1=None, adults=1, nights=1):
+    """じゃらんの同じ宿を、宿名で検索した結果に日付と人数を入れて開く（11/23〜、バリューコマースのMyLink）。
+    楽天の宿番号とじゃらんの宿番号はつながっていないので、宿名で探す。"""
+    url = "https://www.jalan.net/uw/uwp2011/uww2011init.do?keyword=" + quote(name)
+    if d1:
+        d = date.fromisoformat(d1) if isinstance(d1, str) else d1
+        url += f"&stayYear={d.year}&stayMonth={d.month}&stayDay={d.day}&stayCount={nights}&roomCount=1&adultNum={adults}"
+    return JALAN_MYLINK + quote(url, safe="")
+
+
+def jalan_for(h, vac=None):
+    q = parse_qs(urlparse((vac or {}).get("reserve_url") or "").query)
+    if q.get("f_nen1") and q.get("f_tuki1") and q.get("f_hi1"):
+        d1 = date(int(q["f_nen1"][0]), int(q["f_tuki1"][0]), int(q["f_hi1"][0]))
+        return jalan_url(h["name"], d1, (q.get("f_otona_su") or ["1"])[0])
+    return jalan_url(h["name"])
+
+
+def jalan_btn(h, vac=None, cls="qc-jalan"):
+    return (f'<a class="{cls}" href="{escape(jalan_for(h, vac))}" rel="nofollow sponsored noopener" target="_blank">'
+            "じゃらんで空室と料金を見る</a>")
+
+
 def moshimo(url):
     """楽天トラベルのページへの「どこでもリンク」。"""
     m = SITE.get("moshimo") or {}
@@ -246,7 +272,7 @@ def hotel_cards(hotels, limit=6, vacancy=None, checkin=None, numbered=False):
             f'<section class="hotel"><h3>{f"<span class=pin-no>{i}</span>" if numbered else ""}{escape(h["name"])}</h3>{img}'
             f'<table class="hotel-facts"><tbody>{"".join(rows)}</tbody></table>{access}'
             f'<div class="book"><p>予約はこちら</p><a class="btn btn-primary btn-block" href="{escape(book_url(h, vac))}" '
-            f'rel="nofollow sponsored noopener" target="_blank">楽天トラベルで空室と料金を見る</a></div></section>'
+            f'rel="nofollow sponsored noopener" target="_blank">楽天トラベルで空室と料金を見る</a>{jalan_btn(h, vac, "btn btn-jalan btn-block")}</div></section>'
         )
     return Markup("".join(out))
 
@@ -324,8 +350,9 @@ def best_cards(items, per_person_note=""):
             f'<span class="pick-label">{p["label"]}</span>{img}'
             f'<span class="pick-name">{escape(h["name"])}</span><span class="pick-reason">{escape(p["reason"])}</span>'
             f'<span class="pick-meta">{stars(h.get("review_avg"))}</span><span class="pick-meta">{chips(h)}</span>'
-            f'<span class="pick-btn">空室と料金を見る</span></a>'
+            f'<span class="pick-btn">楽天トラベルで空室と料金を見る</span></a>'
         )
+        out[-1] = f'<div class="pickw">{out[-1]}{jalan_btn(h, h.get("offer"))}</div>'
     note = f'<p class="note">{per_person_note}</p>' if per_person_note else ""
     return Markup(f'<div class="picks">{"".join(out)}</div>{note}')
 
@@ -462,8 +489,9 @@ def quick_cards(items, limit=5, labels=None):
             f'{label}<span class="qc-row">{img}<span class="qc-body"><span class="qc-name">{escape(h["name"])}</span>'
             f'<span class="qc-meta">{walk_chip(h["distance_m"])}{bath}</span>'
             f'<span class="qc-rate">{stars(h.get("review_avg"))}</span>{price_html}</span></span>'
-            f'<span class="qc-btn">空室と料金を見る</span></a>'
+            f'<span class="qc-btn">楽天トラベルで空室と料金を見る</span></a>'
         )
+        out[-1] = f'<div class="qcw">{out[-1]}{jalan_btn(h, h.get("offer"))}</div>'
     return Markup(f'<div class="qcs">{"".join(out)}</div>')
 
 
@@ -511,8 +539,9 @@ def cheap_cards(items):
             f'<span class="qc-meta"><span class="walk far">会場から約{h["distance_m"] / 1000:.1f}km</span>{st}{kind}</span>'
             f'<span class="qc-rate">{stars(h.get("review_avg"))}</span>'
             f'<span class="qc-price">{"ベッド1台" if h.get("dorm") else "1人1室"}で<strong>{yen(h["price"])}</strong>から</span></span></span>'
-            f'<span class="qc-btn">空室と料金を見る</span></a>'
+            f'<span class="qc-btn">楽天トラベルで空室と料金を見る</span></a>'
         )
+        out[-1] = f'<div class="qcw">{out[-1]}{jalan_btn(h, h)}</div>'
     return Markup(f'<div class="qcs">{"".join(out)}</div>')
 
 
@@ -1339,6 +1368,24 @@ def multi_event_table(events, limit=None):
                   f"</thead><tbody>{body}</tbody></table></div>")
 
 
+def find_box(default_date):
+    """トップのいちばん上の検索。イベント名・アーティスト名・会場名で、載っているかをその場で確かめる（11/23〜）。
+    載っていなければ、その場所の近くで空いている宿を楽天トラベルから出す（api/near.php）。"""
+    ppl = "".join(f'<label class="pp"><input type="radio" name="adults" value="{n}"{" checked" if n == "1" else ""}><span>{n}人</span></label>'
+                  for n in ("1", "2", "3", "4"))
+    return Markup(
+        '<form class="find" autocomplete="off" role="search">'
+        '<label class="find-label" for="find-q">行くイベントや会場の名前で探す</label>'
+        '<div class="find-row"><input id="find-q" type="search" name="q" placeholder="例　米津玄師、コミケ、東京ドーム" enterkeyhint="search">'
+        '<button type="submit" class="btn btn-primary">探す</button></div>'
+        '<div class="find-result" aria-live="polite"></div>'
+        f'<div class="find-near" hidden><p class="find-near-q"></p><label class="search-date"><span>泊まる日</span><input type="date" name="date" value="{default_date}" min="{TODAY.isoformat()}"></label>'
+        f'<div class="search-people" role="group" aria-label="人数">{ppl}</div>'
+        '<button type="button" class="btn btn-primary btn-block find-near-go">この場所の近くで空いている宿を探す</button><div class="find-near-result" aria-live="polite"></div></div>'
+        '</form>'
+    )
+
+
 def top_search(cards, default_date):
     """トップページの検索。会場・日付・人数・並べ方を選ぶと、その場で空いている宿を出す。"""
     opts = "".join(f'<option value="{c["slug"]}">{escape(c["name"])}</option>' for _, cs in cards for c in cs)
@@ -1853,7 +1900,7 @@ def main():
     env = Environment(loader=FileSystemLoader(ROOT / "templates"), autoescape=select_autoescape(["html"]))
     helpers = {"night_rows": night_rows, "run_rows": run_rows, "run_labels": run_labels, "fill_pace": fill_pace, "pair_saving": pair_saving, "entrance_for": entrance_for, "hotels_from_entrance": hotels_from_entrance, "lunch_split": lunch_split, "far_links": far_links, "group_title": group_title, "bus_rows": bus_rows, "price_cond": price_cond, "stay_nights": stay_nights, "stay_from": stay_from, "cheap_picks": cheap_picks, "cheap_max_km": CHEAP_MAX_KM, "cheap_cards": cheap_cards, "is_trade": is_trade, "genre": genre, "genre_photo": genre_photo, "photo": photo, "hotel_table": hotel_table, "hotel_cards": hotel_cards, "best_cards": best_cards,
                "compare_table": compare_table, "hotel_map": hotel_map, "people_tabs": people_tabs,
-               "with_offers": with_offers, "stay_advice": stay_advice, "price_calendar": price_calendar, "calendar_summary": calendar_summary, "price_label": price_label, "price_of": price_of, "event_stats": event_stats, "best_picks": best_picks, "depart_table": depart_table,
+               "with_offers": with_offers, "stay_advice": stay_advice, "find_box": find_box, "price_calendar": price_calendar, "calendar_summary": calendar_summary, "price_label": price_label, "price_of": price_of, "event_stats": event_stats, "best_picks": best_picks, "depart_table": depart_table,
                "open_time": open_time, "audience_label": audience_label,
                "event_table": event_table, "restaurant_table": restaurant_table, "dist_label": dist_label,
                "walk_min": walk_min, "yen": yen, "quick_cards": quick_cards, "people_switch": people_switch,
@@ -1869,12 +1916,17 @@ def main():
     jobs = [(p, main_ctx) for p in common_pages()]
     my_events = {}
     hot_nights = []  # トップの「料金が上がっている夜」（11/22〜）
+    find_index = {"v": [], "e": []}  # トップの「イベント名・アーティスト名・会場名で探す」（11/23〜）
     for venue in all_venues:
         ctx = venue_context(venue)
         jobs += [(p, ctx) for p in pages_for(venue, ctx)]
         for n in ctx["nights"].values():
             if n.get("ratio") and n["ratio"] >= 1.5 and n.get("events") and not n.get("is_base"):
                 hot_nights.append({**n, "venue": venue})
+        find_index["v"].append({"n": venue["name"], "f": venue.get("formal_name", ""), "a": venue.get("area_label", ""), "p": f"/{venue['slug']}/"})
+        for e in ctx["events"]:
+            if e["end"] >= TODAY.isoformat():
+                find_index["e"].append({"n": e["name"], "v": venue["name"], "d": period(e), "s": e["start"], "p": f"/{venue['slug']}/{e['slug']}/"})
         for e in ctx["events"]:
             my_events[f"{venue['slug']}/{e['slug']}"] = {"name": e["name"], "venue": venue["name"], "period": period(e),
                                                        "start": e["start"], "end": e["end"], "path": f"/{venue['slug']}/{e['slug']}/", **(e.get("my") or {})}
@@ -1961,6 +2013,8 @@ def main():
     # 空室検索（PHP）が使う宿の一覧
     shutil.copytree(ROOT / "static" / "api", DIST / "api")
     # 「行くイベント」（/my/）が読む、イベントごとのその夜の空きと料金（毎朝の更新で作り直す）
+    find_index["e"].sort(key=lambda x: x["s"])
+    (DIST / "api" / "find-index.json").write_text(json.dumps(find_index, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     (DIST / "api" / "my-events.json").write_text(json.dumps({"checked": TODAY.isoformat(), "events": my_events}, ensure_ascii=False), encoding="utf-8")
     for venue in all_venues + all_clinics:
         ctx = clinic_ctxs.get(venue["slug"]) or venue_context(venue)

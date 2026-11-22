@@ -4,6 +4,8 @@
     <h1>イベント会場に近いホテルが見つかる</h1>
     <p>東京ビッグサイト、東京ドーム、日本武道館、幕張メッセ、インテックス大阪など{{ hd.total_venues }}会場。{{ hd.total_events }}件のイベントの開催日に泊まれる宿を、毎朝調べ直しています。</p>
   </div>
+  {{ find_box(hd.saturday) }}
+  <p class="find-or">会場と日付から探すときは</p>
   {{ top_search(hd.groups, hd.saturday) }}
 </section>
 <p class="pr">本ページはプロモーションが含まれています</p>

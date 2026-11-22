@@ -158,6 +158,12 @@ jobs:
               rsync -az --chmod=D700,F600 -e "ssh -p ${PORT:-10022} -i $HOME/.ssh/xserver -o BatchMode=yes -o ConnectTimeout=30" \
                 priv/ "$USER_ID@$HOST:$PRIV" > priv.log 2>&1 && echo "空室検索の設定を配置" | python scripts/redact.py || (tail -3 priv.log | python scripts/redact.py)
               rm -rf priv
+              # トップの検索に入力された語句を取り寄せる（次に足す会場の参考、11/23〜）
+              rsync -az -e "ssh -p ${PORT:-10022} -i $HOME/.ssh/xserver -o BatchMode=yes -o ConnectTimeout=30" \
+                "$USER_ID@$HOST:${PRIV}queries.tsv" data/logs/find_queries.tsv > /dev/null 2>&1 && echo "検索の語句 $(wc -l < data/logs/find_queries.tsv)件" || true
+              # 場所から探す検索が動くか試す（次の土曜日、1人）
+              curl -s -m 60 -o near_test.txt -w "場所から探すテスト HTTP %{http_code}\n" "https://xn--u8j0b149r.jp/api/near.php?q=%E4%BB%99%E5%8F%B0%E9%A7%85&hits=-2&date=$(python -c "from datetime import date,timedelta;t=date.today();print(t+timedelta(days=(5-t.weekday())%7 or 7))")&adults=1" | python scripts/redact.py || true
+              python -c "import sys;b=open('near_test.txt',encoding='utf-8',errors='replace').read();print(b[:300].replace(chr(10),' '))" | python scripts/redact.py || true
               # 空室検索が動くか試す（次の土曜日、2人）
               SAT=$(python -c "from datetime import date,timedelta;t=date.today();print(t+timedelta(days=(5-t.weekday())%7 or 7))")
               curl -s -m 60 -o search_test.txt -w "空室検索のテスト HTTP %{http_code}\n" "https://xn--u8j0b149r.jp/api/search.php?venue=tokyo-big-sight&date=$SAT&adults=2" | python scripts/redact.py || true
