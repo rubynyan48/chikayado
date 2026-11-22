@@ -994,8 +994,74 @@ def kuroko_hall(venue):
     return join_days(unique(kuroko_hall_parse(get_html("https://www.nespa.or.jp/sports-plaza/hall/event-schedule/concert.html"))))
 
 
+def sekisui_parse_list(soup, today=None):
+    """セキスイハイムスーパーアリーナ（グランディ・21）のイベント情報の一覧。名前・種類・題名（途中で切れる）・期間の表。"""
+    today = today or date.today()
+    out = []
+    for tr in soup.select("tbody tr"):
+        tds = tr.find_all("td")
+        a = tds[0].find("a") if tds else None
+        if len(tds) < 4 or not a:
+            continue
+        ds = re.findall(r"(\d{4})\.(\d{2})/(\d{2})", tds[3].get_text())
+        if not ds:
+            continue
+        start = date(*map(int, ds[0])).isoformat()
+        end = date(*map(int, ds[-1])).isoformat()
+        if end < today.isoformat():
+            continue
+        out.append({"title": clean(a.get_text(" ")), "start": start, "end": end,
+                    "detail": "https://www.mspf.jp/grande21/" + a["href"].lstrip("./")})
+    return out
+
+
+def sekisui_parse_detail(soup):
+    """詳細ページから、内容の1行目（ツアー名）・開演時間・公式サイトを取る。"""
+    def cell(label):
+        th = soup.find("th", string=lambda x: x and x.strip() == label)
+        return th.find_next_sibling("td") if th else None
+    body = cell("内容")
+    tour = clean(body.get_text("\n").split("\n")[0]) if body else ""
+    note = cell("開催期間補足")
+    t = re.search(r"開演\s*(\d{1,2})[:：](\d{2})", unicodedata.normalize("NFKC", note.get_text()) if note else "")
+    link = cell("関連URL1")
+    a = link.find("a") if link else None
+    return tour, (f"開演 {int(t.group(1))}:{t.group(2)}" if t else ""), (a["href"] if a and a.get("href", "").startswith("http") else "")
+
+
+def get_html_eucjp(url):
+    """mspf.jp はEUC-JPで書かれているので、文字コードを決めて読む（自動判定だと文字化けする）。"""
+    time.sleep(1.5)
+    res = requests.get(url, headers={"User-Agent": UA, "Accept-Language": "ja"}, timeout=40)
+    res.raise_for_status()
+    raw = res.content
+    try:
+        text = raw.decode("utf-8")
+    except UnicodeDecodeError:
+        text = raw.decode("euc_jis_2004", "replace")
+    return BeautifulSoup(text, "html.parser")
+
+
+def sekisui(venue):
+    """公式のイベント情報の一覧（コンサートなど、4か月ほど先まで）と、イベントごとの詳細ページ。"""
+    items = []
+    for it in sekisui_parse_list(get_html_eucjp("https://www.mspf.jp/grande21/index.php?action=event_show_list&target=event")):
+        tour, hours, url = sekisui_parse_detail(get_html_eucjp(it["detail"]))
+        artist = re.sub(r"[\s　]*コンサート$", "", it["title"])
+        name = title_with_artist(artist, tour) if tour and artist != it["title"] else (tour or it["title"])
+        # EUC-JPにない記号（ハートなど）が化けて残るので消す。化けたほうは名前の頭が同じ別の行としてまとまる
+        name = clean(re.sub(r"[\ue000-\uf8ff\U000e0000-\U0010ffff\ufffd]", "", name))
+        e = event(name, it["start"], it["end"], hours=hours, url=url or it["detail"])
+        items.append(e)
+    # 同じ公演が「Travis Japan♥」（詳細なし）と「Travis Japan Concert Tour 2027 …」の2行で載ることがあるので、
+    # 日程が重なり、名前がもう一方の頭と同じだけの行は外す
+    items = [e for e in items if not any(o is not e and o["start"] <= e["end"] and e["start"] <= o["end"]
+                                         and len(o["name"]) > len(e["name"]) and o["name"].startswith(e["name"]) for o in items)]
+    return unique(items)
+
+
 SOURCES = {"manual": lambda venue: [],  # 日程は config/manual_events.json に手で足す（コスプレイベントの街の会場、11/16〜）
-           "ig_arena": ig_arena, "kobe_world": kobe_world, "kuroko_hall": kuroko_hall,
+           "ig_arena": ig_arena, "kobe_world": kobe_world, "kuroko_hall": kuroko_hall, "sekisui": sekisui,
     "sapporo_dome": sapporo_dome,
     "marine_messe": marine_messe,
     "nagoya_dome": nagoya_dome,

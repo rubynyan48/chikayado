@@ -1091,7 +1091,7 @@ def clinic_hub(all_clinics, ctxs):
 
 
 def station_table(venue):
-    rows = "".join(f"<tr><th>{escape(s['name'])}</th><td>{escape(s.get('line', ''))}</td><td>徒歩約{s['walk_min']}分</td></tr>"
+    rows = "".join(f"<tr><th>{escape(s['name'])}</th><td>{escape(s.get('line', ''))}</td><td>{escape(s.get('access') or f"徒歩約{s['walk_min']}分")}</td></tr>"
                    for s in sorted(venue.get("stations", []), key=lambda s: s["walk_min"]))
     return Markup(f'<div class="table-wrap"><table><thead><tr><th>駅</th><th>路線</th><th>{venue.get("place_word", "会場")}まで</th></tr></thead><tbody>{rows}</tbody></table></div>')
 
@@ -1112,7 +1112,25 @@ def load_hotels(venue):
         hotels = [dict(h, distance_m=distance_m(venue["lat"], venue["lng"], h["lat"], h["lng"])) for h in hotels]
         hotels = sorted((h for h in hotels if h["distance_m"] <= venue.get("search_radius_km", 3.0) * 1000),
                         key=lambda h: h["distance_m"])[:venue.get("max_hotels", 200)]
+    if venue.get("hub"):
+        # 会場へ歩いて行かず、駅からシャトルバスで行く会場（セキスイハイムスーパーアリーナ）は、距離をその駅から測る（11/22〜）
+        hb = venue["hub"]
+        hotels = sorted((dict(h, venue_m=h["distance_m"], distance_m=distance_m(hb["lat"], hb["lng"], h["lat"], h["lng"])) for h in hotels),
+                        key=lambda h: h["distance_m"])
     return hotels
+
+
+def hub_text(s, venue):
+    """駅から行く会場では、「会場まで徒歩」などの言い方をその駅を起点に直す。"""
+    hb = (venue or {}).get("hub")
+    if not hb or not s:
+        return s
+    n = hb["name"]
+    for a, b in (("会場まで徒歩", f"{n}から徒歩"), ("会場にいちばん近い", f"{n}にいちばん近い"), ("会場から近い順", f"{n}から近い順"),
+                 ("会場まで歩ける", f"{n}から歩ける"), ("会場まで歩いて行ける", f"{n}から歩いて行ける"), ("歩いて行ける宿", f"{n}から歩ける宿"),
+                 ("近い宿まで徒歩", f"{n}から徒歩"), ("会場から約", f"{n}から約"), ("会場に近い順", f"{n}に近い順")):
+        s = s.replace(a, b)
+    return s
 
 
 def venue_summary(venue):
@@ -1140,6 +1158,7 @@ AREA_GROUPS = [
     ("四国エリア", ["aibahama-park"]),
     ("福岡エリア", ["mizuho-paypay-dome", "marine-messe-fukuoka"]),
     ("北海道エリア", ["sapporo-dome"]),
+    ("東北エリア", ["sekisui-heim-super-arena"]),
 ]
 VENUE_TAGS = {
     "tokyo-big-sight": ["展示会", "同人誌即売会", "アート"], "ariake-arena": ["ライブ", "スポーツ"],
@@ -1151,7 +1170,7 @@ VENUE_TAGS = {
     "pacifico-yokohama": ["学会", "展示会", "コンサート"], "k-arena-yokohama": ["ライブ"], "pia-arena-mm": ["ライブ"],
     "yokohama-arena": ["ライブ", "スポーツ"],
     "trc-tokyo": ["同人誌即売会", "ファンイベント"], "sunshine-city": ["展示会", "アニメ・ゲーム"],
-    "intex-osaka": ["展示会"], "kyocera-dome-osaka": ["ライブ", "大型イベント"], "osaka-jo-hall": ["ライブ", "コンサート"], "mydome-osaka": ["展示会", "即売会"], "vantelin-dome-nagoya": ["ライブ", "大型イベント"], "mizuho-paypay-dome": ["ライブ", "大型イベント"], "portmesse-nagoya": ["展示会"], "sapporo-dome": ["ライブ", "大型イベント"], "marine-messe-fukuoka": ["ライブ", "展示会"], "ig-arena": ["ライブ", "スポーツ"], "kobe-world-hall": ["ライブ", "コンサート"], "aibahama-park": ["コスプレ", "アニメ"], "oasis21": ["コスプレ", "イベント広場"],
+    "intex-osaka": ["展示会"], "kyocera-dome-osaka": ["ライブ", "大型イベント"], "osaka-jo-hall": ["ライブ", "コンサート"], "mydome-osaka": ["展示会", "即売会"], "vantelin-dome-nagoya": ["ライブ", "大型イベント"], "mizuho-paypay-dome": ["ライブ", "大型イベント"], "portmesse-nagoya": ["展示会"], "sapporo-dome": ["ライブ", "大型イベント"], "marine-messe-fukuoka": ["ライブ", "展示会"], "ig-arena": ["ライブ", "スポーツ"], "kobe-world-hall": ["ライブ", "コンサート"], "aibahama-park": ["コスプレ", "アニメ"], "oasis21": ["コスプレ", "イベント広場"], "sekisui-heim-super-arena": ["ライブ", "コンサート"],
     "lala-arena-tokyo-bay": ["ライブ", "バスケットボール"], "yokohama-buntai": ["ライブ", "スポーツ"],
 }
 SPORTS = re.compile(r"サッカー|Jリーグ|J1|マラソン|ラグビー|陸上|大相撲|リーグ|選手権|大会|試合|ホームゲーム|開幕戦|vs|VS|BOXING|ボクシング|ONE |格闘|バスケ|バレー|フィギュア|Championship|GAME\.|太極拳")
@@ -1566,7 +1585,7 @@ def stay_advice(hotels, vacancy, stay_date, label=None, event=None, venue=None, 
         base = f"イベントのない{'週末' if date.fromisoformat(st['base_date']).weekday() in (4, 5) else '平日'}"
         if r >= 1.5:
             line = f"この日の料金は{base}の約{r}倍まで上がっています。"
-            if venue.get("far_areas"):
+            if venue.get("far_areas") and not venue.get("hub"):
                 fa = venue["far_areas"][0]
                 line += f"近くが高すぎるときは、{fa['name']}に泊まる手もあります（{fa['why']}）。"
             out.append(line)
@@ -1907,6 +1926,8 @@ def main():
         uses_hotpepper |= page["hotpepper"]
         if page.get("hero"):
             hr = page["hero"]
+            if ctx["venue"] and ctx["venue"].get("hub"):
+                hr["tiles"] = [tuple(hub_text(x, ctx["venue"]) if isinstance(x, str) else x for x in t) for t in hr["tiles"]]
             make_hero(DIST / HERO_DIR / hr["file"], hr["title"], hr["sub"], hr["tiles"], lead=hr.get("lead", "の会場に近いホテル"),
                       photo=next((d / hr["photo"] for d in (ROOT / "assets" / "photos", IMAGES) if hr.get("photo") and (d / hr["photo"]).exists()), None))
             hr["src"] = f"/{HERO_DIR}/{hr['file']}"
@@ -1919,7 +1940,7 @@ def main():
         html = env.get_template("base.html").render(page=page, has_hotels=bool(ctx["hotels"]), side=side, **helpers)
         out = DIST / page["path"].lstrip("/") / "index.html"
         out.parent.mkdir(parents=True, exist_ok=True)
-        out.write_text(nofollow_external(html), encoding="utf-8")
+        out.write_text(nofollow_external(hub_text(html, ctx["venue"]) if not (page.get("clinic") or page.get("clinics")) else html), encoding="utf-8")
 
     side = {"venue": main_ctx["venue"], "events": (main_ctx["public_events"] + main_ctx["trade_events"])[:6], "people": PEOPLE_PAGES,
             "series": main_ctx["series"], "venues": venue_list}
