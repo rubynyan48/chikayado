@@ -189,6 +189,13 @@ def jalan_for(h, vac=None):
     return jalan_url(h["name"])
 
 
+def book_pair(h, vac=None):
+    """楽天トラベルとじゃらんを同じ形・同じ大きさで並べる（どちらかを推して見えないように、11/23〜）。"""
+    a = 'rel="nofollow sponsored noopener" target="_blank"'
+    return (f'<div class="book2"><a class="b2 b2-r" href="{escape(book_url(h, vac))}" {a}>楽天トラベルで見る</a>'
+            f'<a class="b2 b2-j" href="{escape(jalan_for(h, vac))}" {a}>じゃらんで見る</a></div>')
+
+
 def jalan_btn(h, vac=None, cls="qc-jalan"):
     return (f'<a class="{cls}" href="{escape(jalan_for(h, vac))}" rel="nofollow sponsored noopener" target="_blank">'
             "じゃらんで空室と料金を見る</a>")
@@ -275,8 +282,7 @@ def hotel_cards(hotels, limit=6, vacancy=None, checkin=None, numbered=False):
         out.append(
             f'<section class="hotel"><h3>{f"<span class=pin-no>{i}</span>" if numbered else ""}{escape(h["name"])}</h3>{img}'
             f'<table class="hotel-facts"><tbody>{"".join(rows)}</tbody></table>{access}'
-            f'<div class="book"><p>予約はこちら</p><a class="btn btn-primary btn-block" href="{escape(book_url(h, vac))}" '
-            f'rel="nofollow sponsored noopener" target="_blank">楽天トラベルで空室と料金を見る</a>{jalan_btn(h, vac, "btn btn-jalan btn-block")}</div></section>'
+            f'<div class="book"><p>空室と料金を見る</p>{book_pair(h, vac)}</div></section>'
         )
     return Markup("".join(out))
 
@@ -350,13 +356,12 @@ def best_cards(items, per_person_note=""):
         h = p["hotel"]
         img = f'<img src="{escape(h["image"])}" alt="{escape(h["name"])}" loading="lazy">' if h.get("image") else '<span class="noimg"></span>'
         out.append(
-            f'<a class="pick" href="{escape(book_url(h, h.get("offer")))}" rel="nofollow sponsored noopener" target="_blank">'
+            f'<div class="pick">'
             f'<span class="pick-label">{p["label"]}</span>{img}'
             f'<span class="pick-name">{escape(h["name"])}</span><span class="pick-reason">{escape(p["reason"])}</span>'
             f'<span class="pick-meta">{stars(h.get("review_avg"))}</span><span class="pick-meta">{chips(h)}</span>'
-            f'<span class="pick-btn">楽天トラベルで空室と料金を見る</span></a>'
+            f'{book_pair(h, h.get("offer"))}</div>'
         )
-        out[-1] = f'<div class="pickw">{out[-1]}{jalan_btn(h, h.get("offer"))}</div>'
     note = f'<p class="note">{per_person_note}</p>' if per_person_note else ""
     return Markup(f'<div class="picks">{"".join(out)}</div>{note}')
 
@@ -489,13 +494,12 @@ def quick_cards(items, limit=5, labels=None):
         price_html = (f'<span class="qc-price">{price_cond(h["offer"]) if h.get("offer") else "最安"}<strong>{yen(price)}</strong>から</span>'
                       if price else "")
         out.append(
-            f'<a class="qc" href="{escape(book_url(h, h.get("offer")))}" rel="nofollow sponsored noopener" target="_blank">'
+            f'<div class="qc">'
             f'{label}<span class="qc-row">{img}<span class="qc-body"><span class="qc-name">{escape(h["name"])}</span>'
             f'<span class="qc-meta">{walk_chip(h["distance_m"])}{bath}</span>'
             f'<span class="qc-rate">{stars(h.get("review_avg"))}</span>{price_html}</span></span>'
-            f'<span class="qc-btn">楽天トラベルで空室と料金を見る</span></a>'
+            f'{book_pair(h, h.get("offer"))}</div>'
         )
-        out[-1] = f'<div class="qcw">{out[-1]}{jalan_btn(h, h.get("offer"))}</div>'
     return Markup(f'<div class="qcs">{"".join(out)}</div>')
 
 
@@ -538,14 +542,13 @@ def cheap_cards(items):
         st = f'<span class="chip">最寄り {escape(h["station"])}</span>' if h.get("station") else ""
         kind = '<span class="chip">相部屋・カプセル</span>' if h.get("dorm") else ""
         out.append(
-            f'<a class="qc" href="{escape(book_url(h, h))}" rel="nofollow sponsored noopener" target="_blank">'
+            f'<div class="qc">'
             f'<span class="qc-row">{img}<span class="qc-body"><span class="qc-name">{escape(h["name"])}</span>'
             f'<span class="qc-meta"><span class="walk far">会場から約{h["distance_m"] / 1000:.1f}km</span>{st}{kind}</span>'
             f'<span class="qc-rate">{stars(h.get("review_avg"))}</span>'
             f'<span class="qc-price">{"ベッド1台" if h.get("dorm") else "1人1室"}で<strong>{yen(h["price"])}</strong>から</span></span></span>'
-            f'<span class="qc-btn">楽天トラベルで空室と料金を見る</span></a>'
+            f'{book_pair(h, h)}</div>'
         )
-        out[-1] = f'<div class="qcw">{out[-1]}{jalan_btn(h, h)}</div>'
     return Markup(f'<div class="qcs">{"".join(out)}</div>')
 
 

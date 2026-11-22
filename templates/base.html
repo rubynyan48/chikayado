@@ -167,10 +167,9 @@
         if(!d.hotels.length){out.innerHTML='<p class="empty">この日に'+adults+'人で泊まれる宿は見つかりませんでした。日付か人数を変えてみてください。</p>';return;}
         var h='<p class="hint">'+d.hotels.length+'軒が空いています。'+(document.body.dataset.place||'会場')+'に近い順です。</p><div class="qcs">';
         d.hotels.slice(0,10).forEach(function(x){
-          h+='<div class="qcw"><a class="qc" href="'+esc(x.url)+'" rel="nofollow sponsored noopener" target="_blank"><span class="qc-row">'+(x.image?'<img src="'+esc(x.image)+'" alt="'+esc(x.name)+'の外観" loading="lazy">':'<span class="qc-noimg"></span>')+
+          h+='<div class="qc"><span class="qc-row">'+(x.image?'<img src="'+esc(x.image)+'" alt="'+esc(x.name)+'の外観" loading="lazy">':'<span class="qc-noimg"></span>')+
           '<span class="qc-body"><span class="qc-name">'+esc(x.name)+'</span><span class="qc-meta">'+(x.walk<=20?'<span class="walk">徒歩'+esc(x.walk)+'分</span>':(x.walk>47&&x.distance?'<span class="walk far">会場から約'+esc(x.distance)+'</span>':'<span class="walk far">電車で1〜2駅</span>'))+(x.bath?'<span class="chip chip-on">大浴場</span>':'')+'</span>'+
-          '<span class="qc-rate">'+stars(x.rate)+'</span><span class="qc-price">'+(+adults>1?adults+'人1室で1人あたり':'1人1室で')+'<strong>'+Number(x.per_person).toLocaleString()+'円</strong>から</span></span></span><span class="qc-btn">楽天トラベルで空室と料金を見る</span></a>'+
-          '<a class="qc-jalan" href="'+esc(jalanLink(x.jk,date,adults))+'" rel="nofollow sponsored noopener" target="_blank">じゃらんで空室と料金を見る</a></div>';
+          '<span class="qc-rate">'+stars(x.rate)+'</span><span class="qc-price">'+(+adults>1?adults+'人1室で1人あたり':'1人1室で')+'<strong>'+Number(x.per_person).toLocaleString()+'円</strong>から</span></span></span>'+bookPair(x.url,x.jk,date,adults)+'</div>';
         });
         out.innerHTML=h+'</div>';
       }).catch(function(){out.innerHTML='<p class="empty">空室を調べられませんでした。通信状態を確かめて、もう一度押してください。</p>';});
@@ -180,10 +179,9 @@
     var out=f.nextElementSibling, limit=+f.dataset.limit||6, preset=JSON.parse(f.querySelector('.rec-data').textContent), cache={}, seq=0;
     function esc(s){var d=document.createElement('div');d.textContent=s==null?'':String(s);return d.innerHTML;}
     function stars(v){if(!v)return '<span class="sub">評価なし</span>';v=+v;return '<span class="stars" style="--r:'+Math.round(v/5*100)+'%">★★★★★</span><span class="rate-num">'+v.toFixed(2)+'</span>';}
-    function card(x){return '<div class="qcw"><a class="qc" href="'+esc(x.url)+'" rel="nofollow sponsored noopener" target="_blank"><span class="qc-row">'+(x.image?'<img src="'+esc(x.image)+'" alt="'+esc(x.name)+'の外観" loading="lazy">':'<span class="qc-noimg"></span>')+
+    function card(x){return '<div class="qc"><span class="qc-row">'+(x.image?'<img src="'+esc(x.image)+'" alt="'+esc(x.name)+'の外観" loading="lazy">':'<span class="qc-noimg"></span>')+
       '<span class="qc-body"><span class="qc-name">'+esc(x.name)+'</span><span class="qc-meta">'+(x.walk<=20?'<span class="walk">徒歩'+esc(x.walk)+'分</span>':(x.walk>47&&x.distance?'<span class="walk far">会場から約'+esc(x.distance)+'</span>':'<span class="walk far">電車で1〜2駅</span>'))+(x.bath?'<span class="chip chip-on">大浴場</span>':'')+'</span>'+
-      '<span class="qc-rate">'+stars(x.rate)+'</span>'+(x.per_person?'<span class="qc-price">'+(x.adults>1?x.adults+'人1室で1人あたり':'1人1室で')+'<strong>'+Number(x.per_person).toLocaleString()+'円</strong>から</span>':'')+'</span></span><span class="qc-btn">楽天トラベルで空室と料金を見る</span></a>'+
-      '<a class="qc-jalan" href="'+esc(jalanLink(x.jk,x.date,x.adults))+'" rel="nofollow sponsored noopener" target="_blank">じゃらんで空室と料金を見る</a></div>';}
+      '<span class="qc-rate">'+stars(x.rate)+'</span>'+(x.per_person?'<span class="qc-price">'+(x.adults>1?x.adults+'人1室で1人あたり':'1人1室で')+'<strong>'+Number(x.per_person).toLocaleString()+'円</strong>から</span>':'')+'</span></span>'+bookPair(x.url,x.jk,x.date,x.adults)+'</div>';}
     var label={walk:(document.body.dataset.place||'会場')+'に近い順',price:'1人あたりの料金が安い順',rate:'レビューの評価が高い順'};
     function show(list,date,adults,sort,all){
       list=list.map(function(x){return Object.assign({},x,{adults:+adults,date:date});});
@@ -289,6 +287,7 @@ document.querySelectorAll('.map').forEach(function(el){
 </footer>
 <script>
 /* じゃらんの同じ宿を宿名・日付・人数で開く（バリューコマースのMyLink、11/23〜） */
+window.bookPair=function(url,jk,date,adults){return '<div class="book2"><a class="b2 b2-r" href="'+url.replace(/"/g,'&quot;')+'" rel="nofollow sponsored noopener" target="_blank">楽天トラベルで見る</a><a class="b2 b2-j" href="'+jalanLink(jk,date,adults)+'" rel="nofollow sponsored noopener" target="_blank">じゃらんで見る</a></div>';};
 window.jalanLink=function(jk,date,adults){var u='https://www.jalan.net/uw/uwp2011/uww2011init.do?keyword='+(jk||'');
 if(date){var p=date.split('-');u+='&stayYear='+p[0]+'&stayMonth='+(+p[1])+'&stayDay='+(+p[2])+'&stayCount=1&roomCount=1&adultNum='+(adults||1);}
 return 'https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3785673&pid=892755184&vc_url='+encodeURIComponent(u);};
@@ -322,10 +321,9 @@ f.querySelector('.find-near-go').addEventListener('click',function(){
     if(d.error){res.innerHTML='<p class="empty">'+esc(d.error)+'</p>';return;}
     if(!d.hotels.length){res.innerHTML='<p class="empty">'+esc(d.place)+'の近く3km以内で、この日に'+adults+'人で泊まれる宿は見つかりませんでした。</p>';return;}
     var h='<p class="hint">'+esc(d.place)+'の近くで空いている宿です（近い順）。</p><div class="qcs">';
-    d.hotels.forEach(function(x){h+='<div class="qcw"><a class="qc" href="'+esc(x.url)+'" rel="nofollow sponsored noopener" target="_blank"><span class="qc-row">'+(x.image?'<img src="'+esc(x.image)+'" alt="'+esc(x.name)+'の外観" loading="lazy">':'<span class="qc-noimg"></span>')+
+    d.hotels.forEach(function(x){h+='<div class="qc"><span class="qc-row">'+(x.image?'<img src="'+esc(x.image)+'" alt="'+esc(x.name)+'の外観" loading="lazy">':'<span class="qc-noimg"></span>')+
       '<span class="qc-body"><span class="qc-name">'+esc(x.name)+'</span><span class="qc-meta"><span class="walk'+(x.walk>20?' far':'')+'">'+(x.walk<=20?'徒歩'+x.walk+'分':'約'+esc(x.distance))+'</span></span>'+
-      '<span class="qc-price">'+(+adults>1?adults+'人1室で1人あたり':'1人1室で')+'<strong>'+Number(x.per_person).toLocaleString()+'円</strong>から</span></span></span><span class="qc-btn">楽天トラベルで空室と料金を見る</span></a>'+
-      '<a class="qc-jalan" href="'+esc(jalanLink(x.jk,date,adults))+'" rel="nofollow sponsored noopener" target="_blank">じゃらんで空室と料金を見る</a></div>';});
+      '<span class="qc-price">'+(+adults>1?adults+'人1室で1人あたり':'1人1室で')+'<strong>'+Number(x.per_person).toLocaleString()+'円</strong>から</span></span></span>'+bookPair(x.url,x.jk,date,adults)+'</div>';});
     res.innerHTML=h+'</div>';
   }).catch(function(){res.innerHTML='<p class="empty">空室を調べられませんでした。通信状態を確かめて、もう一度押してください。</p>';});
 });})();
