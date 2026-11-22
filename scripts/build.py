@@ -179,9 +179,8 @@ def jalan_url(name, d1=None, adults=1, nights=1):
 
 def jalan_for(h, vac=None):
     q = parse_qs(urlparse((vac or {}).get("reserve_url") or "").query)
-    if q.get("f_nen1") and q.get("f_tuki1") and q.get("f_hi1"):
-        d1 = date(int(q["f_nen1"][0]), int(q["f_tuki1"][0]), int(q["f_hi1"][0]))
-        return jalan_url(h["name"], d1, (q.get("f_otona_su") or ["1"])[0])
+    if q.get("f_hi1") and re.match(r"\d{4}-\d{2}-\d{2}$", q["f_hi1"][0]):
+        return jalan_url(h["name"], q["f_hi1"][0], (q.get("f_otona_su") or ["1"])[0])
     return jalan_url(h["name"])
 
 
