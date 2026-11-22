@@ -1029,19 +1029,24 @@ def sekisui_parse_detail(soup):
     return tour, (f"開演 {int(t.group(1))}:{t.group(2)}" if t else ""), (a["href"] if a and a.get("href", "").startswith("http") else "")
 
 
-def get_html_utf8(url):
-    """mspf.jp はEUC-JPと名乗っているが中身はUTF-8なので、中身のまま読む。"""
+def get_html_eucjp(url):
+    """mspf.jp はEUC-JPで書かれているので、文字コードを決めて読む（自動判定だと文字化けする）。"""
     time.sleep(1.5)
     res = requests.get(url, headers={"User-Agent": UA, "Accept-Language": "ja"}, timeout=40)
     res.raise_for_status()
-    return BeautifulSoup(res.content.decode("utf-8", "ignore"), "html.parser")
+    raw = res.content
+    try:
+        text = raw.decode("utf-8")
+    except UnicodeDecodeError:
+        text = raw.decode("euc_jis_2004", "replace")
+    return BeautifulSoup(text, "html.parser")
 
 
 def sekisui(venue):
     """公式のイベント情報の一覧（コンサートなど、4か月ほど先まで）と、イベントごとの詳細ページ。"""
     items = []
-    for it in sekisui_parse_list(get_html_utf8("https://www.mspf.jp/grande21/index.php?action=event_show_list&target=event")):
-        tour, hours, url = sekisui_parse_detail(get_html_utf8(it["detail"]))
+    for it in sekisui_parse_list(get_html_eucjp("https://www.mspf.jp/grande21/index.php?action=event_show_list&target=event")):
+        tour, hours, url = sekisui_parse_detail(get_html_eucjp(it["detail"]))
         artist = re.sub(r"[\s　]*コンサート$", "", it["title"])
         name = title_with_artist(artist, tour) if tour and artist != it["title"] else (tour or it["title"])
         e = event(name, it["start"], it["end"], hours=hours, url=url or it["detail"])
