@@ -1091,7 +1091,7 @@ def clinic_hub(all_clinics, ctxs):
 
 
 def station_table(venue):
-    rows = "".join(f"<tr><th>{escape(s['name'])}</th><td>{escape(s.get('line', ''))}</td><td>徒歩約{s['walk_min']}分</td></tr>"
+    rows = "".join(f"<tr><th>{escape(s['name'])}</th><td>{escape(s.get('line', ''))}</td><td>{escape(s.get('access') or f"徒歩約{s['walk_min']}分")}</td></tr>"
                    for s in sorted(venue.get("stations", []), key=lambda s: s["walk_min"]))
     return Markup(f'<div class="table-wrap"><table><thead><tr><th>駅</th><th>路線</th><th>{venue.get("place_word", "会場")}まで</th></tr></thead><tbody>{rows}</tbody></table></div>')
 
@@ -1140,6 +1140,7 @@ AREA_GROUPS = [
     ("四国エリア", ["aibahama-park"]),
     ("福岡エリア", ["mizuho-paypay-dome", "marine-messe-fukuoka"]),
     ("北海道エリア", ["sapporo-dome"]),
+    ("東北エリア", ["sekisui-heim-super-arena"]),
 ]
 VENUE_TAGS = {
     "tokyo-big-sight": ["展示会", "同人誌即売会", "アート"], "ariake-arena": ["ライブ", "スポーツ"],
@@ -1151,7 +1152,7 @@ VENUE_TAGS = {
     "pacifico-yokohama": ["学会", "展示会", "コンサート"], "k-arena-yokohama": ["ライブ"], "pia-arena-mm": ["ライブ"],
     "yokohama-arena": ["ライブ", "スポーツ"],
     "trc-tokyo": ["同人誌即売会", "ファンイベント"], "sunshine-city": ["展示会", "アニメ・ゲーム"],
-    "intex-osaka": ["展示会"], "kyocera-dome-osaka": ["ライブ", "大型イベント"], "osaka-jo-hall": ["ライブ", "コンサート"], "mydome-osaka": ["展示会", "即売会"], "vantelin-dome-nagoya": ["ライブ", "大型イベント"], "mizuho-paypay-dome": ["ライブ", "大型イベント"], "portmesse-nagoya": ["展示会"], "sapporo-dome": ["ライブ", "大型イベント"], "marine-messe-fukuoka": ["ライブ", "展示会"], "ig-arena": ["ライブ", "スポーツ"], "kobe-world-hall": ["ライブ", "コンサート"], "aibahama-park": ["コスプレ", "アニメ"], "oasis21": ["コスプレ", "イベント広場"],
+    "intex-osaka": ["展示会"], "kyocera-dome-osaka": ["ライブ", "大型イベント"], "osaka-jo-hall": ["ライブ", "コンサート"], "mydome-osaka": ["展示会", "即売会"], "vantelin-dome-nagoya": ["ライブ", "大型イベント"], "mizuho-paypay-dome": ["ライブ", "大型イベント"], "portmesse-nagoya": ["展示会"], "sapporo-dome": ["ライブ", "大型イベント"], "marine-messe-fukuoka": ["ライブ", "展示会"], "ig-arena": ["ライブ", "スポーツ"], "kobe-world-hall": ["ライブ", "コンサート"], "aibahama-park": ["コスプレ", "アニメ"], "oasis21": ["コスプレ", "イベント広場"], "sekisui-heim-super-arena": ["ライブ", "コンサート"],
     "lala-arena-tokyo-bay": ["ライブ", "バスケットボール"], "yokohama-buntai": ["ライブ", "スポーツ"],
 }
 SPORTS = re.compile(r"サッカー|Jリーグ|J1|マラソン|ラグビー|陸上|大相撲|リーグ|選手権|大会|試合|ホームゲーム|開幕戦|vs|VS|BOXING|ボクシング|ONE |格闘|バスケ|バレー|フィギュア|Championship|GAME\.|太極拳")
