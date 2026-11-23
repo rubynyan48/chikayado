@@ -1759,7 +1759,7 @@ def pages_for(venue, ctx):
                          f"徒歩圏の{len(ctx['near_hotels'])}軒と周辺のホテルを会場から近い順にまとめました。") if nearest
          else f"{venue['name']}の周辺にあるホテルを会場から近い順にまとめています。",
          "breadcrumbs": [home, hub], "float_cta": {"href": "#search", "label": "日付と人数で空室を探す"},
-         "hero": {"file": hero_name(f"{venue['name']}に近いホテル"), "title": venue["name"], "lead": "に近いホテル",
+         "hero": {"file": hero_name(f"{venue['name']}に近いホテル"), "title": venue.get("hero_name", venue["name"]), "lead": "に近いホテル",
                   "photo": venue.get("hero_photos", {}).get("venue"),
                   "sub": venue["address"], "tiles": hero_tiles(None, ctx["hotels"], ctx["near_hotels"]),
                   "alt": f"{venue['name']}に近いホテルの数と会場までの徒歩時間"}},

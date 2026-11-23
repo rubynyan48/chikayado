@@ -33,9 +33,14 @@ def wrap(draw, text, f, width, max_lines):
     """文字幅に合わせて行を分ける。英単語は途中で切らない。入りきらなければ最後を「…」にする。"""
     import re
     # 短いかっこ書き（「（日本ガイシホール）」など）は途中で切らず、まとめて次の行へ送る（11/21〜）
-    tokens = re.findall(r"（[^（）]{1,12}）|[A-Za-z0-9.'\"&!?\-:/]+\s*|\s+|.", text)
+    tokens = re.findall(r"\n|（[^（）]{1,12}）|[A-Za-z0-9.'\"&!?\-:/]+\s*|[^\S\n]+|.", text)
     lines, cur = [], ""
     for tk in tokens:
+        if tk == "\n":  # 会場の設定の hero_name で決めた切れ目（「セキスイハイム」と「スーパーアリーナ」の間など、11/23〜）
+            if cur.strip():
+                lines.append(cur.rstrip())
+            cur = ""
+            continue
         if draw.textlength((cur + tk).rstrip(), font=f) > width and cur.strip():
             lines.append(cur.rstrip())
             cur = tk.lstrip()
