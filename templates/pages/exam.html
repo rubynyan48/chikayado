@@ -31,7 +31,8 @@
 {% if st %}
 <div class="stats">
   <div><span>空いている宿</span><strong>{{ st.one.open }}<small>/{{ st.total }}軒</small></strong></div>
-  <div><span>歩いて行ける宿の空き</span><strong>{{ st.one.near }}<small>/{{ st.near_total }}軒</small></strong></div>
+  {% if st.near_total %}<div><span>歩いて行ける宿の空き</span><strong>{{ st.one.near }}<small>/{{ st.near_total }}軒</small></strong></div>
+  {% elif first %}<div><span>いちばん近い空き宿まで</span><strong>{{ '%.1f' % (first.distance_m / 1000) }}<small>km</small></strong></div>{% endif %}
   {% if st.ratio %}<div><span>料金はふだんの金曜の</span><strong>約{{ st.ratio }}<small>倍</small></strong></div>
   {% elif st.one.min %}<div><span>いちばん安い宿</span><strong>{{ '{:,}'.format(st.one.min) }}<small>円</small></strong></div>{% endif %}
 </div>
@@ -62,7 +63,7 @@
 {% set two = st.rows[1] if st.rows|length > 1 else None %}
 {% if two and two.open %}
 <h3>保護者と2人で泊まるとき</h3>
-<p>{{ jdate(sd, False) }}の夜に2人で1室に泊まれる宿は{{ two.open }}軒で、1人あたり{{ yen(two.min) }}からです。歩いて行ける宿では{{ two.near }}軒が空いています。上の「近いおすすめ宿」で2人を選ぶと、2人で泊まれる宿に切り替わります。</p>
+<p>{{ jdate(sd, False) }}の夜に2人で1室に泊まれる宿は{{ two.open }}軒で、1人あたり{{ yen(two.min) }}からです。{% if st.near_total %}歩いて行ける宿では{{ two.near }}軒が空いています。{% endif %}上の「近いおすすめ宿」で2人を選ぶと、2人で泊まれる宿に切り替わります。</p>
 {% endif %}
 {% endif %}
 
@@ -74,8 +75,13 @@
 {% if x.town %}<p>試験場の周りに宿が少ないので、{{ x.town.name }}の周りの宿も合わせて出しています。{{ km(venue) }}より遠い宿は、試験場からの距離で出しています。朝はバスや電車で試験場へ向かうので、道順にある乗り場に近い宿を選ぶと楽です。</p>{% endif %}
 
 <h2 id="tips">試験の前の夜に泊まるときのポイント</h2>
-<h3>朝は歩いて行ける宿だと電車の遅れを気にしなくてすむ</h3>
-<p>{% if st %}{{ x.name }}から1km以内の宿は{{ st.near_total }}軒で、{{ jdate(sd, False) }}の夜に1人で泊まれるのは{{ st.one.near }}軒です。{% endif %}歩いて行ける宿に泊まれば、試験の朝に電車やバスが遅れても影響を受けません。遠くの宿しか取れないときは、試験場の最寄り駅まで乗り換えなしで行ける宿を選ぶと安心です。</p>
+{% if st and st.near_total %}
+<h3>朝は歩いて行ける宿だと{% if x.island %}バスを待たずにすむ{% else %}電車の遅れを気にしなくてすむ{% endif %}</h3>
+<p>{{ x.name }}から1km以内の宿は{{ st.near_total }}軒で、{{ jdate(sd, False) }}の夜に1人で泊まれるのは{{ st.one.near }}軒です。{% if x.island %}歩いて行ける宿に泊まれば、朝のバスの時刻や道の混み具合に左右されずに試験場へ行けます。{% else %}歩いて行ける宿に泊まれば、試験の朝に電車やバスが遅れても影響を受けません。遠くの宿しか取れないときは、試験場の最寄り駅まで乗り換えなしで行ける宿を選ぶと安心です。{% endif %}</p>
+{% else %}
+<h3>歩いて行ける宿がないので乗り場に近い宿を選ぶ</h3>
+<p>{{ x.name }}から1km以内には宿がありません。{% if first %}空いている中でいちばん近い{{ first.name }}でも約{{ '%.1f' % (first.distance_m / 1000) }}kmあります。{% endif %}試験の朝はバスや電車で向かうことになるので、道順にある{% if x.town %}{{ x.town.name }}の{% endif %}乗り場の近くに泊まると、朝に歩く時間が短くなります。冬の朝は道が混んでバスが遅れることもあるので、門が開く時刻より早めの便に乗ってください。</p>
+{% endif %}
 {% if x.island %}
 <h3>島へ渡るなら前の日の早い便で</h3>
 <p>{{ x.island }}の試験場へほかの島から船や飛行機で渡る人は、冬は海や天気が荒れて欠航することがあります。試験の前の日の早い便で渡り、前の夜は試験場の近くに泊まると、欠航や遅れがあっても試験に間に合います。帰りの便も、2日目の試験が終わる時刻に合わせて選んでください。</p>
