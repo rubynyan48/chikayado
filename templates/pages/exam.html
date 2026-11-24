@@ -67,7 +67,8 @@
 {% endif %}
 
 <h2 id="access">{{ x.name }}への行き方</h2>
-<p>{{ x.name }}は{{ x.address }}にあります。大学入試センターの試験場一覧に載っている道順は「{{ x.route }}」です。</p>
+{% if x.also %}<p>{{ x.campus }}には{% for a in x.also %}{{ a.name }}（前年度の志願者{{ '{:,}'.format(a.applicants) }}人）{% if not loop.last %}、{% endif %}{% endfor %}の{{ x.also|length }}つの試験場があります。どれも同じキャンパスの中なので、近い宿は同じです。このページで{{ x.also|length }}つの試験場をまとめて調べています。</p>{% endif %}
+<p>{{ x.name }}は{{ x.address }}にあります。大学入試センターの試験場一覧に載っている{% if x.also %}{{ x.also[0].name }}の{% endif %}道順は「{{ x.route }}」です。</p>
 {% if x.stations %}{{ station_table(venue) }}{% endif %}
 <p>{% if x.gate %}前年度の試験の日は{{ x.gate }}に{{ x.gate_word | replace('ます', 'ました') }}。{% if first and first.distance_m <= 1500 %}{% set gm = (x.gate.split(':')[0]|int) * 60 + (x.gate.split(':')[1]|int) - walk_min(first.distance_m) - 10 %}{{ first.name }}に泊まるなら、歩く時間に10分の余裕を足して{{ gm // 60 }}:{{ '%02d' % (gm % 60) }}ごろに宿を出れば間に合います。{% endif %}{% endif %}{% if x.hp_note %}入室を始める時刻は{{ x.university }}のホームページに載ります。前の夜に宿で確かめておくと、朝に宿を出る時刻が決まります。{% endif %}{% if x.applicants %}前年度（{{ k.list_nendo }}）の{{ x.name }}の志願者は{{ '{:,}'.format(x.applicants) }}人でした。{% if x.applicants >= 1000 %}朝は試験場の入口と駅やバス停からの道が受験生で混み合います。{% endif %}{% endif %}</p>
 {% if x.town %}<p>試験場の周りに宿が少ないので、{{ x.town.name }}の周りの宿も合わせて出しています。{{ km(venue) }}より遠い宿は、試験場からの距離で出しています。朝はバスや電車で試験場へ向かうので、道順にある乗り場に近い宿を選ぶと楽です。</p>{% endif %}
@@ -88,13 +89,13 @@
 <p>2日目も朝から試験があります。1日目の夜も同じ宿に泊まれば、荷物を置いたまま試験場へ行けて、宿を探し直す手間もかかりません。{% if both_nights %}{{ jdate(nights_info[0].date, False) }}と{{ jdate(nights_info[1].date, False) }}の両方の夜に1人で泊まれる宿は{{ both_nights|length }}軒あり、いちばん近いのは{{ both_nights[0].name }}（徒歩約{{ walk_min(both_nights[0].distance_m) }}分）です。{% endif %}楽天トラベルの宿のページで泊数を2泊にすると、続けて泊まれるプランだけに絞れます。</p>
 {% endif %}
 <h3>宿を取る前に受験票の試験場名を確かめる</h3>
-<p>共通テストの試験場は、出願した人ごとに大学入試センターが決めて、受験票に書かれます。同じ大学でもキャンパスごとに試験場が分かれることがあるので、予約の前に受験票の試験場名がこのページの「{{ x.name }}」と同じか確かめてください。</p>
+<p>共通テストの試験場は、出願した人ごとに大学入試センターが決めて、受験票に書かれます。同じ大学でもキャンパスごとに試験場が分かれることがあるので、予約の前に受験票の試験場名が{% if x.also %}このページの{% for a in x.also %}「{{ a.name }}」{% if not loop.last %}・{% endif %}{% endfor %}のどれかか{% else %}このページの「{{ x.name }}」と同じか{% endif %}確かめてください。</p>
 
 <h2 id="schedule">{{ k.year }}年の共通テストの日程</h2>
 <div class="table-wrap"><table class="event-facts"><tbody>
   <tr><th>本試験</th><td>{% for d in k.dates %}{{ jdate(d) }}{% if not loop.last %}・{% endif %}{% endfor %}</td></tr>
   {% if k.retest %}<tr><th>追試験・再試験</th><td>{% for d in k.retest %}{{ jdate(d) }}{% if not loop.last %}・{% endif %}{% endfor %}</td></tr>{% endif %}
-  <tr><th>試験場</th><td>{{ x.name }}（試験場コード {{ x.code }}）</td></tr>
+  <tr><th>試験場</th><td>{% if x.also %}{% for a in x.also %}{{ a.name }}（試験場コード {{ a.code }}）{% if not loop.last %}<br>{% endif %}{% endfor %}{% else %}{{ x.name }}（試験場コード {{ x.code }}）{% endif %}</td></tr>
   <tr><th>所在地</th><td>{{ x.address }}</td></tr>
   {% if x.tel %}<tr><th>電話（試験当日）</th><td>{{ x.tel }}</td></tr>{% endif %}
   <tr><th>実施</th><td>大学入試センター　<a href="{{ k.url }}" rel="noopener" target="_blank">{{ k.url }}</a></td></tr>

@@ -2038,7 +2038,8 @@ def main():
     for exam in all_exams:
         ctx = exam_context(exam)
         exam_ctxs[exam["slug"]] = ctx
-        find_index["v"].append({"n": exam["name"], "f": f"{exam['university']} 共通テスト", "a": exam["pref"], "p": exam_path(exam)})
+        for nm in [exam["name"]] + [a["name"] for a in exam.get("also", []) if a["name"] != exam["name"]]:
+            find_index["v"].append({"n": nm, "f": f"{exam['university']} 共通テスト", "a": exam["pref"], "p": exam_path(exam)})
         jobs += [(p, ctx) for p in exam_pages(exam, ctx)]
     if all_exams:
         jobs.append((kyotsu_hub(all_exams, exam_ctxs), main_ctx))
