@@ -17,7 +17,7 @@ from pathlib import Path
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from markupsafe import Markup
 
-from common import DATA, ROOT, SITE, clinics, distance_m, read_json, venues
+from common import DATA, ROOT, SITE, clinics, distance_m, exam_nights, exams, read_json, venues
 from hero import make_hero
 from PIL import Image
 
@@ -597,6 +597,9 @@ def stay_nights(e, venue):
     trade = is_trade(e)
     out = []
     md = lambda d: f"{d.month}/{d.day}"
+    if venue.get("kind") == "exam":
+        # 共通テストは試験の前の夜と1日目の夜（11/24〜）
+        return [(d.isoformat(), md(d), "試験の前の夜" if i == 0 else f"{i}日目の夜") for i, d in enumerate(exam_nights()) if d >= TODAY]
     if venue.get("kind") == "exhibition" or trade:
         d = start - timedelta(days=1)
         if d >= TODAY:
@@ -1876,6 +1879,86 @@ def pages_for(venue, ctx):
     return pages
 
 
+# ---- 大学入学共通テストの試験場（11/24〜） ------------------------------------
+# 試験場は大学のキャンパスなので、イベント会場とは別のまとまりにする（/kyotsu-test/試験場/）。
+# URLは毎年同じにして、日程と空室だけを差し替える。
+KYOTSU = read_json(ROOT / "config" / "kyotsu_test.json", {}) or {}
+EXAM_COLORS = {"key": "exam", "label": "大学入学共通テスト", "color": "#1F4E8C", "soft": "#E9F0F9",
+               "lead": "試験の前の夜に泊まって朝は歩いて試験場へ行けるよう、試験場から近い順に、試験の前の夜と1日目の夜の空室と1人1室の料金を並べています。"}
+EXAM_WORDS = (("イベントのない", "ふだんの"), ("イベントによる値上がり", "試験による値上がり"), ("イベントの影響", "試験の影響"))
+
+
+def exam_event():
+    return {"name": KYOTSU.get("name", ""), "start": KYOTSU["dates"][0], "end": KYOTSU["dates"][-1], "slug": "kyotsu-test"} if KYOTSU else None
+
+
+def exam_path(exam):
+    return f"/kyotsu-test/{exam['path']}/"
+
+
+def exam_context(exam):
+    hotels = load_hotels(exam)
+    e = exam_event()
+    vdir = DATA / "vacancy" / exam["slug"]
+    base_date = (read_json(DATA / "baseline" / f"{exam['slug']}.json", {}) or {}).get("weekend")
+    base_vac = read_json(vdir / f"{base_date}.json") if base_date else None
+    per = []
+    for d, _, label in stay_nights(e, exam):
+        vac = read_json(vdir / f"{d}.json")
+        hist = read_json(DATA / "vacancy_history" / exam["slug"] / f"{d}.json")
+        per.append({"date": d, "label": label, "vacancy": vac, "st": event_stats(hotels, vac, base_vac, hist) if vac else None})
+    # 受験生向けのプランがある宿（夜ごと。1人で泊まるプラン）
+    plans = []
+    byno = {h["hotelNo"]: h for h in hotels}
+    for n in per:
+        for no, o in ((n["vacancy"] or {}).get("by_people", {}).get("1") or {}).items():
+            if o.get("exam_plan") and no in byno:
+                plans.append({"h": byno[no], "date": n["date"], "label": n["label"], **o["exam_plan"]})
+    plans.sort(key=lambda p: (p["date"], p["h"]["distance_m"]))
+    # 試験の前の夜と1日目の夜の両方に1人で泊まれる宿（荷物を置いたまま2泊できる）
+    opens = [set(((n["vacancy"] or {}).get("by_people", {}).get("1") or {})) for n in per]
+    both = [h for h in hotels if opens and all(h["hotelNo"] in o for o in opens)] if len(per) > 1 else []
+    return {"venue": exam, "hotels": hotels, "near_hotels": [h for h in hotels if h["distance_m"] <= 1000], "event": e,
+            "nights_info": per, "exam_plans": plans, "both_nights": both, "base_vacancy": base_vac, "base_date": base_date,
+            "series": [], "public_events": [], "trade_events": [], "events": [], "restaurants": {}, "lunch": [], "shots": {},
+            "saturday": None, "sat_vacancy": None, "nights": {}}
+
+
+def exam_pages(exam, ctx, kyotsu_hub_path="/kyotsu-test/"):
+    path = exam_path(exam)
+    first = ctx["nights_info"][0] if ctx["nights_info"] else None
+    st = first["st"] if first else None
+    sd = first["date"] if first else KYOTSU["dates"][0]
+    days = "・".join(f"{int(d[5:7])}/{int(d[8:10])}" for d in KYOTSU["dates"])
+    n_open = st["one"]["open"] if st else None
+    title = (f"{exam['name']}に近いホテル 共通テストの前の夜{md(sd)}に泊まれる宿{n_open}軒【{KYOTSU['year']}年{days}】" if n_open
+             else f"{exam['name']}に近いホテル 共通テストの前の夜に泊まる宿【{KYOTSU['year']}年{days}】")
+    return [{
+        "path": path, "template": "exam.html", "has_map": True, "place_word": "試験場", "replace_words": EXAM_WORDS,
+        "genre": EXAM_COLORS, "exam": exam, "kyotsu": KYOTSU, "stay_date": sd, "st": st,
+        "title": title,
+        "h1": f"{exam['name']}に近いホテル 共通テストの前の夜に泊まる宿",
+        "description": event_lead(ctx["event"], st, sd)
+                       + f"{KYOTSU['name']}（{KYOTSU['year']}年{days}）の{exam['name']}に近いホテルを、試験の前の夜と1日目の夜の空室と、試験場まで歩く時間で選べます。",
+        "breadcrumbs": [{"name": "トップ", "path": "/"}, {"name": "共通テストの試験場に近いホテル", "path": kyotsu_hub_path},
+                        {"name": exam["name"], "path": path}],
+        "hero": {"file": hero_name(f"{exam['name']}に近いホテル"), "title": exam["name"], "lead": "に近いホテル", "photo": exam.get("photo"),
+                 "sub": f"{KYOTSU['name']}　{period(ctx['event'])}",
+                 "tiles": [tuple(x.replace("イベントのない日の", "ふだんの金曜の") if isinstance(x, str) else x for x in t)
+                           for t in hero_tiles(st, ctx["hotels"], ctx["near_hotels"])],
+                 "alt": f"{exam['name']}に近いホテルの空き具合"},
+        "float_cta": {"href": "#hotels", "label": "空いている近い宿を見る"},
+    }]
+
+
+def kyotsu_hub(all_exams, ctxs):
+    return {"path": "/kyotsu-test/", "template": "kyotsu.html", "place_word": "試験場", "replace_words": EXAM_WORDS,
+            "genre": EXAM_COLORS, "exams": all_exams, "exam_ctx": ctxs, "kyotsu": KYOTSU, "first_night": exam_nights()[0].isoformat(),
+            "title": f"共通テストの試験場に近いホテル {KYOTSU['year']}年1月の試験の前の夜に泊まる宿{len(all_exams)}か所",
+            "description": f"{KYOTSU['name']}（{KYOTSU['year']}年{period(exam_event())}）の試験場ごとに、試験の前の夜に泊まれる近いホテルの空室と料金をまとめました。毎朝、楽天トラベルの空室を調べ直しています。",
+            "breadcrumbs": [{"name": "トップ", "path": "/"}, {"name": "共通テストの試験場に近いホテル", "path": "/kyotsu-test/"}]}
+
+
 def common_pages():
     home = {"name": "トップ", "path": "/"}
     return [
@@ -1949,6 +2032,15 @@ def main():
         ctx["near_hotels"] = [h for h in ctx["hotels"] if h["distance_m"] <= 1000]
         clinic_ctxs[clinic["slug"]] = ctx
         jobs += [(p, ctx) for p in clinic_pages(clinic, ctx, all_clinics)]
+    # 共通テストの試験場（11/24〜）。試験が終わったら次の年の日程と一覧に差し替えるまで作らない
+    all_exams = exams() if exam_event() and exam_event()["end"] >= TODAY.isoformat() else []
+    exam_ctxs = {}
+    for exam in all_exams:
+        ctx = exam_context(exam)
+        exam_ctxs[exam["slug"]] = ctx
+        jobs += [(p, ctx) for p in exam_pages(exam, ctx)]
+    if all_exams:
+        jobs.append((kyotsu_hub(all_exams, exam_ctxs), main_ctx))
     if all_clinics:
         jobs.append((clinic_hub(all_clinics, {k: {"hotels": len(c["hotels"]), "nearest": c["hotels"][0] if c["hotels"] else None}
                                               for k, c in clinic_ctxs.items()}), main_ctx))
@@ -1976,6 +2068,8 @@ def main():
         if page.get("place_word"):
             # 共通の部品の「会場」を、このページの場所の呼び方に置き換える
             lead, body = (x.replace("会場", page["place_word"]) for x in (lead, body))
+        for a, b in page.get("replace_words", ()):
+            lead, body = lead.replace(a, b), body.replace(a, b)
         body, toc = add_toc(body)
         page.update(lead=lead, body=body, toc=None if page.get("no_toc") else toc,
                     updated=None if page.get("no_toc") else updated,
@@ -1992,7 +2086,7 @@ def main():
             hr["src"] = f"/{HERO_DIR}/{hr['file']}"
         side = {"venue": ctx["venue"], "events": (ctx["public_events"] + ctx["trade_events"])[:6], "people": PEOPLE_PAGES,
                 "series": ctx["series"], "venues": venue_list}
-        if page.get("clinic") or page.get("clinics"):
+        if page.get("clinic") or page.get("clinics") or page.get("exam") or page.get("exams"):
             side = dict(side, venue=None, events=[], people=[], series=[], home=True)
         if page.get("is_home"):
             side = dict(side, events=helpers["home"]["soon"][:6], people=[], home=True)
@@ -2023,8 +2117,8 @@ def main():
     find_index["e"].sort(key=lambda x: x["s"])
     (DIST / "api" / "find-index.json").write_text(json.dumps(find_index, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     (DIST / "api" / "my-events.json").write_text(json.dumps({"checked": TODAY.isoformat(), "events": my_events}, ensure_ascii=False), encoding="utf-8")
-    for venue in all_venues + all_clinics:
-        ctx = clinic_ctxs.get(venue["slug"]) or venue_context(venue)
+    for venue in all_venues + all_clinics + all_exams:
+        ctx = clinic_ctxs.get(venue["slug"]) or exam_ctxs.get(venue["slug"]) or venue_context(venue)
         (DIST / "api" / f"hotels-{venue['slug']}.json").write_text(json.dumps({
             "lat": venue["lat"], "lng": venue["lng"], "radius": venue.get("search_radius_km", 3.0), "moshimo": SITE.get("moshimo"),
             "hotels": [{"hotelNo": h["hotelNo"], "name": h["name"], "jk": jalan_kw(h["name"]), "walk": walk_min(h["distance_m"]),

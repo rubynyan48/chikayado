@@ -1,0 +1,100 @@
+{% set x = page.exam %}
+{% set k = page.kyotsu %}
+{% set sd = page.stay_date %}
+{% set st = page.st %}
+{% set n1 = nights_info[0] if nights_info else None %}
+{% set by_people = ((n1.vacancy if n1 else None) or {}).get('by_people', {}) %}
+{% set items = with_offers(hotels, by_people.get('1')) if by_people else with_offers(hotels, None) %}
+{% set first = items|first if items else None %}
+{% set test_days = k.dates | map('string') | list %}
+<div class="answer">
+  <p class="answer-genre">{{ k.name }}</p>
+  {% if first %}
+  <p class="answer-q">{{ jdate(sd) }}の夜に泊まれる、試験場にいちばん近い宿</p>
+  <p class="answer-a">{{ first.name }}</p>
+  <p class="answer-facts"><span class="walk">試験場まで徒歩{{ walk_min(first.distance_m) }}分</span>{% if first.offer %}<span class="fact-price">{{ price_cond(first.offer) }}<strong>{{ yen(first.offer.per_person) }}</strong>から</span>{% endif %}</p>
+  {% else %}
+  <p class="answer-q">{{ x.name }}の近くの宿</p>
+  <p class="answer-a">空室を調べています</p>
+  {% endif %}
+  <p class="answer-note">{{ page.genre.lead }}</p>
+</div>
+{% if first %}
+<a class="btn btn-primary btn-block btn-big" href="{{ book_url(first, first.offer) }}" rel="nofollow sponsored noopener" target="_blank">{{ first.name }}の空室を見る</a>
+{{ stay_advice(hotels, n1.vacancy, sd, event=event, venue=venue, st=st) }}
+{% endif %}
+<div class="event-strip">
+  <div><span>試験日</span><strong>{% for d in test_days %}{{ d[5:7]|int }}/{{ d[8:10]|int }}{% if not loop.last %}・{% endif %}{% endfor %}</strong></div>
+  <div><span>泊まる夜</span><strong>{% for n in nights_info %}{{ n.date[5:7]|int }}/{{ n.date[8:10]|int }}{% if not loop.last %}・{% endif %}{% endfor %}</strong></div>
+  {% if x.applicants %}<div><span>前年度の志願者</span><strong>{{ '{:,}'.format(x.applicants) }}人</strong></div>{% endif %}
+</div>
+{% if st %}
+<div class="stats">
+  <div><span>空いている宿</span><strong>{{ st.one.open }}<small>/{{ st.total }}軒</small></strong></div>
+  <div><span>歩いて行ける宿の空き</span><strong>{{ st.one.near }}<small>/{{ st.near_total }}軒</small></strong></div>
+  {% if st.ratio %}<div><span>料金はふだんの金曜の</span><strong>約{{ st.ratio }}<small>倍</small></strong></div>
+  {% elif st.one.min %}<div><span>いちばん安い宿</span><strong>{{ '{:,}'.format(st.one.min) }}<small>円</small></strong></div>{% endif %}
+</div>
+{% endif %}
+<!--body-->
+<h2>近いおすすめ宿</h2>
+<div id="hotels"></div>
+{{ rec_box(venue, hotels, by_people, sd, nights=stay_nights(event, venue), people=("1", "2")) }}
+
+{% if exam_plans %}
+<h2 id="plans">受験生向けのプランがある宿</h2>
+<p>{{ x.name }}から{{ km(venue) }}以内の宿で、{% for n in nights_info %}{{ jdate(n.date, False) }}{% if not loop.last %}と{% endif %}{% endfor %}の夜に、プランの名前に「受験」と入っている1人1室のプランです。{{ jdate(n1.vacancy.checked, False) }}の朝に楽天トラベルで見つかったものを、泊まる夜ごとに試験場から近い順に並べました。夕食や朝食の時間、静かな部屋、延長のチェックアウトなど、付いている内容はプランごとに違うので、宿のページで確かめてください。</p>
+<div class="table-wrap"><table class="t-plans"><thead><tr><th>宿</th><th>泊まる夜</th><th>プラン</th><th class="num">1人1室</th><th></th></tr></thead><tbody>
+{% for p in exam_plans %}<tr><th scope="row">{{ p.h.name }}<span class="sub">徒歩約{{ walk_min(p.h.distance_m) }}分</span></th><td>{{ jdate(p.date, False) }}<span class="sub">{{ p.label }}</span></td><td>{{ p.plan }}</td><td class="num">{{ yen(p.per_person) }}</td><td><a class="btn btn-sign btn-small" href="{{ book_url(p.h, p) }}" rel="nofollow sponsored noopener" target="_blank">空室を見る</a></td></tr>
+{% endfor %}</tbody></table></div>
+{% endif %}
+
+{% if st %}
+<h2 id="numbers">試験の前の夜と1日目の夜の空き</h2>
+{% set nights = night_rows(event, venue, hotels) %}
+<p>{{ x.name }}で受ける人が泊まる2つの夜について、{{ jdate(nights[-1].checked, False) if nights else '' }}時点の空きを並べました。「歩ける宿」は試験場から1km以内です。1週間前と比べた増減も出しています。</p>
+<div class="table-wrap"><table class="t-nights"><thead><tr><th>泊まる夜</th><th>歩ける宿の空き</th><th>全体の空き</th><th>1人1室の最安</th><th>2人1室で1人あたり</th><th>1週間前から</th></tr></thead><tbody>
+{% for n in nights %}<tr><th scope="row">{{ jdate(n.date, False) }}<span class="sub">{{ n.label }}</span></th><td class="num">{{ n.near_open }}軒</td><td class="num">{{ n.open }}軒</td><td class="num">{{ yen(n.min1) if n.min1 else 'ー' }}</td><td class="num">{{ yen(n.min2) if n.min2 else 'ー' }}</td><td class="num">{% if n.diff is none %}記録なし{% elif n.diff < 0 %}<span class="down">{{ n.diff }}軒</span>{% elif n.diff > 0 %}+{{ n.diff }}軒{% else %}変わらず{% endif %}</td></tr>
+{% endfor %}</tbody></table></div>
+{% if st.ratio %}
+<p>同じ宿の1人1室の料金を、試験のないふだんの金曜の{{ jdate(st.base_date) }}と比べると、{{ jdate(sd) }}は真ん中の値で約{{ st.ratio }}倍です（両方の夜に空きがあった{{ st.compared }}軒で比べています）。{% if st.ratio >= 1.3 %}受験生や保護者の予約で料金が上がっています。泊まる宿が決まったら早めに押さえる方が安く済みます。{% elif st.ratio <= 1.1 %}今のところ試験による値上がりはほとんど出ていません。受験票で試験場がわかる12月ごろからは予約が増えるので、今のうちに押さえると選べる宿が多くあります。{% endif %}</p>
+{% endif %}
+{% set two = st.rows[1] if st.rows|length > 1 else None %}
+{% if two and two.open %}
+<h3>保護者と2人で泊まるとき</h3>
+<p>{{ jdate(sd, False) }}の夜に2人で1室に泊まれる宿は{{ two.open }}軒で、1人あたり{{ yen(two.min) }}からです。歩いて行ける宿では{{ two.near }}軒が空いています。上の「近いおすすめ宿」で2人を選ぶと、2人で泊まれる宿に切り替わります。</p>
+{% endif %}
+{% endif %}
+
+<h2 id="access">{{ x.name }}への行き方</h2>
+<p>{{ x.name }}は{{ x.address }}にあります。大学入試センターの試験場一覧に載っている道順は「{{ x.route }}」です。</p>
+{{ station_table(venue) }}
+<p>{% if x.entry_note %}入室を始める時刻は{{ x.university }}のホームページに載ります。前の夜に宿で確かめておくと、朝に宿を出る時刻が決まります。{% endif %}{% if x.applicants %}前年度（{{ k.list_nendo }}）の{{ x.name }}の志願者は{{ '{:,}'.format(x.applicants) }}人でした。朝は試験場の入口と駅からの道が受験生で混み合います。{% endif %}</p>
+
+<h2 id="tips">試験の前の夜に泊まるときのポイント</h2>
+<h3>朝は歩いて行ける宿だと電車の遅れを気にしなくてすむ</h3>
+<p>{% if st %}{{ x.name }}から1km以内の宿は{{ st.near_total }}軒で、{{ jdate(sd, False) }}の夜に1人で泊まれるのは{{ st.one.near }}軒です。{% endif %}歩いて行ける宿に泊まれば、試験の朝に電車やバスが遅れても影響を受けません。遠くの宿しか取れないときは、試験場の最寄り駅まで乗り換えなしで行ける宿を選ぶと安心です。</p>
+{% if x.snow %}
+<h3>雪の朝は歩く時間を多めに見る</h3>
+<p>1月の{{ x.pref }}は雪の日が多く、凍った歩道ではふだんより歩くのに時間がかかります。このページの徒歩の時間は分速80mで計算した目安です。雪の朝は余裕を持って宿を出て、滑りにくい靴で向かってください。</p>
+{% endif %}
+{% if nights_info|length > 1 %}
+<h3>2日目まで受けるなら2泊で押さえる</h3>
+<p>2日目も朝から試験があります。1日目の夜も同じ宿に泊まれば、荷物を置いたまま試験場へ行けて、宿を探し直す手間もかかりません。{% if both_nights %}{{ jdate(nights_info[0].date, False) }}と{{ jdate(nights_info[1].date, False) }}の両方の夜に1人で泊まれる宿は{{ both_nights|length }}軒あり、いちばん近いのは{{ both_nights[0].name }}（徒歩約{{ walk_min(both_nights[0].distance_m) }}分）です。{% endif %}楽天トラベルの宿のページで泊数を2泊にすると、続けて泊まれるプランだけに絞れます。</p>
+{% endif %}
+<h3>宿を取る前に受験票の試験場名を確かめる</h3>
+<p>共通テストの試験場は、出願した人ごとに大学入試センターが決めて、受験票に書かれます。同じ大学でもキャンパスごとに試験場が分かれることがあるので、予約の前に受験票の試験場名がこのページの「{{ x.name }}」と同じか確かめてください。</p>
+
+<h2 id="schedule">{{ k.year }}年の共通テストの日程</h2>
+<div class="table-wrap"><table class="event-facts"><tbody>
+  <tr><th>本試験</th><td>{% for d in k.dates %}{{ jdate(d) }}{% if not loop.last %}・{% endif %}{% endfor %}</td></tr>
+  {% if k.retest %}<tr><th>追試験・再試験</th><td>{% for d in k.retest %}{{ jdate(d) }}{% if not loop.last %}・{% endif %}{% endfor %}</td></tr>{% endif %}
+  <tr><th>試験場</th><td>{{ x.name }}（試験場コード {{ x.code }}）</td></tr>
+  <tr><th>所在地</th><td>{{ x.address }}</td></tr>
+  {% if x.tel %}<tr><th>電話（試験当日）</th><td>{{ x.tel }}</td></tr>{% endif %}
+  <tr><th>実施</th><td>大学入試センター　<a href="{{ k.url }}" rel="noopener" target="_blank">{{ k.url }}</a></td></tr>
+</tbody></table></div>
+<p class="note">試験場名、所在地、道順、志願者数は{{ k.list_name }}のものです。{{ k.nendo }}の一覧が出たら差し替えます。</p>
+
+{{ more_buttons([('/kyotsu-test/', '共通テストのほかの試験場', '試験場ごとの近い宿と、試験の前の夜の空室')]) }}
+<p><a class="btn btn-primary btn-block btn-big" href="#hotels">空いている近い宿にもどる</a></p>
