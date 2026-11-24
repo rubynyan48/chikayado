@@ -23,5 +23,15 @@
     "radius_km": 1.2
   },
   "extra_max_km": 15.0,
-  "gate_word": "門が開きます"
+  "gate_word": "門が開きます",
+  "lat": 43.786209,
+  "lng": 142.347702,
+  "extra_areas": [
+    {
+      "name": "旭川駅",
+      "lat": 43.763492,
+      "lng": 142.357803,
+      "radius_km": 1.2
+    }
+  ]
 }

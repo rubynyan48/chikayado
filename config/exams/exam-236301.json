@@ -23,5 +23,15 @@
     "radius_km": 1.2
   },
   "extra_max_km": 15.0,
-  "gate_word": "門が開きます"
+  "gate_word": "門が開きます",
+  "lat": 39.804924,
+  "lng": 140.047287,
+  "extra_areas": [
+    {
+      "name": "秋田駅",
+      "lat": 39.716748,
+      "lng": 140.129931,
+      "radius_km": 1.2
+    }
+  ]
 }

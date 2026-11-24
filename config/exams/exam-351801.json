@@ -23,5 +23,15 @@
     "radius_km": 1.2
   },
   "extra_max_km": 15.0,
-  "gate_word": "門が開きます"
+  "gate_word": "門が開きます",
+  "lat": 40.479317,
+  "lng": 141.562363,
+  "extra_areas": [
+    {
+      "name": "本八戸駅",
+      "lat": 40.516286,
+      "lng": 141.488762,
+      "radius_km": 1.2
+    }
+  ]
 }

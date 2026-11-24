@@ -22,5 +22,15 @@
     "radius_km": 1.2
   },
   "extra_max_km": 15.0,
-  "gate_word": "入室が始まります"
+  "gate_word": "入室が始まります",
+  "lat": 33.186432,
+  "lng": 129.665451,
+  "extra_areas": [
+    {
+      "name": "佐世保駅",
+      "lat": 33.163868,
+      "lng": 129.725667,
+      "radius_km": 1.2
+    }
+  ]
 }

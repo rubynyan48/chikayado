@@ -22,5 +22,15 @@
     "radius_km": 1.2
   },
   "extra_max_km": 15.0,
-  "gate_word": "門が開きます"
+  "gate_word": "門が開きます",
+  "lat": 37.359478,
+  "lng": 140.382889,
+  "extra_areas": [
+    {
+      "name": "郡山駅",
+      "lat": 37.398187,
+      "lng": 140.389363,
+      "radius_km": 1.2
+    }
+  ]
 }

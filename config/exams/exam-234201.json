@@ -23,5 +23,15 @@
     "radius_km": 1.2
   },
   "extra_max_km": 15.0,
-  "gate_word": "門が開きます"
+  "gate_word": "門が開きます",
+  "lat": 40.754196,
+  "lng": 140.769241,
+  "extra_areas": [
+    {
+      "name": "青森駅",
+      "lat": 40.828668,
+      "lng": 140.734738,
+      "radius_km": 1.2
+    }
+  ]
 }

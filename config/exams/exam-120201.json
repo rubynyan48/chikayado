@@ -23,5 +23,15 @@
     "radius_km": 1.2
   },
   "extra_max_km": 15.0,
-  "gate_word": "門が開きます"
+  "gate_word": "門が開きます",
+  "lat": 36.074238,
+  "lng": 136.212402,
+  "extra_areas": [
+    {
+      "name": "福井駅",
+      "lat": 36.062057,
+      "lng": 136.223516,
+      "radius_km": 1.2
+    }
+  ]
 }

@@ -23,5 +23,15 @@
     "radius_km": 1.2
   },
   "extra_max_km": 15.0,
-  "gate_word": "門が開きます"
+  "gate_word": "門が開きます",
+  "lat": 43.190952,
+  "lng": 140.97937,
+  "extra_areas": [
+    {
+      "name": "小樽駅",
+      "lat": 43.197172,
+      "lng": 140.993653,
+      "radius_km": 1.2
+    }
+  ]
 }

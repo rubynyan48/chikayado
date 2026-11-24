@@ -22,5 +22,15 @@
     "radius_km": 1.2
   },
   "extra_max_km": 15.0,
-  "gate_word": "門が開きます"
+  "gate_word": "門が開きます",
+  "lat": 33.101685,
+  "lng": 129.789978,
+  "extra_areas": [
+    {
+      "name": "ハウステンボス駅",
+      "lat": 33.091923,
+      "lng": 129.796458,
+      "radius_km": 1.2
+    }
+  ]
 }

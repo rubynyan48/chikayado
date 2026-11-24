@@ -23,5 +23,15 @@
     "radius_km": 1.2
   },
   "extra_max_km": 15.0,
-  "gate_word": "入室が始まります"
+  "gate_word": "入室が始まります",
+  "lat": 37.424774,
+  "lng": 138.778793,
+  "extra_areas": [
+    {
+      "name": "長岡駅",
+      "lat": 37.447787,
+      "lng": 138.853927,
+      "radius_km": 1.2
+    }
+  ]
 }
