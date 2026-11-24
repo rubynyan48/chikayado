@@ -1945,7 +1945,9 @@ def exam_pages(exam, ctx, kyotsu_hub_path="/kyotsu-test/"):
         "hero": {"file": hero_name(f"{exam['name']}に近いホテル"), "title": exam["name"], "lead": "に近いホテル", "photo": exam.get("photo"),
                  "sub": f"{KYOTSU['name']}　{period(ctx['event'])}",
                  "tiles": [tuple(x.replace("イベントのない日の", "ふだんの金曜の") if isinstance(x, str) else x for x in t)
-                           for t in hero_tiles(st, ctx["hotels"], ctx["near_hotels"])],
+                           for t in hero_tiles(st, ctx["hotels"], ctx["near_hotels"])
+                           if not (st and not st["near_total"] and t[0] == "歩いて行ける宿の空き")]
+                          + ([("いちばん安い宿", f"{st['one']['min']:,}", "円")] if st and not st["near_total"] and st.get("ratio") and st["one"].get("min") else []),
                  "alt": f"{exam['name']}に近いホテルの空き具合"},
         "float_cta": {"href": "#hotels", "label": "空いている近い宿を見る"},
     }]
