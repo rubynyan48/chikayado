@@ -24,5 +24,13 @@
     "name": "仙台駅",
     "radius_km": 1.0
   },
-  "extra_max_km": 15.0
+  "extra_max_km": 15.0,
+  "extra_areas": [
+    {
+      "name": "仙台駅",
+      "lat": 38.259901,
+      "lng": 140.879928,
+      "radius_km": 1.0
+    }
+  ]
 }
