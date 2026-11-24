@@ -1,0 +1,37 @@
+{
+  "slug": "exam-236701",
+  "path": "公立はこだて未来大学",
+  "name": "公立はこだて未来大学試験場",
+  "university": "公立はこだて未来大学",
+  "pref": "北海道",
+  "code": "236701",
+  "applicants": 220,
+  "address": "北海道函館市亀田中野町116番地2",
+  "route": "函館バス「はこだて未来大学」下車、徒歩1分",
+  "gate": "",
+  "hp_note": false,
+  "tel": "0138-34-6444",
+  "kind": "exam",
+  "search_radius_km": 3.0,
+  "people": [
+    1,
+    2
+  ],
+  "snow": true,
+  "town": {
+    "name": "函館駅",
+    "radius_km": 1.2
+  },
+  "extra_max_km": 15.0,
+  "gate_word": "",
+  "lat": 41.841949,
+  "lng": 140.766815,
+  "extra_areas": [
+    {
+      "name": "函館駅",
+      "lat": 41.773709,
+      "lng": 140.726413,
+      "radius_km": 1.2
+    }
+  ]
+}

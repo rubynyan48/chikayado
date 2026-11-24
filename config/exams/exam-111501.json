@@ -1,0 +1,36 @@
+{
+  "slug": "exam-111501",
+  "path": "宮城教育大学",
+  "name": "宮城教育大学試験場",
+  "university": "宮城教育大学",
+  "pref": "宮城県",
+  "code": "111501",
+  "applicants": 264,
+  "address": "宮城県仙台市青葉区荒巻字青葉149番地",
+  "route": "JR仙台駅から仙台市営地下鉄(東西線)に乗車,青葉山駅で下車約9分,青葉山駅北1出口から宮城教育大学試験場まで徒歩約9分",
+  "gate": "",
+  "hp_note": false,
+  "tel": "022-214-3334",
+  "kind": "exam",
+  "search_radius_km": 3.0,
+  "people": [
+    1,
+    2
+  ],
+  "gate_word": "",
+  "lat": 38.258968,
+  "lng": 140.830948,
+  "town": {
+    "name": "仙台駅",
+    "radius_km": 1.0
+  },
+  "extra_max_km": 15.0,
+  "extra_areas": [
+    {
+      "name": "仙台駅",
+      "lat": 38.259901,
+      "lng": 140.879928,
+      "radius_km": 1.0
+    }
+  ]
+}

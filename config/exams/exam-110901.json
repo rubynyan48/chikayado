@@ -1,0 +1,37 @@
+{
+  "slug": "exam-110901",
+  "path": "帯広畜産大学",
+  "name": "帯広畜産大学試験場",
+  "university": "試 験 実 施 大 学 名名県都 道 府帯広畜産大学",
+  "pref": "北海道",
+  "code": "110901",
+  "applicants": 735,
+  "address": "北海道帯広市稲田町西2線11番地",
+  "route": "帯広駅前バスターミナル9番のりば十勝バス大空団地線〔70・72番〕乗車緑陽高校前下車、南へ徒歩15分入室:控室7:30~試験場8:30~",
+  "gate": "",
+  "hp_note": false,
+  "tel": "0155-49-5321",
+  "kind": "exam",
+  "search_radius_km": 3.0,
+  "people": [
+    1,
+    2
+  ],
+  "snow": true,
+  "town": {
+    "name": "帯広駅",
+    "radius_km": 1.2
+  },
+  "extra_max_km": 15.0,
+  "gate_word": "",
+  "lat": 42.872356,
+  "lng": 143.177979,
+  "extra_areas": [
+    {
+      "name": "帯広駅",
+      "lat": 42.917997,
+      "lng": 143.20195,
+      "radius_km": 1.2
+    }
+  ]
+}

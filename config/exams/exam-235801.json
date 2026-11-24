@@ -1,0 +1,37 @@
+{
+  "slug": "exam-235801",
+  "path": "岩手県立大学",
+  "name": "岩手県立大学試験場",
+  "university": "試 験 実 施 大 学 名名都 道 府岩手県立大学",
+  "pref": "岩手県",
+  "code": "235801",
+  "applicants": 613,
+  "address": "岩手県滝沢市巣子152-52",
+  "route": "IGRいわて銀河鉄道「滝沢駅」下車、駅舎を出て右方向に徒歩15分又はJR盛岡駅東口から岩手県交通バス「岩手県立大学」下車",
+  "gate": "",
+  "hp_note": false,
+  "tel": "019-694-2014",
+  "kind": "exam",
+  "search_radius_km": 3.0,
+  "people": [
+    1,
+    2
+  ],
+  "snow": true,
+  "town": {
+    "name": "盛岡駅",
+    "radius_km": 1.2
+  },
+  "extra_max_km": 15.0,
+  "gate_word": "",
+  "lat": 39.799114,
+  "lng": 141.131531,
+  "extra_areas": [
+    {
+      "name": "盛岡駅",
+      "lat": 39.701547,
+      "lng": 141.136599,
+      "radius_km": 1.2
+    }
+  ]
+}

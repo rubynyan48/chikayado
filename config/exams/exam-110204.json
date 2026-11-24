@@ -1,0 +1,37 @@
+{
+  "slug": "exam-110204",
+  "path": "北海道教育大学釧路校",
+  "name": "北海道教育大学釧路校試験場",
+  "university": "北海道教育大学",
+  "pref": "北海道",
+  "code": "110204",
+  "applicants": 225,
+  "address": "北海道釧路市城山1丁目15番55号",
+  "route": "JR「釧路駅」前からくしろバス(3武佐線、32別保線)で10分「城山十字路」下車、徒歩4分",
+  "gate": "",
+  "hp_note": false,
+  "tel": "0154-44-3250",
+  "kind": "exam",
+  "search_radius_km": 3.0,
+  "people": [
+    1,
+    2
+  ],
+  "snow": true,
+  "town": {
+    "name": "釧路駅",
+    "radius_km": 1.2
+  },
+  "extra_max_km": 15.0,
+  "gate_word": "",
+  "lat": 42.981174,
+  "lng": 144.397095,
+  "extra_areas": [
+    {
+      "name": "釧路駅",
+      "lat": 42.990584,
+      "lng": 144.381983,
+      "radius_km": 1.2
+    }
+  ]
+}

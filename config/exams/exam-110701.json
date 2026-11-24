@@ -1,0 +1,37 @@
+{
+  "slug": "exam-110701",
+  "path": "室蘭工業大学",
+  "name": "室蘭工業大学試験場",
+  "university": "室蘭工業大学",
+  "pref": "北海道",
+  "code": "110701",
+  "applicants": 864,
+  "address": "北海道室蘭市水元町27-1",
+  "route": "道南バス「東町ターミナル(JR東室蘭駅東口から徒歩7分)」から「工大」行または「ろう学校」行で「工大」下車、徒歩1分入室時刻は本学HP参照",
+  "gate": "",
+  "hp_note": true,
+  "tel": "0143-46-5160",
+  "kind": "exam",
+  "search_radius_km": 3.0,
+  "people": [
+    1,
+    2
+  ],
+  "snow": true,
+  "town": {
+    "name": "東室蘭駅",
+    "radius_km": 1.2
+  },
+  "extra_max_km": 15.0,
+  "gate_word": "",
+  "lat": 42.378716,
+  "lng": 141.034042,
+  "extra_areas": [
+    {
+      "name": "東室蘭駅",
+      "lat": 42.349374,
+      "lng": 141.026411,
+      "radius_km": 1.2
+    }
+  ]
+}

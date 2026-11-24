@@ -1,0 +1,37 @@
+{
+  "slug": "exam-111702",
+  "path": "山形大学工学部",
+  "name": "山形大学工学部試験場",
+  "university": "山形大学",
+  "pref": "山形県",
+  "code": "111702",
+  "applicants": 642,
+  "address": "山形県米沢市城南四丁目3-16",
+  "route": "JR奥羽本線「米沢駅」から市街地循環バス右回りで「山大正門」下車、徒歩1分又は、「米沢駅」から「学園都市線」で「城南二丁目」下車、徒歩3分",
+  "gate": "",
+  "hp_note": false,
+  "tel": "0238-26-3013",
+  "kind": "exam",
+  "search_radius_km": 3.0,
+  "people": [
+    1,
+    2
+  ],
+  "snow": true,
+  "town": {
+    "name": "米沢駅",
+    "radius_km": 1.2
+  },
+  "extra_max_km": 15.0,
+  "gate_word": "",
+  "lat": 37.901688,
+  "lng": 140.104126,
+  "extra_areas": [
+    {
+      "name": "米沢駅",
+      "lat": 37.909478,
+      "lng": 140.128209,
+      "radius_km": 1.2
+    }
+  ]
+}

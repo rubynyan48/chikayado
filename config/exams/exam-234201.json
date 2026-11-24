@@ -1,0 +1,37 @@
+{
+  "slug": "exam-234201",
+  "path": "青森公立大学",
+  "name": "青森公立大学試験場",
+  "university": "青森公立大学",
+  "pref": "青森県",
+  "code": "234201",
+  "applicants": 288,
+  "address": "青森県青森市大字合子沢字山崎153‐4",
+  "route": "「青森駅」から青森市営バス又はJRバス東北で、青森公立大学行又はモヤヒルズ行に乗車し、「青森公立大学前」で下車(約60分)7時00分開門",
+  "gate": "7:00",
+  "hp_note": false,
+  "tel": "017-764-1555",
+  "kind": "exam",
+  "search_radius_km": 3.0,
+  "people": [
+    1,
+    2
+  ],
+  "snow": true,
+  "town": {
+    "name": "青森駅",
+    "radius_km": 1.2
+  },
+  "extra_max_km": 15.0,
+  "gate_word": "門が開きます",
+  "lat": 40.754196,
+  "lng": 140.769241,
+  "extra_areas": [
+    {
+      "name": "青森駅",
+      "lat": 40.828668,
+      "lng": 140.734738,
+      "radius_km": 1.2
+    }
+  ]
+}

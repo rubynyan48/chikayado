@@ -1,0 +1,37 @@
+{
+  "slug": "exam-234301",
+  "path": "会津大学",
+  "name": "会津大学試験場",
+  "university": "会津大学",
+  "pref": "福島県",
+  "code": "234301",
+  "applicants": 823,
+  "address": "福島県会津若松市一箕町鶴賀字上居合90",
+  "route": "JR会津若松駅から会津バス1番乗り場中央病院・居合団地線「会津大学前」下車(約10分)",
+  "gate": "",
+  "hp_note": false,
+  "tel": "0242-37-2723",
+  "kind": "exam",
+  "search_radius_km": 3.0,
+  "people": [
+    1,
+    2
+  ],
+  "snow": true,
+  "town": {
+    "name": "会津若松駅",
+    "radius_km": 1.2
+  },
+  "extra_max_km": 15.0,
+  "gate_word": "",
+  "lat": 37.524788,
+  "lng": 139.940445,
+  "extra_areas": [
+    {
+      "name": "会津若松駅",
+      "lat": 37.508824,
+      "lng": 139.930159,
+      "radius_km": 1.2
+    }
+  ]
+}

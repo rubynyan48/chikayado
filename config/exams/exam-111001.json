@@ -1,0 +1,37 @@
+{
+  "slug": "exam-111001",
+  "path": "旭川医科大学",
+  "name": "旭川医科大学試験場",
+  "university": "旭川医科大学",
+  "pref": "北海道",
+  "code": "111001",
+  "applicants": 731,
+  "address": "北海道旭川市緑が丘東2条1丁目1番1号",
+  "route": "旭川駅前より乗車可能な旭川電気軌道バス、71番乗車「医大病院前」下車又は80番・81番乗車「緑が丘3条4丁目」下車、徒歩10分8時開場",
+  "gate": "8:00",
+  "hp_note": false,
+  "tel": "0166-69-3145",
+  "kind": "exam",
+  "search_radius_km": 3.0,
+  "people": [
+    1,
+    2
+  ],
+  "snow": true,
+  "town": {
+    "name": "旭川駅",
+    "radius_km": 1.2
+  },
+  "extra_max_km": 15.0,
+  "gate_word": "門が開きます",
+  "lat": 43.730633,
+  "lng": 142.381897,
+  "extra_areas": [
+    {
+      "name": "旭川駅",
+      "lat": 43.763492,
+      "lng": 142.357803,
+      "radius_km": 1.2
+    }
+  ]
+}

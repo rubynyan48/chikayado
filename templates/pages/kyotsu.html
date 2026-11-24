@@ -1,0 +1,22 @@
+{% set k = page.kyotsu %}
+<div class="answer">
+  <p class="answer-genre">{{ k.name }}</p>
+  <p class="answer-q">{{ k.year }}年の共通テストは{% for d in k.dates %}{{ jdate(d) }}{% if not loop.last %}・{% endif %}{% endfor %}</p>
+  <p class="answer-a">泊まるのは{{ jdate(page.first_night) }}の夜</p>
+  <p class="answer-note">試験場ごとに、歩いて行ける宿と、試験の前の夜と1日目の夜の空室を毎朝調べ直しています。受験票に書かれた試験場を選んでください。</p>
+</div>
+<!--body-->
+{% for pref in page.exams | map(attribute='pref') | unique %}
+{% set list = page.exams | selectattr('pref', 'equalto', pref) | list %}
+<h2>{{ pref }}の試験場</h2>
+<div class="clinic-links">
+{% for x in list %}{% set c = page.exam_ctx[x.slug] %}{% set st = c.nights_info[0].st if c.nights_info else None %}<a href="/kyotsu-test/{{ x.path }}/"><strong>{{ x.name }}</strong><span>{% if st %}{{ jdate(c.nights_info[0].date, False) }}の夜に泊まれる宿{{ st.one.open }}軒{% if st.near_total %}（歩ける宿{{ st.one.near }}軒）{% endif %}{% if st.one.min %}　最安{{ yen(st.one.min) }}{% endif %}{% endif %}{% if x.applicants %}　前年度の志願者{{ '{:,}'.format(x.applicants) }}人{% endif %}</span></a>{% endfor %}
+</div>
+{% endfor %}
+
+<h2>試験の前の夜の宿を取るときに</h2>
+<h3>試験場は受験票で確かめる</h3>
+<p>共通テストの試験場は、出願した人ごとに大学入試センターが決めて、受験票に書かれます。同じ大学でもキャンパスごとに試験場が分かれることがあるので、予約の前に受験票の試験場名を確かめてください。</p>
+<h3>2日目まで受けるなら2泊で押さえる</h3>
+<p>試験は2日続けて朝から始まります。1日目の夜も同じ宿に泊まれば、荷物を置いたまま試験場へ行けます。試験場ごとのページで、2つの夜の空きを並べています。</p>
+<p class="note">試験場名、道順、志願者数は{{ k.list_name }}のものです。{{ k.nendo }}の一覧が出たら差し替えます。</p>

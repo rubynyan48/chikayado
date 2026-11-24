@@ -1,0 +1,37 @@
+{
+  "slug": "exam-233801",
+  "path": "富山県立大学",
+  "name": "富山県立大学試験場",
+  "university": "富山県立大学",
+  "pref": "富山県",
+  "code": "233801",
+  "applicants": 670,
+  "address": "富山県射水市黒河5180",
+  "route": "あいの風とやま鉄道「小杉駅」南口より徒歩25分。又は、バス(7新湊・小杉線(小杉方面行き))に乗車し「富山県立大学前」で下車(所要時間6分)",
+  "gate": "",
+  "hp_note": false,
+  "tel": "0766-56-7500",
+  "kind": "exam",
+  "search_radius_km": 3.0,
+  "people": [
+    1,
+    2
+  ],
+  "snow": true,
+  "town": {
+    "name": "小杉駅",
+    "radius_km": 1.2
+  },
+  "extra_max_km": 15.0,
+  "gate_word": "",
+  "lat": 36.707066,
+  "lng": 137.097382,
+  "extra_areas": [
+    {
+      "name": "小杉駅",
+      "lat": 36.720947,
+      "lng": 137.092767,
+      "radius_km": 1.2
+    }
+  ]
+}

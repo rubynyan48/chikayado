@@ -1,0 +1,37 @@
+{
+  "slug": "exam-114401",
+  "path": "金沢大学角間キャンパス",
+  "name": "金沢大学角間キャンパス試験場",
+  "university": "金沢大学",
+  "pref": "石川県",
+  "code": "114401",
+  "applicants": 2802,
+  "address": "石川県金沢市角間町",
+  "route": "JR金沢駅兼六園口(東口)乗り場から北陸鉄道バス金沢大学(角間)行「金沢大学中央」下車、徒歩5分",
+  "gate": "",
+  "hp_note": false,
+  "tel": "076-264-5894",
+  "kind": "exam",
+  "search_radius_km": 3.0,
+  "people": [
+    1,
+    2
+  ],
+  "snow": true,
+  "town": {
+    "name": "金沢駅",
+    "radius_km": 1.2
+  },
+  "extra_max_km": 15.0,
+  "gate_word": "",
+  "lat": 36.545948,
+  "lng": 136.709442,
+  "extra_areas": [
+    {
+      "name": "金沢駅",
+      "lat": 36.578117,
+      "lng": 136.648166,
+      "radius_km": 1.2
+    }
+  ]
+}
