@@ -27,6 +27,21 @@ def clinics():
     return sorted(found, key=lambda v: (v.get("order", 99), v["slug"]))
 
 
+def exams():
+    """大学入学共通テストの試験場（config/exams/*.json、11/24〜）。宿と空室は会場と同じしくみで取る。"""
+    folder = CONFIG / "exams"
+    found = [json.loads(p.read_text(encoding="utf-8")) for p in folder.glob("*.json")] if folder.exists() else []
+    return sorted(found, key=lambda v: (v.get("order", 99), -v.get("applicants", 0), v["slug"]))
+
+
+def exam_nights():
+    """共通テストで泊まる夜。試験の前の夜から、最終日の前の夜まで（最終日は試験のあと帰る人が多い）。"""
+    from datetime import date, timedelta
+    cfg = json.loads((CONFIG / "kyotsu_test.json").read_text(encoding="utf-8"))
+    days = [date.fromisoformat(d) for d in cfg["dates"]]
+    return [days[0] - timedelta(days=1)] + days[:-1]
+
+
 def read_json(path, default=None):
     path = Path(path)
     if not path.exists():

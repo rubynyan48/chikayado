@@ -10,11 +10,12 @@ import time
 import unicodedata
 from datetime import date, timedelta
 
-from common import DATA, REFERER, SITE, clinics, distance_m, env, polite_get, read_json, venues, write_json
+from common import DATA, REFERER, SITE, clinics, distance_m, env, exam_nights, exams, polite_get, read_json, venues, write_json
 
 HOTEL_URL = "https://openapi.rakuten.co.jp/engine/api/Travel/SimpleHotelSearch/20260731"
 VACANT_URL = "https://openapi.rakuten.co.jp/engine/api/Travel/VacantHotelSearch/20170426"
 VACANCY_DAYS_AHEAD = 120  # これより先の開催日は空室を調べない
+EXAM_PLAN = re.compile(r"受験")  # 受験生プラン・受験生応援プランなど
 VACANCY_TIME_LIMIT = 40 * 60  # 宿の一覧と空室を合わせてこの時間を過ぎたら、残りの空室は翌日に回す
 
 
@@ -276,6 +277,12 @@ def fetch_vacancy_around(center, checkin, adults, found):
                 "room": tidy(cheapest.get("roomName", "")),
                 "reserve_url": cheapest.get("reserveUrl", ""),
             }
+            # 受験生向けのプラン（共通テストの試験場のページで印を付ける、11/24〜）
+            exam = [p for p in plans if EXAM_PLAN.search(p.get("planName", ""))]
+            if exam:
+                ep = min(exam, key=lambda p: p["total"])
+                found[str(h["hotelNo"])]["exam_plan"] = {"plan": tidy(ep.get("planName", "")), "total": ep["total"],
+                                                         "per_person": round(ep["total"] / adults), "reserve_url": ep.get("reserveUrl", "")}
         if page >= int(body.get("pagingInfo", {}).get("pageCount", 1) or 1):
             break
 
@@ -386,6 +393,29 @@ def main():
                 if f.stem < today.isoformat():
                     f.unlink()
         tasks += [(clinic, d) for d in sorted({sat, wed}) if not fresh_enough(clinic, d, today)]
+    # 共通テストの試験場（11/24〜）。試験の前の夜と1日目の夜と、料金を比べるふだんの金曜の夜。1人と2人だけ
+    nights = [d for d in exam_nights() if d >= today]
+    for exam in (exams() if nights and os.environ.get("SCOPE") != "clinics" else []):
+        try:
+            fetch_hotels(exam)
+        except Exception as exc:
+            failed = True
+            print(f"{exam['name']}: 宿の取得に失敗 {exc}", file=sys.stderr)
+            continue
+        base = {}
+        for kind, wd in (("weekend", 4),):  # 試験の前の夜（金）と1日目の夜（土）はどちらも週末なので、金曜の夜と比べる
+            d = today + timedelta(days=7)
+            while d.weekday() != wd or d in nights or (date(d.year, 12, 26) <= d or d <= date(d.year, 1, 5)):
+                d += timedelta(days=1)
+            base[kind] = d.isoformat()
+        write_json(DATA / "baseline" / f"{exam['slug']}.json", base)
+        folder = DATA / "vacancy" / exam["slug"]
+        if folder.exists():
+            for f in folder.glob("*.json"):
+                if f.stem < today.isoformat():
+                    f.unlink()
+        exam = dict(exam, people=tuple(exam.get("people", (1, 2))))
+        tasks += [(exam, d) for d in sorted(set(nights) | {date.fromisoformat(x) for x in base.values()}) if not fresh_enough(exam, d, today)]
     # 空室は決まった時間で打ち切る（会場が増えて毎朝の更新が90分を超え、2日続けて転送まで行かなかったため。11/15）。
     # 3週間以内の日付を先に、その先は前に調べた日が古い順に取り、残りは翌日に回す
     def last_checked(v, d):

@@ -1,0 +1,22 @@
+{
+  "slug": "exam-hokkaido-university",
+  "path": "北海道大学",
+  "name": "北海道大学試験場",
+  "university": "北海道大学",
+  "pref": "北海道",
+  "code": "110101",
+  "applicants": 3068,
+  "address": "北海道札幌市北区北9条西9丁目",
+  "route": "地下鉄南北線「北12条」駅から南西へ徒歩12分。JR「札幌」駅北口から北西へ徒歩12分。",
+  "entry_note": "入室開始時刻は北海道大学HPにて確認すること。",
+  "tel": "011-716-2111",
+  "snow": true,
+  "kind": "exam",
+  "search_radius_km": 3.0,
+  "max_hotels": 40,
+  "people": [1, 2],
+  "stations": [
+    {"name": "北12条駅", "line": "地下鉄南北線", "walk_min": 12},
+    {"name": "札幌駅", "line": "JR（北口）", "walk_min": 12}
+  ]
+}
