@@ -1,0 +1,27 @@
+{
+  "slug": "exam-351801",
+  "path": "八戸工業大学",
+  "name": "八戸工業大学試験場",
+  "university": "八戸工業大学",
+  "pref": "青森県",
+  "code": "351801",
+  "applicants": 723,
+  "address": "青森県八戸市大字妙字大開88-1",
+  "route": "東北新幹線「八戸駅」下車、JR八戸線乗り換え「本八戸駅」下車、「工業大学または八戸学院大学」行バスに乗り「工業大学前」下車7:30開門",
+  "gate": "7:30",
+  "hp_note": false,
+  "tel": "0178-25-3111",
+  "kind": "exam",
+  "search_radius_km": 3.0,
+  "people": [
+    1,
+    2
+  ],
+  "snow": true,
+  "town": {
+    "name": "本八戸駅",
+    "radius_km": 1.2
+  },
+  "extra_max_km": 15.0,
+  "gate_word": "門が開きます"
+}

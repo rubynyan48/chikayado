@@ -2038,6 +2038,7 @@ def main():
     for exam in all_exams:
         ctx = exam_context(exam)
         exam_ctxs[exam["slug"]] = ctx
+        find_index["v"].append({"n": exam["name"], "f": f"{exam['university']} 共通テスト", "a": exam["pref"], "p": exam_path(exam)})
         jobs += [(p, ctx) for p in exam_pages(exam, ctx)]
     if all_exams:
         jobs.append((kyotsu_hub(all_exams, exam_ctxs), main_ctx))
@@ -2049,6 +2050,8 @@ def main():
         shutil.rmtree(DIST)
     DIST.mkdir()
     helpers["home"] = home_data([venue_context(v) for v in all_venues])
+    helpers["home"]["kyotsu"] = {"count": len(all_exams), "prefs": list(dict.fromkeys(x["pref"] for x in all_exams)),
+                                 "dates": KYOTSU.get("dates", []), "night": exam_nights()[0].isoformat()} if all_exams else None
     updated = f"{TODAY.year}年{TODAY.month}月{TODAY.day}日"
     uses_hotpepper = False
 

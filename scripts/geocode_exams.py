@@ -46,6 +46,15 @@ def main():
                 continue
             cfg["lat"], cfg["lng"] = got
             changed = True
+        # 試験場の周りに宿が少ないときに宿を足す、宿の多い駅（town）。会場の extra_areas と同じ形にする
+        town = cfg.get("town")
+        if town and not cfg.get("extra_areas"):
+            got = station(town["name"], (cfg["lat"], cfg["lng"]))
+            if got:
+                cfg["extra_areas"] = [{"name": town["name"], "lat": got[0], "lng": got[1], "radius_km": town.get("radius_km", 1.2)}]
+                changed = True
+            else:
+                print(f"{cfg['name']}: {town['name']}の場所がわかりませんでした", file=sys.stderr)
         for s in cfg.get("stations", []):
             if not s.get("lat"):
                 got = station(s["name"], (cfg["lat"], cfg["lng"]))

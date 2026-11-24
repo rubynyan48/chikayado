@@ -10,7 +10,7 @@
 {% set list = page.exams | selectattr('pref', 'equalto', pref) | list %}
 <h2>{{ pref }}の試験場</h2>
 <div class="clinic-links">
-{% for x in list %}{% set c = page.exam_ctx[x.slug] %}{% set st = c.nights_info[0].st if c.nights_info else None %}<a href="/kyotsu-test/{{ x.path }}/"><strong>{{ x.name }}</strong><span>{{ x.stations[0].name }}から徒歩{{ x.stations[0].walk_min }}分{% if st %}　{{ jdate(c.nights_info[0].date, False) }}の夜に歩いて行ける宿の空き{{ st.one.near }}軒{% if st.one.min %}　最安{{ yen(st.one.min) }}{% endif %}{% endif %}{% if x.applicants %}　前年度の志願者{{ '{:,}'.format(x.applicants) }}人{% endif %}</span></a>{% endfor %}
+{% for x in list %}{% set c = page.exam_ctx[x.slug] %}{% set st = c.nights_info[0].st if c.nights_info else None %}<a href="/kyotsu-test/{{ x.path }}/"><strong>{{ x.name }}</strong><span>{% if st %}{{ jdate(c.nights_info[0].date, False) }}の夜に泊まれる宿{{ st.one.open }}軒（歩ける宿{{ st.one.near }}軒）{% if st.one.min %}　最安{{ yen(st.one.min) }}{% endif %}{% endif %}{% if x.applicants %}　前年度の志願者{{ '{:,}'.format(x.applicants) }}人{% endif %}</span></a>{% endfor %}
 </div>
 {% endfor %}
 

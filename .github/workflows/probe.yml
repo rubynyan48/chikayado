@@ -14,7 +14,7 @@ env:
 jobs:
   probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 120
     env:
       TZ: Asia/Tokyo
     defaults:
