@@ -278,7 +278,7 @@ def fetch_vacancy_around(center, checkin, adults, found):
                 "reserve_url": cheapest.get("reserveUrl", ""),
             }
             # 受験生向けのプラン（共通テストの試験場のページで印を付ける、11/24〜）
-            exam = [p for p in plans if EXAM_PLAN.search(p.get("planName", ""))]
+            exam = [p for p in plans if EXAM_PLAN.search(p.get("planName") or "")]
             if exam:
                 ep = min(exam, key=lambda p: p["total"])
                 found[str(h["hotelNo"])]["exam_plan"] = {"plan": tidy(ep.get("planName", "")), "total": ep["total"],
