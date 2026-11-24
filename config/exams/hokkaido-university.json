@@ -14,9 +14,26 @@
   "kind": "exam",
   "search_radius_km": 3.0,
   "max_hotels": 40,
-  "people": [1, 2],
+  "people": [
+    1,
+    2
+  ],
   "stations": [
-    {"name": "北12条駅", "line": "地下鉄南北線", "walk_min": 12},
-    {"name": "札幌駅", "line": "JR（北口）", "walk_min": 12}
-  ]
+    {
+      "name": "北12条駅",
+      "line": "地下鉄南北線",
+      "walk_min": 12,
+      "lat": 43.074829,
+      "lng": 141.348403
+    },
+    {
+      "name": "札幌駅",
+      "line": "JR（北口）",
+      "walk_min": 12,
+      "lat": 43.068612,
+      "lng": 141.350768
+    }
+  ],
+  "lat": 43.070778,
+  "lng": 141.34079
 }
