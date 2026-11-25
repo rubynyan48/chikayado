@@ -1,5 +1,5 @@
 {
- "checked": "2026-11-24",
+ "checked": "2026-11-25",
  "checkin": "2026-12-13",
  "hotels": [
   {
@@ -68,9 +68,9 @@
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/153313/153313.jpg",
    "price": 3990,
    "room": "男性専用カプセル",
-   "plan": "",
+   "plan": "男性専用カプセル★カレー等のバイキングが無料♪大浴場完備",
    "dorm": true,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=153313&f_syu=gr6000c&f_hi1=2026-12-13&f_hi2=2026-12-14&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=153313&f_syu=gr6000c&f_hi1=2026-12-13&f_hi2=2026-12-14&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=3795248"
   },
   {
    "hotelNo": "172107",
@@ -115,6 +115,20 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=179215&f_syu=kyoei3s&f_hi1=2026-12-13&f_hi2=2026-12-14&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0"
   },
   {
+   "hotelNo": "188098",
+   "name": "Tabist MAYUDAMA CABIN",
+   "lat": 35.4421566,
+   "lng": 139.6364219,
+   "station": "関内",
+   "review_avg": 3.77,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/188098/188098.jpg",
+   "price": 4400,
+   "room": "【禁煙】ベーシック男性専用",
+   "plan": "【男性専用】素泊まり(通年)",
+   "dorm": false,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=188098&f_syu=menbasic&f_hi1=2026-12-13&f_hi2=2026-12-14&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5777048"
+  },
+  {
    "hotelNo": "162892",
    "name": "ゲストハウスFUTARENO-横浜野毛みなとみらいの宿-",
    "lat": 35.4485572,
@@ -143,20 +157,6 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=28778&f_syu=domi&f_hi1=2026-12-13&f_hi2=2026-12-14&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4168531"
   },
   {
-   "hotelNo": "188098",
-   "name": "Tabist MAYUDAMA CABIN",
-   "lat": 35.4421566,
-   "lng": 139.6364219,
-   "station": "関内",
-   "review_avg": 3.77,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/188098/188098.jpg",
-   "price": 4800,
-   "room": "【禁煙】ベーシック男性専用",
-   "plan": "【男性専用】素泊まり(通年)",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=188098&f_syu=menbasic&f_hi1=2026-12-13&f_hi2=2026-12-14&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5777048"
-  },
-  {
    "hotelNo": "188295",
    "name": "HARE-TABI Traveler’s Inn YOKOHAMA",
    "lat": 35.4423729,
@@ -165,10 +165,10 @@
    "review_avg": 4.28,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/188295/188295.jpg",
    "price": 4950,
-   "room": "男女共有エリア",
+   "room": "女性専用エリア",
    "plan": "お得なスタンダード宿泊プラン|サウナ当日追加OK",
    "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=188295&f_syu=haretabi3&f_hi1=2026-12-13&f_hi2=2026-12-14&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6487151"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=188295&f_syu=haretabi4&f_hi1=2026-12-13&f_hi2=2026-12-14&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6487151"
   },
   {
    "hotelNo": "167844",
@@ -206,7 +206,7 @@
    "station": "新横浜",
    "review_avg": 3.82,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/199071/199071.jpg",
-   "price": 5900,
+   "price": 5600,
    "room": "【禁煙】カジュアルツイン1名",
    "plan": "【素泊】新横浜駅から徒歩5分!ビジネス・イベントの拠点に最適なシンプルステイ",
    "dorm": false,
@@ -290,7 +290,7 @@
    "station": "元町・中華街",
    "review_avg": 3.6,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/197789/197789.jpg",
-   "price": 6868,
+   "price": 6828,
    "room": "2名部屋:ミニマム・コスパ重視/二段ベッド1台、デスク、椅子",
    "plan": "【20%OFF】返金不可でお得にご宿泊いただける、事前決済限定の特別プランです!",
    "dorm": true,
