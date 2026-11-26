@@ -1250,6 +1250,9 @@ GENRE_RULES = [
 def genre_key(e, venue=None):
     text = f"{e.get('name', '')} {e.get('content', '')}"
     content = e.get("content") or ""
+    # 技能や作品を競う大会は、出場者が前の日に入って泊まるので学会・試験と同じ型にする（11/26〜、技能五輪など）
+    if re.search(r"技能五輪|アビリンピック|技能競技|ロボット.{0,12}競技会|創造コンテスト|ロボコン", text):
+        return "academic"
     if "即売会" in content:
         return "pop"
     if "スポーツ" in content:

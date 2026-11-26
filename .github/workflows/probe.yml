@@ -1,56 +1,24 @@
 name: 会場サイトの下調べ
 
-# 見本用（venues-1126 ブランチだけ）。京王アリーナTOKYO・ベルーナドーム・Aichi Sky Expo のデータを取ってブランチに保存する。転送はしない。mainに入れる前に元に戻す。
 on:
   workflow_dispatch:
 
 permissions:
   contents: write
 
-env:
-  RAKUTEN_APP_ID: ${{ secrets.RAKUTEN_APP_ID }}
-  RAKUTEN_ACCESS_KEY: ${{ secrets.RAKUTEN_ACCESS_KEY }}
-  HOTPEPPER_API_KEY: ${{ secrets.HOTPEPPER_API_KEY }}
-  GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-
 jobs:
   probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
-    env:
-      TZ: Asia/Tokyo
-    defaults:
-      run:
-        shell: bash
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: |
-          pip install -q -r requirements.txt playwright==1.48.0 opencv-python-headless==4.10.0.84
-          python -m playwright install --with-deps chromium > /dev/null 2>&1
-      - name: 場所と楽天の地区を調べる
-        run: cd scripts && python geocode_venues.py keio-arena-tokyo belluna-dome aichi-sky-expo 2>&1 | grep -v -i "key\|applicationId"
-      - run: |
-          cp config/venues/keio-arena-tokyo.json config/venues/belluna-dome.json config/venues/aichi-sky-expo.json /tmp/
-          find config/venues -name '*.json' ! -name 'keio-arena-tokyo.json' ! -name 'belluna-dome.json' ! -name 'aichi-sky-expo.json' -delete
-          rm -rf config/clinics config/exams
-      - run: cd scripts && python fetch_events.py
-        continue-on-error: true
-      - run: cd scripts && python fetch_hotels.py 2>&1 | grep -v -i "key\|id="
-        continue-on-error: true
-      - run: cd scripts && python fetch_restaurants.py 2>&1 | grep -v -i "key"
-        continue-on-error: true
-      - run: cd scripts && python fetch_shots.py
-        continue-on-error: true
-      - run: cd scripts && python write_texts.py
-        continue-on-error: true
+      - run: pip install -q requests
+      - run: if grep -q "^render:" scripts/probe_urls.txt; then pip install -q playwright==1.48.0 && python -m playwright install --with-deps chromium > /dev/null 2>&1; fi
+      - run: mkdir -p data/probe && python scripts/probe.py | tee data/probe/result.txt
       - run: |
           git config user.name "chikayado-bot"
           git config user.email "chikayado-bot@users.noreply.github.com"
-          git checkout -- config data/logs 2>/dev/null || true
-          cp /tmp/keio-arena-tokyo.json /tmp/belluna-dome.json /tmp/aichi-sky-expo.json config/venues/
-          git add config/venues
-          git -c core.quotepath=off ls-files -mo --exclude-standard -z data assets | grep -zE "keio-arena-tokyo|belluna-dome|aichi-sky-expo|京王アリーナ|ベルーナドーム|Aichi" | xargs -0 git add --
-          git commit -qm "京王アリーナTOKYO・ベルーナドーム・Aichi Sky Expoの見本用データ [skip ci]" && git pull --rebase -q && git push
+          git add data/probe
+          git commit -qm "会場サイトの下調べ [skip ci]" && git pull --rebase -q && git push
