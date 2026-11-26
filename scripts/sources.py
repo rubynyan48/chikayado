@@ -1060,8 +1060,129 @@ def sekisui(venue):
     return unique(items)
 
 
+# ---- 京王アリーナTOKYO（旧 武蔵野の森総合スポーツプラザ、11/26〜） ----------------
+SKIP_KEIO = re.compile(r"スポーツ体験|文化プログラム|教室|スクール|講座|観望会|休館|貸切|中止|延期")
+
+
+def keio_arena_parse(soup, y, mo, today=None):
+    """公式のイベントスケジュール（1か月1ページ）。コンサート・イベント・大会を取り、教室や体験会は外す。"""
+    today = today or date.today()
+    out = []
+    for box in soup.select("div.scheduleBox"):
+        d = re.search(r"(\d{1,2})\.(\d{1,2})", box.select_one(".columnBlock01").get_text() if box.select_one(".columnBlock01") else "")
+        h3 = box.find("h3")
+        if not d or not h3:
+            continue
+        cat = clean(box.select_one("li.iconA").get_text()) if box.select_one("li.iconA") else ""
+        name = clean(re.sub(r"[\U0001F000-\U0001FFFF\u2600-\u27BF]", "", h3.get_text(" ")))
+        if not name or SKIP_KEIO.search(cat + " " + name):
+            continue
+        day = date(y, int(d.group(1)), int(d.group(2)))
+        if day < today:
+            continue
+        txt = unicodedata.normalize("NFKC", box.get_text(" "))
+        t = re.search(r"開演\s*(\d{1,2}):(\d{2})", txt) or re.search(r"開場\s*(\d{1,2}):(\d{2})", txt)
+        a = box.select_one(".linkWaku a")
+        out.append(event(name, day.isoformat(), hours=(("開演 " if "開演" in t.group(0) else "開場 ") + f"{int(t.group(1))}:{t.group(2)}") if t else "",
+                         url=("https://keio-arena.tokyo" + a["href"]) if a and a.get("href", "").startswith("/") else ""))
+    return out
+
+
+def keio_arena(venue):
+    """公式は1〜2か月先までなので、イベンターノート（place 8574）で先の日程を補う。"""
+    from difflib import SequenceMatcher
+    items = []
+    for y, mo in months_ahead(4):
+        try:
+            items += keio_arena_parse(get_html(f"https://keio-arena.tokyo/schedule/{y}/{mo:02d}/"), y, mo)
+        except requests.HTTPError:
+            break  # まだ作られていない月
+    items = join_days(unique(items))
+    try:
+        extra = eventernote(venue)
+    except Exception as exc:
+        print(f"{venue['name']}: イベンターノートの取得に失敗 {exc}")
+        extra = []
+    for e in extra:
+        if any(o["start"] <= e["start"] <= o["end"] and SequenceMatcher(None, o["name"], e["name"]).ratio() > 0.5 for o in items):
+            continue
+        items.append(e)
+    return unique(items)
+
+
+# ---- Aichi Sky Expo（愛知県国際展示場、11/26〜） -------------------------------
+def aichi_sky_expo_parse(soup, today=None):
+    """公式のイベント一覧（?ym=YYYYMM で1か月分）。展示会・コンサート・スポーツ・ゲーム大会など。非公開の催しは外す。"""
+    today = today or date.today()
+    out = []
+    for art in soup.select("article.evrow"):
+        ds = re.findall(r"(\d{4})\.(\d{2})\.(\d{2})", art.select_one(".evrow__date").get_text() if art.select_one(".evrow__date") else "")
+        h3 = art.select_one(".evrow__title")
+        if not ds or not h3:
+            continue
+        name = clean(h3.get_text(" "))
+        if not name or re.search(r"プライベートイベント|非公開|関係者のみ|中止|延期", name):
+            continue
+        start, end = date(*map(int, ds[0])).isoformat(), date(*map(int, ds[-1])).isoformat()
+        if end < today.isoformat():
+            continue
+        cats = " ".join(clean(c.get_text()) for c in art.select(".evrow__cats .evchip"))
+        hall = clean(art.select_one(".evrow__place-name").get_text()) if art.select_one(".evrow__place-name") else ""
+        a = art.select_one("a.evrow__cta")
+        aud = "関係者" if re.search(r"展示会|セミナー|シンポジウム", cats) and not re.search(r"フェア|フェス|EXPO 20\d\d$|マーケット", name) else "一般"
+        out.append(event(name, start, end, hall=hall, url=a["href"] if a and a.get("href", "").startswith("http") else "", audience=aud,
+                         content=cats))
+    return out
+
+
+def aichi_sky_expo(venue):
+    items = []
+    for y, mo in months_ahead(6):
+        items += aichi_sky_expo_parse(get_html(f"https://www.aichiskyexpo.com/ase-event/?ym={y}{mo:02d}"))
+    return unique(items)
+
+
+# ---- ベルーナドーム（11/26〜） --------------------------------------------------
+SKIP_BELLUNA = re.compile(r"^(貸切|メンテナンス|休場|設営|撤去)$|ライオンズ|LIONS|西武\s*vs|vs\s*西武|オープン戦|ファーム|公式戦|中止|延期", re.I)
+
+
+def belluna_dome_parse(soup, today=None):
+    """公式のスケジュール（1か月1ページ、1日1枠）。コンサートなどを取り、貸切・メンテナンス・野球は外す。"""
+    today = today or date.today()
+    out = []
+    for item in soup.select("div.event-item"):
+        m = re.match(r"event_(\d+)_(\d{4})(\d{2})(\d{2})", item.get("id", ""))
+        info = item.select_one(".event-info")
+        if not m or not info:
+            continue
+        label = info.select_one(".news-label")
+        lab = clean(label.get_text()) if label else ""
+        if label:
+            label.extract()
+        a = info.find("a")
+        if a:
+            a.extract()
+        name = clean(info.get_text(" "))
+        if not name or SKIP_BELLUNA.search(name) or "野球" in lab:
+            continue
+        day = date(int(m.group(2)), int(m.group(3)), int(m.group(4)))
+        if day < today:
+            continue
+        out.append(event(name, day.isoformat(), url=a["href"] if a and a.get("href", "").startswith("http") else ""))
+    return out
+
+
+def belluna_dome(venue):
+    """月ごとのページを12か月分見る（先の月は日付の枠だけで空のことが多い）。"""
+    items = []
+    for y, mo in months_ahead(12):
+        items += belluna_dome_parse(get_html(f"https://bellunadome.seibulions.co.jp/schedule/{y}{mo:02d}/all/index.html"))
+    return join_days(unique(items))
+
+
 SOURCES = {"manual": lambda venue: [],  # 日程は config/manual_events.json に手で足す（コスプレイベントの街の会場、11/16〜）
            "ig_arena": ig_arena, "kobe_world": kobe_world, "kuroko_hall": kuroko_hall, "sekisui": sekisui,
+           "keio_arena": keio_arena, "aichi_sky_expo": aichi_sky_expo, "belluna_dome": belluna_dome,
     "sapporo_dome": sapporo_dome,
     "marine_messe": marine_messe,
     "nagoya_dome": nagoya_dome,

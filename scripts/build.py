@@ -1190,10 +1190,13 @@ AREA_GROUPS = [
     ("平和島・大森エリア", ["trc-tokyo"]),
     ("横浜・みなとみらいエリア", ["pacifico-yokohama", "k-arena-yokohama", "pia-arena-mm", "yokohama-buntai"]),
     ("新横浜エリア", ["yokohama-arena"]),
+    ("調布・府中エリア", ["keio-arena-tokyo"]),
+    ("埼玉・所沢エリア", ["belluna-dome"]),
     ("千葉・幕張エリア", ["makuhari-messe", "lala-arena-tokyo-bay"]),
     ("大阪エリア", ["kyocera-dome-osaka", "osaka-jo-hall", "mydome-osaka", "intex-osaka"]),
     ("神戸エリア", ["kobe-world-hall"]),
     ("名古屋エリア", ["vantelin-dome-nagoya", "ig-arena", "nippon-gaishi-hall", "oasis21", "portmesse-nagoya"]),
+    ("セントレア・常滑エリア", ["aichi-sky-expo"]),
     ("四国エリア", ["aibahama-park"]),
     ("福岡エリア", ["mizuho-paypay-dome", "marine-messe-fukuoka"]),
     ("北海道エリア", ["sapporo-dome"]),
@@ -1209,7 +1212,7 @@ VENUE_TAGS = {
     "pacifico-yokohama": ["学会", "展示会", "コンサート"], "k-arena-yokohama": ["ライブ"], "pia-arena-mm": ["ライブ"],
     "yokohama-arena": ["ライブ", "スポーツ"],
     "trc-tokyo": ["同人誌即売会", "ファンイベント"], "sunshine-city": ["展示会", "アニメ・ゲーム"],
-    "intex-osaka": ["展示会"], "kyocera-dome-osaka": ["ライブ", "大型イベント"], "osaka-jo-hall": ["ライブ", "コンサート"], "mydome-osaka": ["展示会", "即売会"], "vantelin-dome-nagoya": ["ライブ", "大型イベント"], "mizuho-paypay-dome": ["ライブ", "大型イベント"], "portmesse-nagoya": ["展示会"], "sapporo-dome": ["ライブ", "大型イベント"], "marine-messe-fukuoka": ["ライブ", "展示会"], "ig-arena": ["ライブ", "スポーツ"], "kobe-world-hall": ["ライブ", "コンサート"], "aibahama-park": ["コスプレ", "アニメ"], "oasis21": ["コスプレ", "イベント広場"], "sekisui-heim-super-arena": ["ライブ", "コンサート"],
+    "intex-osaka": ["展示会"], "kyocera-dome-osaka": ["ライブ", "大型イベント"], "osaka-jo-hall": ["ライブ", "コンサート"], "mydome-osaka": ["展示会", "即売会"], "vantelin-dome-nagoya": ["ライブ", "大型イベント"], "mizuho-paypay-dome": ["ライブ", "大型イベント"], "portmesse-nagoya": ["展示会"], "sapporo-dome": ["ライブ", "大型イベント"], "marine-messe-fukuoka": ["ライブ", "展示会"], "ig-arena": ["ライブ", "スポーツ"], "kobe-world-hall": ["ライブ", "コンサート"], "aibahama-park": ["コスプレ", "アニメ"], "oasis21": ["コスプレ", "イベント広場"], "sekisui-heim-super-arena": ["ライブ", "コンサート"], "keio-arena-tokyo": ["ライブ", "スポーツ"], "belluna-dome": ["ライブ", "大型イベント"], "aichi-sky-expo": ["展示会", "ライブ"],
     "lala-arena-tokyo-bay": ["ライブ", "バスケットボール"], "yokohama-buntai": ["ライブ", "スポーツ"],
 }
 SPORTS = re.compile(r"サッカー|Jリーグ|J1|マラソン|ラグビー|陸上|大相撲|リーグ|選手権|大会|試合|ホームゲーム|開幕戦|vs|VS|BOXING|ボクシング|ONE |格闘|バスケ|バレー|フィギュア|Championship|GAME\.|太極拳")
@@ -1247,6 +1250,9 @@ GENRE_RULES = [
 def genre_key(e, venue=None):
     text = f"{e.get('name', '')} {e.get('content', '')}"
     content = e.get("content") or ""
+    # 技能や作品を競う大会は、出場者が前の日に入って泊まるので学会・試験と同じ型にする（11/26〜、技能五輪など）
+    if re.search(r"技能五輪|アビリンピック|技能競技|ロボット.{0,12}競技会|創造コンテスト|ロボコン", text):
+        return "academic"
     if "即売会" in content:
         return "pop"
     if "スポーツ" in content:

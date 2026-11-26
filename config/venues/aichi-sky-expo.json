@@ -1,0 +1,35 @@
+{
+  "slug": "aichi-sky-expo",
+  "name": "Aichi Sky Expo",
+  "formal_name": "Aichi Sky Expo（愛知県国際展示場）",
+  "address": "愛知県常滑市セントレア5丁目10-1",
+  "search_radius_km": 3.0,
+  "source": "aichi_sky_expo",
+  "kind": "exhibition",
+  "area_label": "セントレア・常滑",
+  "stations": [
+    {
+      "name": "中部国際空港駅",
+      "line": "名鉄空港線",
+      "walk_min": 5,
+      "lat": 34.859262,
+      "lng": 136.816382
+    }
+  ],
+  "schedule_url": "https://www.aichiskyexpo.com/ase-event/",
+  "order": 37,
+  "max_hotels": 60,
+  "extra_max_km": 8.0,
+  "far_areas": [],
+  "hero_photos": {},
+  "lat": 34.852894,
+  "lng": 136.821213,
+  "extra_areas": [
+    {
+      "name": "常滑",
+      "lat": 34.891167,
+      "lng": 136.834992,
+      "radius_km": 1.0
+    }
+  ]
+}
