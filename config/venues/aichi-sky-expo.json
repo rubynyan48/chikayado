@@ -20,7 +20,22 @@
   "order": 37,
   "max_hotels": 60,
   "extra_max_km": 8.0,
-  "far_areas": [],
+  "far_areas": [
+    {
+      "name": "名古屋駅・伏見",
+      "chu": "aichi",
+      "shou": "nagoyashi",
+      "sai": "A",
+      "why": "宿の数が多い。名鉄の特急で名古屋駅から中部国際空港駅まで乗り換えなし"
+    },
+    {
+      "name": "金山・熱田",
+      "chu": "aichi",
+      "shou": "nagoyashi",
+      "sai": "C",
+      "why": "名古屋駅より安い宿が見つかりやすい。名鉄で金山から中部国際空港駅まで乗り換えなし"
+    }
+  ],
   "hero_photos": {},
   "lat": 34.852894,
   "lng": 136.821213,

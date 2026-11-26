@@ -30,7 +30,15 @@
   "order": 35,
   "max_hotels": 60,
   "extra_max_km": 6.0,
-  "far_areas": [],
+  "far_areas": [
+    {
+      "name": "新宿",
+      "chu": "tokyo",
+      "shou": "tokyo",
+      "sai": "F",
+      "why": "宿の数が多い。京王線で新宿から飛田給まで1本で行ける"
+    }
+  ],
   "hero_photos": {},
   "lat": 35.666344,
   "lng": 139.52269,

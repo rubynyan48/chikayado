@@ -20,7 +20,15 @@
   "order": 36,
   "max_hotels": 60,
   "extra_max_km": 12.0,
-  "far_areas": [],
+  "far_areas": [
+    {
+      "name": "池袋・大塚",
+      "chu": "tokyo",
+      "shou": "tokyo",
+      "sai": "G",
+      "why": "宿の数が多い。西武池袋線で西所沢まで行き、狭山線に乗り換えて西武球場前へ"
+    }
+  ],
   "hero_photos": {},
   "lat": 35.769695,
   "lng": 139.420013,
