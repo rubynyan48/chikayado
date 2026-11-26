@@ -14,28 +14,38 @@
     {
       "name": "飛田給駅",
       "line": "京王線",
-      "walk_min": 5
+      "walk_min": 5,
+      "lat": 35.660121,
+      "lng": 139.523666
     },
     {
       "name": "多磨駅",
       "line": "西武多摩川線",
-      "walk_min": 20
+      "walk_min": 20,
+      "lat": 35.676821,
+      "lng": 139.51713
     }
   ],
   "schedule_url": "https://keio-arena.tokyo/schedule/",
   "order": 35,
   "max_hotels": 60,
-  "town": [
+  "extra_max_km": 6.0,
+  "far_areas": [],
+  "hero_photos": {},
+  "lat": 35.666344,
+  "lng": 139.52269,
+  "extra_areas": [
     {
-      "name": "調布駅",
+      "name": "調布",
+      "lat": 35.652181,
+      "lng": 139.543988,
       "radius_km": 1.0
     },
     {
-      "name": "府中駅",
+      "name": "府中",
+      "lat": 35.672245,
+      "lng": 139.4799,
       "radius_km": 1.0
     }
-  ],
-  "extra_max_km": 6.0,
-  "far_areas": [],
-  "hero_photos": {}
+  ]
 }

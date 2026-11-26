@@ -11,23 +11,31 @@
     {
       "name": "西武球場前駅",
       "line": "西武狭山線・山口線",
-      "walk_min": 1
+      "walk_min": 1,
+      "lat": 35.77093,
+      "lng": 139.41966
     }
   ],
   "schedule_url": "https://bellunadome.seibulions.co.jp/schedule/",
   "order": 36,
   "max_hotels": 60,
-  "town": [
+  "extra_max_km": 12.0,
+  "far_areas": [],
+  "hero_photos": {},
+  "lat": 35.769695,
+  "lng": 139.420013,
+  "extra_areas": [
     {
-      "name": "所沢駅",
+      "name": "所沢",
+      "lat": 35.786627,
+      "lng": 139.473324,
       "radius_km": 1.0
     },
     {
-      "name": "小手指駅",
+      "name": "小手指",
+      "lat": 35.800535,
+      "lng": 139.438016,
       "radius_km": 0.8
     }
-  ],
-  "extra_max_km": 12.0,
-  "far_areas": [],
-  "hero_photos": {}
+  ]
 }
