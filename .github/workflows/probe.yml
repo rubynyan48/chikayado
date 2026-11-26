@@ -23,7 +23,8 @@ jobs:
           import requests
           from common import env
           from fetch_hotels import HOTEL_URL, headers
-          for mid, small, det in [("tokyo","tokyo","F"),("tokyo","tokyo","G"),("tokyo","tokyo","H"),("saitama","saitama",""),("saitama","tokorozawa",""),("saitama","kawagoe","")]:
+          for mid, small, det in [("tokyo","tokyo","G"),("saitama","tokorozawa","")]:
+              __import__("time").sleep(2)
               p = {"applicationId": env("RAKUTEN_APP_ID"), "accessKey": env("RAKUTEN_ACCESS_KEY"), "format": "json", "formatVersion": 2,
                    "largeClassCode": "japan", "middleClassCode": mid, "smallClassCode": small, "hits": 8}
               if det: p["detailClassCode"] = det
