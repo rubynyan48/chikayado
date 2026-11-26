@@ -1,0 +1,33 @@
+{
+  "slug": "belluna-dome",
+  "name": "ベルーナドーム",
+  "formal_name": "ベルーナドーム（西武ドーム）",
+  "address": "埼玉県所沢市上山口2135",
+  "search_radius_km": 3.0,
+  "source": "belluna_dome",
+  "kind": "arena",
+  "area_label": "西武球場前・所沢",
+  "stations": [
+    {
+      "name": "西武球場前駅",
+      "line": "西武狭山線・山口線",
+      "walk_min": 1
+    }
+  ],
+  "schedule_url": "https://bellunadome.seibulions.co.jp/schedule/",
+  "order": 36,
+  "max_hotels": 60,
+  "town": [
+    {
+      "name": "所沢駅",
+      "radius_km": 1.0
+    },
+    {
+      "name": "小手指駅",
+      "radius_km": 0.8
+    }
+  ],
+  "extra_max_km": 12.0,
+  "far_areas": [],
+  "hero_photos": {}
+}
