@@ -1,5 +1,5 @@
 {
- "checked": "2026-11-25",
+ "checked": "2026-11-28",
  "checkin": "2027-01-06",
  "hotels": [
   {
@@ -193,10 +193,10 @@
    "review_avg": 4.28,
    "image": "https://img.travel.rakuten.co.jp/share/HOTEL/188295/188295.jpg",
    "price": 4950,
-   "room": "女性専用エリア",
+   "room": "男女共有エリア",
    "plan": "お得なスタンダード宿泊プラン|サウナ当日追加OK",
    "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=188295&f_syu=haretabi4&f_hi1=2027-01-06&f_hi2=2027-01-07&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6487151"
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=188295&f_syu=haretabi3&f_hi1=2027-01-06&f_hi2=2027-01-07&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6487151"
   },
   {
    "hotelNo": "168572",
@@ -311,6 +311,62 @@
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=171996&f_syu=s0k&f_hi1=2027-01-06&f_hi2=2027-01-07&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5203063"
   },
   {
+   "hotelNo": "182371",
+   "name": "ホテルリブマックス横浜スタジアム前",
+   "lat": 35.4421183,
+   "lng": 139.6436922,
+   "station": "石川町",
+   "review_avg": 4.05,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/182371/182371.jpg",
+   "price": 5950,
+   "room": "シングルルーム【喫煙】セミダブルベッド",
+   "plan": "【リブ得】《最大15%OFF》最安値のスペシャルプラン☆【素泊り】",
+   "dorm": false,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=182371&f_syu=sr-s&f_hi1=2027-01-06&f_hi2=2027-01-07&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5740055"
+  },
+  {
+   "hotelNo": "108979",
+   "name": "ホテルリブマックスBUDGET横浜鶴見",
+   "lat": 35.50980345,
+   "lng": 139.679308,
+   "station": "鶴見",
+   "review_avg": 3.41,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/108979/108979.jpg",
+   "price": 5950,
+   "room": "セミダブルルーム【喫煙】",
+   "plan": "『リブ得』楽天最安値のスペシャルプラン【素泊まり】",
+   "dorm": false,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=108979&f_syu=s-b&f_hi1=2027-01-06&f_hi2=2027-01-07&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5741448"
+  },
+  {
+   "hotelNo": "161013",
+   "name": "ホテルリブマックス横浜元町駅前",
+   "lat": 35.4428842161913,
+   "lng": 139.64759527547554,
+   "station": "元町・中華街",
+   "review_avg": 3.88,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/161013/161013.jpg",
+   "price": 5950,
+   "room": "シングルルーム【喫煙】セミダブルベッド",
+   "plan": "【リブ得】《最大15%OFF》最安値のスペシャルプラン【素泊り】",
+   "dorm": false,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=161013&f_syu=s-kit&f_hi1=2027-01-06&f_hi2=2027-01-07&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5740050"
+  },
+  {
+   "hotelNo": "162847",
+   "name": "ホテルリブマックス横浜関内駅前",
+   "lat": 35.4431245,
+   "lng": 139.63448700000004,
+   "station": "関内",
+   "review_avg": 3.41,
+   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/162847/162847.jpg",
+   "price": 5950,
+   "room": "シングルルーム【喫煙】",
+   "plan": "【リブ得】《最大15%OFF》最安値のスペシャルプラン【素泊り】",
+   "dorm": false,
+   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=162847&f_syu=sb&f_hi1=2027-01-06&f_hi2=2027-01-07&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5740061"
+  },
+  {
    "hotelNo": "11195",
    "name": "横浜平和プラザホテル",
    "lat": 35.44869248,
@@ -365,62 +421,6 @@
    "plan": "【首都圏おすすめ】ビジネス・レジャー利用にも便利∇全室改装済み☆素泊まり",
    "dorm": false,
    "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=239&f_syu=sgl-a-k&f_hi1=2027-01-06&f_hi2=2027-01-07&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4864614"
-  },
-  {
-   "hotelNo": "184051",
-   "name": "チサンホテル横浜伊勢佐木町",
-   "lat": 35.4416023,
-   "lng": 139.6328382,
-   "station": "関内",
-   "review_avg": 4.17,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/184051/184051.jpg",
-   "price": 6290,
-   "room": "スタンダードダブル【喫煙】",
-   "plan": "【事前決済限定プラン】早割30プラン《素泊り》※予約確定後キャンセル規定適用",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=184051&f_syu=dst&f_hi1=2027-01-06&f_hi2=2027-01-07&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6454438"
-  },
-  {
-   "hotelNo": "135465",
-   "name": "ホテルリブマックスBUDGET横浜関内",
-   "lat": 35.44117091,
-   "lng": 139.6286817,
-   "station": "伊勢佐木長者町",
-   "review_avg": 3.5,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/135465/135465.jpg",
-   "price": 6375,
-   "room": "シングルルーム【喫煙】",
-   "plan": "【リブ得】《最大15%OFF》最安値のスペシャルプラン【素泊り】",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=135465&f_syu=skitu&f_hi1=2027-01-06&f_hi2=2027-01-07&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=5740067"
-  },
-  {
-   "hotelNo": "197789",
-   "name": "Retrospect Stay Yokohama",
-   "lat": 35.4441993,
-   "lng": 139.6444611,
-   "station": "元町・中華街",
-   "review_avg": 3.6,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/197789/197789.jpg",
-   "price": 6392,
-   "room": "2名部屋:ミニマム・コスパ重視/二段ベッド1台、デスク、椅子",
-   "plan": "【早割28日】宿泊日の28日前までの予約で20%OFFの早期割引プランでお得に泊まってください!",
-   "dorm": true,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=197789&f_syu=retro400&f_hi1=2027-01-06&f_hi2=2027-01-07&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=6341498"
-  },
-  {
-   "hotelNo": "18980",
-   "name": "エスカル横浜",
-   "lat": 35.44297682,
-   "lng": 139.649316,
-   "station": "石川町",
-   "review_avg": 4.11,
-   "image": "https://img.travel.rakuten.co.jp/share/HOTEL/18980/18980.jpg",
-   "price": 6550,
-   "room": "◆【和室・6畳】最大2名迄",
-   "plan": "【素泊まり◇船員さん専用】≪特別プライス★≫『元町・中華街駅』から徒歩0分!港旅の癒し拠点",
-   "dorm": false,
-   "reserve_url": "https://img.travel.rakuten.co.jp/image/tr/api/re/IdsCY/?f_no=18980&f_syu=07&f_hi1=2027-01-06&f_hi2=2027-01-07&f_heya_su=1&f_otona_su=1&f_s1=0&f_s2=0&f_y1=0&f_y2=0&f_y3=0&f_y4=0&f_camp_id=4662252"
   }
  ]
 }
