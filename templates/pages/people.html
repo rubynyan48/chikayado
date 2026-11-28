@@ -3,7 +3,16 @@
 {% set items = with_offers(hotels, offers) if sat_vacancy else [] %}
 {% set cheap = (items | sort(attribute='offer.per_person') | first) if items else None %}
 {% set near_items = items | selectattr('distance_m', 'le', 1000) | list %}
-{% if cheap %}
+{% set best = cheapest_night(page.nights or []) %}
+{% set best_first = best and (not cheap or best.min < cheap.offer.per_person) %}
+{% if best_first %}
+<div class="answer">
+  <p class="answer-q">{{ venue.name }}の近くに{{ page.people_label }}で安く泊まるなら</p>
+  <p class="answer-a">{{ jdate(best.date) }}の夜 <span class="num">{{ yen(best.min) }}</span>から</p>
+  <p class="answer-note">{{ price_cond(best.hotel.offer) }}いちばん安いのは{{ best.hotel.name }}（会場まで{% if best.hotel.distance_m <= 3000 %}徒歩{{ walk_min(best.hotel.distance_m) }}分{% else %}約{{ '%.1f' % (best.hotel.distance_m / 1000) }}km{% endif %}）です。{% if cheap %}{{ jdate(saturday, False) }}（土）の夜は{{ yen(cheap.offer.per_person) }}からなので、日にちを動かせるならこの夜が狙い目です。{% endif %}</p>
+</div>
+<div class="book"><p>予約はこちら</p><a class="btn btn-primary btn-block" href="{{ book_url(best.hotel, best.hotel.offer) }}" rel="nofollow sponsored noopener" target="_blank">{{ jdate(best.date, False) }}の{{ best.hotel.name }}の空室を見る</a></div>
+{% elif cheap %}
 <div class="answer">
   <p class="answer-q">{{ venue.name }}の近くに{{ page.people_label }}で泊まるなら</p>
   <p class="answer-a">{{ price_cond(cheap.offer) }}<span class="num">{{ yen(cheap.offer.per_person) }}</span>から</p>
@@ -20,6 +29,14 @@
 {{ stay_advice(hotels, sat_vacancy, saturday, label=page.people_label, venue=venue, people_page=n) }}
 <p>料金は{{ jdate(saturday) }}にチェックインして1泊する場合の、1部屋に{{ n }}人で泊まるいちばん安いプランを1人あたりに直したものです。イベントの日は料金が上がることが多いので、行くイベントが決まっている場合はイベントのページで開催日の料金を確認してください。</p>
 <!--body-->
+{% if page.nights and page.nights|selectattr('min')|list|length >= 2 %}
+<h2 id="nights">2週間の夜ごとの最安値</h2>
+<p>これから2週間のうち、空室を調べてある夜の、{{ page.people_label }}で1部屋に泊まるときのいちばん安い料金（1人あたり）です。調べてあるのはイベントのある夜と、料金を比べるためのふだんの夜です。{% if best %}いちばん安いのは{{ jdate(best.date) }}の夜でした。{% endif %}</p>
+<div class="table-wrap"><table class="t-nights"><thead><tr><th>泊まる夜</th><th>空き</th><th>歩ける宿の空き</th><th>1人あたりの最安</th><th>いちばん安い宿</th></tr></thead><tbody>
+{% for r in page.nights %}<tr{% if best and r.date == best.date %} class="is-best"{% endif %}><th scope="row">{{ jdate(r.date) }}</th><td class="num">{{ r.open }}軒</td><td class="num">{{ r.near if r.min else 0 }}軒</td><td class="num">{{ yen(r.min) if r.min else '空きなし' }}</td><td>{{ r.hotel.name if r.min else 'ー' }}</td></tr>
+{% endfor %}</tbody></table></div>
+{% if best %}{{ book_pair(best.hotel, best.hotel.offer) }}{% endif %}
+{% endif %}
 <h2>{{ page.people_label }}で泊まれる近い宿</h2>
 <div id="best"></div>
 {{ rank_tabs(items, 5) }}

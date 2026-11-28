@@ -628,3 +628,5 @@ td .no { display: inline-grid; place-items: center; width: 22px; height: 22px; m
 .b2-r { background: #BF0000; box-shadow: 0 4px 0 #7A0000; }
 .b2-j { background: #E8630A; box-shadow: 0 4px 0 #A04307; }
 .b2:active { transform: translateY(2px); box-shadow: none; }
+/* 人数別ページの夜ごとの最安値で、いちばん安い夜（11/28〜） */
+.t-nights tr.is-best th, .t-nights tr.is-best td { background: #fff6d6; font-weight: 700; }

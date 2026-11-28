@@ -1571,19 +1571,70 @@ def md(d):
 
 
 # 検索結果でクリックされるよう、タイトルと説明文にそのページでしか分からない数字を入れる（11/12に持ち主OK）
-def people_title(venue, label, n, st):
+ALIASES = (read_json(ROOT / "config" / "aliases.json", {}) or {}).get("artists", {})
+
+
+def vtitle(venue):
+    """タイトル用の会場名。検索で使われている旧名や愛称を添える（ナゴヤドームなど、11/28〜）。"""
+    return f"{venue['name']}（{venue['title_alias']}）" if venue.get("title_alias") else venue["name"]
+
+
+def etitle(name):
+    """タイトル用のイベント名。検索で使われている呼び名を添える（トラジャなど、11/28〜）。"""
+    name = name.replace("、", " ").replace("｜", " ")
+    for full, short in ALIASES.items():
+        if full in name and short not in name:
+            return name.replace(full, f"{full}（{short}）", 1)
+    return name
+
+
+def cheap_nights(venue, hotels, n, days=14):
+    """これから2週間のうち、空室を調べてある夜ごとの最安値（人数別ページ、11/28〜）。
+    土曜の夜はイベントで高いことが多く、「安い」で探す人にタイトルの値段が合わなかったため。"""
+    byno = {h["hotelNo"]: h for h in hotels}
+    out = []
+    for i in range(days):
+        d = TODAY + timedelta(days=i)
+        vac = read_json(DATA / "vacancy" / vslug(venue) / f"{d.isoformat()}.json")
+        if not vac:
+            continue
+        offers = {k: o for k, o in vac["by_people"].get(n, {}).items() if k in byno}
+        row = {"date": d.isoformat(), "open": len(offers), "min": None}
+        if offers:
+            k = min(offers, key=lambda k: offers[k]["per_person"])
+            row.update(min=offers[k]["per_person"], hotel=dict(byno[k], offer=offers[k]),
+                       near=sum(1 for x in offers if byno[x]["distance_m"] <= 1000))
+        out.append(row)
+    return out
+
+
+def cheapest_night(nights):
+    rows = [r for r in nights if r["min"]]
+    return min(rows, key=lambda r: (r["min"], r["date"])) if rows else None
+
+
+def people_title(venue, label, n, st, nights=None):
     row = st["rows"][int(n) - 1] if st else None
+    best = cheapest_night(nights or [])
+    if best and (not row or not row["min"] or best["min"] < row["min"]):
+        price = f"{best['min']:,}円から" if n == "1" else f"1人{best['min']:,}円から"
+        return f"{vtitle(venue)}近くの{label}で泊まれる安いホテル {md(best['date'])}の夜なら{price}"
     if not row or not row["min"]:
-        return f"{venue['name']}近くのホテルに{label}で泊まる 1人あたりの料金と空室"
+        return f"{vtitle(venue)}近くのホテルに{label}で泊まる 1人あたりの料金と空室"
     price = f"{row['min']:,}円から" if n == "1" else f"1人{row['min']:,}円から"
-    return f"{venue['name']}近くの{label}で泊まれる安いホテル {price}{row['open']}軒空き"
+    return f"{vtitle(venue)}近くの{label}で泊まれる安いホテル {price}{row['open']}軒空き"
 
 
-def people_lead(venue, label, n, st, saturday):
+def people_lead(venue, label, n, st, saturday, nights=None):
     row = st["rows"][int(n) - 1] if st else None
-    if not row or not row["min"]:
-        return ""
-    return f"{md(saturday)}（土）の夜に{label}で泊まれる空室は{row['open']}軒、1人あたり{row['min']:,}円からです。"
+    best = cheapest_night(nights or [])
+    out = ""
+    if best and (not row or not row["min"] or best["min"] < row["min"]):
+        who = "1人1室" if n == "1" else f"{label}で1人あたり"
+        out = f"{md(best['date'])}（{'月火水木金土日'[date.fromisoformat(best['date']).weekday()]}）の夜なら、{who}{best['min']:,}円から泊まれます。"
+    if row and row["min"]:
+        out += f"{md(saturday)}（土）の夜に{label}で泊まれる空室は{row['open']}軒、1人あたり{row['min']:,}円からです。"
+    return out
 
 
 def events_title(venue, events):
@@ -1595,12 +1646,12 @@ def events_title(venue, events):
         if len(months) == 2:
             break
     if not months:
-        return f"{venue['name']}の開催予定イベント一覧"
+        return f"{vtitle(venue)}の開催予定イベント一覧"
     if len(months) == 1 or months[0][0] == months[1][0]:
         span = f"{months[0][0]}年" + "・".join(f"{m}月" for _, m in months)
     else:
         span = "・".join(f"{y}年{m}月" for y, m in months)
-    return f"{venue['name']}のイベント予定 {span}の全{len(events)}件と近いホテル"
+    return f"{vtitle(venue)}のイベント予定 {span}の全{len(events)}件と近いホテル"
 
 
 def events_desc(venue, events):
@@ -1763,7 +1814,7 @@ def pages_for(venue, ctx):
     sat_st = event_stats(ctx["hotels"], ctx["sat_vacancy"], None, None)
     pages = [
         {"path": v, "template": "venue.html",
-         "title": f"{venue['name']}に近いホテル 会場から近い順に{n}軒" if n else f"{venue['name']}に近いホテル",
+         "title": f"{vtitle(venue)}に近いホテル 会場から近い順に{n}軒" if n else f"{vtitle(venue)}に近いホテル",
          "description": (f"{venue['name']}にいちばん近いホテルは{nearest['name']}で会場から直線で約{dist_label(nearest['distance_m'])}です。"
                          f"徒歩圏の{len(ctx['near_hotels'])}軒と周辺のホテルを会場から近い順にまとめました。") if nearest
          else f"{venue['name']}の周辺にあるホテルを会場から近い順にまとめています。",
@@ -1773,14 +1824,15 @@ def pages_for(venue, ctx):
                   "sub": venue["address"], "tiles": hero_tiles(None, ctx["hotels"], ctx["near_hotels"]),
                   "alt": f"{venue['name']}に近いホテルの数と会場までの徒歩時間"}},
         {"path": v + "hotels/", "template": "hotels.html",
-         "title": f"{venue['name']}周辺のホテルを地図と比較表で選ぶ",
+         "title": f"{vtitle(venue)}周辺のホテルを地図と比較表で選ぶ",
          "description": f"{venue['name']}から{km(venue)}以内のホテルを、地図と比較表で並べました。距離、料金、口コミの評価、大浴場の有無で並べ替えや絞り込みができます。",
          "breadcrumbs": [home, hub, {"name": "ホテルの比較", "path": v + "hotels/"}],
          "float_cta": {"href": v, "label": "おすすめのホテルを見る"}, "has_map": True},
         *[{"path": f"{v}{slug}/", "template": "people.html", "people": n, "people_label": label,
-           "title": people_title(venue, label, n, sat_st),
+           "nights": cheap_nights(venue, ctx["hotels"], n),
+           "title": people_title(venue, label, n, sat_st, cheap_nights(venue, ctx["hotels"], n)),
            "h1": f"{venue['name']}近くのホテルに{label}で泊まる 1人あたりの料金と空室",
-           "description": people_lead(venue, label, n, sat_st, ctx["saturday"])
+           "description": people_lead(venue, label, n, sat_st, ctx["saturday"], cheap_nights(venue, ctx["hotels"], n))
                           + f"{venue['name']}の近くで{label}で1部屋に泊まれるホテルを、会場からの距離と1人あたりの料金で比べました。近い宿、安い宿、評価の高い宿のおすすめもまとめています。",
            "breadcrumbs": [home, hub, {"name": f"{label}で泊まる", "path": f"{v}{slug}/"}],
            "float_cta": {"href": "#best", "label": f"{label}で泊まれるおすすめを見る"}, "has_map": True}
@@ -1801,7 +1853,7 @@ def pages_for(venue, ctx):
            "float_cta": {"href": "#hotels", "label": "空いている近い宿を見る"}}
           for sr in ctx["series"]],
         {"path": v + "calendar/", "template": "calendar.html",
-         "title": f"{venue['name']}近くのホテル料金カレンダー 高い日と空いている日",
+         "title": f"{vtitle(venue)}近くのホテル料金カレンダー 高い日と空いている日",
          "h1": f"{venue['name']}近くのホテル料金カレンダー",
          "description": (calendar_summary(venue, ctx["nights"]) or f"{venue['name']}の近くの宿の料金を、イベントのある夜ごとにイベントのない日と比べました。")
                         + "毎朝の空室と料金から、夜ごとの料金の上がり方と歩いて行ける宿の空きをカレンダーで見られます。",
@@ -1870,7 +1922,7 @@ def pages_for(venue, ctx):
         pages.append(dict(common, **{
             "path": path, "template": "event.html", "noindex": bool(e.get("noindex")), "has_map": True,
             "genre": g,
-            "title": f"{e['name'].replace('、', ' ').replace('｜', ' ')}の会場に近いホテル {venue['name']}周辺で{g['tail']}【{short_period(e)}】",
+            "title": f"{etitle(e['name'])}の会場に近いホテル {venue['name']}周辺で{g['tail']}【{short_period(e)}】",
             "h1": f"{e['name']}の会場に近いホテル {venue['name']}周辺で{g['tail']}",
             "description": event_lead(e, st, sd) + (f"{e['name']}（{period(e)} {venue['name']}）の会場に近いホテルを、"
                             + (g["desc"] if g.get("desc") else "設営や前泊のある前日の夜から会期中の夜まで、空室と1人1室の料金で選べます。出張で何泊かするときの宿の取り方もまとめています。" if g["key"] == "trade" else
@@ -1998,7 +2050,7 @@ def main():
     env = Environment(loader=FileSystemLoader(ROOT / "templates"), autoescape=select_autoescape(["html"]))
     helpers = {"night_rows": night_rows, "run_rows": run_rows, "run_labels": run_labels, "fill_pace": fill_pace, "pair_saving": pair_saving, "entrance_for": entrance_for, "hotels_from_entrance": hotels_from_entrance, "lunch_split": lunch_split, "far_links": far_links, "group_title": group_title, "bus_rows": bus_rows, "price_cond": price_cond, "stay_nights": stay_nights, "stay_from": stay_from, "cheap_picks": cheap_picks, "cheap_max_km": CHEAP_MAX_KM, "cheap_cards": cheap_cards, "is_trade": is_trade, "genre": genre, "genre_photo": genre_photo, "photo": photo, "hotel_table": hotel_table, "hotel_cards": hotel_cards, "best_cards": best_cards,
                "compare_table": compare_table, "hotel_map": hotel_map, "people_tabs": people_tabs,
-               "with_offers": with_offers, "stay_advice": stay_advice, "find_box": find_box, "price_calendar": price_calendar, "calendar_summary": calendar_summary, "price_label": price_label, "price_of": price_of, "event_stats": event_stats, "best_picks": best_picks, "depart_table": depart_table,
+               "with_offers": with_offers, "cheapest_night": cheapest_night, "book_pair": lambda h, v=None: Markup(book_pair(h, v)), "stay_advice": stay_advice, "find_box": find_box, "price_calendar": price_calendar, "calendar_summary": calendar_summary, "price_label": price_label, "price_of": price_of, "event_stats": event_stats, "best_picks": best_picks, "depart_table": depart_table,
                "open_time": open_time, "audience_label": audience_label,
                "event_table": event_table, "restaurant_table": restaurant_table, "dist_label": dist_label,
                "walk_min": walk_min, "yen": yen, "quick_cards": quick_cards, "people_switch": people_switch,
